@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+aloxa_turismo.aloxa_turismo_vino_tag_public,turismo_vino_tag,aloxa_turismo.model_turismo_vino_tag,,1,0,0,0
+aloxa_turismo.aloxa_turismo_uva_tag_public,turismo_uva_tag,aloxa_turismo.model_turismo_uva_tag,,1,0,0,0
+aloxa_turismo.aloxa_turismo_premio_tag_public,turismo_premio_tag,aloxa_turismo.model_turismo_premio_tag,,1,0,0,0
+aloxa_turismo.aloxa_turismo_producto_contratado_cliente_public,turismo_producto_contratado_cliente,aloxa_turismo.model_turismo_producto_contratado_cliente,,1,0,0,0
+aloxa_turismo.aloxa_turismo_product_template_public,turismo_product_template,account.model_product_template,,1,0,0,0
+aloxa_turismo.aloxa_turismo_turismo.establecimiento_portal,turismo_establecimiento_portal,aloxa_turismo.model_turismo_establecimiento,base.group_portal,1,1,1,0
+aloxa_turismo.aloxa_turismo_turismo.partner_portal,turismo_partner_portal,res.partner,base.group_portal,1,1,1,0
+aloxa_turismo.aloxa_turismo_turismo.establecimiento_images_portal,turismo_establecimiento_images_portal,establecimiento.images,base.group_portal,1,1,1,1
+aloxa_turismo.aloxa_turismo_turismo.eventos_portal,turismo_eventos_portal,event.event,base.group_portal,1,1,1,1
+aloxa_turismo.aloxa_turismo_turismo.eventos_ticket_portal,turismo_eventos_ticket_portal,event.event.ticket,base.group_portal,1,1,1,1
+aloxa_turismo.aloxa_turismo_turismo.turismo_uva_tag_portal,turismo_uva_tag_portal,turismo.uva.tag,base.group_portal,1,1,1,0
+aloxa_turismo.aloxa_turismo_turismo.turismo_vino_tag_portal,turismo_vino_tag_portal,turismo.vino.tag,base.group_portal,1,1,1,0
+aloxa_turismo.aloxa_turismo_turismo.turismo_product_template_portal,turismo_product_template_portal,product.template,base.group_portal,1,1,1,0

@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+<!-- FORMS -->
+	<!-- FORM res.partner establecimientos-->
+    <record id="res_partner_establecimientos_inherit_form" model="ir.ui.view">
+        <field name="name">res.partner.establecimientos.view.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+           	<xpath expr="//page[@string='Contacts']" position="before">
+        		<page string="Productos">    		
+    				<group string="Productos Contratados">
+    					<field name="product_contratado_cliente_ids" nolabel="1"/>	    					
+           			</group>
+          			</page>
+	   			<page string="Establecimientos">
+	 				<group string="Establecimiento">	 						 						 						  					
+        				<field name='establecimiento_ids' widget='many2many_kanban' nolabel="1" context="{'res_partner_id':id}">
+        				    <kanban>
+						        <field name="nombre"/>						       
+						        <templates>
+					                <t t-name="kanban-box">
+					                	<a t-if="! read_only_mode" type="delete" style="position: absolute; right: 0; padding: 4px; diplay: inline-block">x</a>
+					                    <div class="oe_kanban_vignette oe_semantic_html_override">
+					                    	<a type="open">
+					                    		<img t-att-src="kanban_image('turismo.establecimiento', 'imagen', record.id.value)"  class="oe_kanban_image"/>
+					                    	</a>
+					                    	<div class="oe_kanban_details">
+					                    		<h4><a type="open"> <field name="nombre"/></a></h4>
+					                    		<h4><field name="tipo"/></h4>
+					                    		<ul>
+													<li t-if="record.direccion.raw_value">
+														<field name="direccion"/>
+													</li>
+													<li t-if="record.localidad.raw_value">
+														<field name="localidad"/>
+													</li>													
+					                    		</ul>
+					                    	</div>
+					                    </div>
+					                </t>
+						        </templates>
+						    </kanban>
+        				</field>
+       				</group>	        		
+		 <!--    	<group string="Restaurantes">		 					 						 						  					
+        				<field name='establecimiento_ids' widget='many2many_kanban' nolabel="1" context="{'res_partner_id':id,'tipo':'restaurante'}">
+        				    <kanban>
+						        <field name="nombre"/>
+						        <templates>
+					                <t t-name="kanban-box">
+					                	<a t-if="! read_only_mode" type="delete" style="position: absolute; right: 0; padding: 4px; diplay: inline-block">X</a>
+					                    <div class="oe_kanban_vignette oe_semantic_html_override">
+					                    	<a type="open">
+					                    		<img t-att-src="kanban_image('turismo.establecimiento', 'imagen', record.id.value)"  class="oe_kanban_image"/>
+					                    	</a>
+					                    	<div class="oe_kanban_details">
+					                    		<h4><a type="open"> <field name="nombre"/></a></h4>
+					                    		<ul>
+													<li t-if="record.direccion.raw_value">
+														<field name="direccion"/>
+													</li>
+													<li t-if="record.localidad.raw_value">
+														<field name="localidad"/>
+													</li>													
+					                    		</ul>
+					                    	</div>
+					                    </div>
+					                </t>
+						        </templates>
+						    </kanban>		        				
+        				</field>		        		       				      		
+	        		</group>
+	 				<group string="Hospedajes">		 						 						 						  					
+        				<field name='establecimiento_ids' widget='many2many_kanban' nolabel="1" context="{'res_partner_id':id,'tipo':'hospedaje'}">
+        				    <kanban>
+						        <field name="nombre"/>
+						        <templates>
+					                <t t-name="kanban-box">
+					                	<a t-if="! read_only_mode" type="delete" style="position: absolute; right: 0; padding: 4px; diplay: inline-block">X</a>
+					                    <div class="oe_kanban_vignette oe_semantic_html_override">
+					                    	<a type="open">
+					                    		<img t-att-src="kanban_image('turismo.establecimiento', 'imagen', record.id.value)"  class="oe_kanban_image"/>
+					                    	</a>
+					                    	<div class="oe_kanban_details">
+					                    		<h4><a type="open"> <field name="nombre"/></a></h4>
+					                    		<ul>
+													<li t-if="record.direccion.raw_value">
+														<field name="direccion"/>
+													</li>
+													<li t-if="record.localidad.raw_value">
+														<field name="localidad"/>
+													</li>													
+					                    		</ul>
+					                    	</div>
+					                    </div>
+					                </t>
+						        </templates>
+						    </kanban>		        				
+        				</field>
+       				</group> 
+	 				<group string="Arte y Cultura">	 						 						 						  					
+        				<field name='establecimiento_ids' widget='many2many_kanban' nolabel="1" context="{'res_partner_id':id,'tipo':'cultural'}">
+        				    <kanban>
+						        <field name="nombre"/>
+						        <templates>
+					                <t t-name="kanban-box">
+					                	<a t-if="! read_only_mode" type="delete" style="position: absolute; right: 0; padding: 4px; diplay: inline-block">X</a>
+					                    <div class="oe_kanban_vignette oe_semantic_html_override">
+					                    	<a type="open">
+					                    		<img t-att-src="kanban_image('turismo.establecimiento', 'imagen', record.id.value)"  class="oe_kanban_image"/>
+					                    	</a>
+					                    	<div class="oe_kanban_details">
+					                    		<h4><a type="open"> <field name="nombre"/></a></h4>
+					                    		<ul>
+													<li t-if="record.direccion.raw_value">
+														<field name="direccion"/>
+													</li>
+													<li t-if="record.localidad.raw_value">
+														<field name="localidad"/>
+													</li>													
+					                    		</ul>
+					                    	</div>
+					                    </div>
+					                </t>
+						        </templates>
+						    </kanban>
+        				</field>
+       				</group>
+	 				<group string="Vinotecas">	 						 						 						  					
+        				<field name='establecimiento_ids' widget='many2many_kanban' nolabel="1" context="{'res_partner_id':id,'tipo':'vinoteca'}">
+        				    <kanban>
+						        <field name="nombre"/>
+						        <templates>
+					                <t t-name="kanban-box">
+					                	<a t-if="! read_only_mode" type="delete" style="position: absolute; right: 0; padding: 4px; diplay: inline-block">X</a>
+					                    <div class="oe_kanban_vignette oe_semantic_html_override">
+					                    	<a type="open">
+					                    		<img t-att-src="kanban_image('turismo.establecimiento', 'imagen', record.id.value)"  class="oe_kanban_image"/>
+					                    	</a>
+					                    	<div class="oe_kanban_details">
+					                    		<h4><a type="open"> <field name="nombre"/></a></h4>
+					                    		<ul>
+													<li t-if="record.direccion.raw_value">
+														<field name="direccion"/>
+													</li>
+													<li t-if="record.localidad.raw_value">
+														<field name="localidad"/>
+													</li>													
+					                    		</ul>
+					                    	</div>
+					                    </div>
+					                </t>
+						        </templates>
+						    </kanban>
+        				</field>
+       				</group>            				
+	 				<group string="Otros">	 						 						 						  					
+        				<field name='establecimiento_ids' widget='many2many_kanban' nolabel="1" context="{'res_partner_id':id,'tipo':'otro'}">
+        				    <kanban>
+						        <field name="nombre"/>
+						        <templates>
+					                <t t-name="kanban-box">
+					                	<a t-if="! read_only_mode" type="delete" style="position: absolute; right: 0; padding: 4px; diplay: inline-block">X</a>
+					                    <div class="oe_kanban_vignette oe_semantic_html_override">
+					                    	<a type="open">
+					                    		<img t-att-src="kanban_image('turismo.establecimiento', 'imagen', record.id.value)"  class="oe_kanban_image"/>
+					                    	</a>
+					                    	<div class="oe_kanban_details">
+					                    		<h4><a type="open"> <field name="nombre"/></a></h4>
+					                    		<ul>
+													<li t-if="record.direccion.raw_value">
+														<field name="direccion"/>
+													</li>
+													<li t-if="record.localidad.raw_value">
+														<field name="localidad"/>
+													</li>													
+					                    		</ul>
+					                    	</div>
+					                    </div>
+					                </t>
+						        </templates>
+						    </kanban>
+        				</field>
+       				</group>  -->      			       				      		
+        		</page>       				        		
+        	</xpath>	        	        
+        </field>	        
+    </record>
+    <!-- FORM de un Establecimiento -->
+	<record id="establecimiento_view_form" model="ir.ui.view">
+            <field name="name">establecimiento.form</field>
+            <field name="model">turismo.establecimiento</field>  	
+            <field name="arch" type="xml">
+            	<form string="Establecimiento" create="false">	            		
+           			<group string="Datos del Establecimiento" colspan="4">
+           				<field name="website_published" class="pull-right" widget="website_button"/>
+	            		<field name="nombre"/>
+	            		<field name="tipo"/>
+	            		<field name="res_partner_id"/>
+	            		<field name="descripcion"/>
+	            		<field name="longitud"/>
+	            		<field name="latitud"/>
+	            		<field name="direccion"/>
+	            		<field name="localidad"/>
+	            		<field name="horario"/>
+	            		<field name='idiomas' widget="many2many_tags"/>
+	            		<field name="imagen"/>
+						<field name="tripadvisor_url"/>
+           			</group>	            		
+            	</form>	
+            </field>
+    </record>
+    <!-- SEARCH establecimientos para agregar filtros por tipos de establecimiento -->
+	<record model="ir.ui.view" id="establecimiento_turismo_view_search">
+        <field name="name">tipos.establecimiento.search</field>
+        <field name="model">turismo.establecimiento</field> 
+        <field name="arch" type="xml">
+        <search string="Establecimientos">
+        	<filter name= "bodega" string="Bodegas" domain="[['tipo', '=', 'bodega']]" />				
+			<filter name= "restaurante" string="Restaurantes" domain="[['tipo', '=', 'restaurante']]" />
+			<filter name= "vinhedo" string="Viñedos" domain="[['tipo', '=', 'vinhedo']]" />
+			<filter name= "hospedaje" string="Hospedajes" domain="[['tipo', '=', 'hospedaje']]" />
+			<filter name= "cultural" string="Arte y Cultura" domain="[['tipo', '=', 'cultural']]" />
+			<filter name= "vinoteca" string="Vinotecas" domain="[['tipo', '=', 'vinoteca']]" />
+			<filter name= "otro" string="Otros" domain="[['tipo', '=', 'otro']]" />
+		</search>
+		</field>
+	</record>
+	
+    <record id="clientes_view_tree" model="ir.ui.view">
+ 		<field name="name">Clientes</field>
+ 		<field name="model">res.partner</field>	 		
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+		<tree string="Clientes">
+			<field name="display_name"/>
+			<field name="establecimiento_ids" widget="one2many"/>
+            <field name="function" invisible="1"/>
+            <field name="phone"/>
+            <field name="email"/>
+            <field name="user_id" invisible="1"/>
+            <field name="is_company" invisible="1"/>
+            <field name="country_id" invisible="1"/>
+            <field name="parent_id" invisible="1"/>	        	
+		</tree>
+		</field>
+	</record>
+<!-- KANBAN -->
+<!--  VISTAS KANBAN -->
+    <record id="establecimientos_kanban" model="ir.ui.view">
+        <field name="name">Tablero de Establecimientos</field>
+        <field name="model">turismo.establecimiento</field>        
+        <field name="arch" type="xml">       	
+   		<kanban>
+	        <field name="nombre"/>
+	        <templates>
+                <t t-name="kanban-box">
+                	<a t-if="! read_only_mode" type="delete" style="position: absolute; right: 0; padding: 4px; diplay: inline-block">X</a>
+                    <div class="oe_kanban_vignette oe_semantic_html_override">
+                    	<a type="open">
+                    		<img t-att-src="kanban_image('turismo.establecimiento', 'imagen', record.id.value)"  class="oe_kanban_image"/>
+                    	</a>
+                    	<div class="oe_kanban_details">
+                    		<h4><a type="open"> <field name="nombre"/></a></h4>
+                    		<ul>
+								<li t-if="record.direccion.raw_value">
+									<field name="direccion"/>
+								</li>
+								<li t-if="record.localidad.raw_value">
+									<field name="localidad"/>
+								</li>													
+                    		</ul>
+                    	</div>
+                    </div>
+                </t>
+	        </templates>
+	    </kanban>		 	
+        </field>
+    </record>    
+<!--  SEARCH -->
+	<!-- SEARCH res.partner para agregar filtros por tipos de establecimiento -->
+	<!-- record model="ir.ui.view" id="res_partner_turismo_view_inherit_search">
+        <field name="name">tipos.establecimiento.search</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" /> 
+        <field name="arch" type="xml">
+        	<xpath expr="filter[@string='Suppliers']" position='after'>
+        		<filter name= "tipo_establecimientos" string="Establecimientos"
+        				domain="['|', '|', '!', ['bodega_nombre', '=', '-'], '!', ['restaurante_nombre', '=', '-'], '!', ['hospedaje_nombre', '=', '-']]" />
+				<filter name= "tipo_bodega" string="Bodegas" domain="['!',('bodega_nombre','=','-')]" />
+				<filter name= "tipo_restaurante" string="Restaurantes" domain="['!',('restaurante_nombre','=','-')]" />
+				<filter name= "tipo_hospedaje" string="Hospedajes" domain="['!',('hospedaje_nombre','=','-')]" />								
+			</xpath> 
+		</field>
+	</record-->
+<!-- ACTIONS -->
+	<record id="establecimiento_action_tree" model="ir.actions.act_window">		
+		<field name="name">Establecimientos</field>
+		<field name="res_model">turismo.establecimiento</field>		
+		<field name="view_mode">tree,kanban,form</field>		
+		<field name="view_type">form</field>
+		<!-- field name="context">{'search_default_group_by_partner_id': 1}</field-->					 
+	</record>
+	</data>
+</openerp>

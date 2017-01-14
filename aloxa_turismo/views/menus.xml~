@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+<!-- MENUITEMS -->	  
+	<menuitem id="oniria_menu" name="Oniria" sequence="1"/>
+	<menuitem id="oniria_menu_turismo" name="Turismo"
+		      parent="oniria_menu" sequence="10"/>
+	<menuitem id="oniria_clientes" name="Clientes"
+		      parent="oniria_menu_turismo"
+		      action="action_clientes_form"/>
+	<menuitem id="oniria_turistas" name="Turistas"
+		      parent="oniria_menu_turismo"
+		      action="action_turista_form"/>		      
+	<menuitem id="oniria_establecimientos" name="Establecimientos"
+		      parent="oniria_menu_turismo"
+		      action="aloxa_turismo.establecimiento_action_tree"/>
+	<menuitem id="oniria_servicios_contratados" name="Servicios Contratados"
+		      parent="oniria_menu_turismo"/>
+	<menuitem id="oniria_links" name="Links"
+		      parent="oniria_servicios_contratados"
+		      action="producto_contratado_action_tree"/>
+	<menuitem id="oniria_reservas" name="Reservas"
+		      parent="oniria_servicios_contratados"
+		      action="aloxa_turismo.producto_contratado_action_tree"/>	
+	<menuitem id="oniria_ecommerce" name="Ecommerce"
+		      parent="oniria_servicios_contratados"
+		      action="producto_contratado_action_tree"/>	
+	<menuitem id="oniria_menu_productos" name="Productos"
+		      parent="oniria_menu" sequence="20"/>
+	<menuitem id="oniria_servicios" name="Servicios Turísticos"
+		      parent="oniria_menu_productos"
+		      action="product.product_template_action"/>
+	<menuitem id="oniria_productos_clientes" name="Productos Clientes"
+		      parent="oniria_menu_productos"
+		      action="product.product_template_action"/>
+	<menuitem id="oniria_vinos" name="Vinos"
+		      parent="oniria_productos_clientes"
+		      action="producto_vino_action_tree"/>
+	<menuitem id="oniria_vinagres" name="Vinagres"
+		      parent="oniria_productos_clientes"
+		      action="producto_vinagre_action_tree"/>
+	<menuitem id="oniria_reservas" name="Reservas"
+		      parent="oniria_menu_productos"
+		      action="product.product_template_action"/>
+	<menuitem id="oniria_catas" name="Catas"
+		      parent="oniria_reservas"
+		      action="product.product_template_action"/>
+	<menuitem id="oniria_visitas_bodegas" name="Visitas Bodegas"
+		      parent="oniria_reservas"
+		      action="product.product_template_action"/>
+	<menuitem id="oniria_restaurantes" name="Restaurantes"
+		      parent="oniria_reservas"
+		      action="product.product_template_action"/>      		      		      		      		      
+	<menuitem id="oniria_menu_configuracion" name="Configuración"
+		      parent="oniria_menu" sequence="30"/>
+	<menuitem id="oniria_opciones" name="Opciones"
+		      parent="oniria_menu_configuracion"
+		      action="aloxa_turismo_action_opciones_form" sequence="20"/>	      
+	</data>
+</openerp>

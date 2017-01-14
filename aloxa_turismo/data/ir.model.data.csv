@@ -1,0 +1,3 @@
+id,res_id,name,module,noupdate,model
+__export__.ir_model_data_50227,1129,account_account_1129,__export__,False,account.account
+__export__.ir_model_data_50229,1,account_journal_1,__export__,False,account.journal

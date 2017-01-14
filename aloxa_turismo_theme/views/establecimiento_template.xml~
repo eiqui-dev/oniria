@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    
+    
+		<template id="establecimiento_details" name="Detalles Establecimiento" page="True">
+			<t t-call="website.layout">
+				<t t-set="additional_title" t-value="establecimiento.nombre"/>
+				<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale">
+					<div class="page-title">
+			      		<div class="container">
+							<div class="oe_structure"/>
+						    <h1><span t-esc="establecimiento.nombre"/></h1>
+						    <ul class="breadcrumb">
+								<li><a href="/page/homepage">Inicio</a></li>
+						    	<li><a href="/directorio/establecimientos">Directorio</a></li>
+								<li class="active"><span t-field="establecimiento.nombre"/></li>
+							</ul>
+						</div>
+				    </div>
+				
+					<section class="container mt8 oe_website_sale" id="product_detail">
+				         <div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 product-detail">
+		                		<span itemprop="image" t-field="establecimiento.imagen" t-field-options='{"widget": "image", "class": "product_detail_img product-image"}'/>
+		                	</div>
+							<div class="product-info"> 
+								<div class="col-xs-12 col-md-5 col-lg-5 col-sm-6 product-detail">
+					                <h1 itemprop="name" t-field="establecimiento.nombre">Nombre Establecimiento</h1>
+					                <span itemprop="url" style="display:none;" t-esc="'/establecimiento/%s' % slug(establecimiento)"/>
+									<span t-if="establecimiento.descripcion and len(establecimiento.descripcion) &gt; 200"> 
+		 								<t t-set="description" t-value="establecimiento.descripcion[:200] and establecimiento.descripcion[:200].replace('+', '\n')+'...'"/>
+										<p class="text-muted "><t t-esc="description"/></p>
+									</span>				
+									<span t-if="establecimiento.descripcion and len(establecimiento.descripcion) &lt; 200">
+										<p t-if="establecimiento.descripcion and len(establecimiento.descripcion)&gt; 0" t-field="establecimiento.descripcion" class="text-muted "/>
+									</span>	   
+								</div> 
+								
+								<div class="col-xs-12 col-md-3 col-lg-3 col-sm-12 product-detail"> 
+									<div class="block-policy"> 
+										<div class="policy policy1"> 
+											<div class="policy-inner">
+												<i class="fa fa-money"></i> 
+												<h2>30 days return</h2>money back
+												</div> 
+											</div> 
+											<div class="policy policy2"> 
+												<div class="policy-inner">
+												<i class="fa fa-truck"></i>
+												<h2>free shipping</h2>on all orders over $99
+												</div> 
+											</div> 
+											<div class="policy policy3"> 
+												<div class="policy-inner">
+												<i class="fa fa-calendar"></i>
+												<h2>lowest price</h2>guarantee
+											</div> 
+										</div> 
+										<div class="policy policy4"> 
+											<div class="policy-inner">
+												<i class="fa fa-check-square"></i>
+												<h2>safe shopping</h2>guarantee
+											</div> 
+										</div> 
+									</div>
+									
+									<t t-if="establecimiento.tripadvisor_url">
+							        	<div id="TA_selfserveprop321" class="TA_selfserveprop">
+											<ul id="YdAbOSysc8" class="TA_links Ed0roAdwga8x">
+												<li id="bdLvBcTo04K" class="lqkgPPEUk">
+													<a target="_blank" t-attf-href="#{ establecimiento.tripadvisor_url }"><img src="http://www.tripadvisor.es/img/cdsi/img2/branding/150_logo-11900-2.png" alt="TripAdvisor"/></a>
+												</li>
+											</ul>
+										</div>
+										<script t-attf-src="http://www.jscache.com/wejs?wtype=selfserveprop&amp;uniq=321&amp;locationId=#{ establecimiento.get_tripadvisor_id() }&amp;lang=es&amp;rating=true&amp;nreviews=5&amp;writereviewlink=true&amp;popIdx=true&amp;iswide=false&amp;border=true&amp;display_version=2"></script>
+									</t>
+								</div> 
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="map"></div>
+							<div id="save-widget">
+								<table>
+									<tr><td style="width:16px"><div class="icon"><span class="icon fa fa-institution"></span></div></td><td><b>Dirección:</b> <t t-esc="establecimiento.direccion" /></td></tr>
+									<tr><td style="width:16px"><div class="icon"><span class="icon fa fa-clock-o"></span></div></td><td><b>Horario:</b> <t t-esc="establecimiento.horario" /></td></tr>
+								</table>
+						    </div>
+						</div>
+					</section>
+				</div>
+			</t>
+			
+			<xpath expr="//html/head" position="inside">
+				<script src="https://maps.googleapis.com/maps/api/js"></script>
+				<!-- <script type='text/javascript' src='/aloxa_sevigal_website/static/src/js/main.js'></script> -->
+				<script type='text/javascript'>
+	            	function initialize() {
+				        var mapCanvas = document.getElementById('map');
+				        var sitePos = new google.maps.LatLng(<t t-esc="establecimiento.latitud" />, <t t-esc="establecimiento.longitud" />);
+				        var mapOptions = {
+				        	center: sitePos,
+				          	zoom: 14,
+				          	mapTypeControlOptions: {
+						      mapTypeIds: [
+						        google.maps.MapTypeId.ROADMAP,
+						        google.maps.MapTypeId.SATELLITE
+						      ],
+						      position: google.maps.ControlPosition.BOTTOM_LEFT
+						    }
+				        }
+						var map = new google.maps.Map(mapCanvas, mapOptions);
+						
+						var widgetDiv = document.getElementById('save-widget');
+  						map.controls[google.maps.ControlPosition.TOP_LEFT].push(widgetDiv);
+  						
+  						var saveWidget = new google.maps.SaveWidget(widgetDiv, {
+						    place: {
+						      // ChIJN1t_tDeuEmsRUsoyG83frY4 is the place Id for Google Sydney.
+						      placeId: 'ChIJN1t_tDeuEmsRUsoyG83frY4',
+						      location: sitePos
+						    },
+						    attribution: {
+						      source: 'Google Maps JavaScript API',
+						      webUrl: 'https://developers.google.com/maps/'
+						    }
+						});
+						
+						var contentString = '<div id="content">'+
+										    '<div id="siteNotice">test'+
+							       		    '</div>'+
+										    '<div id="bodyContent">'+
+											'<table class="col-xs-12 col-sm-12 col-md-12 col-lg-12">'+
+											'<tr><td style="width:16px"><div class="icon"><span class="icon fa fa-institution"></span></div></td><td><b>Dirección:</b> <t t-esc="establecimiento.direccion" /></td></tr>'+
+											'<tr><td style="width:16px"><div class="icon"><span class="icon fa fa-clock-o"></span></div></td><td><b>Horario:</b> <t t-esc="establecimiento.horario" /></td></tr>'+
+											'</table>'+
+										    '</div>'+
+										    '</div>';
+						
+						var infowindow = new google.maps.InfoWindow({
+    						content: contentString
+ 						});
+ 						
+						var marker = new google.maps.Marker({ 
+							position: sitePos,
+							map: map,
+							animation: google.maps.Animation.DROP,
+							title: '<t t-esc="establecimiento.nombre" />'
+						});
+						marker.addListener('click', function() {
+							infowindow.open(map, marker);
+						});
+					}
+					
+					google.maps.event.addDomListener(window, 'load', initialize);
+				</script>
+			</xpath>
+		</template>
+		
+    </data>
+</openerp>

@@ -1,0 +1,112 @@
+#import pydevd
+
+class table_compute(object):
+    def __init__(self):
+        self.table = {}
+        self.IPR = 4  # Items Por Fila
+        self.cCRPB = { 's':[1,1], 'm':[2,2], 'l':[3,2] } # Columnas y Filas Por Banner
+            
+    def _get_banner_size(self, banner):
+        opt = banner.product_id.link_size.lower() if banner.product_id.link_size else "s"
+        return self.cCRPB[opt] if self.cCRPB.has_key(opt) else self.cCRPB['s']
+
+    def _check_place(self, posx, posy, sizex, sizey):
+        res = True
+        for y in range(sizey):
+            for x in range(sizex):
+                if posx+x>=self.IPR:
+                    res = False
+                    break
+                row = self.table.setdefault(posy+y, {})
+                if row.setdefault(posx+x) is not None:
+                    res = False
+                    break
+            for x in range(self.IPR):
+                self.table[posy+y].setdefault(x, None)
+        return res
+
+    def process_home(self, banners):
+        # Compute banners positions on the grid
+        #pydevd.settrace("10.0.3.1")
+        minpos = 0
+        index = 0
+        maxy = 0
+        #pydevd.settrace("10.0.3.1")
+        for banner in banners:            
+            csize = self._get_banner_size(banner)
+            x = min(max(csize[0], 1), self.IPR)
+            y = min(max(csize[1], 1), self.IPR)
+
+            pos = minpos
+            while not self._check_place(pos%self.IPR, pos/self.IPR, x, y):
+                pos += 1
+
+            if x==1 and y==1:   # simple heuristic for CPU optimization
+                minpos = pos/self.IPR
+
+            for y2 in range(y):
+                for x2 in range(x):
+                        self.table[(pos/self.IPR)+y2][(pos%self.IPR)+x2] = False
+            self.table[pos/self.IPR][pos%self.IPR] = {
+                'banner': banner,
+                'x':x, 'y': y,
+                'class': ""
+            }
+
+            maxy=max(maxy,y+(pos/self.IPR))
+            index += 1
+
+        # Format table according to HTML needs
+        rows = self.table.items()
+        rows.sort()
+        rows = map(lambda x: x[1], rows)
+        for col in range(len(rows)):
+            cols = rows[col].items()
+            cols.sort()
+            x += len(cols)
+            rows[col] = [c for c in map(lambda x: x[1], cols) if c != False]
+
+        return rows
+    
+    def process_directory(self, banners_directorio):
+        # Compute establecimientos positions on the grid
+        minpos = 0
+        index = 0
+        maxy = 0
+        for banner in banners_directorio:
+            #csize = self._get_banner_size(banner.producto_contratado) if banner.producto_contratado else [1 , 1]
+            csize = self.cCRPB['s']
+            x = min(max(csize[0], 1), self.IPR)
+            y = min(max(csize[1], 1), self.IPR)
+
+            pos = minpos
+            while not self._check_place(pos%self.IPR, pos/self.IPR, x, y):
+                pos += 1
+
+            if x==1 and y==1:   # simple heuristic for CPU optimization
+                minpos = pos/self.IPR
+
+            for y2 in range(y):
+                for x2 in range(x):
+                    self.table[(pos/self.IPR)+y2][(pos%self.IPR)+x2] = False
+            self.table[pos/self.IPR][pos%self.IPR] = {
+                'establecimiento': banner.establecimiento,
+                'producto_contratado': banner.producto_contratado,
+                'x':x, 'y': y,
+                'class': ""
+            }
+
+            maxy=max(maxy,y+(pos/self.IPR))
+            index += 1
+
+        # Format table according to HTML needs
+        rows = self.table.items()
+        rows.sort()
+        rows = map(lambda x: x[1], rows)
+        for col in range(len(rows)):
+            cols = rows[col].items()
+            cols.sort()
+            x += len(cols)
+            rows[col] = [c for c in map(lambda x: x[1], cols) if c != False]
+
+        return rows

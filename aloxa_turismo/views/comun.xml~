@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+	<!-- FORM  de Opciones-->	
+    <record id="opciones_form" model="ir.ui.view">
+        <field name="name">Opciones Form</field>
+        <field name="model">turismo.opciones</field>        
+        <field name="arch" type="xml">
+           	<form string="Opciones" create="false">	            		
+         		<group string="Contabilidad" col="4">
+	           		<field name="account_id" colspan="2"/>
+	           		<newline />           		
+	           		<field name="journal_id" colspan="2"/>	           		
+         		</group>            		
+           	</form>     	
+        </field>
+    </record>
+<!-- VISTAS TREE -->
+	<!-- TREE opciones -->	
+ 	<record id="aloxa_turismo_opciones_tree" model="ir.ui.view">
+ 		<field name="name">Tree Opciones</field>
+ 		<field name="model">turismo.opciones</field>	 		
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+		<tree string="Órganos"  create="false">
+			<field name="account_id"/>
+			<field name="journal_id"/>			   	
+		</tree>
+		</field>
+	</record>
+<!-- ACTIONS -->
+	<record id="aloxa_turismo_action_opciones_form" model="ir.actions.act_window">
+		<field name="name">Opciones</field>
+		<field name="res_model">turismo.opciones</field>		
+		<field name="view_mode">tree,form</field>		
+		<field name="view_type">form</field>							 
+	</record>   
+	<!--que en la lista de clientes del menu oniria no aparezcan los turistas--> 
+	<record id="action_clientes_form" model="ir.actions.act_window">
+            <field name="name">Clientes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+	    <!--<field name="domain">[('is_company','=',1)]</field>-->
+	    <field name="context">{'type_company': 1, 'default_is_company': 1, 'default_customer': 1, 'default_supplier': 0}</field>
+            <field name="search_view_id" ref="view_res_partner_filter"/>
+        </record>
+	</data>
+</openerp>

@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+		<template id="directory" name="Directorio de Establecimientos" page="True">						
+			<t t-call="website.layout">				
+	   		 	<!-- Titulo -->
+				<div class="page-title">
+					<div class="container">
+						<h1><span>Directorio</span></h1>
+						<ul class="breadcrumb">
+							<li><a href="/page/homepage">Inicio</a> <span class="divider">/</span></li>
+							<li class="active">Directorio</li>
+						</ul>
+					</div> 
+				</div>
+				<!-- Fin Titulo -->
+				
+				<!-- Lista de Establecimientos -->
+				<div id="wrap" class="js_sale">
+	       			<div class="oe_structure"/>
+					<div class="container">
+						<div class="row">
+							<div class="hidden" id="products_grid_before"></div>
+				            <div class="col-md-9" id="directory_grid">
+				            	<!-- OPCION ORDENAR POR CAMPO Y BOTONES DE VISTAS -->
+								<div class="col-md-12 text-right">
+									<span class="dropdown">
+										Ordernar por 
+										<a class="btn btn-xs dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><t t-esc="orderby.upper()" /> <span class="caret"></span></a>
+							          	<ul class="dropdown-menu">
+							          		<li t-att-class="'menu-orderby active' if orderby == 'nombre' else 'menu-orderby'" data-value="nombre"><a href="#">Nombre</a></li>
+							          		<t t-if="category_type == 'establecimiento'">
+									            <li t-att-class="'menu-orderby active' if orderby == 'direccion' else 'menu-orderby'" data-value="direccion"><a href="#">Dirección</a></li>
+								            </t>
+								            <t t-if="category_type == 'vino'">
+									            <li t-att-class="'menu-orderby active' if orderby == 'precio' else 'menu-orderby'" data-value="precio"><a href="#">Precio</a></li>
+								            </t>
+							          	</ul>
+						          	</span>
+						          	<span class="btn-group" role="group" style="margin-left:1.5em;">
+						          		<button id="view-grid" type="button" t-att-class="'btn btn-sm btn-default' + ('active' if request.session['directory_view']=='grid' else '')"><i class="fa fa-th"></i></button>
+						          		<button id="view-list" type="button" t-att-class="'btn btn-sm btn-default' + ('active' if request.session['directory_view']=='list' else '')"><i class="fa fa-list"></i></button>
+						          		<button t-if="category_type == 'establecimiento'" id="view-map" type="button" t-att-class="'btn btn-sm btn-default' + ('active' if request.session['directory_view']=='map' else '')"><i class="fa fa-globe"></i></button>
+						          	</span>
+								</div>
+								
+								<!-- VISTA MAPA -->
+								<t t-if="request.session['directory_view'] == 'map'">
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="directory-map"></div>
+									<script type="text/javascript">
+										var $DIRECTORY_ADDRESS=[
+										<t t-foreach="bins" t-as="tr_product">
+											<t t-foreach="tr_product" t-as="td_product">
+												<t t-if="td_product">
+													<t t-set="establecimiento" t-value="td_product['establecimiento']"/>
+													<t t-if="establecimiento">
+														'<t t-esc="'%s, %s' % (establecimiento.localidad, establecimiento.direccion)" />',
+														'/establecimiento/<t t-esc="slug(establecimiento)"/>',
+													</t>
+							                	</t>
+							                </t>
+							        	</t>
+							        	];
+									</script>
+								</t>
+								<!-- VISTA GRID Y LISTA -->
+								<t t-if="request.session['directory_view'] in ['grid','list']">	
+									<t t-foreach="bins" t-as="tr_product">
+										<t t-foreach="tr_product" t-as="td_product">
+											<t t-if="td_product">
+												<t t-set="establecimiento" t-value="td_product['establecimiento']"/>
+						                      	<t t-set="producto_contratado" t-value="td_product['producto_contratado']"/>
+												
+												<t t-if="request.session['directory_view'] == 'grid'">
+													<div class="item col-lg-3 col-md-4 col-sm-6 col-xs-12">
+														<div class="product">
+															<div class="product-img">
+																<t t-if="establecimiento">
+																	<a class="product-image" title="" t-attf-href="/establecimiento/#{ slug(establecimiento) }">
+																		<span t-field="establecimiento.imagen" t-field-options='{"widget": "image", "class": "img img-responsive"}' />
+																	</a>
+																</t>
+																<t t-if="producto_contratado">
+																	<t t-if="producto_contratado.product_tur_id">
+																		<t t-set="product_type" t-value='producto_contratado.product_tur_id.tipo_producto' />
+																		
+																		<a class="product-image" title="" t-attf-href="/#{product_type}/#{ slug(producto_contratado.product_tur_id) }">
+																			<span t-field="producto_contratado.imagen" t-field-options='{"widget": "image", "class": "img img-responsive"}' />
+																		</a>
+																	</t>
+																	<t t-if="not producto_contratado.product_tur_id">
+																		<a itemprop="url" t-att-href="website.sanitize_url(producto_contratado.url)">
+																			<div t-attf-class="oe_product_image">
+																				<span t-field="producto_contratado.imagen" t-field-options='{"widget": "image", "class": "img img-responsive"}' />
+																			</div>
+																		</a>
+																	</t>
+																</t>             
+															</div>
+															
+															<div class="pro-info">
+																<div class="title">
+																	<t t-if="establecimiento">
+																		<a itemprop="name" t-att-href="keep('/establecimiento/%s' % slug(establecimiento), category=0)" t-field="establecimiento.nombre"/>
+																	</t>
+																	<t t-if="producto_contratado">
+																		<t t-if="producto_contratado.product_tur_id">
+																			<t t-set="product_type" t-value='producto_contratado.product_tur_id.tipo_producto' />
+																			<a itemprop="name" t-att-href="keep('/%s/%s' % (product_type,slug(producto_contratado.product_tur_id)), category=0)" t-field="producto_contratado.product_tur_id.name"/>												
+																		</t>
+																	</t>
+																</div>
+															</div>
+															
+															<t t-if="establecimiento">
+																<t t-if="establecimiento.tripadvisor_url">
+																	<div t-attf-id="TA_socialButtonBubbles#{ establecimiento.id }" class="TA_socialButtonBubbles">
+																		<ul id="f9MmteFc" class="TA_links byvE2a64XA">
+																			<li id="cJ6ruVZoB" class="6jmBS9V">
+																				<a target="_blank" t-attf-href="#{ establecimiento.tripadvisor_url }"><img src="http://www.tripadvisor.es/img/cdsi/img2/branding/socialWidget/20x28_green-21693-2.png"/></a>
+																			</li>
+																		</ul>
+																	</div>
+			
+																	<script t-attf-src="http://www.jscache.com/wejs?wtype=socialButtonBubbles&amp;uniq=#{ establecimiento.id }&amp;locationId=#{ establecimiento.get_tripadvisor_id() }&amp;color=green&amp;size=rect&amp;lang=es&amp;display_version=2"></script>
+																</t>
+															</t>
+														</div>
+													</div>
+												</t>
+												<t t-if="request.session['directory_view'] == 'list'">
+													<div class="col-md-12" style="margin:0.5em 0;">
+														<div class="col-md-8">
+															<h3 style="margin:0;font-weight: 700; color:#666;">
+																<t t-if="establecimiento">
+																	<a itemprop="name" t-att-href="keep('/establecimiento/%s' % slug(establecimiento), category=0)" t-esc="establecimiento.nombre.upper()"/>
+																</t>
+																<t t-if="producto_contratado">
+																	<t t-if="producto_contratado.product_tur_id">
+																		<t t-set="product_type" t-value='producto_contratado.product_tur_id.tipo_producto' />
+																		<a itemprop="name" t-att-href="keep('/%s/%s' % (product_type,slug(producto_contratado.product_tur_id)), category=0)" t-esc="producto_contratado.product_tur_id.name.upper()"/>												
+																	</t>
+																</t>
+															</h3>
+															<t t-if="establecimiento">
+																<div>
+																	<t t-if="establecimiento.tripadvisor_url">
+																		<div t-attf-id="TA_socialButtonBubbles#{ establecimiento.id }">
+																			<ul id="f9MmteFc" class="TA_links byvE2a64XA">
+																				<li id="cJ6ruVZoB" class="6jmBS9V">
+																					<a target="_blank" t-attf-href="#{ establecimiento.tripadvisor_url }"><img src="http://www.tripadvisor.es/img/cdsi/img2/branding/socialWidget/20x28_green-21693-2.png"/></a>
+																				</li>
+																			</ul>
+																		</div>
+				
+																		<script t-attf-src="http://www.jscache.com/wejs?wtype=socialButtonBubbles&amp;uniq=#{ establecimiento.id }&amp;locationId=#{ establecimiento.get_tripadvisor_id() }&amp;color=green&amp;size=rect&amp;lang=es&amp;display_version=2"></script>
+																	</t>
+																</div>
+																<div class="text-muted" t-esc="establecimiento.localidad" />
+																<div style="margin-top:0.3em;">
+																	<span t-if="establecimiento.descripcion and len(establecimiento.descripcion) &gt; 200"> 
+										 								<t t-set="description" t-value="establecimiento.descripcion[:200] and establecimiento.descripcion[:200].replace('+', '\n')+'...'"/>
+																		<p><t t-esc="description"/></p>
+																	</span>				
+																	<span t-if="establecimiento.descripcion and len(establecimiento.descripcion) &lt; 200">
+																		<p t-if="establecimiento.descripcion and len(establecimiento.descripcion)&gt; 0" t-field="establecimiento.descripcion"/>
+																	</span>
+																</div>
+															</t>
+															<t t-if="producto_contratado">
+																<div style="margin-top:0.3em;">
+																	<span t-if="producto_contratado.product_tur_id.description and len(producto_contratado.product_tur_id.description) &gt; 200"> 
+										 								<t t-set="description" t-value="producto_contratado.product_tur_id.description[:200] and producto_contratado.product_tur_id.description[:200].replace('+', '\n')+'...'"/>
+																		<p><t t-esc="description"/></p>
+																	</span>				
+																	<span t-if="producto_contratado.product_tur_id.description and len(producto_contratado.product_tur_id.description) &lt; 200">
+																		<p t-if="producto_contratado.product_tur_id.description and len(producto_contratado.product_tur_id.description)&gt; 0" t-field="producto_contratado.product_tur_id.description" />
+																	</span>
+																</div>
+															</t>
+														</div>
+														<div class="col-md-4 product-img">
+															<t t-if="establecimiento">
+																<a class="product-image" title="" t-attf-href="/establecimiento/#{ slug(establecimiento) }">
+																	<span t-field="establecimiento.imagen" t-field-options='{"widget": "image", "class": "img img-responsive"}' />
+																</a>
+															</t>
+															<t t-if="producto_contratado">
+																<t t-if="producto_contratado.product_tur_id">
+																	<t t-set="product_type" t-value='producto_contratado.product_tur_id.tipo_producto' />
+																	
+																	<a class="product-image" title="" t-attf-href="/#{product_type}/#{ slug(producto_contratado.product_tur_id) }">
+																		<span t-field="producto_contratado.imagen" t-field-options='{"widget": "image", "class": "img img-responsive"}' />
+																	</a>
+																</t>
+																<t t-if="not producto_contratado.product_tur_id">
+																	<a itemprop="url" t-att-href="website.sanitize_url(producto_contratado.url)">
+																		<div t-attf-class="oe_product_image">
+																			<span t-field="producto_contratado.imagen" t-field-options='{"widget": "image", "class": "img img-responsive"}' />
+																		</div>
+																	</a>
+																</t>
+															</t>             
+														</div>
+													</div>
+												</t>
+											</t>
+										</t>
+									</t>
+									<t t-if="not bins">
+										<div class="text-center text-muted">
+											<div class="expanded-message well col-md-6 col-md-offset-3">
+												<h3>No se han encontrado resultados.</h3>            
+											</div>
+										</div>
+									</t>
+								</t>
+							</div>
+						</div>
+					</div>
+				</div>
+			</t>
+			<xpath expr="//html/head" position="inside">
+				<script src="https://maps.googleapis.com/maps/api/js"></script>
+			</xpath>
+		</template>
+		
+		<!-- Reemplazar Buscador -->
+		<template id="homepage_top_header" inherit_id="kingfisher.homepage_top_header">	
+			<xpath expr="//div[@class='header-search']" position="replace">
+				<t t-set="form_target" t-value="'/shop'" />
+				<t t-set="form_placeholder" t-value="'Buscar en Tienda...'" />
+				<t t-if="request.httprequest.path.startswith('/directorio')">
+					<t t-set="form_placeholder" t-value="'Buscar en Directorio...'" />
+					<t t-set="form_target" t-value="'/directorio'" />
+				</t>
+						
+				<div class="header-search">
+					<form t-att-action='form_target' method="get">
+	            		<t t-set="search_text" t-value="search"/>						            		  						            	  	
+	                	<input class="form-control" type="text" t-att-placeholder="form_placeholder" t-att-value="search" name="search"/>
+	                	<button class="btn btn-default"><i class="fa fa-search"></i></button>
+	                </form>
+                </div>
+			</xpath>
+		</template>
+		<!-- Fin Reemplazar Buscador -->
+		
+		<!-- PAGINA DIRECTORIO: CATEGORIAS -->
+		<template id="categories_recursive" name="Category list">
+		  <li t-att-class="'active' if c.id == int(category or 0) else ''">
+		      <a t-att-href="keep('/directorio/categoria/' + slug(c), category=0)" t-field="c.name"></a>
+		      <t t-if="c.child_id"><span class="sub-cat-1"/></t>
+		      <ul t-if="c.child_id" class="nav nav-pills nav-stacked mt16">
+		          <t t-foreach="c.child_id" t-as="c">
+		             <li t-att-class="'active' if c.id == int(category or 0) else ''">
+		      			<a t-att-href="keep('/directorio/categoria/' + slug(c), category=0)" t-field="c.name"></a> 
+		      			<t t-if="c.child_id"><span class="sub-cat-2"/></t>
+			      		<ul t-if="c.child_id" class="nav nav-pills nav-stacked mt16">
+			      		    <t t-foreach="c.child_id" t-as="c1">
+								<li t-att-class="'active' if c1.id == int(category or 0) else ''">
+				      				<a t-att-href="keep('/directorio/categoria/' + slug(c1), category=0)" t-field="c1.name"></a> 
+				      			</li>
+			      			</t>	      		
+			      		</ul>	
+		      		</li>
+		          </t>
+		      </ul>
+		  </li>
+		</template>
+		
+		<template id="directory_categories" inherit_id="aloxa_turismo_theme.directory" active="True" customize_show="True" name="Categorias">			
+			<xpath expr="//div[@id='products_grid_before']" position="inside">
+				<h3>CATEGORIAS</h3>
+				<ul t-if="categories" class="nav nav-pills nav-stacked mt16">
+					<t t-foreach="categories" t-as="c">
+						<t t-call="aloxa_turismo_theme.categories_recursive"/>
+					</t>
+				</ul>
+				<span t-if="not categories" class="text-muted" style="margin-left:1.5em;">Sin categorías</span>
+			</xpath>
+			<xpath expr="//div[@id='products_grid_before']" position="attributes">
+				<attribute name="class">col-md-3 hidden-xs</attribute>
+			</xpath>
+			<xpath expr="//div[@id='directory_grid']" position="attributes">
+				<attribute name="class">col-md-9</attribute>
+			</xpath>
+		</template>
+		<!-- FIN PAGINA DIRECTORIO: CATEGORIAS -->
+		
+		<!-- PAGINA DIRECTORIO: FILTROS -->
+		<template id="directory_attributes" inherit_id="aloxa_turismo_theme.directory" active="False" customize_show="True" name="Filtro de Atributos">
+			<xpath expr="//div[@id='products_grid_before']" position="inside">		
+				<form id="form-filters" class="js_attributes" method="get">
+					<input type="hidden" name="search" value=""/>
+					<input type="hidden" name="orderby" t-att-value="orderby"/>					    
+			        <!-- <h3>FILTROS</h3> -->
+	        		<div class="accordion" id="leftMenu">
+	        			<t t-foreach="attributes" t-as="attr">
+	        				<div class="accordion-group">
+		                        <div class="accordion-heading">
+		                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" t-att-href="'#collapse-%s' % attr.name">
+		                                <i t-att-class="'fa %s' % attr.icon"></i> <t t-esc="attr.label" />
+		                            </a>
+		                        </div>
+		                        <div t-att-id="'collapse-%s' % attr.name" t-att-class="'accordion-body collapse %s' % ('in' if attr.open else '')" t-att-style="'%s' % ('height: 0px;' if not attr.open else '')">
+		                            <div class="accordion-inner">
+	        							<ul>
+	        								<t t-set="cont" t-value="0" />
+	        								<li t-foreach="attr.values" t-as="value">
+	        									<t t-set="cont" t-value="cont+1" />
+	        									<input onchange="submit()" type="checkbox" t-att-value="value.name" t-att-name="'%s-%s' % (attr.name,cont)" t-att-checked="'checked' if value.sel else ''" /> <t t-esc="value.label" />
+	        									<span class="pull-right">(<t t-esc="value.num" />)</span>
+	        								</li>
+		                                </ul>
+		                            </div>
+		                        </div>
+		                    </div>
+		            	</t>
+	                </div>
+					<span t-if="not attributes" class="text-muted" style="margin-left:1.5em;">Sin Filtros</span>
+				</form>
+			</xpath>
+			<xpath expr="//div[@id='products_grid_before']" position="attributes">
+				<attribute name="class">col-md-3</attribute>
+			</xpath>
+			<xpath expr="//div[@id='directory_grid']" position="attributes">
+				<attribute name="class">col-md-9</attribute>
+			</xpath>
+		</template>
+		<!-- FIN PAFINA DIRECTORIO: FILTROS -->
+		
+	</data>
+</openerp>

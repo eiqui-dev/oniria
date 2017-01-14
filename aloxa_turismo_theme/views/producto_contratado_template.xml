@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    
+    
+		<template id="product_details" name="Detalles Producto" page="True">
+			<t t-call="website.layout">
+				<t t-set="product_type" t-value='producto_contratado.tipo_producto' />
+				<t t-set="additional_title" t-value="producto_contratado.name"/>
+				<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale">
+					<div class="page-title">
+			      		<div class="container">
+							<div class="oe_structure"/>
+						    <h1><span t-esc="producto_contratado.name"/></h1>
+						    <ul class="breadcrumb">
+								<li><a href="/page/homepage">Inicio</a></li>
+						    	<li><a t-att-href="'/directorio/%ss' % product_type">Directorio</a></li>
+								<li class="active"><span t-field="producto_contratado.name"/></li>
+							</ul>
+						</div>
+				    </div>
+				
+					<section t-attf-class="container mt8 oe_website_sale" id="product_detail">
+				         <div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 product-detail">
+		                		<span itemprop="image" t-field="producto_contratado.image" t-field-options='{"widget": "image", "class": "product_detail_img product-image"}'/>
+					        </div>
+							<div class="product-info"> 
+								<div class="col-xs-12 col-md-5 col-lg-5 col-sm-6 product-detail">
+					                <h1 itemprop="name" t-field="producto_contratado.name">Nombre Establecimiento</h1>
+					                <span itemprop="url" style="display:none;" t-esc="'/%s/%s' % (product_type,slug(producto_contratado))"/>
+									<p class="text-muted "><t t-esc="producto_contratado.description_sale"/></p>
+									
+									<t t-if="producto_contratado.tipo_producto == 'vino'">
+										<div class="row">
+											<table>
+												<tr><td style="width:16px">
+													<div class="icon"><span class="icon fa fa-calendar" /></div>
+												</td><td>
+													<b>Añada:</b> 
+													<t t-esc="producto_contratado.vino_id.anho" />
+												</td></tr>
+												
+												<tr><td style="width:16px">
+													<div class="icon"><span class="icon fa fa-flask"/></div>
+												</td><td>
+													<b>Tipo Vino:</b> 
+													<span t-if="producto_contratado.vino_id.vino_id.tipo" t-esc="producto_contratado.vino_id.tipo.nombre" />
+												</td></tr>
+												
+												<tr><td style="width:16px">
+													<div class="icon"><span class="icon fa fa-tint"/></div>
+												</td><td>
+													<b>Tipo Uva:</b> 
+													<span t-if="producto_contratado.vino_id.uva" t-esc="producto_contratado.vino_id.uva.nombre" />
+												</td></tr>
+												
+												<tr><td style="width:16px">
+													<div class="icon"><span class="icon fa fa-star"/></div>
+												</td><td>
+													<b>Premios:</b> 
+													<span t-if="producto_contratado.vino_id.premios" t-esc="producto_contratado.vino_id.premios.nombre" />
+												</td></tr>
+											</table>
+										</div>
+									</t>
+								</div> 
+								
+								<div class="col-xs-12 col-md-3 col-lg-3 col-sm-12 product-detail"> 
+									<div class="block-policy"> 
+										<div class="policy policy1"> 
+											<div class="policy-inner">
+												<i class="fa fa-money"></i> 
+												<h2>30 days return</h2>money back
+												</div> 
+											</div> 
+											<div class="policy policy2"> 
+												<div class="policy-inner">
+												<i class="fa fa-truck"></i>
+												<h2>free shipping</h2>on all orders over $99
+												</div> 
+											</div> 
+											<div class="policy policy3"> 
+												<div class="policy-inner">
+												<i class="fa fa-calendar"></i>
+												<h2>lowest price</h2>guarantee
+											</div> 
+										</div> 
+										<div class="policy policy4"> 
+											<div class="policy-inner">
+												<i class="fa fa-check-square"></i>
+												<h2>safe shopping</h2>guarantee
+											</div> 
+										</div> 
+									</div>
+								</div> 
+							</div>
+						</div>
+						<t t-if="producto_contratado.tipo_producto == 'vinhedo'">
+							<div class="row" style="margin-top:0.5em">
+								<div id="map" class="col-xs-12 col-md-12 col-lg-12 col-sm-12" style="height:300px" />
+							</div>
+						</t>
+					</section>
+				</div>
+			</t>
+		</template>
+		
+    </data>
+</openerp>
