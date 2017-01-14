@@ -34,7 +34,8 @@
 							    action="aloxa_turismo.action_vinotecas_form" sequence="60"/>
 					  <menuitem id="oniria_otros" name="Otros"
 							    parent="oniria_establecimientos"
-							    action="aloxa_turismo.action_otros_form" sequence="70"/>				      
+							    action="aloxa_turismo.action_otros_form" sequence="70"/>
+	      		      
 		<menuitem id="oniria_servicios_contratados" name="Links"
 			      parent="oniria_menu" sequence="20"/>
 			<menuitem id="oniria_links" name="Links Contratados"
@@ -45,18 +46,12 @@
 				      action="servicios_turisticos_action_tree" sequence="20"/>
 	    <menuitem id="oniria_menu_reservas" name="Reservas"
 			      parent="oniria_menu" sequence="30"/>	
-			<menuitem id="oniria_reservas" name="Todas las reservas"
+		<menuitem id="oniria_reservas" name="Todas las reservas"
 				      parent="oniria_menu_reservas"
-				      action="hotel_reservation.action_hotel_reservation_tree_all"/>
-			<menuitem id="oniria_folio" name="Detalle de Servicio"
+				      action="event.action_registration"/>
+		<menuitem id="oniria_visitas" name="Visitas"
 				      parent="oniria_menu_reservas"
-				      action="hotel.open_hotel_folio1_form_tree_all"/>
-			<menuitem id="oniria_visitas" name="Visitas"
-				      parent="oniria_menu_reservas"
-				      action="hotel.action_hotel_room_form"/>  
-			<menuitem id="oniria_anhadidos" name="Servicios Visitas"
-				      parent="oniria_menu_reservas"
-				      action="hotel.action_hotel_services_form"/>         	
+				      action="event.action_event_view"/> -->         	
 		<menuitem id="oniria_menu_productos" name="Productos"
 			      parent="oniria_menu" sequence="40"/>
 			<menuitem id="oniria_vinos" name="Vinos"
@@ -72,6 +67,9 @@
 			      parent="oniria_menu" sequence="50"/>
 			<menuitem id="oniria_opciones" name="Opciones"
 				      parent="oniria_menu_configuracion"
-				      action="aloxa_turismo_action_opciones_form" sequence="20"/>	      
+				      action="aloxa_turismo_action_opciones_form" sequence="20"/>	
+			<menuitem id="oniria_establecimientos_servicios" name="Servicios Establecimiento"
+				      parent="oniria_menu_configuracion"
+				      action="establecimiento_servicios_action_tree" sequence="30"/>      
 	</data>
 </openerp>

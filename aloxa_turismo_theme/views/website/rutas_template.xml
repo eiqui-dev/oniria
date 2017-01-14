@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    
+    
+		<template id="pageRoutes" name="Rutas" page="True">
+			<t t-call="website.layout">
+				<t t-set="additional_title" t-value="'Buscador de rutas'"/>
+				<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale establecimiento-page">				
+					<section class="container mt8">
+				         <div class="row">
+							<div id="geoLocation" style="min-height:350px; clear:both;">
+								<span>Geolocalización DEBUG:</span><br/>
+								<span id='geoInfo'>Iniciando ejemplo de ruta 'Santiago de Compostela' o GPS - 'Haro' pasando obligatoriamente por 'Toro'.</span><br/><br/>
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="map" style="height:450px"></div>
+							</div>
+						</div>
+					</section>
+				</div>
+			</t>
+			
+			<xpath expr="//html/head" position="inside">
+				<script type='text/javascript'>
+					google.maps.event.addDomListener(window, 'load', initializeGMapsRutas('Santiago de Compostela, Galicia, España', 'Haro, España', ['Toro, Zamora, España']));
+				</script>
+			</xpath>
+		</template>
+		
+    </data>
+</openerp>

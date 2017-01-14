@@ -39,15 +39,30 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['kingfisher', 'aloxa_turismo'],
+    'depends': ['website', 'website_sale', 'aloxa_turismo', 'l10n_es_partner', 'website_google_apis', 'horario'],
 
     # always loaded
-    'data': [        
-        'views/general_templates.xml',
-        'views/establecimiento_template.xml',
-        'views/directorio_template.xml',
-        'views/producto_contratado_template.xml',
-        'views/solicitar_link_template.xml',
+    'data': [
+        'views/website/external_footer.xml',
+        'views/website/external_menu.xml',
+        'views/website/general.xml',
+        'views/website/home.xml',
+        'views/website/directory.xml',
+        'views/website/panel_cliente.xml',
+        'views/website/establecimiento_template.xml',
+        'views/website/producto_contratado_template.xml',
+        'views/website/solicitar_link_template.xml',
+        'views/website/registro_usuario.xml',
+        'views/website/registro_empresa.xml',
+        'views/website/editar_usuario.xml',
+        'views/website/crear_editar_establecimiento.xml',
+        'views/website/crear_editar_producto.xml',
+        'views/website/crear_evento.xml',
+        'views/website/rutas_template.xml',
+        
+        'views/website/inherit_website_sale_products.xml',
+        
+        'data/data.xml',
         'security/ir.model.access.csv',
     ],
     # only loaded in demonstration mode

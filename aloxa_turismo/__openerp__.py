@@ -39,7 +39,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'product', 'sale', 'mail','kingfisher','hotel','hotel_reservation'],
+    'depends': ['base', 'product', 'sale', 'mail','website_event_sale','website_event_register_free_with_sale'],
 
     # always loaded
     'data': [
@@ -50,7 +50,7 @@
         'views/productos.xml',
         'security/ir.model.access.csv',
 	    'views/turistas.xml',
-        'views/reservas.xml',
+        #'views/reservas.xml',
         'views/menus.xml',
     ],
     # only loaded in demonstration mode

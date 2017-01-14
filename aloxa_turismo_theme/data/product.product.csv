@@ -1,0 +1,3 @@
+name,type,event_type_id,lst_price,active,sale_ok,event_ok
+"Suscripción a eventos","Servicio","Generic Events",1.00,True,True,True
+

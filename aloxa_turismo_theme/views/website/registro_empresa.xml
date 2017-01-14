@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    
+    
+		<template id="registro_empresa" name="Registrar Nueva Empresa" page="True">
+			<t t-call="website.layout">
+				<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale">
+					<div class="page-title">
+			      		<div class="container">
+							<div class="oe_structure"/>
+						    <h1>
+						    	<t t-if="not partner">Registrar Nueva Empresa</t>
+						    	<t t-if="partner"><t t-esc="'Editar Datos %s' % ((partner.is_company) and 'Empresa' or 'Usuario')" /></t>
+						    </h1>
+						</div>
+				    </div>
+				
+					<section t-attf-class="container mt8" id="registrar_usuario_container">
+				         <div class="row" style="margin-bottom:2em;">
+								<form method="POST" action="/_crear_usuario" enctype="multipart/form-data">
+									<input type="hidden" name="is_company" value="True" />
+									<div class="col-xs-12 col-md-4">
+									  <div class="form-group">
+									    <label for="name">Nombre</label>
+									    <input type="text" class="form-control" id="name" name="name" placeholder="Nombre" required="required"/>
+									  </div>
+									  <div class="form-group">
+									    <label for="email">Correo Electronico</label>
+									    <input type="mail" class="form-control" id="email" name="email" placeholder="Correo Electronico" required="required"/>
+									  </div>
+									  <div class="form-group">
+									    <label for="cnif">C.I.F.:</label>
+									    <input type="text" class="form-control" id="cnif" name="cnif" placeholder="Código de Identificación Fiscal" required="required"/>
+									  </div>
+									  <div class="row">
+										  <div class="form-group col-md-6">
+										    <label for="password">Contraseña</label>
+										    <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" required="required"/>
+										  </div>
+										  <div class="form-group col-md-6">
+										    <label for="password_check">Repita Contraseña</label>
+										    <input type="password" class="form-control" id="password_check" placeholder="Repita Contraseña" required="required"/>
+										  </div>
+									  </div>
+									  <div class="form-group">
+									  	<label for="recaptcha">Verificación Humano</label>
+									    <div id="recaptcha" class="g-recaptcha" t-attf-data-sitekey="#{website.recaptcha_site_key}"></div>
+									  </div>
+									 </div>
+									 <div class="col-xs-12 col-md-4" id="panel-middle">
+									  <div class="form-group">
+									    <label for="image">Imágen</label>
+									    <input type="file" name="image" id="image" accept="image/*" />
+									  </div>
+									  <div class="form-group">
+									    <label for="street">Direccion</label>
+					         			<input id="street" name="street" type="text" class="form-control" placeholder="Calle"/>
+					         			<input id="city" name="city" type="text" class="form-control" placeholder="Ciudad" />
+					                    <select name="province" id="province" class="form-control">
+					                        <option value="">Provincia...</option>
+					                        <t t-foreach="states or []" t-as="state">
+					                            <option t-att-value="state.id"><t t-esc="state.name"/></option>
+					                        </t>
+					                    </select>
+					         			<input id="postalcode" name="postalcode" type="text" class="form-control" placeholder="C.P." />
+									  </div>
+									  <div class="form-group">
+										    <label for="url_trip">Teléfono</label>
+											<input type="text" id="phone" name="phone" class="form-control" />
+									  </div>
+									 </div>
+									 <div class="col-xs-12 col-md-4">
+										  <div class="form-group">
+												<label for="website">Web</label>
+									       		<div class="input-group">
+													<span class="input-group-addon" id="basic-addon1">http://</span>
+													<input type="text" id="website_url" name="website_url" class="form-control" aria-describedby="basic-addon1"/>
+												</div>
+										  </div>
+									 </div>
+									 <div class="col-xs-12 col-md-12 text-right">
+									 	<button type="submit" class="btn btn-primary">
+									 		<t t-if="not partner">Registrarse!</t>
+									 		<t t-if="partner">Guardar Cambios</t>
+									 	</button>
+									 </div>
+								</form>
+							</div>
+					</section>
+				</div>
+			</t>
+		</template>
+		
+    </data>
+</openerp>

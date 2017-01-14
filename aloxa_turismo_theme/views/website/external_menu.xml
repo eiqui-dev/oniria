@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+	
+	<template id="main_menu" inherit_id="website.layout">
+		<xpath expr="//a[@t-field='res_company.name']" position='replace'>
+ 			<a href="/" class="navbar-brand">
+           		<img src="/logo.png" alt="inforwine" t-att-title="res_company.name"/>
+       		</a>
+		</xpath>
+		
+		<xpath expr="//ul[@id='top_menu']" position='after'>
+			<ul class="nav navbar-nav navbar-left" id="top_menu">
+				<t t-foreach="website.menu_id.child_id" t-as="submenu">
+				    <t t-call="website.submenu"/>
+				</t>
+			</ul>
+
+			
+			<div t-if="keep and slug" class="col-sm-3 col-md-3 pull-right">
+	        	<t t-call="website_sale.search"><t t-set="search_class">navbar-form</t></t>
+	        </div>
+		</xpath>
+		
+		<xpath expr="//ul[@id='top_menu']" position='replace'>
+	        <ul class="nav navbar-nav navbar-right" id="top_menu">
+	            <li class="dropdown" t-ignore="true" t-if="website.user_id != user_id">
+	                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+	                    <b>
+	                        <span t-esc="user_id.name"/>
+	                        <span class="caret"></span>
+	                    </b>
+	                </a>
+	                <ul class="dropdown-menu js_usermenu" role="menu">
+	                    <li><a href="/panel" role="menuitem">My Account</a></li>
+	                    <li class="divider"/>
+	                    <li><a t-attf-href="/web/session/logout?redirect=/" role="menuitem">Logout</a></li>
+	                </ul>
+	            </li>
+	            <li class="dropdown">
+	            	<t t-set="website_sale_order" t-value="website.sale_get_order()"/>
+	                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+	                    <b>
+	                    	<i class="fa fa-shopping-cart"></i>
+	                        <span t-esc="website_sale_order and website_sale_order.cart_quantity or 0"/>
+	                        <span class="caret"></span>
+	                    </b>
+	                </a>
+	                <ul class="dropdown-menu js_usermenu menu-products" role="menu">
+	                    <li t-if="not website_sale_order or not website_sale_order.website_order_line" class="">
+	         				<a href="#">Your cart is empty!</a>
+	     				</li>
+	     				<t t-if="website_sale_order and website_sale_order.website_order_line">
+		      				<t t-foreach="website_sale_order.website_order_line" t-as="line">
+			           			<li t-if="line.product_id and line.product_id.product_tmpl_id">
+			             			<a class="product-image" title="" t-attf-href="/shop/product/#{ slug(line.product_id.product_tmpl_id) }">
+			             				<table class="menu-product-line">
+			             					<tbody>
+			             						<tr>
+			             							<td class="col-md-2 col-xs-2">
+			             								<span t-field="line.product_id.image_small" t-field-options='{"widget": "image", "class": "img-rounded"}'/>     
+			             							</td>
+			             							<td>
+			             								<div class="product-details">
+								             				<!-- Remove Product -->
+								             				<p class="product-name"><span t-esc="line.product_id.with_context(display_default_code=False).display_name"/></p>
+								               				<strong> <input type="label" class="js_quantity"
+								                               	t-att-data-line-id="line.id" 
+								                               	t-att-data-product-id="line.product_id.id"
+								 								t-att-value="int(line.product_uom_qty)"						                      
+								                               	style="width:0px !important;border:none !important;margin:0px !important;max-width:1px !important;text-align:right " onchange="alert('hi');" readonly="True"/></strong> x <span t-field-options='{
+								                             			"widget": "monetary",
+								                             			"display_currency": "user_id.partner_id.property_product_pricelist.currency_id"
+								                         				}' t-field="line.price_unit" style="white-space: nowrap;" />  
+								                		</div>
+			             							</td>
+			             							<td class="menu-product-line-options col-md-1 col-xs-1">              	
+								             			<a t-attf-href="#" class="btn-remove js_add_cart_json_new" title="" data-no-instant=""><i class="fa fa-trash-o"></i></a>
+								             			<br/>
+								             			<a class="btn-edit" title="Edit item" t-attf-href="/shop/cart"><i class="fa fa-pencil"></i></a> 
+			             							</td>
+			             						</tr>
+			             					</tbody>
+			             				</table>
+			                		</a>
+			         			</li>
+	         				</t>
+	         				<li id="menu_payment_details">
+		        				<div class="top-subtotal" t-if="website_sale_order and website_sale_order.amount_total and user_id.partner_id.property_product_pricelist.currency_id">
+		         					Subtotal:  <span class="price" t-field="website_sale_order.amount_total" style="white-space: nowrap;" t-field-options='{
+		        						 																													"widget": "monetary",
+		         						 																													"display_currency": "user_id.partner_id.property_product_pricelist.currency_id"
+		       																																				}'/>
+		         				</div>
+		         				<div class="actions">
+		           					<t t-set="website_sale_order" t-value="website.sale_get_order()"/>
+		           					<a t-attf-href="/shop/cart" t-if="website_sale_order and website_sale_order.website_order_line">
+		           						<button class="btn btn-primary" title="Checkout" type="button"><span><span>Checkout</span></span></button>
+		           					</a>
+		         				</div>
+		 					</li>
+	        			</t>
+	                </ul>
+	            </li>
+	        </ul>
+		</xpath>
+	</template>
+		
+</data>
+</openerp>

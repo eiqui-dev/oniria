@@ -4,6 +4,7 @@ from openerp.addons.product import product as prodm
 from openerp.addons.mail import mail_thread
 from datetime import datetime
 from openerp.osv import osv
+from comun import crop_image
 
 #import pydevd
 
@@ -96,7 +97,18 @@ class producto_contratado_cliente(models.Model):
         else:
             raise osv.except_osv(('Falta información'), ('No ha especificado Cliente para el Proyecto...'))
 
-        
+
+    # Computed Fields
+    @api.one
+    @api.depends('imagen')
+    def _get_image_thumb(self):
+        for record in self:
+            if record.imagen:
+                record.image_thumb = crop_image(
+                    record.imagen, ratio=(2,1), thumbnail_ratio=4, type='center')
+            else:
+                record.image_thumb = False
+                
     
     #fields
     partner_id = fields.Many2one('res.partner', 'Cliente', required=True)
@@ -104,6 +116,7 @@ class producto_contratado_cliente(models.Model):
     product_tur_id = fields.Many2one('product.template', 'Producto')
     establecimiento_id = fields.Many2one('turismo.establecimiento', 'Establecimiento')
     imagen = fields.Binary('Imagen')
+    image_thumb = fields.Binary('Thumbnail', compute="_get_image_thumb", store=True)
     url = fields.Char('Enlace', size=50)
     fecha_inicio = fields.Date('Inicio')
     fecha_fin = fields.Date('Fin')
@@ -189,6 +202,12 @@ class producto_turismo(models.Model):
             data['tipo_producto'] = ('vinagre','Vinagre')            
         return data
     
+    def is_seller_by(self, partner_id):
+        ModelSupplierInfo = self.env['product.supplierinfo']
+        for record in self:
+            supplierinfo_id = ModelSupplierInfo.search([('name','=',partner_id),('product_tmpl_id','=',record.id)])
+            return True if supplierinfo_id else False
+        
     
     #fields
 

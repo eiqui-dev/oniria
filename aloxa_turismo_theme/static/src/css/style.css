@@ -1,7 +1,68 @@
-/* Ocultar elementos del tema base kingfisher */
-.home-slider, .policy-wrap {
-  display:none !important;
+/* BASE */
+body {
+	font-family: 'Poppins', Verdana, sans-serif;
 }
+footer {
+	display: table-cell !important;
+	border: solid #b72613;
+	border-width: 6px 0 0 0;
+}
+header>div {
+	background-color: #dadada;
+	margin-top: 3em;
+}
+header {
+	margin-bottom: 1.5em;
+}
+
+
+/* MAIN MENU */
+.top-subtotal {
+	margin-top: 1.5em;
+}
+.top-subtotal, .actions {
+	text-align: right;
+	padding: 0.5em;
+}
+.menu-product-line-options {
+	padding-left: 2em !important;
+	text-align: right;
+}
+.menu-product-line {
+	width: 100%;
+}
+.menu-product-line td {
+	padding: 0.3em;
+}
+.menu-products li:nth-child(odd) {
+	background: #ebf3f8;
+}
+#menu_payment_details {
+	background-color: #f0f0f0;
+}
+
+
+/* GENERAL */
+#wrapwrap>main {
+	min-height: 100%;
+	height: 100%;
+}
+#banners_grid, #wrap {
+	margin: 1.5em 0;
+}
+
+
+
+/* MODIFY BOOTSTRAP */
+.navbar-brand {
+  padding: 0px; /* firefox bug fix */
+}
+.navbar-brand>img {
+  height: 100%;
+  padding: 15px; /* firefox bug fix */
+  width: auto;
+}
+
 
 /* Odoo */
 .oe_product_borderless {
@@ -12,6 +73,29 @@
 #directory-map {
   height:500px;
   margin-top: 0.5em;
+}
+.open-map-image {
+	margin-left: 1.5em;
+}
+
+/* TOOLBAR DIRECTORIO */
+#directory-toolbar {
+	border: 1px solid gray;
+	border-width: 0 0 1px 0;
+	padding-bottom: 5px;
+	margin-bottom: 3em;
+}
+
+/* TABLA EVENTOS DIRECTORIO */
+.table-events-directory {
+	border: none !important;
+}
+.table-events-directory td, .table-events-directory th {
+	border-width: 0 0 1px !important;
+}
+.table-events-directory th {
+	background-color: transparent !important;
+	margin-top: 8em;
 }
 
 /* Efectillo banner */
@@ -83,6 +167,38 @@
   border: 0 !important;
 }
 
+.product .producto-img {
+	border-width: 0 1px 1px 1px !important;
+}
+.product .establecimiento-img {
+	border-width: 0 1px !important;
+}
+
+.pro-info {
+	background-color:#efefef;
+}
+.pro-info .ptitle {
+  display: inline-block;
+  color: #000;
+  font-weight: 400;
+  font-size: 15px;
+  padding: 4px;
+}
+.pro-info .ptitle a {
+  color: #000;
+}
+.pro-info .ptitle a:hover {
+	text-decoration: none;
+} 
+
+.est-icon {
+  padding: 0 3px;
+}
+
+.est-icon:hover {
+  cursor: help;
+}
+
 .TA_socialButtonBubbles {
   z-index: 999;
   position: absolute;
@@ -91,15 +207,50 @@
 }
 
 
+/* DIRECTORIO */
+.product-list-item {
+  margin-bottom: 0.5em;
+}
+.product-list-item-name a {
+  color: #000;
+}
+.product-list-item-name:hover {
+  text-decoration: none;
+}
+.product-list-item-name {
+  color: #000;
+}
+#advs {
+  background-color: #efefef;
+  height: 600px;
+  min-height: 100%;
+}
+
 /* DETALLE ESTABLECIMIENTO */
 .row>#map {
   height:300px; 
   margin-top:2.5em;
 }
 
+.detail-section-title
+{
+  margin: 0 0 1em 0;
+  padding: 0.4em;
+  background-color: #EFEFEF;
+  display: inline-block;
+}
 
-.block-policy {
+.block-hours {
   margin-bottom: 1.5em;
+  background-color: #E7E7E7;
+  padding: 1em;
+}
+.block-hours h4 {
+	padding: 0;
+	margin: 0 0 1em 0;
+}
+.block-hours table {
+  width: 100%;
 }
 
 
@@ -133,6 +284,10 @@
 }
 
 /* MENU VERTICAL */
+#leftMenu {
+	background-color: #E7E7E7;
+	padding: 1em;
+}
 #leftMenu .accordion-group {
     margin-bottom: 0px;
     border:0px;
@@ -142,7 +297,7 @@
 }
 
 #leftMenu .accordion-group ul {
-    padding-left: 1.5em;
+    padding-left: 0;
 }
 #leftMenu .accordion-group li {
     list-style-type: none;
@@ -182,4 +337,100 @@
     background-image: -o-linear-gradient(90deg, #4b4b4b 0%, #555 100%); /* gradient overlay */
     background-image: -webkit-linear-gradient(90deg, #4b4b4b 0%, #555 100%); /* gradient overlay */
     background-image: linear-gradient(90deg, #4b4b4b 0%, #555 100%); /* gradient overlay */
+}
+
+/* IMAGENES ESTABLECIMIENTO */
+.thumbnail img {
+	height: 150px !important;
+}
+
+/* EVENTOS ESTABLECIMIENTO */
+#table-events td {
+	text-align: center;
+	vertical-align: middle;
+}
+
+/* HEAD ESTABLECIMIENTOS */
+#head-name {
+
+}
+#head-name h1 {
+	border: 0;
+	padding: 0 !important;
+	margin: 0 !important;
+	font-weight: bold !important;
+}
+
+/* PANEL ESTABLECIMIENTO */
+a.list-group-item {
+	min-height: 100px;
+}
+.tr-event-tickets-panel {
+	box-shadow: 0 1px 5px #BBB inset;
+}
+
+/* PANEL EDITAR USUARIO */
+#passwd-row {
+	background-color: #F6F6F6;
+	padding: 1.0em 0.1em 0.1em;
+	border: 1px dotted gray;
+}
+
+/* MODIF. BOOTSTRAP */
+.huge {
+    font-size: 40px;
+}
+
+.panel-green {
+    border-color: #5cb85c !important;
+}
+
+.panel-green .panel-heading {
+    border-color: #5cb85c;
+    color: #fff;
+    background-color: #5cb85c;
+}
+
+.panel-green a {
+    color: #5cb85c;
+}
+
+.panel-green a:hover {
+    color: #3d8b3d;
+}
+
+.panel-red {
+    border-color: #d9534f !important;
+}
+
+.panel-red .panel-heading {
+    border-color: #d9534f;
+    color: #fff;
+    background-color: #d9534f;
+}
+
+.panel-red a {
+    color: #d9534f;
+}
+
+.panel-red a:hover {
+    color: #b52b27;
+}
+
+.panel-yellow {
+    border-color: #f0ad4e !important;
+}
+
+.panel-yellow .panel-heading {
+    border-color: #f0ad4e;
+    color: #fff;
+    background-color: #f0ad4e;
+}
+
+.panel-yellow a {
+    color: #f0ad4e;
+}
+
+.panel-yellow a:hover {
+    color: #df8a13;
 }

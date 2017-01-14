@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    
+    
+		<template id="crear_evento" name="Crear Evento" page="True">
+			<t t-call="website.layout">
+				<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale">
+					<div class="page-title">
+			      		<div class="container">
+							<div class="oe_structure"/>
+						    <h1>Nuevo Evento</h1>
+						</div>
+				    </div>
+				
+					<section t-attf-class="container mt8" id="crear_evento_container">
+				         <div class="row" style="margin-bottom:2em;">
+							<form action="/_crear_evento" method="post" id='create_link'>
+								<t t-if="est_partner">
+									<input type="hidden" name="organizer" t-attf-value="#{est_partner.id}" />
+								</t>
+								<div class="col-xs-12 col-md-4">
+						          	<div class="form-group">
+									    <label for="name">Nombre Evento</label>
+									    <input type="text" class="form-control" id="name" name="name" placeholder="Nombre" required="required"/>
+									</div>
+						          	<div t-if="not est_partner" class="form-group">
+									    <label for="organizer">Organizador</label>
+									    <select name="organizer" class="form-control" id="organizer" required="required">
+									    	<option value="">Establecimiento...</option>
+									    	<t t-foreach="establecimientos or []" t-as="est">
+									    		<option t-attf-value="#{est.partner_id.id}" t-esc="est.name"/>
+									    	</t>
+									    </select>
+									</div>
+									<div class="row">
+							        	<div class="form-group col-md-6">
+							            	<label for="seats_min" class="control-label">Plazas Min.</label>
+							            	<input type="date" class="form-control" name="seats_min" id="seats_min" required="required" />
+							          	</div>
+							          	<div class="form-group col-md-6">
+							            	<label for="seats_max" class="control-label">Plazas Max.</label>
+							            	<input type="date" class="form-control" name="seats_max" id="seats_max" required="required" />
+							          	</div>
+						          	</div>
+									<div class="row">
+							        	<div class="form-group col-md-6">
+							            	<label for="date_begin" class="control-label">Desde</label>
+							            	<input type="date" class="form-control" name="date_begin" id="date_begin" required="required" />
+							          	</div>
+							          	<div class="form-group col-md-6">
+							            	<label for="date_end" class="control-label">Hasta</label>
+							            	<input type="date" class="form-control" name="date_end" id="date_end" required="required" />
+							          	</div>
+						          	</div>
+								</div>
+								<div class="col-xs-12 col-md-4">
+								 	<div class="form-group">
+								 		<label for="street">Ubicación</label>
+					                    <select name="country" class="form-control" required="required">
+					                        <option value="">Pais...</option>
+					                        <t t-foreach="countries or []" t-as="country">
+					                            <option t-att-value="country.id" t-att-selected="'selected' if est_partner and country.id == est_partner.state_id.id else ''"><t t-esc="country.name"/></option>
+					                        </t>
+					                    </select>
+					                    <select name="province" class="form-control" required="required">
+					                        <option value="">Provincia...</option>
+					                        <t t-foreach="states or []" t-as="state">
+					                            <option t-att-value="state.id" t-att-selected="'selected' if est_partner and state.id == est_partner.state_id.id else ''"><t t-esc="state.name"/></option>
+					                        </t>
+					                    </select>
+					         			<input name="street" t-att-value="est_partner and est_partner.street" type="text" class="form-control" placeholder="Calle" required="required"/>
+					         			<input name="city" t-att-value="est_partner and est_partner.city" type="text" class="form-control" placeholder="Ciudad" required="required"/>
+					         			<input name="postalcode" t-att-value="est_partner and est_partner.zip" type="text" class="form-control" placeholder="C.P." required="required"/>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-4">
+									<div class="form-group">
+									    <label for="desc">Descripción</label>
+									    <textarea rows="8" class="form-control" id="desc" name="desc" required="required"></textarea>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-12 text-right">
+									 	<button type="submit" class="btn btn-primary">Crear Evento</button>
+								</div>
+					      	</form>
+						</div>
+					</section>
+				</div>
+			</t>
+		</template>
+		
+    </data>
+</openerp>

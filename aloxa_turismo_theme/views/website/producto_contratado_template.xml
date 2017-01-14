@@ -11,11 +11,6 @@
 			      		<div class="container">
 							<div class="oe_structure"/>
 						    <h1><span t-esc="producto_contratado.name"/></h1>
-						    <ul class="breadcrumb">
-								<li><a href="/page/homepage">Inicio</a></li>
-						    	<li><a t-att-href="'/directorio/%ss' % product_type">Directorio</a></li>
-								<li class="active"><span t-field="producto_contratado.name"/></li>
-							</ul>
 						</div>
 				    </div>
 				
@@ -26,43 +21,47 @@
 					        </div>
 							<div class="product-info"> 
 								<div class="col-xs-12 col-md-5 col-lg-5 col-sm-6 product-detail">
-					                <h1 itemprop="name" t-field="producto_contratado.name">Nombre Establecimiento</h1>
+					                <h1 itemprop="name" t-field="producto_contratado.name">Nombre Producto</h1>
 					                <span itemprop="url" style="display:none;" t-esc="'/%s/%s' % (product_type,slug(producto_contratado))"/>
 									<p class="text-muted "><t t-esc="producto_contratado.description_sale"/></p>
 									
-									<t t-if="producto_contratado.tipo_producto == 'vino'">
-										<div class="row">
-											<table>
-												<tr><td style="width:16px">
-													<div class="icon"><span class="icon fa fa-calendar" /></div>
-												</td><td>
-													<b>Añada:</b> 
-													<t t-esc="producto_contratado.vino_id.anho" />
-												</td></tr>
-												
-												<tr><td style="width:16px">
-													<div class="icon"><span class="icon fa fa-flask"/></div>
-												</td><td>
+									<div class="row">
+										<table>
+											<tr><td style="width:16px">
+												<div class="icon"><span class="icon fa fa-calendar" /></div>
+											</td><td>
+												<b>Añada:</b> 
+												<t t-esc="producto_contratado.anho" />
+											</td></tr>
+											
+											<tr><td style="width:16px">
+												<div class="icon"><span class="icon fa fa-flask"/></div>
+											</td><td>
+												<t t-if="producto_contratado.tipo_producto == 'vino'">
 													<b>Tipo Vino:</b> 
-													<span t-if="producto_contratado.vino_id.vino_id.tipo" t-esc="producto_contratado.vino_id.tipo.nombre" />
-												</td></tr>
-												
-												<tr><td style="width:16px">
-													<div class="icon"><span class="icon fa fa-tint"/></div>
-												</td><td>
-													<b>Tipo Uva:</b> 
-													<span t-if="producto_contratado.vino_id.uva" t-esc="producto_contratado.vino_id.uva.nombre" />
-												</td></tr>
-												
-												<tr><td style="width:16px">
-													<div class="icon"><span class="icon fa fa-star"/></div>
-												</td><td>
-													<b>Premios:</b> 
-													<span t-if="producto_contratado.vino_id.premios" t-esc="producto_contratado.vino_id.premios.nombre" />
-												</td></tr>
-											</table>
-										</div>
-									</t>
+													<span t-if="producto_contratado.tipovino" t-esc="producto_contratado.tipovino.nombre" />
+												</t>
+												<t t-if="producto_contratado.tipo_producto == 'vinagre'">
+													<b>Tipo Vinagre:</b> 
+													<span t-if="producto_contratado.tipovinagre" t-esc="producto_contratado.tipovinagre.nombre" />
+												</t>
+											</td></tr>
+											
+											<tr><td style="width:16px">
+												<div class="icon"><span class="icon fa fa-tint"/></div>
+											</td><td>
+												<b>Tipo Uva:</b> 
+												<span t-if="producto_contratado.uva" t-esc="producto_contratado.uva.nombre" />
+											</td></tr>
+											
+											<tr><td style="width:16px">
+												<div class="icon"><span class="icon fa fa-star"/></div>
+											</td><td>
+												<b>Premios:</b> 
+												<span t-if="producto_contratado.premios" t-esc="producto_contratado.premios.nombre" />
+											</td></tr>
+										</table>
+									</div>
 								</div> 
 								
 								<div class="col-xs-12 col-md-3 col-lg-3 col-sm-12 product-detail"> 
@@ -95,11 +94,6 @@
 								</div> 
 							</div>
 						</div>
-						<t t-if="producto_contratado.tipo_producto == 'vinhedo'">
-							<div class="row" style="margin-top:0.5em">
-								<div id="map" class="col-xs-12 col-md-12 col-lg-12 col-sm-12" style="height:300px" />
-							</div>
-						</t>
 					</section>
 				</div>
 			</t>

@@ -1,0 +1,405 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * horario
+# 
+# Translators:
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-21 14:08+0000\n"
+"PO-Revision-Date: 2015-11-02 16:13+0000\n"
+"Last-Translator: Martin Trigaux\n"
+"Language-Team: Czech (http://www.transifex.com/odoo/odoo-8/language/cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#. module: horario
+#: code:addons/horario/horario.py:685
+#, python-format
+msgid "%s (copy)"
+msgstr "%s (kopie)"
+
+#. module: horario
+#: code:addons/horario/faces/horario.py:340
+#, python-format
+msgid "(vacation)"
+msgstr "(dovolená)"
+
+#. module: horario
+#: model:ir.actions.act_window,help:horario.action_horario_calendar_form
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Define working hours and time table that could be scheduled to your project members\n"
+"              </p>\n"
+"            "
+msgstr ""
+
+#. module: horario
+#: field:horario.horario,active:0
+msgid "Active"
+msgstr "Aktivní"
+
+#. module: horario
+#: model:ir.actions.act_window,name:horario.horario_calendar_closing_days
+msgid "Closing Days"
+msgstr "Uzavírací dny"
+
+#. module: horario
+#: field:horario.horario,code:0
+msgid "Code"
+msgstr "Kód"
+
+#. module: horario
+#: field:horario.calendar,company_id:0
+#: view:horario.calendar.leaves:horario.view_horario_calendar_leaves_search
+#: field:horario.calendar.leaves,company_id:0
+#: view:horario.horario:horario.view_horario_horario_search
+#: field:horario.horario,company_id:0
+msgid "Company"
+msgstr "Společnost"
+
+#. module: horario
+#: code:addons/horario/horario.py:773
+#, python-format
+msgid "Configuration Error!"
+msgstr "Chyba nastavení!"
+
+#. module: horario
+#: field:horario.calendar,create_uid:0
+#: field:horario.calendar.attendance,create_uid:0
+#: field:horario.calendar.leaves,create_uid:0
+#: field:horario.horario,create_uid:0
+msgid "Created by"
+msgstr "Vytvořil(a)"
+
+#. module: horario
+#: field:horario.calendar,create_date:0
+#: field:horario.calendar.attendance,create_date:0
+#: field:horario.calendar.leaves,create_date:0
+#: field:horario.horario,create_date:0
+msgid "Created on"
+msgstr "Vytvořeno"
+
+#. module: horario
+#: field:horario.calendar.attendance,dayofweek:0
+msgid "Day of Week"
+msgstr "Den v týdnu"
+
+#. module: horario
+#: help:horario.horario,calendar_id:0
+msgid "Define the schedule of horario"
+msgstr "Určit plánování zdroje"
+
+#. module: horario
+#: view:horario.calendar.leaves:horario.horario_calendar_leave_form
+msgid "Duration"
+msgstr "Trvání"
+
+#. module: horario
+#: field:horario.horario,time_efficiency:0
+msgid "Efficiency Factor"
+msgstr "Činitel účinnosti"
+
+#. module: horario
+#: field:horario.calendar.leaves,date_to:0
+msgid "End Date"
+msgstr "Datum ukončení"
+
+#. module: horario
+#: constraint:horario.calendar.leaves:0
+msgid "Error! leave start-date must be lower then leave end-date."
+msgstr "Chyba! počáteční datum uvolnění musí být menší než konečné datum uvolnění"
+
+#. module: horario
+#: selection:horario.calendar.attendance,dayofweek:0
+msgid "Friday"
+msgstr "Pátek"
+
+#. module: horario
+#: view:horario.calendar.leaves:horario.view_horario_calendar_leaves_search
+#: view:horario.horario:horario.view_horario_horario_search
+msgid "Group By"
+msgstr "Seskupit podle"
+
+#. module: horario
+#: view:horario.calendar.attendance:horario.view_horario_calendar_attendance_form
+msgid "Hours"
+msgstr "Hodin"
+
+#. module: horario
+#: selection:horario.horario,horario_type:0
+msgid "Human"
+msgstr "Člověk"
+
+#. module: horario
+#: field:horario.calendar,id:0 field:horario.calendar.attendance,id:0
+#: field:horario.calendar.leaves,id:0 field:horario.horario,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: horario
+#: help:horario.calendar.leaves,horario_id:0
+msgid ""
+"If empty, this is a generic holiday for the company. If a horario is set, "
+"the holiday/leave is only for this horario"
+msgstr "Pokud je prázdné, jedná se o obecnou dovolenou společnosti. Pokud je zdroj nastaven, dovolená/uvolnění je pouze pro tento zdroj"
+
+#. module: horario
+#: help:horario.horario,active:0
+msgid ""
+"If the active field is set to False, it will allow you to hide the horario "
+"record without removing it."
+msgstr "Pokud je pole aktivní nastaveno na Nepravda, umožní vám to skrýt záznam zdroje bez jeho odstranění."
+
+#. module: horario
+#: view:horario.horario:horario.view_horario_horario_search
+msgid "Inactive"
+msgstr "Neaktivní"
+
+#. module: horario
+#: field:horario.calendar,write_uid:0
+#: field:horario.calendar.attendance,write_uid:0
+#: field:horario.calendar.leaves,write_uid:0
+#: field:horario.horario,write_uid:0
+msgid "Last Updated by"
+msgstr "Naposled upraveno"
+
+#. module: horario
+#: field:horario.calendar,write_date:0
+#: field:horario.calendar.attendance,write_date:0
+#: field:horario.calendar.leaves,write_date:0
+#: field:horario.horario,write_date:0
+msgid "Last Updated on"
+msgstr "Naposled upraveno"
+
+#. module: horario
+#: model:ir.model,name:horario.model_horario_calendar_leaves
+#: view:horario.calendar.leaves:horario.horario_calendar_leave_form
+#: view:horario.calendar.leaves:horario.horario_calendar_leave_tree
+msgid "Leave Detail"
+msgstr "Podrobnosti uvolnění"
+
+#. module: horario
+#: view:horario.calendar.leaves:horario.view_horario_calendar_leaves_search
+msgid "Leave Month"
+msgstr "Volný měsíc"
+
+#. module: horario
+#: field:horario.calendar,leave_ids:0
+msgid "Leaves"
+msgstr "Uvolnění"
+
+#. module: horario
+#: code:addons/horario/horario.py:773
+#, python-format
+msgid "Make sure the Working time has been configured with proper week days!"
+msgstr "Ujistěte se, že pracovní doba byla nastavena se správnými dny v týdnu!"
+
+#. module: horario
+#: selection:horario.horario,horario_type:0
+msgid "Material"
+msgstr "Materiál"
+
+#. module: horario
+#: selection:horario.calendar.attendance,dayofweek:0
+msgid "Monday"
+msgstr "Pondělí"
+
+#. module: horario
+#: field:horario.calendar,name:0 field:horario.calendar.attendance,name:0
+#: field:horario.calendar.leaves,name:0 field:horario.horario,name:0
+msgid "Name"
+msgstr "Jméno"
+
+#. module: horario
+#: view:horario.calendar.leaves:horario.horario_calendar_leave_form
+#: view:horario.calendar.leaves:horario.horario_calendar_leave_tree
+#: view:horario.calendar.leaves:horario.view_horario_calendar_leaves_search
+msgid "Reason"
+msgstr "Důvod"
+
+#. module: horario
+#: help:horario.horario,user_id:0
+msgid "Related user name for the horario to manage its access."
+msgstr "Vztažené uživatelské jméno pro zdroj ke spravování jeho přístupu."
+
+#. module: horario
+#: model:ir.ui.menu,name:horario.menu_horario_config
+#: view:horario.calendar.leaves:horario.view_horario_calendar
+#: view:horario.calendar.leaves:horario.view_horario_calendar_leaves_search
+#: field:horario.calendar.leaves,horario_id:0
+#: view:horario.horario:horario.horario_horario_form
+#: view:horario.horario:horario.view_horario_horario_search
+msgid "horario"
+msgstr "Zdroj"
+
+#. module: horario
+#: model:ir.model,name:horario.model_horario_calendar
+msgid "horario Calendar"
+msgstr "Kalendář zdrojů"
+
+#. module: horario
+#: model:ir.model,name:horario.model_horario_horario
+msgid "horario Detail"
+msgstr "Podrobnosti zdroje"
+
+#. module: horario
+#: model:ir.actions.act_window,name:horario.action_horario_calendar_leave_tree
+#: model:ir.ui.menu,name:horario.menu_view_horario_calendar_leaves_search
+msgid "horario Leaves"
+msgstr "Uvolnění zdrojů"
+
+#. module: horario
+#: field:horario.horario,horario_type:0
+msgid "horario Type"
+msgstr "Typ zdroje"
+
+#. module: horario
+#: field:horario.calendar.attendance,calendar_id:0
+msgid "horario's Calendar"
+msgstr "Kalendář zdroje"
+
+#. module: horario
+#: model:ir.actions.act_window,name:horario.action_horario_horario_tree
+#: model:ir.ui.menu,name:horario.menu_horario_horario
+#: view:horario.horario:horario.horario_horario_tree
+msgid "horarios"
+msgstr "Zdroje"
+
+#. module: horario
+#: model:ir.actions.act_window,name:horario.horario_calendar_horarios_leaves
+msgid "horarios Leaves"
+msgstr "Uvolnění zdrojů"
+
+#. module: horario
+#: model:ir.actions.act_window,help:horario.action_horario_horario_tree
+msgid ""
+"horarios allow you to create and manage horarios that should be involved "
+"in a specific project phase. You can also set their efficiency level and "
+"workload based on their weekly working hours."
+msgstr "Zdroje umožňují vytvořit a spravovat zdroje, které by měly být zapojené v určitých fázích projektu. Můžete také nastavit jejich úroveň účinnosti a základní zatížení na jejich týdeních pracovních hodinách."
+
+#. module: horario
+#: selection:horario.calendar.attendance,dayofweek:0
+msgid "Saturday"
+msgstr "Sobota"
+
+#. module: horario
+#: view:horario.horario:horario.view_horario_horario_search
+msgid "Search horario"
+msgstr "Vyhledat zdroj"
+
+#. module: horario
+#: view:horario.calendar.leaves:horario.view_horario_calendar_leaves_search
+msgid "Search Working Period Leaves"
+msgstr "Hledat uvolnění pracovní doby"
+
+#. module: horario
+#: view:horario.calendar:horario.view_horario_calendar_search
+msgid "Search Working Time"
+msgstr "Hledat pracovní dobu"
+
+#. module: horario
+#: field:horario.calendar.leaves,date_from:0
+msgid "Start Date"
+msgstr "Počáteční datum"
+
+#. module: horario
+#: help:horario.calendar.attendance,hour_from:0
+msgid "Start and End time of working."
+msgstr "Začátek a konec pracovní doby."
+
+#. module: horario
+#: field:horario.calendar.attendance,date_from:0
+msgid "Starting Date"
+msgstr "Počáteční datum"
+
+#. module: horario
+#: view:horario.calendar.leaves:horario.view_horario_calendar_leaves_search
+msgid "Starting Date of Leave by Month"
+msgstr "Začátek dovolené podle měsíce"
+
+#. module: horario
+#: selection:horario.calendar.attendance,dayofweek:0
+msgid "Sunday"
+msgstr "Neděle"
+
+#. module: horario
+#: help:horario.horario,time_efficiency:0
+msgid ""
+"This field depict the efficiency of the horario to complete tasks. e.g  "
+"horario put alone on a phase of 5 days with 5 tasks assigned to him, will "
+"show a load of 100% for this phase by default, but if we put a efficiency of"
+" 200%, then his load will only be 50%."
+msgstr "Toto pole zobrazuje účinnost zdroje při plnění úkolů. Např. zdroj sám byl na fázi 5 dní s 5 úkoly, které mu ukáží zatížení 100% pro tuto fázi ve výchozím nastavení, ale pokud dáme účinnost 200%, pak jeho zatížení bude pouze 50%."
+
+#. module: horario
+#: selection:horario.calendar.attendance,dayofweek:0
+msgid "Thursday"
+msgstr "Čtvrtek"
+
+#. module: horario
+#: selection:horario.calendar.attendance,dayofweek:0
+msgid "Tuesday"
+msgstr "Úterý"
+
+#. module: horario
+#: view:horario.horario:horario.view_horario_horario_search
+msgid "Type"
+msgstr "Typ"
+
+#. module: horario
+#: view:horario.horario:horario.view_horario_horario_search
+#: field:horario.horario,user_id:0
+msgid "User"
+msgstr "Uživatel"
+
+#. module: horario
+#: selection:horario.calendar.attendance,dayofweek:0
+msgid "Wednesday"
+msgstr "Středa"
+
+#. module: horario
+#: model:ir.model,name:horario.model_horario_calendar_attendance
+msgid "Work Detail"
+msgstr "Podrobnosti práce"
+
+#. module: horario
+#: field:horario.calendar.attendance,hour_from:0
+msgid "Work from"
+msgstr "Pracovat od"
+
+#. module: horario
+#: field:horario.calendar.attendance,hour_to:0
+msgid "Work to"
+msgstr "Pracovat po"
+
+#. module: horario
+#: field:horario.calendar,manager:0
+msgid "Workgroup Manager"
+msgstr "Vedoucí pracovní skupiny"
+
+#. module: horario
+#: view:horario.calendar.leaves:horario.view_horario_calendar_leaves_search
+#: view:horario.horario:horario.view_horario_horario_search
+msgid "Working Period"
+msgstr "Pracovní období"
+
+#. module: horario
+#: model:ir.actions.act_window,name:horario.action_horario_calendar_form
+#: model:ir.ui.menu,name:horario.menu_horario_calendar
+#: view:horario.calendar:horario.horario_calendar_form
+#: view:horario.calendar:horario.view_horario_calendar_search
+#: view:horario.calendar:horario.view_horario_calendar_tree
+#: field:horario.calendar,attendance_ids:0
+#: view:horario.calendar.attendance:horario.view_horario_calendar_attendance_form
+#: view:horario.calendar.attendance:horario.view_horario_calendar_attendance_tree
+#: field:horario.calendar.leaves,calendar_id:0
+#: field:horario.horario,calendar_id:0
+msgid "Working Time"
+msgstr "Pracovní doba"

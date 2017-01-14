@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    
+    
+		<template id="crear_producto" name="Crear Producto" page="True">
+			<t t-call="website.layout">
+				<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale">
+					<div class="page-title">
+			      		<div class="container">
+							<div class="oe_structure"/>
+						    <h1 t-if="prod">Editar Producto</h1>
+						    <h1 t-if="not prod">Nuevo Producto</h1>
+						</div>
+				    </div>
+				
+					<section t-attf-class="container mt8" id="crear_producto_container">
+				         <div class="row" style="margin-bottom:2em;">
+								<form method="POST" action="/_crear_editar_producto" enctype="multipart/form-data">
+									<input type="hidden" t-att-value="((prod) and prod.id) or ''" name="prod_id" />
+									<div class="col-xs-12 col-md-4">
+									 	<div class="form-group">
+										    <label for="name">Nombre Producto</label>
+										    <input type="text" t-att-value="((prod) and prod.name) or ''" class="form-control" id="name" name="name" placeholder="Nombre" required="required"/>
+										</div>
+									 	<div class="form-group">
+										    <label for="type">Tipo</label>
+						         			<select class="form-control" id="type" name="type" required="required">
+						         				<option value="">Tipo...</option>
+						         				<option value="otro" t-att-selected="(prod and not prod.tipo_producto) and 'selected'">Otro</option>
+						         				<option value="vino" t-att-selected="(prod and prod.tipo_producto=='vino') and 'selected'">Vino</option>
+						         				<option value="vinagre" t-att-selected="(prod and prod.tipo_producto=='vinagre') and 'selected'">Vinagre</option>
+						         			</select>
+						         		</div>
+									 	<div class="form-group">
+										    <label for="image">Imágen</label>
+										    <input id="image" type="file" name="image" accept="image/*" t-att-required="(not prod) and 'required'" />
+										</div>
+										<div class="input-group">
+											<span class="input-group-addon" id="basic-addon1"><i class="fa fa-euro"></i></span>
+											<input type="number" t-att-value="((prod) and prod.list_price) or ''" step="0.01" id="price" name="price" class="form-control" value="1.00" required="required" aria-describedby="basic-addon1"/>
+										</div>
+									 	<div class="form-group">
+										    <input id="vender" type="checkbox" name="vender" t-att-required="required" t-att-checked="(prod and prod.sale_ok) and 'checked'" /> <span>Poner a la venta en la tienda</span>
+										</div>
+									</div>
+									<div class="col-xs-12 col-md-4" id="panel-middle" style="display:none">
+										<div class="form-group">
+										    <label for="image">Tipo</label>
+										    <input type="text" id="subtipo" t-att-value="((prod and prod.tipo_producto == 'vino') and prod.tipovino.nombre) or ((prod and prod.tipo_producto == 'vinagre') and prod.tipovinagre.nombre) or ''" name="subtipo" class="form-control" required="required"/>
+										</div>
+										<div class="form-group">
+										    <label for="image">Uva</label>
+										    <input type="text" t-att-value="((prod) and prod.uva.nombre) or ''" id="uva" name="uva" class="form-control"/>
+										</div>
+										<div class="form-group">
+										    <label for="image">Añada</label>
+										    <input type="number" t-att-value="((prod) and prod.anho) or ''" id="anhada" name="anhada" class="form-control"/>
+										</div>
+										<div class="form-group">
+										    <label for="image">Bodega</label>
+										    <select name="bodega" id="bodega" class="form-control">
+						                        <option value="">Bodega...</option>
+						                        <t t-foreach="bodegas or []" t-as="bodega">
+						                            <option t-att-value="bodega.id" t-att-selected="(prod and prod.establecimiento_id.id == bodega.id) and 'selected'"><t t-esc="bodega.name"/></option>
+						                        </t>
+						                    </select>
+										</div>
+										<div class="form-group">
+										    <label for="image">Premios</label>
+										    <t t-if="prod">
+										    	<input t-field="prod.premios" id="premios" name="premios" class="form-control"/>
+										    </t>
+										    <t t-if="not prod">
+										    	<input t-fieldtype="text"  id="premios" name="premios" class="form-control"/>
+											</t>
+										</div>
+									</div>
+									<div class="col-xs-12 col-md-8" id="panel-right">
+									 	<div class="form-group">
+										    <label for="desc">Descripción</label>
+										    <textarea rows="8" id="desc" name="desc" class="form-control" required="required"><t t-esc="((prod) and prod.description) or ''"/></textarea>
+										</div>
+									</div>
+									<div class="col-xs-12 col-md-12 text-right">
+									 	<button t-if="prod" type="submit" class="btn btn-primary">Guardar Cambios</button>
+									 	<button t-if="not prod" type="submit" class="btn btn-primary">Crear Producto</button>
+									</div>
+								</form>
+							</div>
+					</section>
+				</div>
+			</t>
+		</template>
+		
+    </data>
+</openerp>

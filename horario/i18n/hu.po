@@ -1,0 +1,405 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * horario
+# 
+# Translators:
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-21 14:08+0000\n"
+"PO-Revision-Date: 2015-07-17 07:59+0000\n"
+"Last-Translator: Martin Trigaux\n"
+"Language-Team: Hungarian (http://www.transifex.com/odoo/odoo-8/language/hu/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: horario
+#: code:addons/horario/horario.py:685
+#, python-format
+msgid "%s (copy)"
+msgstr "%s (másolat)"
+
+#. module: horario
+#: code:addons/horario/faces/horario.py:340
+#, python-format
+msgid "(vacation)"
+msgstr "(szabadság)"
+
+#. module: horario
+#: model:ir.actions.act_window,help:horario.action_horario_calendar_form
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Define working hours and time table that could be scheduled to your project members\n"
+"              </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n                Határozzon meg munka órát és időtáblát melyek a projektje résztvevőknek az ütemterve lesz\n              </p>\n            "
+
+#. module: horario
+#: field:horario.horario,active:0
+msgid "Active"
+msgstr "Aktív"
+
+#. module: horario
+#: model:ir.actions.act_window,name:horario.horario_calendar_closing_days
+msgid "Closing Days"
+msgstr "Closing Days"
+
+#. module: horario
+#: field:horario.horario,code:0
+msgid "Code"
+msgstr "Kód"
+
+#. module: horario
+#: field:horario.calendar,company_id:0
+#: view:horario.calendar.leaves:horario.view_horario_calendar_leaves_search
+#: field:horario.calendar.leaves,company_id:0
+#: view:horario.horario:horario.view_horario_horario_search
+#: field:horario.horario,company_id:0
+msgid "Company"
+msgstr "Vállalat"
+
+#. module: horario
+#: code:addons/horario/horario.py:773
+#, python-format
+msgid "Configuration Error!"
+msgstr "Beállítási hiba!"
+
+#. module: horario
+#: field:horario.calendar,create_uid:0
+#: field:horario.calendar.attendance,create_uid:0
+#: field:horario.calendar.leaves,create_uid:0
+#: field:horario.horario,create_uid:0
+msgid "Created by"
+msgstr "Készítette"
+
+#. module: horario
+#: field:horario.calendar,create_date:0
+#: field:horario.calendar.attendance,create_date:0
+#: field:horario.calendar.leaves,create_date:0
+#: field:horario.horario,create_date:0
+msgid "Created on"
+msgstr "Létrehozás dátuma"
+
+#. module: horario
+#: field:horario.calendar.attendance,dayofweek:0
+msgid "Day of Week"
+msgstr "A hét napja"
+
+#. module: horario
+#: help:horario.horario,calendar_id:0
+msgid "Define the schedule of horario"
+msgstr "Az erőforrás ütemezésének a meghatározása."
+
+#. module: horario
+#: view:horario.calendar.leaves:horario.horario_calendar_leave_form
+msgid "Duration"
+msgstr "Időtartam"
+
+#. module: horario
+#: field:horario.horario,time_efficiency:0
+msgid "Efficiency Factor"
+msgstr "Hatékonysági tényező"
+
+#. module: horario
+#: field:horario.calendar.leaves,date_to:0
+msgid "End Date"
+msgstr "Befejezési dátum"
+
+#. module: horario
+#: constraint:horario.calendar.leaves:0
+msgid "Error! leave start-date must be lower then leave end-date."
+msgstr "Hiba! Az erőforrás-szabadság kezdő időpontjának előbb kell lennie, mint a záró időpontjának."
+
+#. module: horario
+#: selection:horario.calendar.attendance,dayofweek:0
+msgid "Friday"
+msgstr "Péntek"
+
+#. module: horario
+#: view:horario.calendar.leaves:horario.view_horario_calendar_leaves_search
+#: view:horario.horario:horario.view_horario_horario_search
+msgid "Group By"
+msgstr "Csoportosítás"
+
+#. module: horario
+#: view:horario.calendar.attendance:horario.view_horario_calendar_attendance_form
+msgid "Hours"
+msgstr "Órák"
+
+#. module: horario
+#: selection:horario.horario,horario_type:0
+msgid "Human"
+msgstr "Ember"
+
+#. module: horario
+#: field:horario.calendar,id:0 field:horario.calendar.attendance,id:0
+#: field:horario.calendar.leaves,id:0 field:horario.horario,id:0
+msgid "ID"
+msgstr "Azonosító ID"
+
+#. module: horario
+#: help:horario.calendar.leaves,horario_id:0
+msgid ""
+"If empty, this is a generic holiday for the company. If a horario is set, "
+"the holiday/leave is only for this horario"
+msgstr "Amennyiben üresen hagyja ezt a mezőt, akkor ez egy munkaszüneti nap lesz az egész vállalat számára. Ha az erőforrás be van állítva, a munkaszüneti nap/erőforrás-szabadság csak erre az erőforrásra vonatkozik."
+
+#. module: horario
+#: help:horario.horario,active:0
+msgid ""
+"If the active field is set to False, it will allow you to hide the horario "
+"record without removing it."
+msgstr "Ha az aktív mező hamisra van állítva, akkor elrejtheti az erőforrást, anélkül, hogy törölné azt."
+
+#. module: horario
+#: view:horario.horario:horario.view_horario_horario_search
+msgid "Inactive"
+msgstr "Inaktív"
+
+#. module: horario
+#: field:horario.calendar,write_uid:0
+#: field:horario.calendar.attendance,write_uid:0
+#: field:horario.calendar.leaves,write_uid:0
+#: field:horario.horario,write_uid:0
+msgid "Last Updated by"
+msgstr "Utoljára frissítette"
+
+#. module: horario
+#: field:horario.calendar,write_date:0
+#: field:horario.calendar.attendance,write_date:0
+#: field:horario.calendar.leaves,write_date:0
+#: field:horario.horario,write_date:0
+msgid "Last Updated on"
+msgstr "Utoljára frissítve ekkor"
+
+#. module: horario
+#: model:ir.model,name:horario.model_horario_calendar_leaves
+#: view:horario.calendar.leaves:horario.horario_calendar_leave_form
+#: view:horario.calendar.leaves:horario.horario_calendar_leave_tree
+msgid "Leave Detail"
+msgstr "Erőforrás-szabadság részletei"
+
+#. module: horario
+#: view:horario.calendar.leaves:horario.view_horario_calendar_leaves_search
+msgid "Leave Month"
+msgstr "Távollét hónapja"
+
+#. module: horario
+#: field:horario.calendar,leave_ids:0
+msgid "Leaves"
+msgstr "Távollétek"
+
+#. module: horario
+#: code:addons/horario/horario.py:773
+#, python-format
+msgid "Make sure the Working time has been configured with proper week days!"
+msgstr "Győződjön meg róla, hogy a munkaidő megfelelő munka napokkal lett beállítva!"
+
+#. module: horario
+#: selection:horario.horario,horario_type:0
+msgid "Material"
+msgstr "Anyag"
+
+#. module: horario
+#: selection:horario.calendar.attendance,dayofweek:0
+msgid "Monday"
+msgstr "Hétfő"
+
+#. module: horario
+#: field:horario.calendar,name:0 field:horario.calendar.attendance,name:0
+#: field:horario.calendar.leaves,name:0 field:horario.horario,name:0
+msgid "Name"
+msgstr "Név"
+
+#. module: horario
+#: view:horario.calendar.leaves:horario.horario_calendar_leave_form
+#: view:horario.calendar.leaves:horario.horario_calendar_leave_tree
+#: view:horario.calendar.leaves:horario.view_horario_calendar_leaves_search
+msgid "Reason"
+msgstr "Ok"
+
+#. module: horario
+#: help:horario.horario,user_id:0
+msgid "Related user name for the horario to manage its access."
+msgstr "Az erőforráshoz kapcsolódó felhasználó neve, aki kezeli a hozzáférést az erőforráshoz."
+
+#. module: horario
+#: model:ir.ui.menu,name:horario.menu_horario_config
+#: view:horario.calendar.leaves:horario.view_horario_calendar
+#: view:horario.calendar.leaves:horario.view_horario_calendar_leaves_search
+#: field:horario.calendar.leaves,horario_id:0
+#: view:horario.horario:horario.horario_horario_form
+#: view:horario.horario:horario.view_horario_horario_search
+msgid "horario"
+msgstr "Erőforrás"
+
+#. module: horario
+#: model:ir.model,name:horario.model_horario_calendar
+msgid "horario Calendar"
+msgstr "Erőforrás naptár"
+
+#. module: horario
+#: model:ir.model,name:horario.model_horario_horario
+msgid "horario Detail"
+msgstr "Erőforrás részletei"
+
+#. module: horario
+#: model:ir.actions.act_window,name:horario.action_horario_calendar_leave_tree
+#: model:ir.ui.menu,name:horario.menu_view_horario_calendar_leaves_search
+msgid "horario Leaves"
+msgstr "Erőforrás-szabadság"
+
+#. module: horario
+#: field:horario.horario,horario_type:0
+msgid "horario Type"
+msgstr "Erőforrás típus"
+
+#. module: horario
+#: field:horario.calendar.attendance,calendar_id:0
+msgid "horario's Calendar"
+msgstr "Erőforrás naptára"
+
+#. module: horario
+#: model:ir.actions.act_window,name:horario.action_horario_horario_tree
+#: model:ir.ui.menu,name:horario.menu_horario_horario
+#: view:horario.horario:horario.horario_horario_tree
+msgid "horarios"
+msgstr "Erőforrások"
+
+#. module: horario
+#: model:ir.actions.act_window,name:horario.horario_calendar_horarios_leaves
+msgid "horarios Leaves"
+msgstr "Erőforrások szabadsága"
+
+#. module: horario
+#: model:ir.actions.act_window,help:horario.action_horario_horario_tree
+msgid ""
+"horarios allow you to create and manage horarios that should be involved "
+"in a specific project phase. You can also set their efficiency level and "
+"workload based on their weekly working hours."
+msgstr "Az erőforrások modul lehetővé teszi Önnek, hogy létrehozza és kezelje azokat az erőforrásokat, amelyeket be szeretne vonni egy speciális projekt fázisaiba. Beállíthatja az erőforrások hatékonysági fokát és munkaterheltségét azok heti munkaórái alapján."
+
+#. module: horario
+#: selection:horario.calendar.attendance,dayofweek:0
+msgid "Saturday"
+msgstr "Szombat"
+
+#. module: horario
+#: view:horario.horario:horario.view_horario_horario_search
+msgid "Search horario"
+msgstr "Erőforrás keresése"
+
+#. module: horario
+#: view:horario.calendar.leaves:horario.view_horario_calendar_leaves_search
+msgid "Search Working Period Leaves"
+msgstr "Munkaidőszaki erőforrás-szabadság keresése"
+
+#. module: horario
+#: view:horario.calendar:horario.view_horario_calendar_search
+msgid "Search Working Time"
+msgstr "Munkaidő keresése"
+
+#. module: horario
+#: field:horario.calendar.leaves,date_from:0
+msgid "Start Date"
+msgstr "Kezdő dátum"
+
+#. module: horario
+#: help:horario.calendar.attendance,hour_from:0
+msgid "Start and End time of working."
+msgstr "A munka megkezdésének és befejezésének ideje."
+
+#. module: horario
+#: field:horario.calendar.attendance,date_from:0
+msgid "Starting Date"
+msgstr "Kezdési dátum"
+
+#. module: horario
+#: view:horario.calendar.leaves:horario.view_horario_calendar_leaves_search
+msgid "Starting Date of Leave by Month"
+msgstr "Távollétek kezdő dátuma havi lebontásban"
+
+#. module: horario
+#: selection:horario.calendar.attendance,dayofweek:0
+msgid "Sunday"
+msgstr "Vasárnap"
+
+#. module: horario
+#: help:horario.horario,time_efficiency:0
+msgid ""
+"This field depict the efficiency of the horario to complete tasks. e.g  "
+"horario put alone on a phase of 5 days with 5 tasks assigned to him, will "
+"show a load of 100% for this phase by default, but if we put a efficiency of"
+" 200%, then his load will only be 50%."
+msgstr "Ez a mező ábrázolja a kutatás hatékonyságát a teljes feladaton. pl. egyedül végrehajtott kutatási 5 napos fázis 5 tárgyban kiosztva neki, ez a 100% terhelés erre a fázisra alap értelmezve, de ha a hatékonyságot 200% tesszük akkor ez a terhelés \"csak\" 50%."
+
+#. module: horario
+#: selection:horario.calendar.attendance,dayofweek:0
+msgid "Thursday"
+msgstr "Csütörtök"
+
+#. module: horario
+#: selection:horario.calendar.attendance,dayofweek:0
+msgid "Tuesday"
+msgstr "Kedd"
+
+#. module: horario
+#: view:horario.horario:horario.view_horario_horario_search
+msgid "Type"
+msgstr "Típus"
+
+#. module: horario
+#: view:horario.horario:horario.view_horario_horario_search
+#: field:horario.horario,user_id:0
+msgid "User"
+msgstr "Felhasználó"
+
+#. module: horario
+#: selection:horario.calendar.attendance,dayofweek:0
+msgid "Wednesday"
+msgstr "Szerda"
+
+#. module: horario
+#: model:ir.model,name:horario.model_horario_calendar_attendance
+msgid "Work Detail"
+msgstr "Munka részletei"
+
+#. module: horario
+#: field:horario.calendar.attendance,hour_from:0
+msgid "Work from"
+msgstr "Dolgozik"
+
+#. module: horario
+#: field:horario.calendar.attendance,hour_to:0
+msgid "Work to"
+msgstr "Dolgozik"
+
+#. module: horario
+#: field:horario.calendar,manager:0
+msgid "Workgroup Manager"
+msgstr "Munkacsoport menedzser"
+
+#. module: horario
+#: view:horario.calendar.leaves:horario.view_horario_calendar_leaves_search
+#: view:horario.horario:horario.view_horario_horario_search
+msgid "Working Period"
+msgstr "Munkaidőszak"
+
+#. module: horario
+#: model:ir.actions.act_window,name:horario.action_horario_calendar_form
+#: model:ir.ui.menu,name:horario.menu_horario_calendar
+#: view:horario.calendar:horario.horario_calendar_form
+#: view:horario.calendar:horario.view_horario_calendar_search
+#: view:horario.calendar:horario.view_horario_calendar_tree
+#: field:horario.calendar,attendance_ids:0
+#: view:horario.calendar.attendance:horario.view_horario_calendar_attendance_form
+#: view:horario.calendar.attendance:horario.view_horario_calendar_attendance_tree
+#: field:horario.calendar.leaves,calendar_id:0
+#: field:horario.horario,calendar_id:0
+msgid "Working Time"
+msgstr "Munkaidő"

@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
-
-import controllers
-import website
+from . import controllers
+from . import models
+from . import website
