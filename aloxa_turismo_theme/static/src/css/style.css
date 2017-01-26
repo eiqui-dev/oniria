@@ -434,3 +434,8 @@ a.list-group-item {
 .panel-yellow a:hover {
     color: #df8a13;
 }
+
+.img-crop {
+	height: 800px !important;
+	object-fit: cover !important;
+}

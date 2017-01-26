@@ -9,9 +9,9 @@
 					
 					<t t-set="bins" t-value="website.get_banners_portada()"/>
 					<t t-set="rows" t-value="4"/>
-					<div class="container" id="banners_grid">
+					<div id="banners_grid">
 			            <div class="col-md-12">
-			              <table width="100%">
+			              <table width="100%" class="hidden-xs">
 			                <tbody>
 			                  <tr t-ignore="true">
 			                    <td t-foreach="range(0,rows)" t-as="row" t-attf-width="#{100/rows}%"></td>
@@ -23,9 +23,9 @@
 				                      <td t-att-colspan="td_banner['x'] != 1 and td_banner['x']"
 				                          t-att-rowspan="td_banner['y'] != 1 and td_banner['y']"
 				                          t-attf-class="oe_product oe_grid oe_product_borderless oe-height-#{td_banner['y']*2} #{ td_banner['class'] }">
-											<a itemprop="url" t-att-href="website.sanitize_url(banner.url)">
-												<div t-attf-class="oe_product_image">
-													<span t-field="banner.imagen" t-field-options='{"widget": "image", "class": "img img-responsive"}' />
+											<a itemprop="url" t-att-href="website.sanitize_url(banner.url)" target="_blank">
+												<div class="oe_product_image">
+													<span t-field="banner.imagen" t-field-options='{"widget": "image", "class": "img-crop"}' />
 												</div>
 											</a>
 				                      </td>
@@ -34,15 +34,31 @@
 			                    </t>
 			                  </tr>
 			                </tbody>
-			              </table>
-			              <t t-if="not bins">
-			                <div class="text-center text-muted">
-			                  <h3 class="css_editable_display">Ningún banner definido.</h3>
-			                  <t groups="base.group_website_publisher">
-			                    <p groups="base.group_sale_manager">- Añadelos desde el panel de productos de Odoo -</p>
-			                  </t>
-			                </div>
-			              </t>
+						</table>
+			           	<div class="visible-xs">
+							<t t-foreach="bins" t-as="tr_banner">
+			                	<t t-foreach="tr_banner" t-as="td_banner">
+			                    	<t t-if="td_banner">
+			                      		<t t-set="banner" t-value="td_banner['banner']" />
+			                      		<div class="col-md-12 text-center" style="margin-bottom: 0.5em;">
+											<a itemprop="url" t-att-href="website.sanitize_url(banner.url)" target="_blank">
+												<div class="oe_product_image">
+													<span t-field="banner.imagen" t-field-options='{"widget": "image", "class": "img-responsive img-crop"}' />
+												</div>
+											</a>
+			                      		</div>
+			                    	</t>
+			                  	</t>
+			           		</t>
+			            </div>
+			              	<t t-if="not bins">
+			                	<div class="text-center text-muted">
+			                 		<h3 class="css_editable_display">Ningún banner definido.</h3>
+			                  		<t groups="base.group_website_publisher">
+			                    		<p groups="base.group_sale_manager">- Añadelos desde el panel de productos de Odoo -</p>
+			                  		</t>
+			                	</div>
+			              	</t>
 			            </div>
 		            </div>
 				</t>

@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
+try:
+    import cStringIO as StringIO
+except ImportError:
+    import StringIO
 from openerp import models, fields, api, exceptions
 from openerp.addons.product import product as prodm
 from openerp.addons.mail import mail_thread
 from datetime import datetime
 from openerp.osv import osv
 from comun import crop_image
+from PIL import Image
 
 #import pydevd
 
@@ -109,6 +114,15 @@ class producto_contratado_cliente(models.Model):
             else:
                 record.image_thumb = False
                 
+    @api.one
+    @api.constrains('imagen')
+    def _check_imagen(self):
+        image_stream = StringIO.StringIO(self.imagen.decode('base64'))
+        image = Image.open(image_stream)
+        if int(image.size[0]) < 256 or int(image.size[1]) < 256:
+            raise exceptions.ValidationError("Image width & height need be bigger than 256 pixels")
+    
+                
     
     #fields
     partner_id = fields.Many2one('res.partner', 'Cliente', required=True)
@@ -212,7 +226,7 @@ class producto_turismo(models.Model):
     #fields
 
     servicio = fields.Boolean('Link')
-    link_size = fields.Selection([('S','S'),('M','M'),('L','L')], 'Tamaño del Link')
+    link_size = fields.Selection([('S','S'),('M','M')], 'Tamaño del Link')
     link_position = fields.Selection([('Portada','Portada'),('Directorio','Directorio')],
                                      'Ubicación del Link')    
     

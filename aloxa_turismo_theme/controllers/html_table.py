@@ -4,7 +4,7 @@ class table_compute(object):
     def __init__(self):
         self.table = {}
         self.IPR = 4  # Items Por Fila
-        self.cCRPB = { 's':[1,1], 'm':[2,2], 'l':[3,2] } # Columnas y Filas Por Banner
+        self.cCRPB = { 's':[1,1], 'm':[2,2] } # Columnas y Filas Por Banner
             
     def _get_banner_size(self, banner):
         opt = banner.product_id.link_size.lower() if banner.product_id.link_size else "s"
