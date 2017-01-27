@@ -62,6 +62,7 @@ class attrValueDirectorio:
 class website_aloxa_turismo(Website):
     def _get_banners_directorio(self, orderby, product_category=None, product_type=None, params=None):
         banners_directorio = []
+        request.session['search_records'] = False
         
         #pydevd.settrace("10.0.3.1")
         # Recoger los establecimientos
@@ -98,6 +99,7 @@ class website_aloxa_turismo(Website):
                 orderby_key = 'name'
 
             registros = request.env['turismo.establecimiento'].search(searchDomain).sorted(key=lambda r: r[orderby_key])
+            request.session['search_records'] = registros.mapped('id')
             for reg in registros:
                 tmp_banner = htmlBannerDirectorio()
                 tmp_banner.establecimiento = reg
@@ -139,6 +141,7 @@ class website_aloxa_turismo(Website):
                 orderby_key = 'name'
             
             productos_contratados = request.env['turismo.producto_contratado_cliente'].search(searchDomain).sorted(key=lambda r: r.product_tur_id[orderby_key])
+            request.session['search_records'] = productos_contratados.mapped('id')
             num_items = len(productos_contratados)
             for i in range(num_items):
                 tmp_banner = htmlBannerDirectorio()
@@ -990,15 +993,30 @@ class website_aloxa_turismo(Website):
         
     @http.route(['/establecimiento/<model("turismo.establecimiento"):establecimiento>'], 
                 type='http', auth="public", website=True)
-    def establecimiento(self, establecimiento):
+    def establecimiento(self, establecimiento, **params):
+        prev_est = False
+        next_est = False
+        sri = False
+        if request.session['search_records'] and params and 'sri' in params.keys():
+            sri = int(params['sri'])
+            if sri > 0:
+                prev_est = request.env['turismo.establecimiento'].browse([request.session['search_records'][sri-1]])
+            if sri < len(request.session['search_records'])-1:
+                next_est = request.env['turismo.establecimiento'].browse([request.session['search_records'][sri+1]])
+        
         events = request.env['event.event'].search([('website_published','=',True),
                                                     ('organizer_id','=',establecimiento.partner_id.id),
                                                     ('date_end','>',datetime.now().strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT))])
         products = request.env['product.template'].search([('website_published','=',True),
                                                            ('establecimiento_id','=',establecimiento.id)])
+        related_est = request.env['turismo.establecimiento'].search([('id', '!=', establecimiento.id),('res_partner_id', '=', establecimiento.res_partner_id.id)])
         values = {
+            'sri': sri,
+            'prev_est': prev_est,
+            'next_est': next_est,
             'establecimiento': establecimiento,
             'events': events,
+            'related': related_est,
             'products_table': table_compute().process_productos_establecimiento(products),
         }
         return request.website.render("aloxa_turismo_theme.establecimiento_details", values)
@@ -1079,9 +1097,11 @@ class website_aloxa_turismo(Website):
     
     
     ## JSON-RPC
-    @http.route(['/_set_directory_view/grid',
-                 '/_set_directory_view/list',
-                 '/_set_directory_view/map'], type='json', auth="public", website=True)
+    @http.route([
+                '/_set_directory_view/form',
+                '/_set_directory_view/grid',
+                '/_set_directory_view/list',
+                '/_set_directory_view/map'], type='json', auth="public", website=True)
     def set_directory_view(self):
         if request.httprequest.path.endswith('/grid'):
             request.session['directory_view'] = 'grid'
@@ -1089,6 +1109,11 @@ class website_aloxa_turismo(Website):
             request.session['directory_view'] = 'list'
         elif request.httprequest.path.endswith('/map'):
             request.session['directory_view'] = 'map'
+        elif request.httprequest.path.endswith('/form'):
+            #request.session['directory_view'] = 'form'
+            if request.session['search_records']:
+                est_id = request.env['turismo.establecimiento'].browse([request.session['search_records'][0]])
+                return {'slug':slug(est_id)}
         return []
 
     ## JSON-RPC

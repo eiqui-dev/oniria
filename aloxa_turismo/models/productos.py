@@ -122,7 +122,6 @@ class producto_contratado_cliente(models.Model):
         if int(image.size[0]) < 256 or int(image.size[1]) < 256:
             raise exceptions.ValidationError("Image width & height need be bigger than 256 pixels")
     
-                
     
     #fields
     partner_id = fields.Many2one('res.partner', 'Cliente', required=True)

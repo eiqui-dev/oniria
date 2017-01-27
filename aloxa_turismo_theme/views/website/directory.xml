@@ -10,7 +10,7 @@
 					<div class="container">
 						<div class="row">
 							<div class="hidden" id="products_grid_before"></div>
-				            <div class="col-md-7" id="directory_grid">
+				            <div class="col-md-8" id="directory_grid">
 				            	<!-- OPCION ORDENAR POR CAMPO Y BOTONES DE VISTAS -->
 								<div class="col-md-12" id="directory-toolbar">
 									<span>
@@ -31,9 +31,10 @@
 								          	</ul>
 							          	</span>
 							          	<span class="btn-group" role="group" style="margin-left:1.5em;">
-							          		<button id="view-grid" type="button" t-att-class="'btn btn-sm btn-default' + ('active' if request.session['directory_view']=='grid' else '')"><i class="fa fa-th"></i></button>
-							          		<button id="view-list" type="button" t-att-class="'btn btn-sm btn-default' + ('active' if request.session['directory_view']=='list' else '')"><i class="fa fa-list"></i></button>
-							          		<button t-if="category_type == 'establecimiento'" id="view-map" type="button" t-att-class="'btn btn-sm btn-default' + ('active' if request.session['directory_view']=='map' else '')"><i class="fa fa-globe"></i></button>
+							          		<button title="Vista Formulario" id="view-form" type="button" t-att-class="'btn btn-sm btn-default' + ('active' if request.session['directory_view']=='form' else '')"><i class="fa fa-file-text-o"></i></button>
+							          		<button title="Vista Rejilla" id="view-grid" type="button" t-att-class="'btn btn-sm btn-default' + ('active' if request.session['directory_view']=='grid' else '')"><i class="fa fa-th"></i></button>
+							          		<button title="Vista Lista" id="view-list" type="button" t-att-class="'btn btn-sm btn-default' + ('active' if request.session['directory_view']=='list' else '')"><i class="fa fa-list"></i></button>
+							          		<button title="Vista Mapa" t-if="category_type == 'establecimiento'" id="view-map" type="button" t-att-class="'btn btn-sm btn-default' + ('active' if request.session['directory_view']=='map' else '')"><i class="fa fa-globe"></i></button>
 							          	</span>
 							    	</span>
 								</div>
@@ -155,7 +156,7 @@
 														<div class="col-md-4 product-img">
 															<t t-if="establecimiento">
 																<a class="product-image" title="" t-attf-href="/establecimiento/#{ slug(establecimiento) }">
-																	<span t-field="establecimiento.image_thumb" t-field-options='{"widget": "image", "class": "img img-responsive"}' />
+																	<span t-field="establecimiento.image_thumb" t-field-options='{"widget": "image", "class": ""}' />
 																</a>
 															</t>
 															<t t-if="producto_contratado">
@@ -163,13 +164,13 @@
 																	<t t-set="product_type" t-value='producto_contratado.product_tur_id.tipo_producto' />
 																	
 																	<a class="product-image" title="" t-attf-href="/shop/product/#{ slug(producto_contratado.product_tur_id) }">
-																		<span t-field="producto_contratado.image_thumb" t-field-options='{"widget": "image", "class": "img img-responsive"}' />
+																		<span t-field="producto_contratado.image_thumb" t-field-options='{"widget": "image", "class": ""}' />
 																	</a>
 																</t>
 																<t t-if="not producto_contratado.product_tur_id">
 																	<a itemprop="url" t-att-href="website.sanitize_url(producto_contratado.url)">
 																		<div t-attf-class="oe_product_image">
-																			<span t-field="producto_contratado.image_thumb" t-field-options='{"widget": "image", "class": "img img-responsive"}' />
+																			<span t-field="producto_contratado.image_thumb" t-field-options='{"widget": "image", "class": ""}' />
 																		</div>
 																	</a>
 																</t>
@@ -319,7 +320,7 @@
 	        				<div class="accordion-group">
 		                        <div class="accordion-heading">
 		                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" t-att-href="'#collapse-%s' % attr.name">
-		                                <i t-att-class="'fa %s' % attr.icon"></i> <t t-esc="attr.label" />
+		                            	<t t-esc="attr.label" />
 		                            </a>
 		                        </div>
 		                        <div t-att-id="'collapse-%s' % attr.name" t-att-class="'accordion-body collapse %s' % ('in' if attr.open else '')" t-att-style="'%s' % ('height: 0px;' if not attr.open else '')">
@@ -341,10 +342,10 @@
 				</form>
 			</xpath>
 			<xpath expr="//div[@id='products_grid_before']" position="attributes">
-				<attribute name="class">col-md-3</attribute>
+				<attribute name="class">col-md-2</attribute>
 			</xpath>
 			<xpath expr="//div[@id='directory_grid']" position="attributes">
-				<attribute name="class">col-md-7</attribute>
+				<attribute name="class">col-md-8</attribute>
 			</xpath>
 		</template>
 		<!-- FIN PAFINA DIRECTORIO: FILTROS -->

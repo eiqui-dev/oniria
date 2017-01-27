@@ -6,6 +6,15 @@ openerp.website.if_dom_contains('.menu-orderby', function(){
 		$("#form-filters").submit();
 	});
 	
+	$(document).on('click','#view-form', function(e){
+		openerp.jsonRpc('/_set_directory_view/form', 'call', '').then(function(data){
+			if (!data['error'])
+			{
+				window.location.href = '/establecimiento/'+data['slug']+'?sri=0';
+			}
+		});
+	});
+	
 	$(document).on('click','#view-grid', function(e){
 		openerp.jsonRpc('/_set_directory_view/grid', 'call', '').then(function(data){
 			if (!data['error'])
@@ -36,7 +45,7 @@ openerp.website.if_dom_contains('.menu-orderby', function(){
 openerp.website.if_dom_contains('.open-map-image', function(){
 	$(document).on('click','.open-map-image',function(ev){
 		var address = $(this).data('address');
-		$("#map-viewer img").attr("src", get_google_map_image_url(address, 765, 388, address, 16));
+		$("#map-viewer img").attr("src", get_google_map_image_url(address, 565, 388, address, 16));
 		ev.preventDefault();
 	});
 });
@@ -310,10 +319,10 @@ function readURL(input)
     }
 }
 
+
 /** DETALLE ESTABLECIMIENTO **/
 function initializeGMapsEstablecimiento(lat, long, address) {
-    var $mapHeaderCanvas = $('#map-header');
-    var $mapCanvas = $('#map');
+    var $mapCanvas = $('#map_est');
     var sitePos = new google.maps.LatLng(lat, long);
     var mapOptions = {
     	center: sitePos,
@@ -326,50 +335,13 @@ function initializeGMapsEstablecimiento(lat, long, address) {
 	      position: google.maps.ControlPosition.BOTTOM_LEFT
 	    }
     }
-    var mapHeader = new google.maps.Map($mapHeaderCanvas[0], mapOptions);
 	var map = new google.maps.Map($mapCanvas[0], mapOptions);
-	
-	/*var widgetDiv = document.getElementById('save-widget');
-		map.controls[google.maps.ControlPosition.TOP_LEFT].push(widgetDiv);
-		
-		var saveWidget = new google.maps.SaveWidget(widgetDiv, {
-	    place: {
-	      // ChIJN1t_tDeuEmsRUsoyG83frY4 is the place Id for Google Sydney.
-	      placeId: 'ChIJN1t_tDeuEmsRUsoyG83frY4',
-	      location: sitePos
-	    },
-	    attribution: {
-	      source: 'Google Maps JavaScript API',
-	      webUrl: 'https://developers.google.com/maps/'
-	    }
-	});*/
-	
-	/*var contentString = '<div id="content">'+
-					    '<div id="siteNotice">test'+
-		       		    '</div>'+
-					    '<div id="bodyContent">'+
-						'<table class="col-xs-12 col-sm-12 col-md-12 col-lg-12">'+
-						'<tr><td style="width:16px"><div class="icon"><span class="icon fa fa-institution"></span></div></td><td><b>Dirección:</b> <t t-esc="establecimiento.get_composed_address(', ')" /></td></tr>'+
-						'<tr><td style="width:16px"><div class="icon"><span class="icon fa fa-clock-o"></span></div></td><td><b>Horario:</b> <t t-esc="establecimiento.horario" /></td></tr>'+
-						'</table>'+
-					    '</div>'+
-					    '</div>';
-	
-	var infowindow = new google.maps.InfoWindow({
-		content: contentString
-		});*/
 					    
 	var geocoder = new google.maps.Geocoder();
 	geocoder.geocode({'address': address}, function(results, status) {
 		if (status === google.maps.GeocoderStatus.OK) {
 			var center = results[0].geometry.location;
-	    	mapHeader.setCenter(new google.maps.LatLng(center.lat()+0.00008, center.lng()-0.0008));
 	    	map.setCenter(center);
-	    	var markerHeader = new google.maps.Marker({
-	    		map: mapHeader,
-	        	position: results[0].geometry.location,
-				animation: google.maps.Animation.DROP,
-	      	});
 	    	var marker = new google.maps.Marker({
 	    		map: map,
 	        	position: results[0].geometry.location,
@@ -377,9 +349,6 @@ function initializeGMapsEstablecimiento(lat, long, address) {
 	      	});
 	    	var resizeEvent = new Event('resize');
 	    	window.dispatchEvent(resizeEvent);
-			/*marker.addListener('click', function() {
-				infowindow.open(map, marker);
-			});*/
 	    } else {
 	    	console.log('Geocode was not successful for the following reason: ' + status);
 	    }
@@ -480,7 +449,9 @@ openerp.website.if_dom_contains('#geoLocation', function(){
 /** FIN: RUTAS **/
 
 
+/** VISTA MAPA **/
 var $DIRECTORY_MAP=0;
+var $MARKER_CLUSTER=false;
 openerp.website.if_dom_contains('#directory-map', function(){
 	
     var mapCanvas = document.getElementById('directory-map');
@@ -497,6 +468,10 @@ openerp.website.if_dom_contains('#directory-map', function(){
     };
     $DIRECTORY_MAP = new google.maps.Map(mapCanvas, mapOptions);
 	
+    // Define Marker Clusterer
+    $MARKER_CLUSTER = new MarkerClusterer($DIRECTORY_MAP, [],
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+    // Put markers
     for (var i=0; i<$DIRECTORY_ADDRESS.length; i+=2)
     	add_address_to_directory_map($DIRECTORY_ADDRESS[i], $DIRECTORY_ADDRESS[i+1]);
 });
@@ -517,6 +492,13 @@ function add_address_to_directory_map(address, url) {
 			marker.addListener('click', function() {
 				window.location.href = url;
 			});
+			$MARKER_CLUSTER.addMarker(marker);
+			
+			// Center camera on markers
+			var markers = $MARKER_CLUSTER.getMarkers();
+			var bounds = new google.maps.LatLngBounds();
+			markers.forEach(function(item, index){ bounds.extend(item.getPosition()); });
+			$DIRECTORY_MAP.fitBounds(bounds);
 	    } else {
 	    	console.log('Geocode was not successful for the following reason: ' + status);
 	    }
