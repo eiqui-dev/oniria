@@ -6,6 +6,7 @@ footer {
 	display: table-cell !important;
 	border: solid #b72613;
 	border-width: 6px 0 0 0;
+	margin-top: 1.5em;
 }
 header>div {
 	background-color: #dadada;
@@ -435,7 +436,8 @@ a.list-group-item {
 }
 
 .img-crop {
-	height: 800px !important;
+	height: 100% !important;
+	width: 100% !important;
 	object-fit: cover !important;
 }
 
