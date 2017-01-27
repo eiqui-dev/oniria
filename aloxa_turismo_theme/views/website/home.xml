@@ -24,8 +24,13 @@
 				                          t-att-rowspan="td_banner['y'] != 1 and td_banner['y']"
 				                          t-attf-class="oe_product oe_grid oe_product_borderless oe-height-#{td_banner['y']*2} #{ td_banner['class'] }"
 				                          style="overflow:hidden">
-											<a itemprop="url" t-att-href="website.sanitize_url(banner.url)" target="_blank">
-												<div class="oe_product_image" style="width:100%; height:100%;">
+				                          	<t t-set="banner_url" t-value="False"/>
+				                          	<t t-set="banner_target" t-value="_self"/>
+				                          	<t t-if="banner.product_tur_id"><t t-set="banner_url" t-value="'/shop/product/%s' % slug(banner.product_tur_id)"/></t>
+				                          	<t t-if="not banner_url and banner.establecimiento_id"><t t-set="banner_url" t-value="'/establecimiento/%s' % slug(banner.establecimiento_id)"/></t>
+				                          	<t t-if="not banner_url and banner.url"><t t-set="banner_url" t-value="website.sanitize_url(banner_url)"/><t t-set="banner_target" t-value="_blank"/></t>
+											<a itemprop="url" t-att-href="banner_url or '#'" t-att-target="banner_target">
+												<div class="oe_product_image" style="height:100%;">
 													<span t-field="banner.imagen" t-field-options='{"widget": "image", "class": "img-crop"}' />
 												</div>
 											</a>
