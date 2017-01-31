@@ -111,16 +111,19 @@ class producto_contratado_cliente(models.Model):
             if record.imagen:
                 record.image_thumb = crop_image(
                     record.imagen, ratio=(2,1), thumbnail_ratio=4, type='center')
+            elif record.product_tur_id:
+                record.image_thumb = crop_image(
+                    record.product_tur_id.image, ratio=(2,1), thumbnail_ratio=4, type='center')
             else:
                 record.image_thumb = False
                 
-    @api.one
-    @api.constrains('imagen')
-    def _check_imagen(self):
-        image_stream = StringIO.StringIO(self.imagen.decode('base64'))
-        image = Image.open(image_stream)
-        if int(image.size[0]) < 256 or int(image.size[1]) < 256:
-            raise exceptions.ValidationError("Image width & height need be bigger than 256 pixels")
+    #@api.one
+    #@api.constrains('imagen')
+    #def _check_imagen(self):
+    #    image_stream = StringIO.StringIO(self.imagen.decode('base64'))
+    #    image = Image.open(image_stream)
+    #    if int(image.size[0]) < 256 or int(image.size[1]) < 256:
+    #        raise exceptions.ValidationError("Image width & height need be bigger than 256 pixels")
     
     
     #fields
