@@ -121,7 +121,7 @@ class website_aloxa_turismo(Website):
                 localidades_k = [s for s in params if s.startswith("localidad-")]
                 localidades = [False if q=='none' else q for q in werkzeug.url_unquote_plus(params[s]) for s in localidades_k]
                 if len(localidades) > 0:
-                    searchDomain.append(('city', 'in', localidades))
+                    searchDomain.append(('organizer_id.city', 'in', localidades))
             
             # OrderBy
             if orderby == 'direccion':
@@ -1104,11 +1104,13 @@ class website_aloxa_turismo(Website):
                  '/directorio/establecimientos',
                  '/directorio/establecimientos/<model("turismo.establecimiento"):establecimiento>',
                  '/directorio/vinos',
+                 '/directorio/vinos/<model("turismo.producto_contratado_cliente"):producto_contratado>',
                  '/directorio/vinagres',
                  '/directorio/eventos',
                  '/directorio/eventos/<model("event.event"):evento>'
                  ], type='http', auth="public", methods=['GET'], website=True)
-    def directorio(self, category=None, establecimiento=None, evento=None, **params):
+    def directorio(self, category=None, establecimiento=None, evento=None, 
+                   producto_contratado=None, **params):
         categories = []
         #pydevd.settrace("10.0.3.1")
         attrib_list = request.httprequest.args.getlist('attrib')
@@ -1116,7 +1118,7 @@ class website_aloxa_turismo(Website):
         if not 'directory_view' in request.session:
             request.session['directory_view'] = 'grid'
             
-        if establecimiento or evento:
+        if establecimiento or evento or producto_contratado:
             request.session['directory_view'] = 'form'
             params = {} # Reset params
 
@@ -1211,6 +1213,38 @@ class website_aloxa_turismo(Website):
                         'events': events,
                         'related': related_est,
                         'products_table': table_compute().process_productos_establecimiento(products),
+                    })
+                else:
+                    request.session['directory_view'] = 'grid'
+            elif category_type == 'vino':
+                if not producto_contratado and request.session['search_records']:
+                    if not sri:
+                        sri = 0
+                    producto_contratado = request.env['turismo.producto_contratado_cliente'].browse([request.session['search_records'][sri]])
+                if producto_contratado:
+                    # Buscar SRI del establecimiento
+                    if not sri:
+                        count = 0
+                        for rec_id in request.session['search_records']:
+                            if evento.id == rec_id:
+                                sri = count
+                                break
+                            count=count+1
+                                            
+                    prev_event = False  
+                    next_event = False
+                    if request.session['search_records']:
+                        if sri > 0:
+                            prev_event = request.env['turismo.producto_contratado_cliente'].browse([request.session['search_records'][sri-1]])
+                        if sri < len(request.session['search_records'])-1:
+                            next_event = request.env['turismo.producto_contratado_cliente'].browse([request.session['search_records'][sri+1]])
+                    related_prods = request.env['turismo.producto_contratado_cliente'].search([('id', '!=', evento.id),('organizer_id', '=', evento.organizer_id.id)])
+                    values.update({
+                        'sri': sri+1,
+                        'prev_prod': prev_event,
+                        'next_prod': next_event,
+                        'producto_contratado': producto_contratado,
+                        'related': related_prods,
                     })
                 else:
                     request.session['directory_view'] = 'grid'

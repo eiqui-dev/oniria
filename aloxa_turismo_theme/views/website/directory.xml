@@ -33,6 +33,10 @@
 								<t t-if="view_mode == 'form' and establecimiento">
 									<t t-call="aloxa_turismo_theme.directory_form_establecimiento"/>
 								</t>
+								<!-- VISTA FORM PRODUCTO CONTRATADO -->
+								<t t-if="view_mode == 'form' and producto_contratado">
+									<t t-call="aloxa_turismo_theme.directory_form_product_contratado"/>
+								</t>
 								<!-- VISTA FORM EVENTO -->
 								<t t-if="view_mode == 'form' and evento">
 									<t t-call="aloxa_turismo_theme.directory_form_event"/>

@@ -52,6 +52,7 @@
         'views/website/directory_list.xml',
         'views/website/directory_map.xml',
         'views/website/directory_form_establecimiento.xml',
+        'views/website/directory_form_producto_contratado.xml',
         'views/website/directory_form_event.xml',
         'views/website/panel_cliente.xml',
         'views/website/establecimiento_template.xml',

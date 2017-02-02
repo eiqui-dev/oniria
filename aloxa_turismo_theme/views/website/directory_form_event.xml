@@ -55,7 +55,7 @@
 						  		<t t-foreach="related" t-as="ev">
 						  			<div class="col-sm-4 col-md-2">
 							  			<div class="image-grid">
-							  				<a t-att-href="'/directorio/eventos/%s' % slug(ev)"><img t-att-title="ev.name" t-attf-src="/web/binary/image?model=event.event&amp;id=#{ev.id}&amp;field=organizer_id.image"/></a>
+							  				<a t-att-href="'/directorio/eventos/%s' % slug(ev)"><img t-att-title="ev.name" t-attf-src="/web/binary/image?model=res.partner&amp;id=#{ev.organizer_id.id}&amp;field=image"/></a>
 									    </div>
 								    </div>
 						  		</t>
@@ -85,7 +85,9 @@
 			
 			<xpath expr="//html/head" position="inside">
 				<script type='text/javascript'>
-					google.maps.event.addDomListener(window, 'load', initializeGMapsEstablecimiento(0, 0, '<t t-esc="evento.organizer_id.get_composed_address(',')" />'));
+					window.addEventListener('load', function(){
+						google.maps.event.addDomListener(window, 'load', initializeGMaps('#map_event', 0, 0, '<t t-esc="establecimiento.partner_id.get_composed_address(',')" />'));
+					});
 				</script>
 			</xpath>
 		</template>

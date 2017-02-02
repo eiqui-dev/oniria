@@ -25,7 +25,7 @@
 					<t t-if="td_product">
 						<t t-set="establecimiento" t-value="td_product['establecimiento']"/>
                       	<t t-set="producto_contratado" t-value="td_product['producto_contratado']"/>
-                      	<t t-set="evento" t-value="td_product['events'] if 'events' in td_product and len(td_product['events'])==1 else False"/>
+						<t t-set="evento" t-value="td_product['events'] if 'events' in td_product and td_product['events'] and len(td_product['events'])==1 else False"/>
 						
 						<!-- GRID -->
 						<t t-if="request.session['directory_view'] == 'grid'">

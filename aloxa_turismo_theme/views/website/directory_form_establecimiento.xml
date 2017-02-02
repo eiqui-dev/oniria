@@ -181,7 +181,9 @@
 			
 			<xpath expr="//html/head" position="inside">
 				<script type='text/javascript'>
-					google.maps.event.addDomListener(window, 'load', initializeGMapsEstablecimiento(<t t-esc="establecimiento.latitud" />, <t t-esc="establecimiento.longitud" />, '<t t-esc="establecimiento.partner_id.get_composed_address(',')" />'));
+					window.addEventListener('load', function(){
+						google.maps.event.addDomListener(window, 'load', initializeGMaps('#map_est', <t t-esc="establecimiento.latitud" />, <t t-esc="establecimiento.longitud" />, '<t t-esc="establecimiento.partner_id.get_composed_address(',')" />'));
+					});
 				</script>
 			</xpath>
 		</template>
