@@ -2,7 +2,7 @@
 <openerp>
     <data>
     
-		<template id="directory" name="Directorio de Establecimientos" page="True">						
+		<template id="directory" name="Directorio" page="True">						
 			<t t-call="website.layout">
 				<!-- Lista de Establecimientos -->
 				<div id="wrap" class="js_sale">
@@ -17,6 +17,7 @@
 				            	<!-- OPCION ORDENAR POR CAMPO Y BOTONES DE VISTAS -->
 								<t t-call="aloxa_turismo_theme.toolbar" />
 								
+								<t t-set="title" t-value="'Directorio %ss' % category_type.title()"/>
 								<!-- VISTA MAPA -->
 								<t t-if="view_mode == 'map'">
 									<t t-call="aloxa_turismo_theme.directory_map"/>
@@ -31,14 +32,17 @@
 								</t>
 								<!-- VISTA FORM ESTABLECIMIENTO -->
 								<t t-if="view_mode == 'form' and establecimiento">
+									<t t-set="title" t-value="'Establecimiento - %s' % establecimiento.name.title()"/>
 									<t t-call="aloxa_turismo_theme.directory_form_establecimiento"/>
 								</t>
 								<!-- VISTA FORM PRODUCTO CONTRATADO -->
 								<t t-if="view_mode == 'form' and producto_contratado">
+									<t t-set="title" t-value="'Producto - %s' % producto_contratado.name.title()"/>
 									<t t-call="aloxa_turismo_theme.directory_form_product_contratado"/>
 								</t>
 								<!-- VISTA FORM EVENTO -->
 								<t t-if="view_mode == 'form' and evento">
+									<t t-set="title" t-value="'Evento - %s' % evento.name.title()"/>
 									<t t-call="aloxa_turismo_theme.directory_form_event"/>
 								</t>
 							</div>

@@ -2,7 +2,7 @@
 <openerp>
     <data>    
     
-		<template id="directory_form_establecimiento">	
+		<template id="directory_form_establecimiento">
 			<!-- ANTERIOR Y SIGUIENTE -->
 			<div t-if="prev_est or next_est" id="nav_buttons" class="col-md-12 col-lg-12">
 				<div class="col-md-6 col-lg-6">
