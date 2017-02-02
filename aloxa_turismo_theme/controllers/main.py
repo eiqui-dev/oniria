@@ -108,6 +108,33 @@ class website_aloxa_turismo(Website):
                                                     ('date_end','>=',datetime.now().strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT))], limit=4)
                 tmp_banner.events = events
                 banners_directorio.append(tmp_banner)
+        elif product_type == "evento":
+            searchDomain.append(('website_published','=',True))
+            searchDomain.append(('date_end','>=',datetime.now().strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT)))
+            if params and 'search' in params.keys():
+                # Busqueda por cajetin
+                if len(params['search']) > 0:
+                    searchDomain.append('|')
+                    searchDomain.append(('name', 'ilike', params['search']))
+                    searchDomain.append(('descripcion', 'ilike', params['search']))
+                # Localidades
+                localidades_k = [s for s in params if s.startswith("localidad-")]
+                localidades = [False if q=='none' else q for q in werkzeug.url_unquote_plus(params[s]) for s in localidades_k]
+                if len(localidades) > 0:
+                    searchDomain.append(('city', 'in', localidades))
+            
+            # OrderBy
+            if orderby == 'direccion':
+                orderby_key = 'street'
+            else:
+                orderby_key = 'name'
+                
+            registros = request.env['event.event'].search(searchDomain).sorted(key=lambda r: r[orderby_key])
+            request.session['search_records'] = registros.mapped('id')
+            for reg in registros:
+                tmp_banner = htmlBannerDirectorio()
+                tmp_banner.events = reg
+                banners_directorio.append(tmp_banner)
         else:
             # Recoger los banners
             searchDomain = ['|','&',('fecha_fin', '>=', datetime.now().strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT)),('fecha_fin', '=', False),('product_tur_id.website_published', '=', True),('product_id.link_position', '=', 'Directorio')]
@@ -397,6 +424,45 @@ class website_aloxa_turismo(Website):
                 attribute.values.append(value)
             attributes.append(attribute)
             
+        elif product_type == 'evento':
+            searchDomain = [('website_published','=',True)]
+            param_localidades = []
+            if params and 'search' in params.keys():
+                # Busqueda por cajetin
+                if len(params['search']) > 0:
+                    searchDomain.append('|')
+                    searchDomain.append(('name', 'ilike', params['search']))
+                    searchDomain.append(('description', 'ilike', params['search']))
+                    
+                # Localidades
+                param_localidades_k = [s for s in params if s.startswith("localidad-")]
+                param_localidades = [False if q=='none' else q for q in werkzeug.url_unquote_plus(params[s]) for s in param_localidades_k]
+                
+            searchDomainLocalidades = []
+            if len(param_localidades) > 0:
+                searchDomainLocalidades.append(('address_id.city', 'in', param_localidades))
+                
+            attribute = attrDirectorio()
+            attribute.open = True
+            attribute.icon = 'fa-map-marker'
+            attribute.label = "Localidad"
+            attribute.name = "localidad"
+            
+            searchDomainLocalidades = list(searchDomain)
+            
+            attribute.values = []
+            eventos = request.env['event.event'].search(searchDomain)
+            localidades = eventos.mapped('address_id.city')
+            localidades = OrderedDict.fromkeys(localidades).keys()
+            for localidad in localidades:
+                value = attrValueDirectorio()
+                value.num = eventos.search_count([('address_id.city','=',localidad)])
+                value.name = localidad or 'none'
+                value.label = localidad or "Sin Definir"
+                value.sel = True if localidad in param_localidades or (not localidad and False in param_localidades) else False
+                attribute.values.append(value)
+            attributes.append(attribute)
+
         elif product_type == 'vinagre':
             searchDomain = [('product_tur_id.website_published','=',True)]
             
@@ -1036,37 +1102,47 @@ class website_aloxa_turismo(Website):
                  '/directorio',
                  '/directorio/categoria/<model("product.public.category"):category>',
                  '/directorio/establecimientos',
+                 '/directorio/establecimientos/<model("turismo.establecimiento"):establecimiento>',
                  '/directorio/vinos',
-                 '/directorio/vinagres'
+                 '/directorio/vinagres',
+                 '/directorio/eventos',
+                 '/directorio/eventos/<model("event.event"):evento>'
                  ], type='http', auth="public", methods=['GET'], website=True)
-    def directorio(self, category=None, **params):
+    def directorio(self, category=None, establecimiento=None, evento=None, **params):
         categories = []
         #pydevd.settrace("10.0.3.1")
         attrib_list = request.httprequest.args.getlist('attrib')
         
         if not 'directory_view' in request.session:
             request.session['directory_view'] = 'grid'
+            
+        if establecimiento or evento:
+            request.session['directory_view'] = 'form'
+            params = {} # Reset params
 
         keep_url = '/directorio'
         category_type = None
-        if request.httprequest.path.endswith('/establecimientos'):
+        if request.httprequest.path.startswith('/directorio/establecimientos') or establecimiento:
             keep_url = '/directorio/establecimientos'
             category_type = "establecimiento"
             categories = request.env['product.public.category'].search(['&',('parent_id', '=', False),('link', '=', True),('name', '=', 'Establecimientos')])
-        elif request.httprequest.path.endswith('/vinos'):
+        elif request.httprequest.path.startswith('/directorio/vinos'):
             keep_url = '/directorio/vinos'
             category_type = "vino"
             categories = request.env['product.public.category'].search(['&',('parent_id', '=', False),('link', '=', True),('name', '=', 'Vinos')])
             # Los vinos no tienen mapa
             if request.session['directory_view'] == 'map':
                 request.session['directory_view'] = 'grid'
-        elif request.httprequest.path.endswith('/vinagres'):
+        elif request.httprequest.path.startswith('/directorio/vinagres'):
             keep_url = '/directorio/vinagres'
             category_type = "vinagre"
             categories = request.env['product.public.category'].search(['&',('parent_id', '=', False),('link', '=', True),('name', '=', 'Vinagres')])
-            # Los vinos no tienen mapa
+            # Los vinagres no tienen mapa
             if request.session['directory_view'] == 'map':
                 request.session['directory_view'] = 'grid'
+        elif request.httprequest.path.startswith('/directorio/eventos') or evento:
+            keep_url = '/directorio/eventos'
+            category_type = "evento"
                 
         keep = QueryURL(keep_url, category=category and int(category), search='', attrib=attrib_list)
 
@@ -1086,6 +1162,91 @@ class website_aloxa_turismo(Website):
             'rows': 4,
             'search': params['search'] if params and 'search' in params.keys() else ''
         }
+        
+        if request.session['directory_view'] == 'form':
+            # Validar SRI
+            sri = False
+            if params and 'sri' in params.keys():
+                sri = int(params['sri'])-1
+                if sri < 0:
+                    sri = 0;
+                elif sri >= len(request.session['search_records']):
+                    sri = len(request.session['search_records'])-1
+                    
+            if category_type == 'establecimiento':
+                if not establecimiento and request.session['search_records']:
+                    if not sri:
+                        sri = 0
+                    establecimiento = request.env['turismo.establecimiento'].browse([request.session['search_records'][sri]])
+                    
+                if establecimiento:
+                    # Buscar SRI del establecimiento
+                    if not sri:
+                        count = 0
+                        for rec_id in request.session['search_records']:
+                            if establecimiento.id == rec_id:
+                                sri = count
+                                break
+                            count=count+1
+                            
+                    prev_est = False  
+                    next_est = False
+                    if request.session['search_records']:
+                        if sri > 0:
+                            prev_est = request.env['turismo.establecimiento'].browse([request.session['search_records'][sri-1]])
+                        if sri < len(request.session['search_records'])-1:
+                            next_est = request.env['turismo.establecimiento'].browse([request.session['search_records'][sri+1]])
+                    
+                    events = request.env['event.event'].search([('website_published','=',True),
+                                                                ('organizer_id','=',establecimiento.partner_id.id),
+                                                                ('date_end','>',datetime.now().strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT))])
+                    products = request.env['product.template'].search([('website_published','=',True),
+                                                                       ('establecimiento_id','=',establecimiento.id)])
+                    related_est = request.env['turismo.establecimiento'].search([('id', '!=', establecimiento.id),('res_partner_id', '=', establecimiento.res_partner_id.id)])
+                    values.update({
+                        'sri': sri+1,
+                        'prev_est': prev_est,
+                        'next_est': next_est,
+                        'establecimiento': establecimiento,
+                        'events': events,
+                        'related': related_est,
+                        'products_table': table_compute().process_productos_establecimiento(products),
+                    })
+                else:
+                    request.session['directory_view'] = 'grid'
+            elif category_type == 'evento':
+                if not evento and request.session['search_records']:
+                    if not sri:
+                        sri = 0
+                    evento = request.env['event.event'].browse([request.session['search_records'][sri]])
+                if evento:
+                    # Buscar SRI del establecimiento
+                    if not sri:
+                        count = 0
+                        for rec_id in request.session['search_records']:
+                            if evento.id == rec_id:
+                                sri = count
+                                break
+                            count=count+1
+                                            
+                    prev_event = False  
+                    next_event = False
+                    if request.session['search_records']:
+                        if sri > 0:
+                            prev_event = request.env['event.event'].browse([request.session['search_records'][sri-1]])
+                        if sri < len(request.session['search_records'])-1:
+                            next_event = request.env['event.event'].browse([request.session['search_records'][sri+1]])
+                    related_events = request.env['event.event'].search([('id', '!=', evento.id),('organizer_id', '=', evento.organizer_id.id)])
+                    values.update({
+                        'sri': sri+1,
+                        'prev_event': prev_event,
+                        'next_event': next_event,
+                        'evento': evento,
+                        'related': related_events,
+                    })
+                else:
+                    request.session['directory_view'] = 'grid'
+                    
         return request.website.render("aloxa_turismo_theme.directory", values)
     
     @http.route([
@@ -1110,10 +1271,7 @@ class website_aloxa_turismo(Website):
         elif request.httprequest.path.endswith('/map'):
             request.session['directory_view'] = 'map'
         elif request.httprequest.path.endswith('/form'):
-            #request.session['directory_view'] = 'form'
-            if request.session['search_records']:
-                est_id = request.env['turismo.establecimiento'].browse([request.session['search_records'][0]])
-                return {'slug':slug(est_id)}
+            request.session['directory_view'] = 'form'
         return []
 
     ## JSON-RPC

@@ -37,6 +37,42 @@
 		        <t t-call-assets="website.assets_editor" t-css="false"/>
 		    </xpath>
 		</template>
+		
+		
+		<!--
+			Parametros necesario para renderizar:
+				- request.session['directory_view'] > Indica e tipo de vista a cargar
+				- orderby > Indica el campo por el que se ordena
+				- category_type > Indica el tipo de directorio
+		-->
+		<template id="toolbar">			
+			<div class="col-md-12" id="directory-toolbar">
+				<span>
+					<strong t-esc="numresults" /> resultados encontrados
+				</span>
+				<span class="pull-right">
+					<span class="dropdown">
+						Ordernar por 
+						<a class="btn btn-xs dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><t t-esc="orderby.upper()" /> <span class="caret"></span></a>
+			          	<ul class="dropdown-menu">
+			          		<li t-att-class="'menu-orderby active' if orderby == 'nombre' else 'menu-orderby'" data-value="nombre"><a href="#">Nombre</a></li>
+			          		<t t-if="category_type in ['establecimiento','evento']">
+					            <li t-att-class="'menu-orderby active' if orderby == 'direccion' else 'menu-orderby'" data-value="direccion"><a href="#">Dirección</a></li>
+				            </t>
+				            <t t-if="category_type == 'vino'">
+					            <li t-att-class="'menu-orderby active' if orderby == 'precio' else 'menu-orderby'" data-value="precio"><a href="#">Precio</a></li>
+				            </t>
+			          	</ul>
+		          	</span>
+		          	<span class="btn-group" role="group" style="margin-left:1.5em;">
+		          		<button title="Vista Formulario" id="view-form" type="button" t-att-data-link-target="category_type" t-att-class="'btn btn-sm btn-default' + ('active' if view_mode=='form' else '')"><i class="fa fa-file-text-o"></i></button>
+		          		<button title="Vista Rejilla" id="view-grid" type="button" t-att-data-link-target="category_type" t-att-class="'btn btn-sm btn-default' + ('active' if view_mode=='grid' else '')"><i class="fa fa-th"></i></button>
+		          		<button title="Vista Lista" id="view-list" type="button" t-att-data-link-target="category_type" t-att-class="'btn btn-sm btn-default' + ('active' if view_mode=='list' else '')"><i class="fa fa-list"></i></button>
+		          		<button title="Vista Mapa" t-if="category_type == 'establecimiento'" id="view-map" type="button" t-att-data-link-target="category_type" t-att-class="'btn btn-sm btn-default' + ('active' if view_mode=='map' else '')"><i class="fa fa-globe"></i></button>
+		          	</span>
+		    	</span>
+			</div>
+		</template>
 			
 	</data>
 </openerp>

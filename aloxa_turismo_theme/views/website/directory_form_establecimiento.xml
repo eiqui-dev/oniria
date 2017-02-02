@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    
+    
+		<template id="directory_form_establecimiento">	
+			<!-- ANTERIOR Y SIGUIENTE -->
+			<div t-if="prev_est or next_est" id="nav_buttons" class="col-md-12 col-lg-12">
+				<div class="col-md-6 col-lg-6">
+					<t t-if="prev_est">
+						<a t-att-href="'/directorio/establecimientos/%s?sri=%d' % (slug(prev_est),sri-1 or 0)"><i class="fa fa-lg fa-arrow-left"></i> Establecimiento Anterior</a>
+					</t>
+				</div>
+				<div class="col-md-6 col-lg-6 text-right">
+					<t t-if="next_est">
+						<a t-att-href="'/directorio/establecimientos/%s?sri=%d' % (slug(next_est),sri+1 or 0)">Establecimiento Siguiente <i class="fa fa-lg fa-arrow-right"></i></a>
+					</t>
+				</div>
+			</div>
+			
+			<!-- DETALLE -->
+			<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale establecimiento-page">
+				<section class="container mt8 oe_website_sale" id="product_detail">
+			         <div class="row">
+						<!-- IMAGEN -->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 product-detail">
+	                		<span itemprop="image" t-field="establecimiento.imagen" t-field-options='{"widget": "image", "class": "product_detail_img product-image"}'/>
+	                	</div>
+	                	<!-- INFO -->
+						<div class="product-info"> 
+							<!-- NOMBRE Y DESCRIPCION -->
+							<div class="col-xs-12 col-md-5 col-lg-5 col-sm-6 product-detail">
+								<div id="head-name">
+									<div class="pull-right">
+										<t t-foreach="establecimiento.services" t-as="service">
+											<i t-attf-class="fa fa-2x fa-{{service.icon}} est-icon" t-att-title='service.name'></i>
+										</t>
+									</div>
+					                <h1 t-esc="establecimiento.name.upper()" />
+					                <t t-set="address" t-value="establecimiento.partner_id.get_composed_address(',')"/>
+					                <div><i class="fa fa-map-marker"></i> <a href="#" data-toggle="modal" data-target="#map-viewer" class="open-map-image" t-att-data-address="address" t-esc="address" /></div>
+					            	<div><i class="fa fa-link"></i> <a t-attf-href="tel:#{establecimiento.phone}" t-field="establecimiento.phone"/> | <a t-att-href="establecimiento.website" t-field="establecimiento.website"/> | <a t-attf-href="mailto:#{establecimiento.email}" t-field="establecimiento.email"/></div>
+					            </div>
+								<p t-esc="establecimiento.descripcion" class="text-muted text-justify"
+									style="margin-top:1.5em;"/>   
+							</div> 
+							
+							<!-- HORARIO -->
+							<div class="col-xs-12 col-md-3 col-lg-3 col-sm-12 product-detail"> 
+								<div class="block-hours" t-if="establecimiento.horario and len(establecimiento.horario)>0">
+									<h4>Horario</h4>
+									<table>
+										<tr t-foreach="establecimiento.horario" t-as="hln">
+											<td><t t-esc="website.get_day_of_week(hln.dayofweek)" /></td><td style="text-align:right"><t t-esc="'%s – %s' % (website.get_float_hours(hln.hour_from), website.get_float_hours(hln.hour_to))" /></td>
+										</tr>
+									</table>
+								</div>
+								
+								<!--t t-if="establecimiento.tripadvisor_url">
+						        	<div id="TA_selfserveprop321" class="TA_selfserveprop">
+										<ul id="YdAbOSysc8" class="TA_links Ed0roAdwga8x">
+											<li id="bdLvBcTo04K" class="lqkgPPEUk">
+												<a target="_blank" t-attf-href="#{ establecimiento.tripadvisor_url }"><img src="http://www.tripadvisor.es/img/cdsi/img2/branding/150_logo-11900-2.png" alt="TripAdvisor"/></a>
+											</li>
+										</ul>
+									</div>
+									<script t-attf-src="http://www.jscache.com/wejs?wtype=selfserveprop&amp;uniq=321&amp;locationId=#{ establecimiento.get_tripadvisor_id() }&amp;lang=es&amp;rating=true&amp;nreviews=5&amp;writereviewlink=true&amp;popIdx=true&amp;iswide=false&amp;border=true&amp;display_version=2"></script>
+								</t-->
+							</div> 
+						</div>
+					</div>
+					
+					<div style="margin-top:2em;">
+						<!-- EVENTOS -->
+				  		<div id="events" t-if="len(events) > 0" class="col-md-12 col-lg-12">
+					  		<table class="table table-condensed table-hover table-striped" id="table-events">
+								<thead>
+									<th>Evento</th>
+									<th>Fecha Inicio</th>
+									<th>Fecha Fin</th>
+									<th>Mapa</th>
+									<th> </th>
+								</thead>
+								<tbody>
+									<tr t-foreach="events" t-as="event">
+										<td style="text-align:left; vertical-align: middle;">
+											<h4 style="margin:0" t-esc="event.name" />
+										</td>
+										<td><span t-field="event.date_begin" /></td>
+										<td><span t-field="event.date_end" /></td>
+										<td><a href="#" data-toggle="modal" data-target="#map-viewer" class="open-map-image" t-attf-data-address="#{event.address_id.get_composed_address(',')}">Ver mapa</a></td>
+										<td><a t-attf-href="/event/#{slug(event)}/register" class="btn btn-primary">Reservar</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- MAPA -->
+						<div id="location" class="col-md-12 col-lg-12" style="min-height:350px; clear:both;">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="map_est" style="height:350px"></div>
+						</div>
+						<!-- GALERIA -->
+					  	<div id="images" t-if="len(establecimiento.images) > 0" class="col-md-12 col-lg-12" style="min-height:150px">
+				  			<div class="row">
+				  				<h4 class="detail-section-title"><strong>GALERÍA</strong></h4>
+				  			</div>
+					  		<div style="clear:both;">
+						  		<t t-foreach="establecimiento.images" t-as="image">
+						  			<div class="col-sm-6 col-md-4">
+							  			<div class="image-grid">
+							  				<img t-att-title="image.name" t-attf-src="/web/binary/image?model=establecimiento.images&amp;id=#{image.id}&amp;field=image"/>
+									    </div>
+								    </div>
+						  		</t>
+						  	</div>
+						</div>
+						<!-- PRODUCTOS RELACIONADOS -->
+						<!--div id="products" class="col-md-12 col-lg-12" style="min-height:150px">
+							<div class="row">
+				  				<h4 class="detail-section-title"><strong>Productos</strong></h4>
+				  			</div>
+							<h3 t-if="len(products_table) == 0" class="text-muted text-center">No se han encontrado productos</h3>
+							<t t-foreach="products_table" t-as="tr_product">
+								<t t-foreach="tr_product" t-as="td_product">
+									<t t-if="td_product">
+										<t t-set="product" t-value="td_product['product']" /-->
+										<!-- GRID -->
+										<!--div class="item col-lg-3 col-md-4 col-sm-6 col-xs-12">
+											<div class="product">
+												<div class="product-img">
+													<a class="product-image" title="" t-attf-href="/shop/product/#{ slug(product) }">
+														<span t-field="product.image" t-field-options='{"widget": "image", "class": "img img-responsive"}' />
+													</a>    
+												</div>
+												
+												<div class="pro-info">
+													<div class="title">
+														<a itemprop="name" t-attf-href="/shop/product/#{ slug(product) }" t-field="product.name"/>
+													</div>
+												</div>
+											</div>
+										</div>
+									</t>
+								</t>
+							</t>
+						</div-->
+						<!-- ESTABLECIMIENTO RELACIONADOS -->
+					  	<div id="related_est" t-if="len(related) > 0" class="col-md-12 col-lg-12" style="min-height:150px">
+				  			<div class="row">
+				  				<h4 class="detail-section-title"><strong>ESTABLECIMIENTOS RELACIONADOS</strong></h4>
+				  			</div>
+					  		<div style="clear:both;">
+						  		<t t-foreach="related" t-as="est">
+						  			<div class="col-sm-4 col-md-2">
+							  			<div class="image-grid">
+							  				<a t-att-href="'/directorio/establecimientos/%s' % slug(est)"><img t-att-title="est.name" t-attf-src="/web/binary/image?model=turismo.establecimiento&amp;id=#{est.id}&amp;field=imagen"/></a>
+									    </div>
+								    </div>
+						  		</t>
+						  	</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			
+			<!-- VISOR MAPA ESTÁTICO -->
+			<div class="modal fade" tabindex="-1" role="dialog" id="map-viewer">
+				<div class="modal-dialog">
+			    	<div class="modal-content">
+			      		<div class="modal-header">
+			        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+			        		<h4 class="modal-title">Mapa</h4>
+			      		</div>
+			      		<div class="modal-body">
+			        		<img id="map-img" />
+			      		</div>
+			      		<div class="modal-footer">
+			        		<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			      		</div>
+			    	</div><!-- /.modal-content -->
+			  	</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+			
+			<xpath expr="//html/head" position="inside">
+				<script type='text/javascript'>
+					google.maps.event.addDomListener(window, 'load', initializeGMapsEstablecimiento(<t t-esc="establecimiento.latitud" />, <t t-esc="establecimiento.longitud" />, '<t t-esc="establecimiento.partner_id.get_composed_address(',')" />'));
+				</script>
+			</xpath>
+		</template>
+		
+    </data>
+</openerp>

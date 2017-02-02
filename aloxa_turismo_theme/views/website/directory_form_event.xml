@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    
+    
+		<template id="directory_form_event">	
+			<!-- ANTERIOR Y SIGUIENTE -->
+			<div t-if="prev_event or next_event" id="nav_buttons" class="col-md-12 col-lg-12">
+				<div class="col-md-6 col-lg-6">
+					<t t-if="prev_event">
+						<a t-att-href="'/directorio/eventos/%s?sri=%d' % (slug(prev_event),sri-1 or 0)"><i class="fa fa-lg fa-arrow-left"></i> Evento Anterior</a>
+					</t>
+				</div>
+				<div class="col-md-6 col-lg-6 text-right">
+					<t t-if="next_event">
+						<a t-att-href="'/directorio/eventos/%s?sri=%d' % (slug(next_event),sri+1 or 0)">Evento Siguiente <i class="fa fa-lg fa-arrow-right"></i></a>
+					</t>
+				</div>
+			</div>
+			
+			<!-- DETALLE -->
+			<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale establecimiento-page">
+				<section class="container mt8 oe_website_sale" id="product_detail">
+			         <div class="row">
+						<!-- IMAGEN -->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 product-detail">
+	                		<span itemprop="image" t-field="evento.organizer_id.image" t-field-options='{"widget": "image", "class": "product_detail_img product-image"}'/>
+	                	</div>
+	                	<!-- INFO -->
+						<div class="product-info"> 
+							<!-- NOMBRE Y DESCRIPCION -->
+							<div class="col-xs-12 col-md-5 col-lg-5 col-sm-6 product-detail">
+								<div id="head-name">
+					                <h1 t-esc="evento.name.upper()" />
+					                <t t-set="address" t-value="evento.organizer_id.get_composed_address(',')"/>
+					                <div><i class="fa fa-map-marker"></i> <a href="#" data-toggle="modal" data-target="#map-viewer" class="open-map-image" t-att-data-address="address" t-esc="address" /></div>
+					            	<div><i class="fa fa-link"></i> <a t-attf-href="tel:#{evento.organizer_id.phone}" t-field="evento.organizer_id.phone"/> | <a t-att-href="evento.organizer_id.website" t-field="evento.organizer_id.website"/> | <a t-attf-href="mailto:#{evento.organizer_id.email}" t-field="evento.organizer_id.email"/></div>
+					            </div>
+								<p t-esc="evento.description" class="text-muted text-justify"
+									style="margin-top:1.5em;"/>   
+							</div> 
+						</div>
+					</div>
+					
+					<div style="margin-top:2em;">
+						<!-- MAPA -->
+						<div id="location" class="col-md-12 col-lg-12" style="min-height:350px; clear:both;">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="map_event" style="height:350px"></div>
+						</div>
+						<!-- ESTABLECIMIENTO RELACIONADOS -->
+					  	<div id="related_events" t-if="len(related) > 0" class="col-md-12 col-lg-12" style="min-height:150px">
+				  			<div class="row">
+				  				<h4 class="detail-section-title"><strong>EVENTOS RELACIONADOS</strong></h4>
+				  			</div>
+					  		<div style="clear:both;">
+						  		<t t-foreach="related" t-as="ev">
+						  			<div class="col-sm-4 col-md-2">
+							  			<div class="image-grid">
+							  				<a t-att-href="'/directorio/eventos/%s' % slug(ev)"><img t-att-title="ev.name" t-attf-src="/web/binary/image?model=event.event&amp;id=#{ev.id}&amp;field=organizer_id.image"/></a>
+									    </div>
+								    </div>
+						  		</t>
+						  	</div>
+						</div>
+					</div>
+				</section>
+			</div>
+			
+			<!-- VISOR MAPA ESTÁTICO -->
+			<div class="modal fade" tabindex="-1" role="dialog" id="map-viewer">
+				<div class="modal-dialog">
+			    	<div class="modal-content">
+			      		<div class="modal-header">
+			        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
+			        		<h4 class="modal-title">Mapa</h4>
+			      		</div>
+			      		<div class="modal-body">
+			        		<img id="map-img" />
+			      		</div>
+			      		<div class="modal-footer">
+			        		<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			      		</div>
+			    	</div><!-- /.modal-content -->
+			  	</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+			
+			<xpath expr="//html/head" position="inside">
+				<script type='text/javascript'>
+					google.maps.event.addDomListener(window, 'load', initializeGMapsEstablecimiento(0, 0, '<t t-esc="evento.organizer_id.get_composed_address(',')" />'));
+				</script>
+			</xpath>
+		</template>
+		
+    </data>
+</openerp>

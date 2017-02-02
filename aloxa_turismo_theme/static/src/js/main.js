@@ -7,35 +7,43 @@ openerp.website.if_dom_contains('.menu-orderby', function(){
 	});
 	
 	$(document).on('click','#view-form', function(e){
+		var link_target = this.dataset.linkTarget;
 		openerp.jsonRpc('/_set_directory_view/form', 'call', '').then(function(data){
 			if (!data['error'])
 			{
-				window.location.href = '/establecimiento/'+data['slug']+'?sri=0';
+				var url = window.location.href.split('?');
+				window.location.href = '/directorio/'+link_target+'s?'+(url[1] || '');
 			}
 		});
 	});
 	
 	$(document).on('click','#view-grid', function(e){
+		var link_target = this.dataset.linkTarget;
 		openerp.jsonRpc('/_set_directory_view/grid', 'call', '').then(function(data){
 			if (!data['error'])
 			{		
-				window.location.reload();
+				var url = window.location.href.split('?');
+				window.location.href = '/directorio/'+link_target+'s?'+(url[1] || '');
 			}
 		});
 	});
 	$(document).on('click','#view-list', function(e){
+		var link_target = this.dataset.linkTarget;
 		openerp.jsonRpc('/_set_directory_view/list', 'call', '').then(function(data){
 			if (!data['error'])
 			{		
-				window.location.reload();
+				var url = window.location.href.split('?');
+				window.location.href = '/directorio/'+link_target+'s?'+(url[1] || '');
 			}
 		});
 	});
 	$(document).on('click','#view-map', function(e){
+		var link_target = this.dataset.linkTarget;
 		openerp.jsonRpc('/_set_directory_view/map', 'call', '').then(function(data){
 			if (!data['error'])
 			{		
-				window.location.reload();
+				var url = window.location.href.split('?');
+				window.location.href = '/directorio/'+link_target+'s?'+(url[1] || '');
 			}
 		});
 	});
