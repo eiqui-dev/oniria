@@ -448,3 +448,7 @@ a.list-group-item {
 .product-img .img-responsive {
 	max-width: inherit;
 }
+
+.directory-img {
+	width: 100%;
+}

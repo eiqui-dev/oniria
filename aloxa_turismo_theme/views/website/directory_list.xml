@@ -33,7 +33,7 @@
 								<div class="col-md-4 product-img">
 									<t t-if="establecimiento">
 										<a class="product-image" title="" t-attf-href="/directorio/establecimientos/#{ slug(establecimiento) }">
-											<span t-field="establecimiento.image_thumb" t-field-options='{"widget": "image", "class": ""}' />
+											<span t-field="establecimiento.image_thumb" t-field-options='{"widget": "image", "class": "directory-img"}' />
 										</a>
 									</t>
 									<t t-if="producto_contratado">
@@ -41,20 +41,20 @@
 											<t t-set="product_type" t-value='producto_contratado.product_tur_id.tipo_producto' />
 											
 											<a class="product-image" title="" t-attf-href="/shop/product/#{ slug(producto_contratado.product_tur_id) }">
-												<span t-field="producto_contratado.image_thumb" t-field-options='{"widget": "image", "class": ""}' />
+												<span t-field="producto_contratado.image_thumb" t-field-options='{"widget": "image", "class": "directory-img"}' />
 											</a>
 										</t>
 										<t t-if="not producto_contratado.product_tur_id">
 											<a itemprop="url" t-att-href="website.sanitize_url(producto_contratado.url)">
 												<div t-attf-class="oe_product_image">
-													<span t-field="producto_contratado.image_thumb" t-field-options='{"widget": "image", "class": ""}' />
+													<span t-field="producto_contratado.image_thumb" t-field-options='{"widget": "image", "class": "directory-img"}' />
 												</div>
 											</a>
 										</t>
 									</t>
 									<t t-if="evento">
 										<a class="product-image" title="" t-attf-href="/directorio/eventos/#{ slug(evento) }">
-											<span t-field="evento.organizer_id.image" t-field-options='{"widget": "image", "class": ""}' />
+											<span t-field="evento.organizer_id.image" t-field-options='{"widget": "image", "class": "directory-img"}' />
 										</a>
 									</t>          
 								</div>
