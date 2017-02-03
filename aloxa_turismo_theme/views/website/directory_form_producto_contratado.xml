@@ -3,19 +3,18 @@
     <data>    
     
 		<template id="directory_form_producto_contratado">
-			<t t-set="product_type" t-value='producto_contratado.tipo_producto' />
-			<t t-set="additional_title" t-value="producto_contratado.name"/>
+			<t t-set="product_type" t-value='producto_contratado.product_tur_id.tipo_producto' />
 			<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale">
 				<section t-attf-class="container mt8 oe_website_sale" id="product_detail">
 			         <div class="row">
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 product-detail">
-	                		<span itemprop="image" t-field="producto_contratado.image" t-field-options='{"widget": "image", "class": "product_detail_img product-image"}'/>
+	                		<span itemprop="image" t-field="producto_contratado.product_tur_id.image" t-field-options='{"widget": "image", "class": "product_detail_img product-image"}'/>
 				        </div>
 						<div class="product-info"> 
 							<div class="col-xs-12 col-md-5 col-lg-5 col-sm-6 product-detail">
-				                <h1 itemprop="name" t-field="producto_contratado.name">Nombre Producto</h1>
-				                <span itemprop="url" style="display:none;" t-esc="'/%s/%s' % (product_type,slug(producto_contratado))"/>
-								<p class="text-muted "><t t-esc="producto_contratado.description_sale"/></p>
+				                <h1 itemprop="name" t-field="producto_contratado.product_tur_id.name">Nombre Producto</h1>
+				                <span itemprop="url" style="display:none;" t-esc="'/directorio/%ss/%s' % (category_type,slug(producto_contratado))"/>
+								<p class="text-muted "><t t-esc="producto_contratado.product_tur_id.description_sale"/></p>
 								
 								<div class="row">
 									<table>
@@ -23,19 +22,19 @@
 											<div class="icon"><span class="icon fa fa-calendar" /></div>
 										</td><td>
 											<b>Añada:</b> 
-											<t t-esc="producto_contratado.anho" />
+											<t t-esc="producto_contratado.product_tur_id.anho" />
 										</td></tr>
 										
 										<tr><td style="width:16px">
 											<div class="icon"><span class="icon fa fa-flask"/></div>
 										</td><td>
-											<t t-if="producto_contratado.tipo_producto == 'vino'">
+											<t t-if="product_type == 'vino'">
 												<b>Tipo Vino:</b> 
-												<span t-if="producto_contratado.tipovino" t-esc="producto_contratado.tipovino.nombre" />
+												<span t-if="producto_contratado.product_tur_id.tipovino" t-esc="producto_contratado.product_tur_id.tipovino.nombre" />
 											</t>
-											<t t-if="producto_contratado.tipo_producto == 'vinagre'">
+											<t t-if="product_type == 'vinagre'">
 												<b>Tipo Vinagre:</b> 
-												<span t-if="producto_contratado.tipovinagre" t-esc="producto_contratado.tipovinagre.nombre" />
+												<span t-if="producto_contratado.product_tur_id.tipovinagre" t-esc="producto_contratado.product_tur_id.tipovinagre.nombre" />
 											</t>
 										</td></tr>
 										
@@ -43,14 +42,14 @@
 											<div class="icon"><span class="icon fa fa-tint"/></div>
 										</td><td>
 											<b>Tipo Uva:</b> 
-											<span t-if="producto_contratado.uva" t-esc="producto_contratado.uva.nombre" />
+											<span t-if="producto_contratado.product_tur_id.uva" t-esc="producto_contratado.product_tur_id.uva.nombre" />
 										</td></tr>
 										
 										<tr><td style="width:16px">
 											<div class="icon"><span class="icon fa fa-star"/></div>
 										</td><td>
 											<b>Premios:</b> 
-											<span t-if="producto_contratado.premios" t-esc="producto_contratado.premios.nombre" />
+											<span t-if="producto_contratado.product_tur_id.premios" t-esc="producto_contratado.product_tur_id.premios.nombre" />
 										</td></tr>
 									</table>
 								</div>
