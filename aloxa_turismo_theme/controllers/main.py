@@ -71,19 +71,19 @@ class website_aloxa_turismo(Website):
             searchDomain.append(('website_published','=',True))
             if params and 'search' in params.keys():
                 # Busqueda por cajetin
-                if len(params['search']) > 0:
+                if any(params['search']):
                     searchDomain.append('|')
                     searchDomain.append(('name', 'ilike', params['search']))
                     searchDomain.append(('descripcion', 'ilike', params['search']))
                 # Localidades
                 localidades_k = [s for s in params if s.startswith("localidad-")]
-                localidades = [False if q=='none' else q for q in werkzeug.url_unquote_plus(params[s]) for s in localidades_k]
-                if len(localidades) > 0:
-                    searchDomain.append(('city', 'in', localidades))
+                localidades = [werkzeug.url_unquote_plus(params[s]) for s in localidades_k]
+                if any(localidades):
+                    searchDomain.append(('city', 'in', [False if q=='none' else q for q in localidades]))
                 # Servicios
                 services_k = [s for s in params if s.startswith("service-")]
                 services = [int(werkzeug.url_unquote_plus(params[s])) for s in services_k]
-                if len(services) > 0:
+                if any(services):
                     searchDomain.append(('services', 'in', services))
                     
                 #pydevd.settrace("10.0.3.1")
@@ -202,26 +202,26 @@ class website_aloxa_turismo(Website):
                     
                 # Localidades
                 param_localidades_k = [s for s in params if s.startswith("localidad-")]
-                param_localidades = [False if q=='none' else q for q in werkzeug.url_unquote_plus(params[s]) for s in param_localidades_k]
+                param_localidades = [werkzeug.url_unquote_plus(params[s]) for s in param_localidades_k]
                 
                 # Tipo Establecimiento
                 param_tipo_establecimento_k = [s for s in params if s.startswith("tipo_establecimiento-")]
-                param_tipo_establecimiento = [werkzeug.url_unquote_plus(params[s]).lower() for s in param_tipo_establecimento_k]
+                param_tipo_establecimiento = [werkzeug.url_unquote_plus(params[s]) for s in param_tipo_establecimento_k]
      
                 # Tipo Establecimiento
                 param_services_k = [s for s in params if s.startswith("service-")]
-                param_services = [int(werkzeug.url_unquote_plus(params[s]).lower()) for s in param_services_k]
-                    
+                param_services = [int(werkzeug.url_unquote_plus(params[s])) for s in param_services_k]
+    
             searchDomainEstablecimientos = list(searchDomain)
             searchDomainLocalidades = []
             searchDomainServices = []
             searchDomainTipos = []
-            if len(param_localidades) > 0:
-                searchDomainLocalidades.append(('city', 'in', param_localidades))
-            if len(param_services) > 0:
-                searchDomainServices.append(('services', 'in', param_services))
-            if len(param_tipo_establecimiento) > 0:
-                searchDomainTipos.append(('tipo', 'in', param_tipo_establecimiento)) 
+            if any(param_localidades):
+                searchDomainLocalidades.append(('city', 'in', [False if q=='none' else q for q in param_localidades]))
+            if any(param_services):
+                searchDomainServices.append(('services', 'in', [False if q=='none' else q for q in param_services]))
+            if any(param_tipo_establecimiento):
+                searchDomainTipos.append(('tipo', 'in', [False if q=='none' else q for q in param_tipo_establecimiento])) 
             
             attribute = attrDirectorio()
             attribute.open = True
@@ -232,43 +232,43 @@ class website_aloxa_turismo(Website):
             value = attrValueDirectorio()
             value.label = 'Bodegas'
             value.name = 'bodega'
-            value.sel = True if value.name.lower() in param_tipo_establecimiento else False
+            value.sel = True if value.name in param_tipo_establecimiento else False
             value.num = request.env['turismo.establecimiento'].search_count(searchDomainEstablecimientos+searchDomainLocalidades+searchDomainServices+[('tipo','=','bodega')])
             attribute.values.append(value)
             value = attrValueDirectorio()
             value.label = 'Restaurantes'
             value.name = 'restaurante'
-            value.sel = True if value.name.lower() in param_tipo_establecimiento else False
+            value.sel = True if value.name in param_tipo_establecimiento else False
             value.num = request.env['turismo.establecimiento'].search_count(searchDomainEstablecimientos+searchDomainLocalidades+searchDomainServices+[('tipo','=','restaurante')])
             attribute.values.append(value)
             value = attrValueDirectorio()
             value.label = 'Hospedajes'
             value.name = 'hospedaje'
-            value.sel = True if value.name.lower() in param_tipo_establecimiento else False
+            value.sel = True if value.name in param_tipo_establecimiento else False
             value.num = request.env['turismo.establecimiento'].search_count(searchDomainEstablecimientos+searchDomainLocalidades+searchDomainServices+[('tipo','=','hospedaje')])
             attribute.values.append(value)
             value = attrValueDirectorio()
             value.label = 'Viñedos'
             value.name = 'vinhedo'
-            value.sel = True if value.name.lower() in param_tipo_establecimiento else False
+            value.sel = True if value.name in param_tipo_establecimiento else False
             value.num = request.env['turismo.establecimiento'].search_count(searchDomainEstablecimientos+searchDomainLocalidades+searchDomainServices+[('tipo','=','vinhedo')])
             attribute.values.append(value)
             value = attrValueDirectorio()
             value.label = 'Arte y Cultura'
             value.name = 'cultural'
-            value.sel = True if value.name.lower() in param_tipo_establecimiento else False
+            value.sel = True if value.name in param_tipo_establecimiento else False
             value.num = request.env['turismo.establecimiento'].search_count(searchDomainEstablecimientos+searchDomainLocalidades+searchDomainServices+[('tipo','=','cultural')])
             attribute.values.append(value)
             value = attrValueDirectorio()
             value.label = 'Vinotecas'
             value.name = 'vinoteca'
-            value.sel = True if value.name.lower() in param_tipo_establecimiento else False
+            value.sel = True if value.name in param_tipo_establecimiento else False
             value.num = request.env['turismo.establecimiento'].search_count(searchDomainEstablecimientos+searchDomainLocalidades+searchDomainServices+[('tipo','=','vinoteca')])
             attribute.values.append(value)
             value = attrValueDirectorio()
             value.label = 'Otros'
             value.name = 'otro'
-            value.sel = True if value.name.lower() in param_tipo_establecimiento else False
+            value.sel = True if value.name in param_tipo_establecimiento else False
             value.num = request.env['turismo.establecimiento'].search_count(searchDomainEstablecimientos+searchDomainLocalidades+searchDomainServices+[('tipo','=','otro')])
             attribute.values.append(value)
             attributes.append(attribute)
@@ -297,9 +297,9 @@ class website_aloxa_turismo(Website):
             attribute.label = "Localidad"
             attribute.name = "localidad"
             
-            searchDomainLocalidades = list(searchDomain)
-            if len(param_tipo_establecimiento) > 0:
-                searchDomainLocalidades.append(('tipo', 'in', param_tipo_establecimiento)) 
+            #searchDomainLocalidades = list(searchDomain)
+            #if len(param_tipo_establecimiento) > 0:
+            #    searchDomainLocalidades.append(('tipo', 'in', param_tipo_establecimiento)) 
             
             attribute.values = []
             establecimientos = request.env['turismo.establecimiento'].search(searchDomainEstablecimientos+searchDomainTipos+searchDomainServices, order='city')
@@ -310,7 +310,7 @@ class website_aloxa_turismo(Website):
                 value.num = establecimientos.search_count([('city','=',localidad)])
                 value.name = localidad or 'none'
                 value.label = localidad or "Sin Definir"
-                value.sel = True if localidad in param_localidades or (not localidad and False in param_localidades) else False
+                value.sel = True if localidad in param_localidades or (not localidad and value.name in param_localidades) else False
                 attribute.values.append(value)
             attributes.append(attribute)
             
@@ -323,7 +323,7 @@ class website_aloxa_turismo(Website):
             param_anhada = []
             if params and 'search' in params.keys():
                 # Busqueda por cajetin
-                if len(params['search']) > 0:
+                if any(params['search']):
                     searchDomain.append('|')
                     searchDomain.append(('name', 'ilike', werkzeug.url_unquote_plus(params['search'])))
                     searchDomain.append(('descripcion', 'ilike', werkzeug.url_unquote_plus(params['search'])))
@@ -334,25 +334,25 @@ class website_aloxa_turismo(Website):
                 
                 # Tipo Uva
                 param_tipo_uva_k= [s for s in params if s.startswith("tipo_uva-")]
-                param_tipo_uva = [werkzeug.url_unquote_plus(params[s]).lower() for s in param_tipo_uva_k]
+                param_tipo_uva = [werkzeug.url_unquote_plus(params[s]) for s in param_tipo_uva_k]
                 
                 # Premios
                 param_premios_k = [s for s in params if s.startswith("premios-")]
-                param_premios = [werkzeug.url_unquote_plus(params[s]).lower() for s in param_premios_k]
+                param_premios = [werkzeug.url_unquote_plus(params[s]) for s in param_premios_k]
                 
                 # Anhada
                 param_anhada_k = [s for s in params if s.startswith("anhada-")]
-                param_anhada = [werkzeug.url_unquote_plus(params[s]).lower() for s in param_anhada_k]
-                    
+                param_anhada = [werkzeug.url_unquote_plus(params[s]) for s in param_anhada_k]
+                
             searchDomainVinos = list(searchDomain)
-            if len(param_tipo_vino) > 0:
-                searchDomainVinos.append(('product_tur_id.tipovino.nombre', 'in', param_tipo_vino))
-            if len(param_tipo_uva) > 0:
-                searchDomainVinos.append(('product_tur_id.uva.nombre', 'in', param_tipo_uva))
-            if len(param_premios) > 0:
-                searchDomainVinos.append(('product_tur_id.premios.nombre', 'in', param_premios))
-            if len(param_anhada) > 0:
-                searchDomainVinos.append(('product_tur_id.anho', 'in', param_anhada))
+            if any(param_tipo_vino):
+                searchDomainVinos.append(('product_tur_id.tipovino.nombre', 'in', [False if q=='none' else q for q in param_tipo_vino]))
+            if any(param_tipo_uva):
+                searchDomainVinos.append(('product_tur_id.uva.nombre', 'in', [False if q=='none' else q for q in param_tipo_uva]))
+            if any(param_premios):
+                searchDomainVinos.append(('product_tur_id.premios.nombre', 'in', [False if q=='none' else q for q in param_premios]))
+            if any(param_anhada):
+                searchDomainVinos.append(('product_tur_id.anho', 'in', [False if q=='none' else q for q in param_anhada]))
             
             attribute = attrDirectorio()
             attribute.open = True
@@ -368,7 +368,7 @@ class website_aloxa_turismo(Website):
                 value.num = request.env['turismo.producto_contratado_cliente'].search_count(searchDomainVinos+[('product_tur_id.tipo_producto','=','vino'),
                                                                                              ('product_tur_id.tipovino','=',tag)])
                 value.name = value.label = tag
-                value.sel = True if value.name.lower() in param_tipo_vino else False
+                value.sel = True if value.name in param_tipo_vino else False
                 attribute.values.append(value)
             attributes.append(attribute)
             
@@ -386,7 +386,7 @@ class website_aloxa_turismo(Website):
                 value.num = request.env['turismo.producto_contratado_cliente'].search_count(searchDomainVinos+[('product_tur_id.tipo_producto','=','vino'),
                                                                                              ('product_tur_id.uva','=',tag)])
                 value.name = value.label = tag
-                value.sel = True if value.name.lower() in param_tipo_uva else False
+                value.sel = True if value.name in param_tipo_uva else False
                 attribute.values.append(value)
             attributes.append(attribute)
             
@@ -403,7 +403,7 @@ class website_aloxa_turismo(Website):
                 value.num = request.env['turismo.producto_contratado_cliente'].search_count(searchDomainVinos+[('product_tur_id.tipo_producto','=','vino'),
                                                                                              ('product_tur_id.premios','=',tag)])
                 value.name = value.label = tag
-                value.sel = True if value.name.lower() in param_premios else False
+                value.sel = True if value.name in param_premios else False
                 attribute.values.append(value)
             attributes.append(attribute)
             
@@ -420,7 +420,7 @@ class website_aloxa_turismo(Website):
                 value.num = request.env['turismo.producto_contratado_cliente'].search_count(searchDomainVinos+[('product_tur_id.tipo_producto','=','vino'),
                                                                                              ('product_tur_id.anho','=',anho)])
                 value.name = value.label = str(anho)
-                value.sel = True if value.name.lower() in param_anhada else False
+                value.sel = True if value.name in param_anhada else False
                 attribute.values.append(value)
             attributes.append(attribute)
             
@@ -429,18 +429,18 @@ class website_aloxa_turismo(Website):
             param_localidades = []
             if params and 'search' in params.keys():
                 # Busqueda por cajetin
-                if len(params['search']) > 0:
+                if any(params['search']):
                     searchDomain.append('|')
                     searchDomain.append(('name', 'ilike', params['search']))
                     searchDomain.append(('description', 'ilike', params['search']))
                     
                 # Localidades
                 param_localidades_k = [s for s in params if s.startswith("localidad-")]
-                param_localidades = [False if q=='none' else q for q in werkzeug.url_unquote_plus(params[s]) for s in param_localidades_k]
+                param_localidades = [werkzeug.url_unquote_plus(params[s]) for s in param_localidades_k]
                 
-            searchDomainLocalidades = []
-            if len(param_localidades) > 0:
-                searchDomainLocalidades.append(('address_id.city', 'in', param_localidades))
+            #searchDomainLocalidades = []
+            #if len(param_localidades) > 0:
+            #    searchDomainLocalidades.append(('address_id.city', 'in', param_localidades))
                 
             attribute = attrDirectorio()
             attribute.open = True
@@ -448,8 +448,9 @@ class website_aloxa_turismo(Website):
             attribute.label = "Localidad"
             attribute.name = "localidad"
             
-            searchDomainLocalidades = list(searchDomain)
+            #searchDomainLocalidades = list(searchDomain)
             
+            _logger.info(param_localidades)
             attribute.values = []
             eventos = request.env['event.event'].search(searchDomain)
             localidades = eventos.mapped('address_id.city')
@@ -459,7 +460,7 @@ class website_aloxa_turismo(Website):
                 value.num = eventos.search_count([('address_id.city','=',localidad)])
                 value.name = localidad or 'none'
                 value.label = localidad or "Sin Definir"
-                value.sel = True if localidad in param_localidades or (not localidad and False in param_localidades) else False
+                value.sel = True if localidad in param_localidades or (not localidad and value.name in param_localidades) else False
                 attribute.values.append(value)
             attributes.append(attribute)
 
@@ -472,7 +473,7 @@ class website_aloxa_turismo(Website):
             param_anhada = []
             if params and 'search' in params.keys():
                 # Busqueda por cajetin
-                if len(params['search']) > 0:
+                if any(params['search']):
                     searchDomain.append('|')
                     searchDomain.append(('name', 'ilike', params['search']))
                     searchDomain.append(('descripcion', 'ilike', params['search']))
@@ -494,14 +495,14 @@ class website_aloxa_turismo(Website):
                 param_anhada = [werkzeug.url_unquote_plus(params[s]).lower() for s in param_anhada_k]
                     
             searchDomainVinagres = list(searchDomain)
-            if len(param_tipo_vinagre) > 0:
-                searchDomainVinagres.append(('product_tur_id.tipovino', 'in', param_tipo_vinagre))
-            if len(param_tipo_uva) > 0:
-                searchDomainVinagres.append(('product_tur_id.uva', 'in', param_tipo_uva))
-            if len(param_premios) > 0:
-                searchDomainVinagres.append(('product_tur_id.premios', 'in', param_premios))
-            if len(param_anhada) > 0:
-                searchDomainVinagres.append(('product_tur_id.anho', 'in', param_anhada))
+            if any(param_tipo_vinagre):
+                searchDomainVinagres.append(('product_tur_id.tipovino', 'in', [False if q=='none' else q for q in param_tipo_vinagre]))
+            if any(param_tipo_uva):
+                searchDomainVinagres.append(('product_tur_id.uva', 'in', [False if q=='none' else q for q in param_tipo_uva]))
+            if any(param_premios):
+                searchDomainVinagres.append(('product_tur_id.premios', 'in', [False if q=='none' else q for q in param_premios]))
+            if any(param_anhada):
+                searchDomainVinagres.append(('product_tur_id.anho', 'in', [False if q=='none' else q for q in param_anhada]))
             
             attribute = attrDirectorio()
             attribute.open = True
@@ -573,9 +574,9 @@ class website_aloxa_turismo(Website):
     
     def _sanitize_cnif(self, cnif):
         if cnif:
-            matchObj = re.match(r'^\w\w', url, re.M|re.I)
+            matchObj = re.match(r'^\w\w', cnif, re.M|re.I)
             if not matchObj:
-                cnif = "ES" + url
+                cnif = "ES" + cnif
         return cnif
     
     @http.route(['/contratar_link'], type='http', auth="public", website=True)
