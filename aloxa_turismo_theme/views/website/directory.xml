@@ -38,7 +38,7 @@
 								<!-- VISTA FORM PRODUCTO CONTRATADO -->
 								<t t-if="view_mode == 'form' and producto_contratado">
 									<t t-set="title" t-value="'Producto - %s' % producto_contratado.product_tur_id.name.title()"/>
-									<t t-call="aloxa_turismo_theme.directory_form_product_contratado"/>
+									<t t-call="aloxa_turismo_theme.directory_form_producto_contratado"/>
 								</t>
 								<!-- VISTA FORM EVENTO -->
 								<t t-if="view_mode == 'form' and evento">
