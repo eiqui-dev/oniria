@@ -88,7 +88,7 @@ class website_aloxa_turismo(Website):
                     
                 #pydevd.settrace("10.0.3.1")
                 param_tipo_establecimento_k = [s for s in params if s.startswith("tipo_establecimiento-")]
-                param_tipo_establecimiento = [werkzeug.url_unquote_plus(params[s]).lower() for s in param_tipo_establecimento_k]
+                param_tipo_establecimiento = [werkzeug.url_unquote_plus(params[s]) for s in param_tipo_establecimento_k]
                 if len(param_tipo_establecimiento) > 0:
                     searchDomain.append(('tipo', 'in', param_tipo_establecimiento))
                     
@@ -119,9 +119,9 @@ class website_aloxa_turismo(Website):
                     searchDomain.append(('descripcion', 'ilike', params['search']))
                 # Localidades
                 localidades_k = [s for s in params if s.startswith("localidad-")]
-                localidades = [False if q=='none' else q for q in werkzeug.url_unquote_plus(params[s]) for s in localidades_k]
+                localidades = [werkzeug.url_unquote_plus(params[s]) for s in localidades_k]
                 if len(localidades) > 0:
-                    searchDomain.append(('organizer_id.city', 'in', localidades))
+                    searchDomain.append(('organizer_id.city', 'in', [False if q=='none' else q for q in localidades]))
             
             # OrderBy
             if orderby == 'direccion':
@@ -1227,7 +1227,7 @@ class website_aloxa_turismo(Website):
                     if not sri:
                         count = 0
                         for rec_id in request.session['search_records']:
-                            if evento.id == rec_id:
+                            if producto_contratado.id == rec_id:
                                 sri = count
                                 break
                             count=count+1
