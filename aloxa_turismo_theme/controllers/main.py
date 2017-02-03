@@ -1239,7 +1239,7 @@ class website_aloxa_turismo(Website):
                             prev_event = request.env['turismo.producto_contratado_cliente'].browse([request.session['search_records'][sri-1]])
                         if sri < len(request.session['search_records'])-1:
                             next_event = request.env['turismo.producto_contratado_cliente'].browse([request.session['search_records'][sri+1]])
-                    related_prods = request.env['turismo.producto_contratado_cliente'].search([('id', '!=', evento.id),('organizer_id', '=', evento.organizer_id.id)])
+                    related_prods = request.env['turismo.producto_contratado_cliente'].search([('id', '!=', producto_contratado.id),('partner_id', '=', producto_contratado.partner_id.id)])
                     values.update({
                         'sri': sri+1,
                         'prev_prod': prev_event,
