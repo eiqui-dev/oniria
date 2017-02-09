@@ -2,54 +2,70 @@
 <openerp>
     <data>    
     
-		<template id="directory_form_producto_contratado">
-			<t t-set="product_type" t-value='producto_contratado.product_tur_id.tipo_producto' />
+		<template id="directory_form_contracted_product">
+			<t t-set="product_type" t-value='contracted_product.product_tur_id.tipo_producto' />
+			
+			<!-- ANTERIOR Y SIGUIENTE -->
+			<div t-if="not is_direct_form and (prev_prod or next_prod)" id="nav_buttons" class="col-md-12 col-lg-12">
+				<div class="col-md-6 col-lg-6">
+					<t t-if="sri &gt; 1">
+						<a class="btn-form-nav" t-att-data-link-target="'/directorio/%s' % product_type" t-att-data-sri="sri-1" href="#"><i class="fa fa-lg fa-arrow-left"></i> Previus Producto</a>
+					</t>
+				</div>
+				<div class="col-md-6 col-lg-6 text-right">
+					<t t-if="sri &lt; len(request.session['search_records'])">
+						<a class="btn-form-nav" t-att-data-link-target="'/directorio/%s' % product_type" t-att-data-sri="sri+1" href="#">Next Product <i class="fa fa-lg fa-arrow-right"></i></a>
+					</t>
+				</div>
+			</div>
+			
+			<!-- DETALLE -->
 			<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale">
 				<section t-attf-class="container mt8 oe_website_sale" id="product_detail">
 			         <div class="row">
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 product-detail">
-	                		<span itemprop="image" t-field="producto_contratado.product_tur_id.image" t-field-options='{"widget": "image", "class": "product_detail_img product-image"}'/>
+	                		<span itemprop="image" t-field="contracted_product.product_tur_id.image" t-field-options='{"widget": "image", "class": "product_detail_img product-image"}'/>
 				        </div>
 						<div class="product-info"> 
 							<div class="col-xs-12 col-md-5 col-lg-5 col-sm-6 product-detail">
-				                <h1 itemprop="name" t-field="producto_contratado.product_tur_id.name">Nombre Producto</h1>
+				                <h1 itemprop="name" t-field="contracted_product.product_tur_id.name">Product Name</h1>
 				                <span itemprop="url" style="display:none;" t-esc="'/directorio/%ss/%s' % (category_type,slug(producto_contratado))"/>
-								<p class="text-muted "><t t-esc="producto_contratado.product_tur_id.description_sale"/></p>
+								<p class="text-muted "><t t-esc="contracted_product.product_tur_id.description_sale"/></p>
 								
 								<div class="row">
 									<table>
 										<tr><td style="width:16px">
 											<div class="icon"><span class="icon fa fa-calendar" /></div>
 										</td><td>
-											<b>Añada:</b> 
-											<t t-esc="producto_contratado.product_tur_id.anho" />
+											<b>Year:</b> 
+											<t t-esc="contracted_product.product_tur_id.anho" />
 										</td></tr>
 										
 										<tr><td style="width:16px">
 											<div class="icon"><span class="icon fa fa-flask"/></div>
 										</td><td>
 											<t t-if="product_type == 'vino'">
-												<b>Tipo Vino:</b> 
-												<span t-if="producto_contratado.product_tur_id.tipovino" t-esc="producto_contratado.product_tur_id.tipovino.nombre" />
+												<b>Wine Type:</b> 
+												<span t-if="contracted_product.product_tur_id.tipovino" t-esc="contracted_product.product_tur_id.tipovino.nombre" />
 											</t>
-											<t t-if="product_type == 'vinagre'">
+											<!--t t-if="product_type == 'vinagre'">
 												<b>Tipo Vinagre:</b> 
-												<span t-if="producto_contratado.product_tur_id.tipovinagre" t-esc="producto_contratado.product_tur_id.tipovinagre.nombre" />
-											</t>
+												<span t-if="contracted_product.product_tur_id.tipovinagre" t-esc="contracted_product.product_tur_id.tipovinagre.nombre" />
+											</t-->
 										</td></tr>
 										
 										<tr><td style="width:16px">
 											<div class="icon"><span class="icon fa fa-tint"/></div>
 										</td><td>
-											<b>Tipo Uva:</b> 
-											<span t-if="producto_contratado.product_tur_id.uva" t-esc="producto_contratado.product_tur_id.uva.nombre" />
+											<b>Grape Type:</b> 
+											<span t-if="contracted_product.product_tur_id.uva" t-esc="contracted_product.product_tur_id.uva.nombre" />
 										</td></tr>
 										
 										<tr><td style="width:16px">
 											<div class="icon"><span class="icon fa fa-star"/></div>
 										</td><td>
-											<b>Premios:</b> 
-											<span t-if="producto_contratado.product_tur_id.premios" t-esc="producto_contratado.product_tur_id.premios.nombre" />
+											<b>Awards:</b> 
+											<span t-if="contracted_product.product_tur_id.premios" t-esc="contracted_product.product_tur_id.premios.nombre" />
 										</td></tr>
 									</table>
 								</div>

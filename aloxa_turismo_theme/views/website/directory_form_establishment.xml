@@ -2,17 +2,17 @@
 <openerp>
     <data>    
     
-		<template id="directory_form_establecimiento">
+		<template id="directory_form_establishment">
 			<!-- ANTERIOR Y SIGUIENTE -->
-			<div t-if="prev_est or next_est" id="nav_buttons" class="col-md-12 col-lg-12">
+			<div t-if="not is_direct_form and (prev_est or next_est)" id="nav_buttons" class="col-md-12 col-lg-12">
 				<div class="col-md-6 col-lg-6">
-					<t t-if="prev_est">
-						<a t-att-href="'/directorio/establecimientos/%s?sri=%d' % (slug(prev_est),sri-1 or 0)"><i class="fa fa-lg fa-arrow-left"></i> Establecimiento Anterior</a>
+					<t t-if="sri &gt; 1">
+						<a class="btn-form-nav" data-link-target="/directorio/establecimientos" t-att-data-sri="sri-1" href="#"><i class="fa fa-lg fa-arrow-left"></i> Previous Establishment</a>
 					</t>
 				</div>
 				<div class="col-md-6 col-lg-6 text-right">
-					<t t-if="next_est">
-						<a t-att-href="'/directorio/establecimientos/%s?sri=%d' % (slug(next_est),sri+1 or 0)">Establecimiento Siguiente <i class="fa fa-lg fa-arrow-right"></i></a>
+					<t t-if="sri &lt; len(request.session['search_records'])">
+						<a class="btn-form-nav" data-link-target="/directorio/establecimientos" t-att-data-sri="sri+1" href="#">Next Establishment <i class="fa fa-lg fa-arrow-right"></i></a>
 					</t>
 				</div>
 			</div>
@@ -23,7 +23,7 @@
 			         <div class="row">
 						<!-- IMAGEN -->
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 product-detail">
-	                		<span itemprop="image" t-field="establecimiento.imagen" t-field-options='{"widget": "image", "class": "product_detail_img product-image"}'/>
+	                		<span itemprop="image" t-field="establishment.imagen" t-field-options='{"widget": "image", "class": "product_detail_img product-image"}'/>
 	                	</div>
 	                	<!-- INFO -->
 						<div class="product-info"> 
@@ -31,39 +31,39 @@
 							<div class="col-xs-12 col-md-5 col-lg-5 col-sm-6 product-detail">
 								<div id="head-name">
 									<div class="pull-right">
-										<t t-foreach="establecimiento.services" t-as="service">
+										<t t-foreach="establishment.services" t-as="service">
 											<i t-attf-class="fa fa-2x fa-{{service.icon}} est-icon" t-att-title='service.name'></i>
 										</t>
 									</div>
-					                <h1 t-esc="establecimiento.name.upper()" />
-					                <t t-set="address" t-value="establecimiento.partner_id.get_composed_address(',')"/>
+					                <h1 t-esc="establishment.name.upper()" />
+					                <t t-set="address" t-value="establishment.partner_id.get_composed_address(',')"/>
 					                <div><i class="fa fa-map-marker"></i> <a href="#" data-toggle="modal" data-target="#map-viewer" class="open-map-image" t-att-data-address="address" t-esc="address" /></div>
-					            	<div><i class="fa fa-link"></i> <a t-attf-href="tel:#{establecimiento.phone}" t-field="establecimiento.phone"/> | <a t-att-href="establecimiento.website" t-field="establecimiento.website"/> | <a t-attf-href="mailto:#{establecimiento.email}" t-field="establecimiento.email"/></div>
+					            	<div><i class="fa fa-link"></i> <a t-attf-href="tel:#{establishment.phone}" t-field="establishment.phone"/> | <a t-att-href="establishment.website" t-field="establishment.website"/> | <a t-attf-href="mailto:#{establishment.email}" t-field="establishment.email"/></div>
 					            </div>
-								<p t-esc="establecimiento.descripcion" class="text-muted text-justify"
+								<p t-esc="establishment.descripcion" class="text-muted text-justify"
 									style="margin-top:1.5em;"/>   
 							</div> 
 							
 							<!-- HORARIO -->
 							<div class="col-xs-12 col-md-3 col-lg-3 col-sm-12 product-detail"> 
-								<div class="block-hours" t-if="establecimiento.horario and len(establecimiento.horario)>0">
+								<div class="block-hours" t-if="establishment.horario and len(establishment.horario)>0">
 									<h4>Horario</h4>
 									<table>
-										<tr t-foreach="establecimiento.horario" t-as="hln">
+										<tr t-foreach="establishment.horario" t-as="hln">
 											<td><t t-esc="website.get_day_of_week(hln.dayofweek)" /></td><td style="text-align:right"><t t-esc="'%s – %s' % (website.get_float_hours(hln.hour_from), website.get_float_hours(hln.hour_to))" /></td>
 										</tr>
 									</table>
 								</div>
 								
-								<!--t t-if="establecimiento.tripadvisor_url">
+								<!--t t-if="establishment.tripadvisor_url">
 						        	<div id="TA_selfserveprop321" class="TA_selfserveprop">
 										<ul id="YdAbOSysc8" class="TA_links Ed0roAdwga8x">
 											<li id="bdLvBcTo04K" class="lqkgPPEUk">
-												<a target="_blank" t-attf-href="#{ establecimiento.tripadvisor_url }"><img src="http://www.tripadvisor.es/img/cdsi/img2/branding/150_logo-11900-2.png" alt="TripAdvisor"/></a>
+												<a target="_blank" t-attf-href="#{ establishment.tripadvisor_url }"><img src="http://www.tripadvisor.es/img/cdsi/img2/branding/150_logo-11900-2.png" alt="TripAdvisor"/></a>
 											</li>
 										</ul>
 									</div>
-									<script t-attf-src="http://www.jscache.com/wejs?wtype=selfserveprop&amp;uniq=321&amp;locationId=#{ establecimiento.get_tripadvisor_id() }&amp;lang=es&amp;rating=true&amp;nreviews=5&amp;writereviewlink=true&amp;popIdx=true&amp;iswide=false&amp;border=true&amp;display_version=2"></script>
+									<script t-attf-src="http://www.jscache.com/wejs?wtype=selfserveprop&amp;uniq=321&amp;locationId=#{ establishment.get_tripadvisor_id() }&amp;lang=es&amp;rating=true&amp;nreviews=5&amp;writereviewlink=true&amp;popIdx=true&amp;iswide=false&amp;border=true&amp;display_version=2"></script>
 								</t-->
 							</div> 
 						</div>
@@ -74,10 +74,10 @@
 				  		<div id="events" t-if="len(events) > 0" class="col-md-12 col-lg-12">
 					  		<table class="table table-condensed table-hover table-striped" id="table-events">
 								<thead>
-									<th>Evento</th>
-									<th>Fecha Inicio</th>
-									<th>Fecha Fin</th>
-									<th>Mapa</th>
+									<th>Event</th>
+									<th>Date Begin</th>
+									<th>Date End</th>
+									<th>Map</th>
 									<th> </th>
 								</thead>
 								<tbody>
@@ -87,8 +87,8 @@
 										</td>
 										<td><span t-field="event.date_begin" /></td>
 										<td><span t-field="event.date_end" /></td>
-										<td><a href="#" data-toggle="modal" data-target="#map-viewer" class="open-map-image" t-attf-data-address="#{event.address_id.get_composed_address(',')}">Ver mapa</a></td>
-										<td><a t-attf-href="/event/#{slug(event)}/register" class="btn btn-primary">Reservar</a></td>
+										<td><a href="#" data-toggle="modal" data-target="#map-viewer" class="open-map-image" t-attf-data-address="#{event.address_id.get_composed_address(',')}">View map</a></td>
+										<td><a t-attf-href="/event/#{slug(event)}/register" class="btn btn-primary">Reserve</a></td>
 									</tr>
 								</tbody>
 							</table>
@@ -98,15 +98,15 @@
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="map_est" style="height:350px"></div>
 						</div>
 						<!-- GALERIA -->
-					  	<div id="images" t-if="len(establecimiento.images) > 0" class="col-md-12 col-lg-12" style="min-height:150px">
+					  	<div id="images" t-if="len(establishment.images) > 0" class="col-md-12 col-lg-12" style="min-height:150px">
 				  			<div class="row">
-				  				<h4 class="detail-section-title"><strong>GALERÍA</strong></h4>
+				  				<h4 class="detail-section-title"><strong>GALERY</strong></h4>
 				  			</div>
 					  		<div style="clear:both;">
-						  		<t t-foreach="establecimiento.images" t-as="image">
+						  		<t t-foreach="establishment.images" t-as="image">
 						  			<div class="col-sm-6 col-md-4">
 							  			<div class="image-grid">
-							  				<img t-att-title="image.name" t-attf-src="/web/binary/image?model=establecimiento.images&amp;id=#{image.id}&amp;field=image"/>
+							  				<img t-att-title="image.name" t-attf-src="/web/binary/image?model=establishment.images&amp;id=#{image.id}&amp;field=image"/>
 									    </div>
 								    </div>
 						  		</t>
@@ -145,13 +145,13 @@
 						<!-- ESTABLECIMIENTO RELACIONADOS -->
 					  	<div id="related_est" t-if="len(related) > 0" class="col-md-12 col-lg-12" style="min-height:150px">
 				  			<div class="row">
-				  				<h4 class="detail-section-title"><strong>ESTABLECIMIENTOS RELACIONADOS</strong></h4>
+				  				<h4 class="detail-section-title"><strong>RELATED ESTABLISHMENTS</strong></h4>
 				  			</div>
 					  		<div style="clear:both;">
 						  		<t t-foreach="related" t-as="est">
 						  			<div class="col-sm-4 col-md-2">
 							  			<div class="image-grid">
-							  				<a t-att-href="'/directorio/establecimientos/%s' % slug(est)"><img t-att-title="est.name" t-attf-src="/web/binary/image?model=turismo.establecimiento&amp;id=#{est.id}&amp;field=imagen"/></a>
+							  				<a t-att-href="'/establecimiento/%s' % slug(est)"><img t-att-title="est.name" t-attf-src="/web/binary/image?model=turismo.establecimiento&amp;id=#{est.id}&amp;field=imagen"/></a>
 									    </div>
 								    </div>
 						  		</t>
@@ -167,13 +167,13 @@
 			    	<div class="modal-content">
 			      		<div class="modal-header">
 			        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-close"></i></span></button>
-			        		<h4 class="modal-title">Mapa</h4>
+			        		<h4 class="modal-title">Map</h4>
 			      		</div>
 			      		<div class="modal-body">
 			        		<img id="map-img" />
 			      		</div>
 			      		<div class="modal-footer">
-			        		<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			        		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			      		</div>
 			    	</div><!-- /.modal-content -->
 			  	</div><!-- /.modal-dialog -->
@@ -182,7 +182,7 @@
 			<xpath expr="//html/head" position="inside">
 				<script type='text/javascript'>
 					window.addEventListener('load', function(){
-						google.maps.event.addDomListener(window, 'load', initializeGMaps('#map_est', <t t-esc="establecimiento.latitud" />, <t t-esc="establecimiento.longitud" />, '<t t-esc="establecimiento.partner_id.get_composed_address(',')" />'));
+						google.maps.event.addDomListener(window, 'load', initializeGMaps('#map_est', <t t-esc="establishment.latitud" />, <t t-esc="establishment.longitud" />, '<t t-esc="establishment.partner_id.get_composed_address(',')" />'));
 					});
 				</script>
 			</xpath>

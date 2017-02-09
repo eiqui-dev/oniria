@@ -464,6 +464,7 @@ openerp.website.if_dom_contains('#geoLocation', function(){
 /** VISTA MAPA **/
 var $DIRECTORY_MAP=0;
 var $MARKER_CLUSTER=false;
+var $INFO_WINDOW=false;
 openerp.website.if_dom_contains('#directory-map', function(){
 	
     var mapCanvas = document.getElementById('directory-map');
@@ -476,19 +477,51 @@ openerp.website.if_dom_contains('#directory-map', function(){
 	        google.maps.MapTypeId.SATELLITE
 	      ],
 	      position: google.maps.ControlPosition.BOTTOM_LEFT
-	    }
+      	}
     };
+    if ($NOT_SHOW_GOOGLE_POIS) {
+    	mapOptions['styles'] = [
+	    	{
+	            featureType: "poi",
+	            elementType: "labels",
+	            stylers: [
+	                  { visibility: "off" }
+	            ]
+	        }
+	    ];
+    }
     $DIRECTORY_MAP = new google.maps.Map(mapCanvas, mapOptions);
 	
+    // Info Window
+    var $INFO_WINDOW = new google.maps.InfoWindow();
     // Define Marker Clusterer
     $MARKER_CLUSTER = new MarkerClusterer($DIRECTORY_MAP, [],
-            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+            {
+    			imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+    			zoomOnClick: false,
+            });
+    
+    $MARKER_CLUSTER.addListener("clusterclick", function (cluster) {
+        clusterClicked = true;
+        console.log(cluster);
+        
+        var html = '<ul>';
+        var markers = cluster.getMarkers();
+        markers.forEach(function(item, index){ 
+        	html += "<li><a href='"+item.url+"'>"+item.title+"</a></li>";
+        });
+        html += '</ul>';
+        $INFO_WINDOW.close();
+        $INFO_WINDOW.setContent(html);
+        $INFO_WINDOW.setPosition(cluster.getCenter());
+        $INFO_WINDOW.open($DIRECTORY_MAP);
+    });
     // Put markers
-    for (var i=0; i<$DIRECTORY_ADDRESS.length; i+=2)
-    	add_address_to_directory_map($DIRECTORY_ADDRESS[i], $DIRECTORY_ADDRESS[i+1]);
+    for (var i=0; i<$DIRECTORY_ADDRESS.length; i+=3)
+    	add_address_to_directory_map($DIRECTORY_ADDRESS[i], $DIRECTORY_ADDRESS[i+1], $DIRECTORY_ADDRESS[i+2]);
 });
 
-function add_address_to_directory_map(address, url) {
+function add_address_to_directory_map(address, url, title) {
 	if ($DIRECTORY_MAP == 0)
 		return;
 	
@@ -501,8 +534,10 @@ function add_address_to_directory_map(address, url) {
 				animation: google.maps.Animation.DROP,
 				icon: '/aloxa_turismo_theme/static/src/img/marker-establecimiento.png',
 	      	});
+	    	marker['url'] = url;
+	    	marker['title'] = title;
 			marker.addListener('click', function() {
-				window.location.href = url;
+				window.location.href = this.url;
 			});
 			$MARKER_CLUSTER.addMarker(marker);
 			
@@ -526,3 +561,45 @@ function get_google_map_image_url(address, w, h, center, zoom)
 	
 	return url;
 }
+
+
+/** VISTA FORM **/
+openerp.website.if_dom_contains('.btn-form-nav', function(){
+	$(document).on('click', '.btn-form-nav', function(e){
+		var link_target = this.dataset.linkTarget;
+		var sri = 'sri='+this.dataset.sri;
+		var url = window.location.href.split('?');
+		var params = url[1] || '';
+		if (params.match(/sri=\d+/)) {
+			params = params.replace(/sri=\d+/,sri);
+		} else {
+			params += sri;
+		}
+		window.location.href = link_target+'?'+params;
+	});
+});
+
+/** BUSCADOR **/
+/*openerp.website.if_dom_contains('.searchbar', function(){
+	$(document).on('mouseleave', '.searchbar', function(e){
+		var $this = $(this);
+		$this.find('.input-group-btn').css({'border-top-left-radius':'4px','border-bottom-left-radius':'4px'});
+		var $squery = $this.find('.search-query');
+		if (!$squery.val()) {
+			$squery.animate({width: '0%', opacity: '0.0'}, function(){ $(this).css('display', 'none'); });
+		}
+	});
+	$(document).on('mouseenter', '.searchbar .input-group-btn > a', function(e){
+		var $this = $(this);
+		var $sbar = $this.closest('.searchbar');
+		$this.parent().css({borderTopLeftRadius:0,borderBottomLeftRadius:0});
+		var $squery = $sbar.find('.search-query');
+		$squery.css('display', 'inherit');
+		$squery.animate({width: '100%', opacity:'1.0'});
+	});
+	
+	if (!$('.searchbar .search-query').val()) {
+		$('.searchbar .search-query').css({width:'0%', opacity:'0.0', display:'none'});
+	}
+});*/
+

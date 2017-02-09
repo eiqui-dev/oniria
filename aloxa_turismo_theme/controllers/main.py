@@ -1,23 +1,23 @@
-  # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 from openerp import SUPERUSER_ID, http, tools
 from openerp.http import request
 from openerp.addons.website.controllers.main import Website
-#from openerp.tools import image_resize_and_sharpen, image_save_for_web
+# from openerp.tools import image_resize_and_sharpen, image_save_for_web
 from datetime import datetime
 from html_table import table_compute
 from collections import OrderedDict
 from openerp.addons.web.controllers.main import login_redirect, content_disposition
 from openerp.addons.website.models.website import slug
-#from openerp.addons.auth_signup.controllers.main import AuthSignupHome
+# from openerp.addons.auth_signup.controllers.main import AuthSignupHome
 import requests
 import re
-import random
 import logging
 import base64
 import werkzeug.utils
 _logger = logging.getLogger(__name__)
-#import pydevd
+# import pydevd
+
 
 class QueryURL(object):
     def __init__(self, path='', **args):
@@ -27,24 +27,26 @@ class QueryURL(object):
     def __call__(self, path=None, **kw):
         if not path:
             path = self.path
-        for k,v in self.args.items():
+        for k, v in self.args.items():
             kw.setdefault(k,v)
         l = []
-        for k,v in kw.items():
+        for k, v in kw.items():
             if v:
                 if isinstance(v, list) or isinstance(v, set):
-                    l.append(werkzeug.url_encode([(k,i) for i in v]))
+                    l.append(werkzeug.url_encode([(k, i) for i in v]))
                 else:
-                    l.append(werkzeug.url_encode([(k,v)]))
+                    l.append(werkzeug.url_encode([(k, v)]))
         if l:
             path += '?' + '&'.join(l)
         return path
-    
+
+
 # Clase intermedia para generar la tabla del directorio
 class htmlBannerDirectorio:
     producto_contratado = None
     establecimiento = None
     events = None
+
 
 class attrDirectorio:
     label = None
@@ -52,6 +54,8 @@ class attrDirectorio:
     values = None
     open = False
     icon = None
+
+
 class attrValueDirectorio:
     label = None
     name = None
@@ -63,12 +67,12 @@ class website_aloxa_turismo(Website):
     def _get_banners_directorio(self, orderby, product_category=None, product_type=None, params=None):
         banners_directorio = []
         request.session['search_records'] = False
-        
-        #pydevd.settrace("10.0.3.1")
+
+        # pydevd.settrace("10.0.3.1")
         # Recoger los establecimientos
         searchDomain = []
         if not product_category and (product_type == "establecimiento" or not product_type):
-            searchDomain.append(('website_published','=',True))
+            searchDomain.append(('website_published', '=', True))
             if params and 'search' in params.keys():
                 # Busqueda por cajetin
                 if any(params['search']):
@@ -79,33 +83,38 @@ class website_aloxa_turismo(Website):
                 localidades_k = [s for s in params if s.startswith("localidad-")]
                 localidades = [werkzeug.url_unquote_plus(params[s]) for s in localidades_k]
                 if any(localidades):
-                    searchDomain.append(('city', 'in', [False if q=='none' else q for q in localidades]))
+                    searchDomain.append(('city', 'in', [False if q == 'none' else q for q in localidades]))
                 # Servicios
                 services_k = [s for s in params if s.startswith("service-")]
                 services = [int(werkzeug.url_unquote_plus(params[s])) for s in services_k]
                 if any(services):
                     searchDomain.append(('services', 'in', services))
-                    
-                #pydevd.settrace("10.0.3.1")
-                param_tipo_establecimento_k = [s for s in params if s.startswith("tipo_establecimiento-")]
-                param_tipo_establecimiento = [werkzeug.url_unquote_plus(params[s]) for s in param_tipo_establecimento_k]
-                if len(param_tipo_establecimiento) > 0:
-                    searchDomain.append(('tipo', 'in', param_tipo_establecimiento))
-                    
+
+                # pydevd.settrace("10.0.3.1")
+                param_tipo_est_k = [s for s in params
+                                    if s.startswith("tipo_establecimiento-")]
+                param_tipo_est = [werkzeug.url_unquote_plus(params[s])
+                                  for s in param_tipo_est_k]
+                if len(param_tipo_est) > 0:
+                    searchDomain.append(('tipo', 'in', param_tipo_est))
+
             # OrderBy
             if orderby == 'direccion':
                 orderby_key = 'street'
             else:
                 orderby_key = 'name'
 
-            registros = request.env['turismo.establecimiento'].search(searchDomain).sorted(key=lambda r: r[orderby_key])
+            registros = request.env['turismo.establecimiento']\
+                .search(searchDomain).sorted(key=lambda r: r[orderby_key])
             request.session['search_records'] = registros.mapped('id')
             for reg in registros:
                 tmp_banner = htmlBannerDirectorio()
                 tmp_banner.establecimiento = reg
-                events = request.env['event.event'].search([('website_published','=',True),
-                                                    ('organizer_id','=',reg.partner_id.id),
-                                                    ('date_end','>=',datetime.now().strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT))], limit=4)
+                events = request.env['event.event'].search([
+                                    ('website_published', '=', True),
+                                    ('organizer_id', '=', reg.partner_id.id),
+                                    ('date_end', '>=', datetime.now().strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT))
+                                ], limit=4)
                 tmp_banner.events = events
                 banners_directorio.append(tmp_banner)
         elif product_type == "evento":
@@ -147,8 +156,8 @@ class website_aloxa_turismo(Website):
             if params and 'search' in params.keys():
                 if len(params['search']) > 0:
                     searchDomain.append('|')
-                    searchDomain.append(('name', 'ilike', params['search']))
-                    searchDomain.append(('description', 'ilike', params['search']))
+                    searchDomain.append(('product_tur_id.name', 'ilike', params['search']))
+                    searchDomain.append(('product_tur_id.description', 'ilike', params['search']))
                 if 'anhada' in params.keys() and len(params['anhada']) > 0:
                     searchDomain.append(('product_tur_id.anho', '=', params['anhada']))
                 if 'tipo_vino' in params.keys() and len(params['tipo_vino']) > 0:
@@ -325,8 +334,8 @@ class website_aloxa_turismo(Website):
                 # Busqueda por cajetin
                 if any(params['search']):
                     searchDomain.append('|')
-                    searchDomain.append(('name', 'ilike', werkzeug.url_unquote_plus(params['search'])))
-                    searchDomain.append(('descripcion', 'ilike', werkzeug.url_unquote_plus(params['search'])))
+                    searchDomain.append(('product_tur_id.name', 'ilike', werkzeug.url_unquote_plus(params['search'])))
+                    searchDomain.append(('product_tur_id.description', 'ilike', werkzeug.url_unquote_plus(params['search'])))
                     
                 # Tipo Vino
                 param_tipo_vino_k = [s for s in params if s.startswith("tipo_vino-")]
@@ -937,7 +946,7 @@ class website_aloxa_turismo(Website):
         cr, uid, context = request.cr, request.uid, request.context
         if not request.session.uid:
             return login_redirect()
-        if est_id == None and pord_id == None:
+        if est_id is None and prod_id is None:
             return http.redirect_with_hash('/panel/links')
         
         user = request.env['res.users'].search([('id','=',uid)])
@@ -1057,105 +1066,65 @@ class website_aloxa_turismo(Website):
                               ('Content-Disposition',
                                content_disposition('Factura-%s.pdf' % str(invoice.number)))])
         return request.redirect('/panel')
-        
-    @http.route(['/establecimiento/<model("turismo.establecimiento"):establecimiento>'], 
-                type='http', auth="public", website=True)
-    def establecimiento(self, establecimiento, **params):
-        prev_est = False
-        next_est = False
-        sri = False
-        if request.session['search_records'] and params and 'sri' in params.keys():
-            sri = int(params['sri'])
-            if sri > 0:
-                prev_est = request.env['turismo.establecimiento'].browse([request.session['search_records'][sri-1]])
-            if sri < len(request.session['search_records'])-1:
-                next_est = request.env['turismo.establecimiento'].browse([request.session['search_records'][sri+1]])
-        
-        events = request.env['event.event'].search([('website_published','=',True),
-                                                    ('organizer_id','=',establecimiento.partner_id.id),
-                                                    ('date_end','>',datetime.now().strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT))])
-        products = request.env['product.template'].search([('website_published','=',True),
-                                                           ('establecimiento_id','=',establecimiento.id)])
-        related_est = request.env['turismo.establecimiento'].search([('id', '!=', establecimiento.id),('res_partner_id', '=', establecimiento.res_partner_id.id)])
-        values = {
-            'sri': sri,
-            'prev_est': prev_est,
-            'next_est': next_est,
-            'establecimiento': establecimiento,
-            'events': events,
-            'related': related_est,
-            'products_table': table_compute().process_productos_establecimiento(products),
-        }
-        return request.website.render("aloxa_turismo_theme.establecimiento_details", values)
-    
+
     @http.route([
-                 '/vinhedo/<model("product.template"):producto>',
-                 '/vino/<model("product.template"):producto>'
-                 ], type='http', auth="public", website=True)
-    def producto_contratado(self, producto):
-        values = {
-            'producto_contratado': producto
-        }
-        return request.website.render("aloxa_turismo_theme.product_details", values)
-    
-    
-    @http.route([
-                 '/directorio',
-                 '/directorio/categoria/<model("product.public.category"):category>',
+                 # '/directorio',
+                 # '/directorio/categoria/<model("product.public.category"):category>',
                  '/directorio/establecimientos',
-                 '/directorio/establecimientos/<model("turismo.establecimiento"):establecimiento>',
+                 '/establecimiento/<model("turismo.establecimiento"):establishment>',
                  '/directorio/vinos',
-                 '/directorio/vinos/<model("turismo.producto_contratado_cliente"):producto_contratado>',
-                 '/directorio/vinagres',
+                 '/vino/<model("turismo.producto_contratado_cliente"):contracted_product>',
+                 # '/directorio/vinagres',
                  '/directorio/eventos',
-                 '/directorio/eventos/<model("event.event"):evento>'
+                 '/evento/<model("event.event"):event>'
                  ], type='http', auth="public", methods=['GET'], website=True)
-    def directorio(self, category=None, establecimiento=None, evento=None, 
-                   producto_contratado=None, **params):
+    def directorio(self, establishment=None, event=None, contracted_product=None, **params):
         categories = []
         #pydevd.settrace("10.0.3.1")
         attrib_list = request.httprequest.args.getlist('attrib')
-        
-        if not 'directory_view' in request.session:
+
+        # Por defecto vista 'grid'
+        if 'directory_view' not in request.session:
             request.session['directory_view'] = 'grid'
-            
-        if establecimiento or evento or producto_contratado:
-            request.session['directory_view'] = 'form'
-            params = {} # Reset params
+
+        # Si viene con 'slug' forzas la vista a 'form'
+        is_direct_form = False
+        if establishment or event or contracted_product:
+            is_direct_form = True
+            params = {}  # Reset params
 
         keep_url = '/directorio'
         category_type = None
-        if request.httprequest.path.startswith('/directorio/establecimientos') or establecimiento:
+        if request.httprequest.path.startswith('/directorio/establecimientos') or establishment:
             keep_url = '/directorio/establecimientos'
             category_type = "establecimiento"
             categories = request.env['product.public.category'].search(['&',('parent_id', '=', False),('link', '=', True),('name', '=', 'Establecimientos')])
-        elif request.httprequest.path.startswith('/directorio/vinos'):
+        elif request.httprequest.path.startswith('/directorio/vinos') or contracted_product:
             keep_url = '/directorio/vinos'
             category_type = "vino"
             categories = request.env['product.public.category'].search(['&',('parent_id', '=', False),('link', '=', True),('name', '=', 'Vinos')])
             # Los vinos no tienen mapa
             if request.session['directory_view'] == 'map':
                 request.session['directory_view'] = 'grid'
-        elif request.httprequest.path.startswith('/directorio/vinagres'):
-            keep_url = '/directorio/vinagres'
-            category_type = "vinagre"
-            categories = request.env['product.public.category'].search(['&',('parent_id', '=', False),('link', '=', True),('name', '=', 'Vinagres')])
-            # Los vinagres no tienen mapa
-            if request.session['directory_view'] == 'map':
-                request.session['directory_view'] = 'grid'
-        elif request.httprequest.path.startswith('/directorio/eventos') or evento:
+#         elif request.httprequest.path.startswith('/directorio/vinagres'):
+#             keep_url = '/directorio/vinagres'
+#             category_type = "vinagre"
+#             categories = request.env['product.public.category'].search(['&',('parent_id', '=', False),('link', '=', True),('name', '=', 'Vinagres')])
+#             # Los vinagres no tienen mapa
+#             if request.session['directory_view'] == 'map':
+#                 request.session['directory_view'] = 'grid'
+        elif request.httprequest.path.startswith('/directorio/eventos') or event:
             keep_url = '/directorio/eventos'
             category_type = "evento"
-                
-        keep = QueryURL(keep_url, category=category and int(category), search='', attrib=attrib_list)
+
+        keep = QueryURL(keep_url, search='', attrib=attrib_list)
 
         # orderby
         orderby = str(params['orderby'].lower()) if params and 'orderby' in params.keys() else 'nombre'
-        bins, numres = self._get_banners_directorio(orderby, product_category=category, product_type=category_type, params=params)
+        bins, numres = self._get_banners_directorio(orderby, product_type=category_type, params=params)
 
         values = {
             'orderby': orderby,
-            'category': category,
             'categories': categories,
             'category_type': category_type,
             'attributes': self._create_directory_attributes(product_type=category_type, params=params),
@@ -1163,54 +1132,60 @@ class website_aloxa_turismo(Website):
             'bins': bins,
             'numresults': numres,
             'rows': 4,
-            'search': params['search'] if params and 'search' in params.keys() else ''
+            'search': params['search'] if params and 'search' in params.keys() else '',
+            'is_direct_form': is_direct_form,
         }
-        
-        if request.session['directory_view'] == 'form':
+
+        if request.session['directory_view'] == 'form' or is_direct_form:
             # Validar SRI
             sri = False
             if params and 'sri' in params.keys():
                 sri = int(params['sri'])-1
                 if sri < 0:
-                    sri = 0;
+                    sri = 0
                 elif sri >= len(request.session['search_records']):
                     sri = len(request.session['search_records'])-1
-                    
+
             if category_type == 'establecimiento':
-                if not establecimiento and request.session['search_records']:
+                if not establishment and request.session['search_records']:
                     if not sri:
                         sri = 0
-                    establecimiento = request.env['turismo.establecimiento'].browse([request.session['search_records'][sri]])
-                    
-                if establecimiento:
+                    establishment = request.env['turismo.establecimiento'].browse([request.session['search_records'][sri]])
+
+                if establishment:
                     # Buscar SRI del establecimiento
                     if not sri:
                         count = 0
                         for rec_id in request.session['search_records']:
-                            if establecimiento.id == rec_id:
+                            if establishment.id == rec_id:
                                 sri = count
                                 break
-                            count=count+1
-                            
-                    prev_est = False  
+                            count = count+1
+
+                    prev_est = False
                     next_est = False
                     if request.session['search_records']:
                         if sri > 0:
                             prev_est = request.env['turismo.establecimiento'].browse([request.session['search_records'][sri-1]])
                         if sri < len(request.session['search_records'])-1:
                             next_est = request.env['turismo.establecimiento'].browse([request.session['search_records'][sri+1]])
-                    
-                    events = request.env['event.event'].search([('website_published','=',True),
-                                                                ('organizer_id','=',establecimiento.partner_id.id),
-                                                                ('date_end','>',datetime.now().strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT))])
+
+                    events = request.env['event.event'].search([
+                                        ('website_published', '=', True),
+                                        ('organizer_id', '=', establishment.partner_id.id),
+                                        ('date_end', '>', datetime.now().strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT))
+                                    ])
                     products = request.env['product.template'].search([('website_published','=',True),
-                                                                       ('establecimiento_id','=',establecimiento.id)])
-                    related_est = request.env['turismo.establecimiento'].search([('id', '!=', establecimiento.id),('res_partner_id', '=', establecimiento.res_partner_id.id)])
+                                                                       ('establecimiento_id','=',establishment.id)])
+                    related_est = request.env['turismo.establecimiento'].search([
+                                            ('id', '!=', establishment.id),
+                                            ('res_partner_id', '=', establishment.res_partner_id.id)
+                                        ])
                     values.update({
                         'sri': sri+1,
                         'prev_est': prev_est,
                         'next_est': next_est,
-                        'establecimiento': establecimiento,
+                        'establishment': establishment,
                         'events': events,
                         'related': related_est,
                         'products_table': table_compute().process_productos_establecimiento(products),
@@ -1218,52 +1193,52 @@ class website_aloxa_turismo(Website):
                 else:
                     request.session['directory_view'] = 'grid'
             elif category_type == 'vino':
-                if not producto_contratado and request.session['search_records']:
+                if not contracted_product and request.session['search_records']:
                     if not sri:
                         sri = 0
-                    producto_contratado = request.env['turismo.producto_contratado_cliente'].browse([request.session['search_records'][sri]])
-                if producto_contratado:
+                    contracted_product = request.env['turismo.producto_contratado_cliente'].browse([request.session['search_records'][sri]])
+                if contracted_product:
                     # Buscar SRI del establecimiento
                     if not sri:
                         count = 0
                         for rec_id in request.session['search_records']:
-                            if producto_contratado.id == rec_id:
+                            if contracted_product.id == rec_id:
                                 sri = count
                                 break
-                            count=count+1
-                                            
-                    prev_event = False  
+                            count = count+1
+    
+                    prev_event = False
                     next_event = False
                     if request.session['search_records']:
                         if sri > 0:
                             prev_event = request.env['turismo.producto_contratado_cliente'].browse([request.session['search_records'][sri-1]])
                         if sri < len(request.session['search_records'])-1:
                             next_event = request.env['turismo.producto_contratado_cliente'].browse([request.session['search_records'][sri+1]])
-                    related_prods = request.env['turismo.producto_contratado_cliente'].search([('id', '!=', producto_contratado.id),('partner_id', '=', producto_contratado.partner_id.id)])
+                    related_prods = request.env['turismo.producto_contratado_cliente'].search([('id', '!=', contracted_product.id),('partner_id', '=', contracted_product.partner_id.id)])
                     values.update({
                         'sri': sri+1,
                         'prev_prod': prev_event,
                         'next_prod': next_event,
-                        'producto_contratado': producto_contratado,
+                        'contracted_product': contracted_product,
                         'related': related_prods,
                     })
                 else:
                     request.session['directory_view'] = 'grid'
             elif category_type == 'evento':
-                if not evento and request.session['search_records']:
+                if not event and request.session['search_records']:
                     if not sri:
                         sri = 0
-                    evento = request.env['event.event'].browse([request.session['search_records'][sri]])
-                if evento:
+                    event = request.env['event.event'].browse([request.session['search_records'][sri]])
+                if event:
                     # Buscar SRI del establecimiento
                     if not sri:
                         count = 0
                         for rec_id in request.session['search_records']:
-                            if evento.id == rec_id:
+                            if event.id == rec_id:
                                 sri = count
                                 break
-                            count=count+1
-                                            
+                            count = count+1
+
                     prev_event = False  
                     next_event = False
                     if request.session['search_records']:
@@ -1271,19 +1246,19 @@ class website_aloxa_turismo(Website):
                             prev_event = request.env['event.event'].browse([request.session['search_records'][sri-1]])
                         if sri < len(request.session['search_records'])-1:
                             next_event = request.env['event.event'].browse([request.session['search_records'][sri+1]])
-                    related_events = request.env['event.event'].search([('id', '!=', evento.id),('organizer_id', '=', evento.organizer_id.id)])
+                    related_events = request.env['event.event'].search([('id', '!=', event.id),('organizer_id', '=', event.organizer_id.id)])
                     values.update({
                         'sri': sri+1,
                         'prev_event': prev_event,
                         'next_event': next_event,
-                        'evento': evento,
+                        'event': event,
                         'related': related_events,
                     })
                 else:
                     request.session['directory_view'] = 'grid'
-                    
+
         return request.website.render("aloxa_turismo_theme.directory", values)
-    
+
     @http.route([
                  '/rutas'
                  ], type='http', auth="public", methods=['GET'], website=True)
@@ -1310,24 +1285,24 @@ class website_aloxa_turismo(Website):
         return []
 
     ## JSON-RPC
-    @http.route(['/_upload_image'], type='json', auth="public", website=True)
-    def upload_image(self, fileimage):
-        try:
-            #pydevd.settrace("10.0.3.1")
-            attachment_id = Model.create({
-                'name': ufile.filename,
-                'datas': base64.encodestring(ufile.read()),
-                'datas_fname': ufile.filename,
-                'res_model': model,
-                'res_id': int(id),
-                'dolmar_type': dolmar_type
-            }, request.context)
-            args = {
-                'filename': ufile.filename,
-                'id':  attachment_id,
-                'dolmar_type': dolmar_type
-            }
-        except Exception:
-            args = {'error': "Something horrible happened"}
-            _logger.exception("Fail to upload attachment %s" % ufile.filename)
-        return out % (simplejson.dumps(callback), simplejson.dumps(args))
+#     @http.route(['/_upload_image'], type='json', auth="public", website=True)
+#     def upload_image(self, fileimage):
+#         try:
+#             #pydevd.settrace("10.0.3.1")
+#             attachment_id = Model.create({
+#                 'name': ufile.filename,
+#                 'datas': base64.encodestring(ufile.read()),
+#                 'datas_fname': ufile.filename,
+#                 'res_model': model,
+#                 'res_id': int(id),
+#                 'dolmar_type': dolmar_type
+#             }, request.context)
+#             args = {
+#                 'filename': ufile.filename,
+#                 'id':  attachment_id,
+#                 'dolmar_type': dolmar_type
+#             }
+#         except Exception:
+#             args = {'error': "Something horrible happened"}
+#             _logger.exception("Fail to upload attachment %s" % ufile.filename)
+#         return out % (simplejson.dumps(callback), simplejson.dumps(args))

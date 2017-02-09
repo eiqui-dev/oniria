@@ -3,6 +3,7 @@
     <data>
     
 		<template id="directory_map">
+			<t t-set="is_events" t-value="False" />
 			<!-- VISTA MAPA -->
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="directory-map"></div>
 			<script type="text/javascript">
@@ -15,16 +16,21 @@
 
 							<t t-if="establecimiento">
 								'<t t-esc="establecimiento.partner_id.get_composed_address(',')" />',
-								'/directorio/establecimientos/<t t-esc="slug(establecimiento)"/>',
+								'/establecimiento/<t t-esc="slug(establecimiento)"/>',
+								'<t t-esc="establecimiento.name"/>
 							</t>
 							<t t-if="evento">
+								<t t-set="is_events" t-value="True" />
 								'<t t-esc="evento.address_id.get_composed_address(',')" />',
-								'/directorio/eventos/<t t-esc="slug(evento)"/>',
+								'/evento/<t t-esc="slug(evento)"/>',
+								'<t t-esc="evento.name"/>',
 							</t>
 	                	</t>
 	                </t>
 	        	</t>
 	        	];
+	        	
+	        	var $NOT_SHOW_GOOGLE_POIS = <t t-esc="is_events and 'true' or 'false'"/>;
 			</script>
 		</template>
 		

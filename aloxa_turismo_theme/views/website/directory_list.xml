@@ -32,7 +32,7 @@
 							<div class="col-md-12 product-list-item">
 								<div class="col-md-4 product-img">
 									<t t-if="establecimiento">
-										<a class="product-image" title="" t-attf-href="/directorio/establecimientos/#{ slug(establecimiento) }">
+										<a class="product-image" title="" t-attf-href="/establecimiento/#{ slug(establecimiento) }">
 											<span t-field="establecimiento.image_thumb" t-field-options='{"widget": "image", "class": "directory-img"}' />
 										</a>
 									</t>
@@ -53,7 +53,7 @@
 										</t>
 									</t>
 									<t t-if="evento">
-										<a class="product-image" title="" t-attf-href="/directorio/eventos/#{ slug(evento) }">
+										<a class="product-image" title="" t-attf-href="/evento/#{ slug(evento) }">
 											<span t-field="evento.organizer_id.image" t-field-options='{"widget": "image", "class": "directory-img"}' />
 										</a>
 									</t>          
@@ -61,7 +61,7 @@
 								<div class="col-md-8">
 									<h3 style="margin:0;font-weight: 700; color:#666;">
 										<t t-if="establecimiento">
-											<a class="product-list-item-name" itemprop="name" t-att-href="keep('/directorio/establecimientos/%s' % slug(establecimiento), category=0)" t-esc="establecimiento.name.upper()"/>
+											<a class="product-list-item-name" itemprop="name" t-att-href="keep('/establecimiento/%s' % slug(establecimiento), category=0)" t-esc="establecimiento.name.upper()"/>
 											<div style="float:right;">
 												&amp;nbsp;
 												<t t-foreach="establecimiento.services" t-as="service">
@@ -76,7 +76,7 @@
 											</t>
 										</t>
 										<t t-if="evento">
-											<a class="product-list-item-name" itemprop="name" t-att-href="keep('/directorio/eventos/%s' % slug(evento), category=0)" t-esc="evento.name.upper()"/>
+											<a class="product-list-item-name" itemprop="name" t-att-href="keep('/evento/%s' % slug(evento), category=0)" t-esc="evento.name.upper()"/>
 										</t>
 									</h3>
 									<t t-if="establecimiento">

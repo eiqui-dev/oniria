@@ -17,7 +17,7 @@
 			</ul>
 
 			
-			<div t-if="keep and slug" class="col-sm-3 col-md-3 pull-right">
+			<div t-if="keep and slug" class="col-sm-3 col-md-3 pull-right text-right searchbar">
 	        	<t t-call="website_sale.search"><t t-set="search_class">navbar-form</t></t>
 	        </div>
 		</xpath>

@@ -10,39 +10,41 @@
 					<div class="container">
 						<div class="row">
 							<t t-set="view_mode" t-value="request.session['directory_view']"/>
-							<div t-att-class="not view_mode == 'form' and 'col-md-2' or 'hidden'" id="products_grid_before">
+							<div t-att-class="(not view_mode == 'form' and not is_direct_form) and 'col-md-2' or 'hidden'" id="products_grid_before">
 								<t t-call="aloxa_turismo_theme.filters"/>
 							</div>
-				            <div t-att-class="view_mode == 'form' and 'col-md-10' or 'col-md-8'" id="directory_grid">
+				            <div t-att-class="(view_mode == 'form' or is_direct_form) and 'col-md-10' or 'col-md-8'" id="directory_grid">
 				            	<!-- OPCION ORDENAR POR CAMPO Y BOTONES DE VISTAS -->
-								<t t-call="aloxa_turismo_theme.toolbar" />
-								
-								<t t-set="title" t-value="'Directorio %ss' % category_type.title()"/>
+				            	<t t-if="not is_direct_form">
+									<t t-call="aloxa_turismo_theme.toolbar" />
+									<t t-set="title" t-value="'Directory %ss' % category_type.title()"/>
+								</t>
+
 								<!-- VISTA MAPA -->
-								<t t-if="view_mode == 'map'">
+								<t t-if="view_mode == 'map' and not is_direct_form">
 									<t t-call="aloxa_turismo_theme.directory_map"/>
 								</t>
 								<!-- VISTA GRID -->
-								<t t-if="view_mode == 'grid'">
+								<t t-if="view_mode == 'grid' and not is_direct_form">
 									<t t-call="aloxa_turismo_theme.directory_grid"/>
 								</t>
 								<!-- VISTA LISTA -->
-								<t t-if="view_mode == 'list'">
+								<t t-if="view_mode == 'list' and not is_direct_form">
 									<t t-call="aloxa_turismo_theme.directory_list"/>
 								</t>
 								<!-- VISTA FORM ESTABLECIMIENTO -->
-								<t t-if="view_mode == 'form' and establecimiento">
-									<t t-set="title" t-value="'Establecimiento - %s' % establecimiento.name.title()"/>
-									<t t-call="aloxa_turismo_theme.directory_form_establecimiento"/>
+								<t t-if="(view_mode == 'form' or is_direct_form) and establishment">
+									<t t-set="title" t-value="'Establishment - %s' % establishment.name.title()"/>
+									<t t-call="aloxa_turismo_theme.directory_form_establishment"/>
 								</t>
 								<!-- VISTA FORM PRODUCTO CONTRATADO -->
-								<t t-if="view_mode == 'form' and producto_contratado">
-									<t t-set="title" t-value="'Producto - %s' % producto_contratado.product_tur_id.name.title()"/>
-									<t t-call="aloxa_turismo_theme.directory_form_producto_contratado"/>
+								<t t-if="(view_mode == 'form' or is_direct_form) and contracted_product">
+									<t t-set="title" t-value="'Product - %s' % contracted_product.product_tur_id.name.title()"/>
+									<t t-call="aloxa_turismo_theme.directory_form_contracted_product"/>
 								</t>
 								<!-- VISTA FORM EVENTO -->
-								<t t-if="view_mode == 'form' and evento">
-									<t t-set="title" t-value="'Evento - %s' % evento.name.title()"/>
+								<t t-if="(view_mode == 'form' or is_direct_form) and event">
+									<t t-set="title" t-value="'Event - %s' % event.name.title()"/>
 									<t t-call="aloxa_turismo_theme.directory_form_event"/>
 								</t>
 							</div>

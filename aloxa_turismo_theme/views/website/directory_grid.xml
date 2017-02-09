@@ -34,7 +34,7 @@
 									<div class="pro-info">
 										<div class="ptitle">
 											<t t-if="establecimiento">
-												<a itemprop="name" t-att-href="keep('/directorio/establecimientos/%s' % slug(establecimiento), category=0)" t-field="establecimiento.name"/>
+												<a itemprop="name" t-att-href="keep('/establecimiento/%s' % slug(establecimiento), category=0)" t-field="establecimiento.name"/>
 											</t>
 											<t t-if="producto_contratado">
 												<t t-if="producto_contratado.product_tur_id">
@@ -43,14 +43,14 @@
 												</t>
 											</t>
 											<t t-if="evento">
-												<a itemprop="name" t-att-href="keep('/directorio/eventos/%s' % slug(evento), category=0)" t-field="evento.name"/>
+												<a itemprop="name" t-att-href="keep('/evento/%s' % slug(evento), category=0)" t-field="evento.name"/>
 											</t>
 										</div>
 									</div>
 									
 									<div t-attf-class="product-img {{establecimiento and 'establecimiento-img' or ''}} {{producto_contratado and 'producto-img' or ''}}">
 										<t t-if="establecimiento">
-											<a class="product-image" title="" t-attf-href="/directorio/establecimientos/#{ slug(establecimiento) }">
+											<a class="product-image" title="" t-attf-href="/establecimiento/#{ slug(establecimiento) }">
 												<span t-field="establecimiento.image_thumb" t-field-options='{"widget": "image", "class": "directory-img"}' />
 											</a>
 										</t>
@@ -71,7 +71,7 @@
 											</t>
 										</t>
 										<t t-if="evento">
-											<a class="product-image" title="" t-attf-href="/directorio/eventos/#{ slug(evento) }">
+											<a class="product-image" title="" t-attf-href="/evento/#{ slug(evento) }">
 												<span t-field="evento.organizer_id.image" t-field-options='{"widget": "image", "class": "directory-img"}' />
 											</a>
 										</t>        
