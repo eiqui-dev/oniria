@@ -573,7 +573,7 @@ openerp.website.if_dom_contains('.btn-form-nav', function(){
 		if (params.match(/sri=\d+/)) {
 			params = params.replace(/sri=\d+/,sri);
 		} else {
-			params += sri;
+			params += '&'+sri;
 		}
 		window.location.href = link_target+'?'+params;
 	});
