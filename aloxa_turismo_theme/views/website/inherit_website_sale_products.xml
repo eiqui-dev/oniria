@@ -13,28 +13,32 @@
 	</template>
 	
 	<template id="categories_recursive" name="Category List Oniria">
-		<div class="accordion-group">
-			<div class="accordion-heading">
-				<a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" t-att-href="'#collapse-%s' % c.name" t-field="c.name"></a>
-			</div>
-			<div t-att-id="'collapse-%s' % c.name" class="accordion-body collapse in">
-				<div class="accordion-inner">
-					<ul>
-						<li><a t-att-href="keep('/shop/category/' + slug(c), category=0)">View All</a></li>
-						<li t-foreach="c.child_id" t-as="c">
-							<a t-att-href="keep('/shop/category/' + slug(c), category=0)" t-field="c.name" />
-				    	</li>
-                    </ul>
-				</div>
-			</div>
-		</div>
+		<li t-att-class="'active' if c.id == int(category or 0) else ''">
+			<a t-att-href="keep('/shop/category/' + slug(c), category=0)" t-field="c.name"></a>
+			<ul t-if="c.child_id" class="nav nav-pills nav-stacked nav-hierarchy">
+				<t t-foreach="c.child_id" t-as="c">
+				    <t t-call="aloxa_turismo_theme.categories_recursive"/>
+				</t>
+			</ul>
+		</li>
 	</template>
 
 	<template id="products_categories" inherit_id="website_sale.products" active="False" customize_show="True" name="Product Categories Oniria">
 		<xpath expr="//div[@id='products_grid_before']" position="inside">
 			<div class="accordion" id="leftMenu">
 				<t t-foreach="categories" t-as="c">
-					<t t-call="aloxa_turismo_theme.categories_recursive" />
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" t-att-href="'#collapse-%s' % c.name" t-field="c.name"></a>
+						</div>
+						<div t-att-id="'collapse-%s' % c.name" class="accordion-body collapse in">
+							<div class="accordion-inner">
+								<ul class="nav nav-pills nav-stacked">
+									<t t-call="aloxa_turismo_theme.categories_recursive" />
+			                    </ul>
+							</div>
+						</div>
+					</div>
 				</t>
 			</div>
 		</xpath>
