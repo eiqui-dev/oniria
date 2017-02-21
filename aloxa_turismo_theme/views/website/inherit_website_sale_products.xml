@@ -25,11 +25,11 @@
 
 	<template id="products_categories" inherit_id="website_sale.products" active="False" customize_show="True" name="Product Categories Oniria">
 		<xpath expr="//div[@id='products_grid_before']" position="inside">
-			<div class="accordion" id="leftMenu">
+			<div class="accordion" id="o_prod_cat">
 				<t t-foreach="categories" t-as="c">
 					<div class="accordion-group">
 						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" t-att-href="'#collapse-%s' % c.name" t-field="c.name"></a>
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#o_prod_cat" t-att-href="'#collapse-%s' % c.name" t-field="c.name"></a>
 						</div>
 						<div t-att-id="'collapse-%s' % c.name" class="accordion-body collapse in">
 							<div class="accordion-inner">
