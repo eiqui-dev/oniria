@@ -29,7 +29,7 @@
 						<div class="product-info"> 
 							<div class="col-xs-12 col-md-5 col-lg-5 col-sm-6 product-detail">
 				                <h1 itemprop="name" t-field="contracted_product.product_tur_id.name">Product Name</h1>
-				                <span itemprop="url" style="display:none;" t-esc="'/directorio/%ss/%s' % (category_type,slug(producto_contratado))"/>
+				                <span itemprop="url" style="display:none;" t-esc="'/directorio/%ss/%s' % (category_type,slug(contracted_product))"/>
 								<p class="text-muted "><t t-esc="contracted_product.product_tur_id.description_sale"/></p>
 								
 								<div class="row">
