@@ -33,7 +33,7 @@
 						</div>
 						<div t-att-id="'collapse-%s' % c.name" class="accordion-body collapse in">
 							<div class="accordion-inner">
-								<ul class="nav nav-pills nav-stacked">
+								<ul class="nav nav-pills nav-stacked nav-hierarch">
 									<t t-call="aloxa_turismo_theme.categories_recursive" />
 			                    </ul>
 							</div>
