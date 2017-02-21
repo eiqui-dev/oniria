@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    
+    
+    	<template id="panel_client_links">
+			<h3 class="text-muted text-center">LINKS EN CONSTRUCCIÓN</h3>
+		</template>
+		
+    </data>
+</openerp>

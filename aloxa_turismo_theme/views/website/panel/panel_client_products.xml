@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    
+    
+<template id="panel_client_products">
+			<h3 t-if="not productos" class="text-muted text-center">No se han encontrado productos</h3>
+			<t t-if="partner.is_company">
+        		<a t-if="productos" style="margin-bottom:20px;" class="btn btn-primary" href="/crear_producto">Crear Producto</a>
+				<t t-foreach="productos or []" t-as="prod">
+					<a t-attf-name="#{slug(prod)}"></a>
+					<div t-att-class="'panel panel-%s' % ('primary' if prod.website_published else 'default')">
+						<div class="panel-heading">
+							<strong t-esc="prod.name.upper()" />
+							<span class="pull-right">
+								<a t-att-href="'/editar_producto/%s' % slug(prod)" class="btn btn-default btn-xs" style="margin-left:0.5em;"><i class="fa fa-pencil"></i> Editar</a>
+								<a t-if="not prod.website_published" t-att-href="'/preview/producto/%s' % slug(prod)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> Vista Preliminar</a>
+								<a t-if="prod.website_published" t-att-href="'/producto/%s' % slug(prod)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> Ver</a>
+							</span>
+						</div>
+						<div class="panel-body">
+							<div class="well" style="margin-bottom:1.5em;">
+								<div class="row">
+									<div class="col-sm-8 col-md-8">
+										<strong>Tipo:</strong> <i t-if="prod.tipo_producto" t-field="prod.tipo_producto" /><i t-if="not prod.tipo_producto">otro</i><br/>
+										<strong>Precio:</strong> <i t-field="prod.list_price" />€<br/>
+										<t t-if="prod.tipo_producto in ['vino','vinagre']">
+											<strong>Añada:</strong> <i t-field="prod.anho" /><br/>
+											<t t-if="prod.tipo_producto == 'vino'"><strong>Tipo Vino:</strong> <i t-field="prod.tipovino" /><br/></t>
+											<t t-if="prod.tipo_producto == 'vinagre'"><strong>Tipo Vinagre:</strong> <i t-field="prod.tipovinagre" /><br/></t>
+											<strong>Tipo Uva:</strong> <i t-field="prod.uva" /><br/>
+											<strong>Premios:</strong> <i t-field="prod.premios" /><br/>
+										</t>
+										<strong>Descripción:</strong>
+										<span t-if="prod.description and len(prod.description) &gt; 200"> 
+			 								<t t-set="description" t-value="prod.description[:200] and prod.description[:200].replace('+', '\n')+'...'"/>
+											<i><t t-esc="description"/></i>
+										</span>				
+										<span t-if="prod.description and len(prod.description) &lt; 200">
+											<i t-if="prod.description and len(prod.description)&gt; 0" t-field="prod.description"/>
+										</span>
+									</div>
+									<div class="col-sm-4 col-md-4 text-right">
+							  			<span t-field="prod.image_medium" t-field-options='{"widget": "image", "class": "img img-responsive img-thumbnail"}' />
+								    </div>
+								</div>
+							</div>
+							
+							<h4>Links</h4>
+							<t t-set="links" t-value="website.get_contrated_product_links(request.uid,prod.id)" />
+							<h3 t-if="not links" class="text-muted text-center">No tiene enlaces contratados</h3>
+							<table t-if="links" class="table">
+								<thead>
+									<th>Tipo</th>
+									<th>Caduca</th>
+									<th class="text-right">Clicks Unicos</th>
+									<th class="text-right">Clicks Totales</th>
+								</thead>
+								<tbody>
+									<tr t-foreach="links" t-as="link">
+										<td style="vertical-align:middle;" t-esc="link.product_id.name" />
+										<td style="vertical-align:middle;" class="text-right"><span t-field="link.fecha_fin"/></td>
+										<td style="vertical-align:middle;" class="text-right">0</td>
+										<td style="vertical-align:middle;" class="text-right">0</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="text-right">
+								<a href="#" t-attf-data-id="#{prod.id}" class="btn btn-default btn-xs crear-link-prod"><i class="fa fa-plus"></i> Crear Link</a>
+							</div>
+						</div>
+					</div>
+				</t>
+				<a class="btn btn-primary" href="/crear_producto">Crear Producto</a>
+			</t>
+			<t t-if=" not partner.is_company">
+				PRODUCTOS COMPRADOS CLIENTE NORMAL
+			</t>
+		</template>
+		
+    </data>
+</openerp>

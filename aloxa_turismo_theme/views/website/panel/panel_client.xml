@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    
+    
+		<template id="panel_cliente" name="Panel Cliente" page="True">
+			<t t-call="website.layout">
+				<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale">				
+					<section t-attf-class="container mt8" id="panel_cliente_container">
+				        <div class="row" style="margin-bottom:2em;">
+				        	<div class="col-xs-12 col-md-3">
+				        		<nav>
+									<div class="list-group">
+									  <a href="/panel" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'general' else ''}">
+									    <h4 class="list-group-item-heading">General</h4>
+									    <p class="list-group-item-text">Consulte y edite sus datos</p>
+									  </a>
+									  <t t-if="partner.is_company">
+										  <a href="/panel/establecimientos" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'establishments' else ''}">
+										    <h4 class="list-group-item-heading">Establecimientos</h4>
+										    <p class="list-group-item-text">Aquí puede crear y ver sus establecimientos, contratar links, asignar eventos y agregar productos a los mismos</p>
+										  </a>
+										  <a href="/panel/eventos" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'events' else ''}">
+										    <h4 class="list-group-item-heading">Eventos</h4>
+										    <p class="list-group-item-text">Aquí puede crear y ver sus eventos, crear tickets, ...</p>
+										  </a>
+										  <a href="/panel/vinos" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'wines' else ''}">
+										    <h4 class="list-group-item-heading">Vinos</h4>
+										    <p class="list-group-item-text">Aquí puede crear y ver sus vinos, ...</p>
+										  </a>
+										  <a href="/panel/links" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'links' else ''}">
+										    <h4 class="list-group-item-heading">Links Contratados</h4>
+										    <p class="list-group-item-text">Aquí puede crear y ver sus links, ...</p>
+										  </a>
+										  <a href="/panel/facturas" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'invoices' else ''}">
+										    <h4 class="list-group-item-heading">Facturas</h4>
+										    <p class="list-group-item-text">Listados de facturas, ...</p>
+										  </a>
+									  </t>
+									  <a href="/panel/productos" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'products' else ''}">
+									    <h4 class="list-group-item-heading">
+									    	<t t-if="partner.is_company">Productos</t>
+									    	<t t-if="not partner.is_company">Mis Compras</t>
+									    </h4>
+									    <p class="list-group-item-text">
+									    	<t t-if="partner.is_company">Aquí puede crear y ver sus productos, además de poder contratar links para los mismos</t>
+									    	<t t-if="not partner.is_company">Aquí puede ver sus compras</t>
+									    </p>
+									  </a>
+									</div>
+								</nav>
+				        	</div>
+				        	<div class="col-xs-12 col-md-9">
+				        		<t t-if="panel == 'general'">
+				        			<t t-call="aloxa_turismo_theme.panel_client_general" />
+				        		</t>
+				        		<t t-if="panel == 'events'">
+				        			<t t-call="aloxa_turismo_theme.panel_client_events" />
+				        		</t>
+				        		<t t-if="panel == 'establishments'">
+				        			<t t-call="aloxa_turismo_theme.panel_client_establishments" />
+								</t>
+								<t t-if="panel == 'products'">
+									<t t-call="aloxa_turismo_theme.panel_client_products" />
+								</t>
+								<t t-if="panel == 'wines'">
+									<t t-call="aloxa_turismo_theme.panel_client_wines" />
+								</t>
+								<t t-if="panel == 'links'">
+									<t t-call="aloxa_turismo_theme.panel_client_links" />
+								</t>
+								<t t-if="panel == 'invoices'">
+									<t t-call="aloxa_turismo_theme.panel_client_invoices" />
+								</t>
+							</div>
+						</div>
+					</section>
+					<t t-call="aloxa_turismo_theme.panel_client_modals" />
+				</div>
+			</t>
+		</template>
+		
+    </data>
+</openerp>

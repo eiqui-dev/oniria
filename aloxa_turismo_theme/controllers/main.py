@@ -1011,7 +1011,11 @@ class website_aloxa_turismo(Website):
     
     @http.route(['/panel',
                  '/panel/establecimientos',
-                 '/panel/productos'], type='http', auth="user", website=True)
+                 '/panel/productos',
+                 '/panel/eventos',
+                 '/panel/facturas',
+                 '/panel/links',
+                 '/panel/vinos'], type='http', auth="user", website=True)
     def panel_cliente(self):
         cr, uid, context = request.cr, request.uid, request.context
         if not request.session.uid:
@@ -1020,15 +1024,23 @@ class website_aloxa_turismo(Website):
         user = request.env['res.users'].search([('id','=',uid)])
         values = dict()
         if request.httprequest.path.endswith('/productos'):
-            values['panel'] = 'productos'
+            values['panel'] = 'products'
             if user.partner_id.is_company:
                 values['servicios'] = request.env['product.template'].search([('servicio','=',True)]);
                 values['productos'] = request.env['product.template'].search([('seller_ids.name','in',[user.partner_id.id])])
         elif user.partner_id.is_company and request.httprequest.path.endswith('/establecimientos'):
             values['servicios'] = request.env['product.template'].search([('servicio','=',True)]);
-            values['panel'] = 'establecimientos'
+            values['panel'] = 'establishments'
             values['products_partner'] = request.env['product.template'].search([('seller_ids.name','in',[user.partner_id.id])])
             values['establecimientos'] = request.env['turismo.establecimiento'].search([('res_partner_id','=',user.partner_id.id)])
+        elif user.partner_id.is_company and request.httprequest.path.endswith('/eventos'):
+            values['panel'] = 'events'
+        elif user.partner_id.is_company and request.httprequest.path.endswith('/links'):
+            values['panel'] = 'links'
+        elif user.partner_id.is_company and request.httprequest.path.endswith('/facturas'):
+            values['panel'] = 'invoices'
+        elif user.partner_id.is_company and request.httprequest.path.endswith('/vinos'):
+            values['panel'] = 'wines'
         else:
             values['panel'] = 'general'
             values['history_lines'] = request.env['account.invoice'].search([('partner_id', 'in', [user.partner_id.id])], order="date_invoice DESC")
