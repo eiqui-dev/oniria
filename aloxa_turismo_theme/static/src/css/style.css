@@ -17,6 +17,12 @@ header {
 }
 
 
+/* ACORDEON FILTROS/CATEGORIAS*/
+.accordion-inner a {
+	color: black;
+}
+
+
 /* MAIN MENU */
 .top-subtotal {
 	margin-top: 1.5em;
