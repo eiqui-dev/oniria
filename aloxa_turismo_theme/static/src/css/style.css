@@ -21,6 +21,27 @@ header {
 .accordion-inner a {
 	color: black;
 }
+#o_prod_cat .accordion-heading {
+    height: 34px;
+    list-style-type:none;
+    padding: 0.5em;
+}  
+
+#o_prod_cat .accordion-heading  a{  
+    color: #333; /* text color */
+    text-decoration:none;
+    font-weight:bold;
+    text-transform: uppercase;
+}
+
+#o_prod_cat .accordion-heading  a:hover{  
+    color:#666;    
+}
+
+#o_prod_cat .accordion-heading .active {
+    width: 182px;
+    height: 34px;
+}
 
 
 
