@@ -1025,9 +1025,6 @@ class website_aloxa_turismo(Website):
         values = dict()
         if request.httprequest.path.endswith('/productos'):
             values['panel'] = 'products'
-            if user.partner_id.is_company:
-                values['servicios'] = request.env['product.template'].search([('servicio','=',True)]);
-                values['productos'] = request.env['product.template'].search([('seller_ids.name','in',[user.partner_id.id])])
         elif user.partner_id.is_company and request.httprequest.path.endswith('/establecimientos'):
             values['servicios'] = request.env['product.template'].search([('servicio','=',True)]);
             values['panel'] = 'establishments'
@@ -1035,15 +1032,30 @@ class website_aloxa_turismo(Website):
             values['establecimientos'] = request.env['turismo.establecimiento'].search([('res_partner_id','=',user.partner_id.id)])
         elif user.partner_id.is_company and request.httprequest.path.endswith('/eventos'):
             values['panel'] = 'events'
+            establishment_ids = request.env['turismo.establecimiento'].search([
+                ('res_partner_id', '=', user.partner_id.id)
+            ]).mapped('partner_id.id')
+            event_ids = request.env['event.event'].search([
+                ('organizer_id', 'in', establishment_ids)
+            ])
+            values['events'] = event_ids
         elif user.partner_id.is_company and request.httprequest.path.endswith('/links'):
             values['panel'] = 'links'
+            products_c_ids = user.partner_id.product_contratado_cliente_ids
+            values['links'] = products_c_ids
+            values['servicios'] = request.env['product.template'].search([('servicio','=',True)]);
         elif user.partner_id.is_company and request.httprequest.path.endswith('/facturas'):
             values['panel'] = 'invoices'
+            invoice_ids = request.env['account.invoice'].search([
+                ('partner_id', '=', user.partner_id.id)
+            ], order="date_invoice DESC")
+            values['invoices'] = invoice_ids
         elif user.partner_id.is_company and request.httprequest.path.endswith('/vinos'):
             values['panel'] = 'wines'
+            values['servicios'] = request.env['product.template'].search([('servicio','=',True)]);
+            values['productos'] = request.env['product.template'].search([('seller_ids.name','in',[user.partner_id.id])])
         else:
             values['panel'] = 'general'
-            values['history_lines'] = request.env['account.invoice'].search([('partner_id', 'in', [user.partner_id.id])], order="date_invoice DESC")
             if user.partner_id.is_company:
                 values['num_productos'] = request.env['product.template'].search_count([('seller_ids.name','in',[user.partner_id.id])])
                 establecimientos = request.env['turismo.establecimiento'].search([('res_partner_id','=',user.partner_id.id)])

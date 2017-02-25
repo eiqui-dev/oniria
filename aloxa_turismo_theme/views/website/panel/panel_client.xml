@@ -16,36 +16,32 @@
 									  </a>
 									  <t t-if="partner.is_company">
 										  <a href="/panel/establecimientos" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'establishments' else ''}">
-										    <h4 class="list-group-item-heading">Establecimientos</h4>
+										    <h4 class="list-group-item-heading">Establishments</h4>
 										    <p class="list-group-item-text">Aquí puede crear y ver sus establecimientos, contratar links, asignar eventos y agregar productos a los mismos</p>
 										  </a>
 										  <a href="/panel/eventos" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'events' else ''}">
-										    <h4 class="list-group-item-heading">Eventos</h4>
+										    <h4 class="list-group-item-heading">Events</h4>
 										    <p class="list-group-item-text">Aquí puede crear y ver sus eventos, crear tickets, ...</p>
 										  </a>
 										  <a href="/panel/vinos" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'wines' else ''}">
-										    <h4 class="list-group-item-heading">Vinos</h4>
+										    <h4 class="list-group-item-heading">Wines</h4>
 										    <p class="list-group-item-text">Aquí puede crear y ver sus vinos, ...</p>
 										  </a>
 										  <a href="/panel/links" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'links' else ''}">
-										    <h4 class="list-group-item-heading">Links Contratados</h4>
+										    <h4 class="list-group-item-heading">Contracted Links</h4>
 										    <p class="list-group-item-text">Aquí puede crear y ver sus links, ...</p>
 										  </a>
 										  <a href="/panel/facturas" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'invoices' else ''}">
-										    <h4 class="list-group-item-heading">Facturas</h4>
+										    <h4 class="list-group-item-heading">Invoices</h4>
 										    <p class="list-group-item-text">Listados de facturas, ...</p>
 										  </a>
 									  </t>
-									  <a href="/panel/productos" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'products' else ''}">
-									    <h4 class="list-group-item-heading">
-									    	<t t-if="partner.is_company">Productos</t>
-									    	<t t-if="not partner.is_company">Mis Compras</t>
-									    </h4>
-									    <p class="list-group-item-text">
-									    	<t t-if="partner.is_company">Aquí puede crear y ver sus productos, además de poder contratar links para los mismos</t>
-									    	<t t-if="not partner.is_company">Aquí puede ver sus compras</t>
-									    </p>
-									  </a>
+									  <t t-if="not partner.is_company">
+										  <a href="/panel/productos" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'products' else ''}">
+										    <h4 class="list-group-item-heading">My Purchases</h4>
+										    <p class="list-group-item-text">Aquí puede ver sus compras</p>
+										  </a>
+									  </t>
 									</div>
 								</nav>
 				        	</div>

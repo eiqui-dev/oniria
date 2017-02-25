@@ -3,7 +3,84 @@
     <data>    
     
     	<template id="panel_client_wines">
-			<h3 class="text-muted text-center">VINOS EN CONSTRUCCIÓN</h3>
+    		<h3 t-if="not productos" class="text-muted text-center">No products found</h3>
+    		<div t-if="productos" class="text-right" style="margin-bottom:20px;">
+    			<a class="btn btn-primary" href="/crear_producto">Create Product</a>
+			</div>
+			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+				<t t-foreach="productos or []" t-as="prod">
+					<a t-attf-name="#{slug(prod)}"></a>
+					<div t-att-class="'panel panel-%s' % ('primary' if prod.website_published else 'default')">
+						<div class="panel-heading">
+							<a role="button" data-toggle="collapse" data-parent="#accordion" t-att-href="'#collapse%d' % prod.id" aria-expanded="true" t-att-aria-controls="'collapse%d' % prod.id">
+								<strong t-esc="prod.name.upper()" />
+							</a>
+							<span class="pull-right">
+								<span t-if="not prod.website_published" class="label label-default" title="This product isn't show in the directory">Not Published</span>
+								<a t-att-href="'/editar_producto/%s' % slug(prod)" class="btn btn-default btn-xs" style="margin-left:0.5em;"><i class="fa fa-pencil"></i> Edit</a>
+								<a t-if="not prod.website_published" t-att-href="'/preview/producto/%s' % slug(prod)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> Preview</a>
+								<a t-if="prod.website_published" t-att-href="'/producto/%s' % slug(prod)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> View</a>
+							</span>
+						</div>
+						<div t-att-id="'collapse%d' % prod.id" class="panel-collapse collapse" role="tabpanel" t-att-aria-labelledby="'heading%d' % prod.id">
+							<div class="panel-body">
+								<div class="well" style="margin-bottom:1.5em;">
+									<div class="row">
+										<div class="col-sm-8 col-md-8">
+											<strong>Type:</strong> <i t-if="prod.tipo_producto" t-field="prod.tipo_producto" /><i t-if="not prod.tipo_producto">other</i><br/>
+											<strong>Price:</strong> <i t-field="prod.list_price" />€<br/>
+											<t t-if="prod.tipo_producto in ['vino','vinagre']">
+												<strong>Wine Date:</strong> <i t-field="prod.anho" /><br/>
+												<t t-if="prod.tipo_producto == 'vino'"><strong>Wine Type:</strong> <i t-field="prod.tipovino" /><br/></t>
+												<t t-if="prod.tipo_producto == 'vinagre'"><strong>Vinegar Type:</strong> <i t-field="prod.tipovinagre" /><br/></t>
+												<strong>Grape Type:</strong> <i t-field="prod.uva" /><br/>
+												<strong>Awards:</strong> <i t-field="prod.premios" /><br/>
+											</t>
+											<strong>Description:</strong>
+											<span t-if="prod.description and len(prod.description) &gt; 200"> 
+				 								<t t-set="description" t-value="prod.description[:200] and prod.description[:200].replace('+', '\n')+'...'"/>
+												<i><t t-esc="description"/></i>
+											</span>				
+											<span t-if="prod.description and len(prod.description) &lt; 200">
+												<i t-if="prod.description and len(prod.description)&gt; 0" t-field="prod.description"/>
+											</span>
+										</div>
+										<div class="col-sm-4 col-md-4 text-right">
+								  			<span t-field="prod.image_medium" t-field-options='{"widget": "image", "class": "img img-responsive img-thumbnail"}' />
+									    </div>
+									</div>
+								</div>
+								
+								<h4>Links</h4>
+								<t t-set="links" t-value="website.get_contrated_product_links(request.uid,prod.id)" />
+								<h3 t-if="not links" class="text-muted text-center">Doesn't have contracted links</h3>
+								<table t-if="links" class="table">
+									<thead>
+										<th>Type</th>
+										<th>Expires</th>
+										<th class="text-right">Uniqe Clicks</th>
+										<th class="text-right">Total Clicks</th>
+									</thead>
+									<tbody>
+										<tr t-foreach="links" t-as="link">
+											<td style="vertical-align:middle;" t-esc="link.product_id.name" />
+											<td style="vertical-align:middle;" class="text-right"><span t-field="link.fecha_fin"/></td>
+											<td style="vertical-align:middle;" class="text-right">0</td>
+											<td style="vertical-align:middle;" class="text-right">0</td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="text-right">
+									<a href="#" t-attf-data-id="#{prod.id}" class="btn btn-default btn-xs crear-link-prod"><i class="fa fa-plus"></i> Create Link</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</t>
+			</div>
+			<div class="text-right">
+				<a class="btn btn-primary" href="/crear_producto">Create Product</a>
+			</div>
 		</template>
 		
     </data>

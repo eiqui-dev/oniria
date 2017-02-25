@@ -14,13 +14,13 @@
 	                                </div>
 	                                <div class="col-xs-9 text-right">
 	                                    <div class="huge"><t t-esc="num_eventos"/></div>
-	                                    <div>Eventos</div>
+	                                    <div>Events</div>
 	                                </div>
 	                            </div>
 	                        </div>
 	                        <a href="/crear_evento">
 	                            <div class="panel-footer">
-	                                <span class="pull-left">Nuevo Evento</span>
+	                                <span class="pull-left">New Event</span>
 	                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 	                                <div class="clearfix"></div>
 	                            </div>
@@ -36,13 +36,13 @@
 	                                </div>
 	                                <div class="col-xs-9 text-right">
 	                                    <div class="huge"><t t-esc="num_establecimientos"/></div>
-	                                    <div>Establecimientos</div>
+	                                    <div>Establishments</div>
 	                                </div>
 	                            </div>
 	                        </div>
 	                        <a href="/crear_establecimiento">
 	                            <div class="panel-footer">
-	                                <span class="pull-left">Nuevo Establecimiento</span>
+	                                <span class="pull-left">New Establishment</span>
 	                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 	                                <div class="clearfix"></div>
 	                            </div>
@@ -58,13 +58,13 @@
 	                                </div>
 	                                <div class="col-xs-9 text-right">
 	                                    <div class="huge"><t t-esc="num_productos"/></div>
-	                                    <div>Productos</div>
+	                                    <div>Products</div>
 	                                </div>
 	                            </div>
 	                        </div>
 	                        <a href="/crear_producto">
 	                            <div class="panel-footer">
-	                                <span class="pull-left">Nuevo Producto</span>
+	                                <span class="pull-left">New Product</span>
 	                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 	                                <div class="clearfix"></div>
 	                            </div>
@@ -75,7 +75,7 @@
 			</t>
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<strong>Datos</strong>
+					<strong>Contact Information</strong>
 					<span class="pull-right">
 						<a href="/editar_usuario" class="btn btn-default btn-xs" style="margin-left:0.5em;"><i class="fa fa-pencil"></i> Editar</a>
 					</span>
@@ -83,53 +83,17 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-sm-8 col-md-8" style="margin-bottom:1.5em;">
-							<strong>Nombre:</strong> <i t-esc="partner.name" /><br/>
-							<strong>Teléfono:</strong> <i t-esc="partner.phone" /><br/>
-							<strong>Correo:</strong> <i t-esc="partner.email" /><br/>
-							<strong>Ubicación:</strong> <i t-esc="partner.get_composed_address(', ')" /><br/>
-							<strong>Sitio Web:</strong> <i t-esc="partner.website" /><br/>
+							<strong>Name:</strong> <i t-esc="partner.name" /><br/>
+							<strong>Phone:</strong> <i t-esc="partner.phone" /><br/>
+							<strong>e-mail:</strong> <i t-esc="partner.email" /><br/>
+							<strong>Address:</strong> <i t-esc="partner.get_composed_address(', ')" /><br/>
+							<strong>Website:</strong> <i t-esc="partner.website" /><br/>
 						</div>
 						<div class="col-sm-4 col-md-4 text-right">
 							<span t-field="partner.image_medium" t-field-options='{"widget": "image", "class": "img img-responsive img-thumbnail"}' />
 						</div>
 					</div>
-					<a href="#" class="btn btn-danger"><i class="fa fa-trash"></i> Dar de baja el usuario</a>
-				</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<strong>Facturas</strong>
-				</div>
-				<div class="panel-body">
-					<t t-if="not history_lines">
-						<h3 class="text-muted text-center">No tiene facturas</h3>
-					</t>
-					<t t-if="history_lines">
-						<table class="table table-condensed table-hover table-striped">
-							<thead>
-								<th>Fecha Factura</th>
-								<th>Número</th>
-								<th>Fecha Vencimiento</th>
-								<th>Subtotal</th>
-								<th>Total</th>
-								<th> </th>
-							</thead>
-							<tbody id="table-phones">
-								<t t-foreach="history_lines" t-as="history_line">
-									<tr>
-										<td><t t-esc="history_line.date_invoice" /></td>
-										<td><t t-esc="history_line.number" /></td>
-										<td><t t-esc="history_line.date_due" /></td>
-										<td><t t-esc="history_line.amount_untaxed" /></td>
-										<td><t t-esc="history_line.amount_total" /></td>
-										<td class="text-center">
-											<a class="remove-contact btn btn-xs bg-primary" t-attf-href="/factura/descargar?id=#{history_line.id}"><i class="fa fa-file-pdf-o"></i> Descargar PDF</a>
-										</td>
-									</tr>
-								</t>
-							</tbody>
-						</table>
-					</t>
+					<a href="#" class="btn btn-danger"><i class="fa fa-trash"></i> Request User Deletion</a>
 				</div>
 			</div>
 		</template>

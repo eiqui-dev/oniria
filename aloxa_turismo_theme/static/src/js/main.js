@@ -142,6 +142,32 @@ openerp.website.if_dom_contains('.crear-link-prod', function(){
 });
 
 
+/** PANEL: LINKS **/
+console.log("SEWEEE 1");
+openerp.website.if_dom_contains('.crear-link', function(){
+	console.log("PASS 2");
+	$(document).on('click', '.crear-link', function(ev){
+		var $this = $(this);
+		$('form#create_link #prod_id').val('');
+		$('form#create_link #est_id').val('');
+		$('#modalNewLink').modal('show');
+		ev.preventDefault();
+	});
+	
+	// DATE TIME PICKERS
+	var DTPickerOptions = {
+		'locale': 'es',
+	    'firstDayOfWeek': 1,
+	    'changeMonth': true,
+	    'changeYear': true,
+	    'futureOnly': true,
+	};
+	
+	$('#modalNewLink #date_start').appendDtpicker($.extend({}, DTPickerOptions, { 'minDate': moment().utc() }));
+	$('#modalNewLink #date_end').appendDtpicker(DTPickerOptions);
+});
+
+
 /** PANTALLA: CREAR EVENTO **/
 openerp.website.if_dom_contains('#crear_evento_container', function(){
 	// DATE TIME PICKERS

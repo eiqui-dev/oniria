@@ -3,7 +3,34 @@
     <data>    
     
     	<template id="panel_client_links">
-			<h3 class="text-muted text-center">LINKS EN CONSTRUCCIÓN</h3>
+			<h3 t-if="not links" class="text-muted text-center">Doesn't have contracted links</h3>
+			<div t-if="links" class="text-right" style="margin-bottom:20px;">
+				<a href="#" class="btn btn-primary crear-link"><i class="fa fa-plus"></i> Create Link</a>
+			</div>
+			<table t-if="links" class="table table-condensed table-stripped">
+				<thead>
+					<th>Reference</th>
+					<th>Typte</th>
+					<th>Expires</th>
+					<th class="text-right">Uniqe Clicks</th>
+					<th class="text-right">Total Clicks</th>
+				</thead>
+				<tbody>
+					<tr t-foreach="links" t-as="link">
+						<td style="vertical-align:middle;">
+							<t t-if="link.establecimiento_id"><span t-field="link.establecimiento_id.name"/></t>
+							<t t-if="link.product_tur_id"><span t-field="link.product_tur_id.name"/></t>
+						</td>
+						<td style="vertical-align:middle;" t-esc="link.product_id.name" />
+						<td style="vertical-align:middle;" class="text-right"><span t-field="link.fecha_fin"/></td>
+						<td style="vertical-align:middle;" class="text-right">0</td>
+						<td style="vertical-align:middle;" class="text-right">0</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="text-right">
+				<a href="#" class="btn btn-primary crear-link"><i class="fa fa-plus"></i> Create Link</a>
+			</div>
 		</template>
 		
     </data>

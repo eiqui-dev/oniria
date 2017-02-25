@@ -63,7 +63,6 @@ class website(models.Model):
         user = self.env['res.users'].browse([uid])
         products_c = user.partner_id.product_contratado_cliente_ids
         links = list()
-        _logger.info("Numero Elementos: %d", len(products_c))
         for product in products_c:
             if stablisment_id == product.establecimiento_id.id:
                 links.append(product)
@@ -73,7 +72,6 @@ class website(models.Model):
         user = self.env['res.users'].browse([uid])
         products_c = user.partner_id.product_contratado_cliente_ids
         links = list()
-        _logger.info("Numero Elementos: %d", len(products_c))
         for product in products_c:
             if product_id == product.product_tur_id.id:
                 links.append(product)

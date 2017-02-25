@@ -3,7 +3,61 @@
     <data>    
     
     	<template id="panel_client_events">
-			<h3 class="text-muted text-center">EVENTOS EN CONSTRUCCIÓN</h3>
+			<h3 t-if="not events" class="text-muted text-center">No events defined</h3>
+			<div t-if="events" class="text-right" style="margin-bottom:20px;">
+				<a href="/crear_evento" class="btn btn-primary"><i class="fa fa-plus"></i> Create Event</a>
+			</div>
+			<table t-if="events" class="table table-condensed">
+				<thead>
+					<th>Organizer</th>
+					<th>Event</th>
+					<th>Address</th>
+					<th>Start Date</th>
+					<th>End Date</th>
+				</thead>
+				<tbody>
+					<t t-foreach="events" t-as="event">
+						<tr t-att-class="(event.date_end >= str(datetime.datetime.now())) and 'success' or 'danger'">
+							<td style="vertical-align:middle;"><span t-field="event.organizer_id.name" /></td>
+							<td style="vertical-align:middle;"><span t-field="event.name" /></td>
+							<td style="vertical-align:middle;" t-esc="event.address_id.get_composed_address(', ')" />
+							<td style="vertical-align:middle;"><span t-field="event.date_begin" /></td>
+							<td style="vertical-align:middle;"><span t-field="event.date_end" /></td>
+						</tr>
+						<tr class="tr-event-tickets-panel">
+							<td colspan="5">
+								<strong>Tickets:</strong><br/>
+								<h3 t-if="not event.event_ticket_ids" class="text-muted text-center">No tickets defined</h3>
+								<table t-if="event.event_ticket_ids" class="table">
+									<thead>
+										<th>End of sales</th>
+										<th class="text-right">Price</th>
+										<th class="text-right">Max seats available</th>
+										<th class="text-right">Reserved seats</th>
+										<th class="text-right">Reserved seats not confirmed</th>
+									</thead>
+									<tbody>
+										<tr t-foreach="event.event_ticket_ids" t-as="ticket">
+											<td style="vertical-align:middle;" t-esc="ticket.deadline">
+												<t t-if="ticket.deadline" t-esc="ticket.deadline" />
+												<span t-if="not ticket.deadline">Never</span>
+											</td>
+											<td style="vertical-align:middle;" class="text-right" t-esc="'%.2f€' % ticket.price" />
+											<td style="vertical-align:middle;" class="text-right" t-esc="ticket.seats_max" />
+											<td style="vertical-align:middle;" class="text-right" t-esc="ticket.seats_reserved" />
+											<td style="vertical-align:middle;" class="text-right" t-esc="ticket.seats_unconfirmed" />
+										</tr>
+									</tbody>
+								</table>
+								<a href="#" t-attf-data-id="#{event.id}" class="btn btn-xs btn-default create-ticket"><i class="fa fa-plus"></i> Create Ticket</a>
+							</td>
+						</tr>
+					</t>
+				</tbody>
+			</table>
+			<div class="text-right">
+				<a href="/crear_evento" class="btn btn-primary"><i class="fa fa-plus"></i> Create Event</a>
+			</div>
 		</template>
 		
     </data>

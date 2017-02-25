@@ -2,35 +2,35 @@
 <openerp>
     <data>    
     
-<template id="panel_client_products">
-			<h3 t-if="not productos" class="text-muted text-center">No se han encontrado productos</h3>
+		<template id="panel_client_products">
+			<h3 t-if="not productos" class="text-muted text-center">No products found</h3>
 			<t t-if="partner.is_company">
-        		<a t-if="productos" style="margin-bottom:20px;" class="btn btn-primary" href="/crear_producto">Crear Producto</a>
+        		<a t-if="productos" style="margin-bottom:20px;" class="btn btn-primary" href="/crear_producto">Create Product</a>
 				<t t-foreach="productos or []" t-as="prod">
 					<a t-attf-name="#{slug(prod)}"></a>
 					<div t-att-class="'panel panel-%s' % ('primary' if prod.website_published else 'default')">
 						<div class="panel-heading">
 							<strong t-esc="prod.name.upper()" />
 							<span class="pull-right">
-								<a t-att-href="'/editar_producto/%s' % slug(prod)" class="btn btn-default btn-xs" style="margin-left:0.5em;"><i class="fa fa-pencil"></i> Editar</a>
-								<a t-if="not prod.website_published" t-att-href="'/preview/producto/%s' % slug(prod)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> Vista Preliminar</a>
-								<a t-if="prod.website_published" t-att-href="'/producto/%s' % slug(prod)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> Ver</a>
+								<a t-att-href="'/editar_producto/%s' % slug(prod)" class="btn btn-default btn-xs" style="margin-left:0.5em;"><i class="fa fa-pencil"></i> Edit</a>
+								<a t-if="not prod.website_published" t-att-href="'/preview/producto/%s' % slug(prod)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> Preview</a>
+								<a t-if="prod.website_published" t-att-href="'/producto/%s' % slug(prod)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> View</a>
 							</span>
 						</div>
 						<div class="panel-body">
 							<div class="well" style="margin-bottom:1.5em;">
 								<div class="row">
 									<div class="col-sm-8 col-md-8">
-										<strong>Tipo:</strong> <i t-if="prod.tipo_producto" t-field="prod.tipo_producto" /><i t-if="not prod.tipo_producto">otro</i><br/>
-										<strong>Precio:</strong> <i t-field="prod.list_price" />€<br/>
+										<strong>Type:</strong> <i t-if="prod.tipo_producto" t-field="prod.tipo_producto" /><i t-if="not prod.tipo_producto">other</i><br/>
+										<strong>Price:</strong> <i t-field="prod.list_price" />€<br/>
 										<t t-if="prod.tipo_producto in ['vino','vinagre']">
-											<strong>Añada:</strong> <i t-field="prod.anho" /><br/>
-											<t t-if="prod.tipo_producto == 'vino'"><strong>Tipo Vino:</strong> <i t-field="prod.tipovino" /><br/></t>
-											<t t-if="prod.tipo_producto == 'vinagre'"><strong>Tipo Vinagre:</strong> <i t-field="prod.tipovinagre" /><br/></t>
-											<strong>Tipo Uva:</strong> <i t-field="prod.uva" /><br/>
-											<strong>Premios:</strong> <i t-field="prod.premios" /><br/>
+											<strong>Wine Date:</strong> <i t-field="prod.anho" /><br/>
+											<t t-if="prod.tipo_producto == 'vino'"><strong>Wine Type:</strong> <i t-field="prod.tipovino" /><br/></t>
+											<t t-if="prod.tipo_producto == 'vinagre'"><strong>Vinegar Type:</strong> <i t-field="prod.tipovinagre" /><br/></t>
+											<strong>Grape Type:</strong> <i t-field="prod.uva" /><br/>
+											<strong>Awards:</strong> <i t-field="prod.premios" /><br/>
 										</t>
-										<strong>Descripción:</strong>
+										<strong>Description:</strong>
 										<span t-if="prod.description and len(prod.description) &gt; 200"> 
 			 								<t t-set="description" t-value="prod.description[:200] and prod.description[:200].replace('+', '\n')+'...'"/>
 											<i><t t-esc="description"/></i>
@@ -47,13 +47,13 @@
 							
 							<h4>Links</h4>
 							<t t-set="links" t-value="website.get_contrated_product_links(request.uid,prod.id)" />
-							<h3 t-if="not links" class="text-muted text-center">No tiene enlaces contratados</h3>
+							<h3 t-if="not links" class="text-muted text-center">Doesn't have contracted links</h3>
 							<table t-if="links" class="table">
 								<thead>
-									<th>Tipo</th>
-									<th>Caduca</th>
-									<th class="text-right">Clicks Unicos</th>
-									<th class="text-right">Clicks Totales</th>
+									<th>Type</th>
+									<th>Expires</th>
+									<th class="text-right">Uniqe Clicks</th>
+									<th class="text-right">Total Clicks</th>
 								</thead>
 								<tbody>
 									<tr t-foreach="links" t-as="link">
@@ -65,12 +65,12 @@
 								</tbody>
 							</table>
 							<div class="text-right">
-								<a href="#" t-attf-data-id="#{prod.id}" class="btn btn-default btn-xs crear-link-prod"><i class="fa fa-plus"></i> Crear Link</a>
+								<a href="#" t-attf-data-id="#{prod.id}" class="btn btn-default btn-xs crear-link-prod"><i class="fa fa-plus"></i> Create Link</a>
 							</div>
 						</div>
 					</div>
 				</t>
-				<a class="btn btn-primary" href="/crear_producto">Crear Producto</a>
+				<a class="btn btn-primary" href="/crear_producto">Create Product</a>
 			</t>
 			<t t-if=" not partner.is_company">
 				PRODUCTOS COMPRADOS CLIENTE NORMAL
