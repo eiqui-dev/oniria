@@ -1026,10 +1026,16 @@ class website_aloxa_turismo(Website):
         if request.httprequest.path.endswith('/productos'):
             values['panel'] = 'products'
         elif user.partner_id.is_company and request.httprequest.path.endswith('/establecimientos'):
-            values['servicios'] = request.env['product.template'].search([('servicio','=',True)]);
+            values['servicios'] = request.env['product.template'].search([
+                ('servicio', '=', True)
+            ]);
             values['panel'] = 'establishments'
-            values['products_partner'] = request.env['product.template'].search([('seller_ids.name','in',[user.partner_id.id])])
-            values['establecimientos'] = request.env['turismo.establecimiento'].search([('res_partner_id','=',user.partner_id.id)])
+            values['products_partner'] = request.env['product.template'].search([
+                ('seller_ids.name', 'in', [user.partner_id.id])
+            ])
+            values['establecimientos'] = request.env['turismo.establecimiento'].search([
+                ('res_partner_id', '=', user.partner_id.id)
+            ])
         elif user.partner_id.is_company and request.httprequest.path.endswith('/eventos'):
             values['panel'] = 'events'
             establishment_ids = request.env['turismo.establecimiento'].search([
@@ -1052,17 +1058,27 @@ class website_aloxa_turismo(Website):
             values['invoices'] = invoice_ids
         elif user.partner_id.is_company and request.httprequest.path.endswith('/vinos'):
             values['panel'] = 'wines'
-            values['servicios'] = request.env['product.template'].search([('servicio','=',True)]);
-            values['productos'] = request.env['product.template'].search([('seller_ids.name','in',[user.partner_id.id])])
+            values['servicios'] = request.env['product.template'].search([
+                ('servicio', '=', True)
+            ])
+            values['productos'] = request.env['product.template'].search([
+                ('seller_ids.name', 'in', [user.partner_id.id])
+            ])
         else:
             values['panel'] = 'general'
             if user.partner_id.is_company:
-                values['num_productos'] = request.env['product.template'].search_count([('seller_ids.name','in',[user.partner_id.id])])
-                establecimientos = request.env['turismo.establecimiento'].search([('res_partner_id','=',user.partner_id.id)])
+                values['num_productos'] = request.env['product.template'].search_count([
+                    ('seller_ids.name', 'in', [user.partner_id.id])
+                ])
+                establecimientos = request.env['turismo.establecimiento'].search([
+                    ('res_partner_id', '=', user.partner_id.id)
+                ])
                 values['num_establecimientos'] = len(establecimientos)
                 num_events = 0
                 for est in establecimientos:
-                    num_events = num_events + request.env['event.event'].search_count([('organizer_id','=',est.partner_id.id)])
+                    num_events = num_events + request.env['event.event'].search_count([
+                        ('organizer_id', '=', est.partner_id.id)
+                    ])
                 values['num_eventos'] = num_events
         
         values['partner'] = user.partner_id

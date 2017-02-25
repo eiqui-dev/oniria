@@ -17,7 +17,7 @@
 							<t t-if="establecimiento">
 								'<t t-esc="establecimiento.partner_id.get_composed_address(',')" />',
 								'/establecimiento/<t t-esc="slug(establecimiento)"/>',
-								'<t t-esc="establecimiento.name"/>
+								'<t t-esc="establecimiento.name"/>',
 							</t>
 							<t t-if="evento">
 								<t t-set="is_events" t-value="True" />

@@ -143,9 +143,7 @@ openerp.website.if_dom_contains('.crear-link-prod', function(){
 
 
 /** PANEL: LINKS **/
-console.log("SEWEEE 1");
 openerp.website.if_dom_contains('.crear-link', function(){
-	console.log("PASS 2");
 	$(document).on('click', '.crear-link', function(ev){
 		var $this = $(this);
 		$('form#create_link #prod_id').val('');
