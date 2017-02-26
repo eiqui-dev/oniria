@@ -132,30 +132,6 @@ openerp.website.if_dom_contains('.crear-link-prod', function(){
     });
 });
 
-
-/** PANEL: LINKS **/
-openerp.website.if_dom_contains('.crear-link', function(){
-	$(document).on('click', '.crear-link', function(ev){
-		var $this = $(this);
-		$('form#create_link #prod_id').val('');
-		$('form#create_link #est_id').val('');
-		$('#modalNewLink').modal('show');
-		ev.preventDefault();
-	});
-	
-	// DATE TIME PICKERS
-	var DTPickerOptions = { };
-	$('#modalNewLink #date_start').datetimepicker(DTPickerOptions);
-	$('#modalNewLink #date_end').datetimepicker($.extend({}, DTPickerOptions, { 'useCurrent': false }));
-	$("#modalNewLink #date_start").on("dp.change", function (e) {
-        $('#modalNewLink #date_end').data("DateTimePicker").minDate(e.date);
-    });
-    $("#modalNewLink #date_end").on("dp.change", function (e) {
-        $('#modalNewLink #date_start').data("DateTimePicker").maxDate(e.date);
-    });
-});
-
-
 /** PANTALLA: CREAR EVENTO **/
 openerp.website.if_dom_contains('#crear_evento_container', function(){
 	// DATE TIME PICKERS
