@@ -17,9 +17,9 @@ header {
 }
 
 .panel-list:not(:last-child) {
-	padding-bottom: 0.5em;
+	margin-bottom: 0.5em;
 }
-.panel-primary.panel-list a {
+.panel-primary.panel-list > div > a {
 	color: white;
 }
 
