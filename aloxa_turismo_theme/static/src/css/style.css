@@ -389,8 +389,9 @@ header {
 a.list-group-item {
 	min-height: 100px;
 }
-.tr-event-tickets-panel {
+.event-tickets-panel {
 	box-shadow: 0 1px 5px #BBB inset;
+	padding: 1em;
 }
 
 /* PANEL EDITAR USUARIO */

@@ -8,7 +8,7 @@
 					<div class="page-title">
 			      		<div class="container">
 							<div class="oe_structure"/>
-						    <h1>Nuevo Evento</h1>
+						    <h1>New Event</h1>
 						</div>
 				    </div>
 				
@@ -20,13 +20,13 @@
 								</t>
 								<div class="col-xs-12 col-md-4">
 						          	<div class="form-group">
-									    <label for="name">Nombre Evento</label>
+									    <label for="name">Event Name</label>
 									    <input type="text" class="form-control" id="name" name="name" placeholder="Nombre" required="required"/>
 									</div>
 						          	<div t-if="not est_partner" class="form-group">
-									    <label for="organizer">Organizador</label>
+									    <label for="organizer">Organizer</label>
 									    <select name="organizer" class="form-control" id="organizer" required="required">
-									    	<option value="">Establecimiento...</option>
+									    	<option value="">Select Establishment...</option>
 									    	<t t-foreach="establecimientos or []" t-as="est">
 									    		<option t-attf-value="#{est.partner_id.id}" t-esc="est.name"/>
 									    	</t>
@@ -34,53 +34,63 @@
 									</div>
 									<div class="row">
 							        	<div class="form-group col-md-6">
-							            	<label for="seats_min" class="control-label">Plazas Min.</label>
-							            	<input type="date" class="form-control" name="seats_min" id="seats_min" required="required" />
+							            	<label for="seats_min" class="control-label">Min. Seats</label>
+							            	<input type="number" class="form-control" name="seats_min" id="seats_min" required="required" />
 							          	</div>
 							          	<div class="form-group col-md-6">
-							            	<label for="seats_max" class="control-label">Plazas Max.</label>
-							            	<input type="date" class="form-control" name="seats_max" id="seats_max" required="required" />
+							            	<label for="seats_max" class="control-label">Max. Seats</label>
+							            	<input type="number" class="form-control" name="seats_max" id="seats_max" required="required" />
 							          	</div>
 						          	</div>
 									<div class="row">
 							        	<div class="form-group col-md-6">
-							            	<label for="date_begin" class="control-label">Desde</label>
-							            	<input type="date" class="form-control" name="date_begin" id="date_begin" required="required" />
+							            	<label for="date_begin" class="control-label">Start Date</label>
+								            <div class="input-group date" id="date_begin">
+								                <input type="text" class="form-control" name="date_begin" required="required" />
+								                <span class="input-group-addon">
+								                    <span class="glyphicon glyphicon-calendar"></span>
+								                </span>
+								            </div>
 							          	</div>
 							          	<div class="form-group col-md-6">
-							            	<label for="date_end" class="control-label">Hasta</label>
-							            	<input type="date" class="form-control" name="date_end" id="date_end" required="required" />
+							            	<label for="date_end" class="control-label">End Date</label>
+							            	<div class="input-group date" id="date_end">
+								                <input type="text" class="form-control" name="date_end" required="required" />
+								                <span class="input-group-addon">
+								                    <span class="glyphicon glyphicon-calendar"></span>
+								                </span>
+								            </div>
 							          	</div>
 						          	</div>
 								</div>
 								<div class="col-xs-12 col-md-4">
 								 	<div class="form-group">
-								 		<label for="street">Ubicación</label>
+								 		<label for="street">Address</label>
 					                    <select name="country" class="form-control" required="required">
-					                        <option value="">Pais...</option>
+					                        <option value="">Country...</option>
 					                        <t t-foreach="countries or []" t-as="country">
 					                            <option t-att-value="country.id" t-att-selected="'selected' if est_partner and country.id == est_partner.state_id.id else ''"><t t-esc="country.name"/></option>
 					                        </t>
 					                    </select>
 					                    <select name="province" class="form-control" required="required">
-					                        <option value="">Provincia...</option>
+					                        <option value="">Province...</option>
 					                        <t t-foreach="states or []" t-as="state">
 					                            <option t-att-value="state.id" t-att-selected="'selected' if est_partner and state.id == est_partner.state_id.id else ''"><t t-esc="state.name"/></option>
 					                        </t>
 					                    </select>
-					         			<input name="street" t-att-value="est_partner and est_partner.street" type="text" class="form-control" placeholder="Calle" required="required"/>
-					         			<input name="city" t-att-value="est_partner and est_partner.city" type="text" class="form-control" placeholder="Ciudad" required="required"/>
-					         			<input name="postalcode" t-att-value="est_partner and est_partner.zip" type="text" class="form-control" placeholder="C.P." required="required"/>
+					         			<input name="street" t-att-value="est_partner and est_partner.street" type="text" class="form-control" placeholder="Street" required="required"/>
+					         			<input name="city" t-att-value="est_partner and est_partner.city" type="text" class="form-control" placeholder="City" required="required"/>
+					         			<input name="postalcode" t-att-value="est_partner and est_partner.zip" type="text" class="form-control" placeholder="Zip" required="required"/>
 									</div>
 								</div>
 								<div class="col-xs-12 col-md-4">
 									<div class="form-group">
-									    <label for="desc">Descripción</label>
+									    <label for="desc">Description</label>
 									    <textarea rows="8" class="form-control" id="desc" name="desc" required="required"></textarea>
 									</div>
 								</div>
 								<div class="col-xs-12 col-md-12 text-right">
-									 	<button type="submit" class="btn btn-primary">Crear Evento</button>
+									 	<button type="submit" class="btn btn-primary">Create Event</button>
 								</div>
 					      	</form>
 						</div>

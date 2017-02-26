@@ -11,8 +11,8 @@
 				<script type='text/javascript' src='/aloxa_turismo_theme/static/src/libs/form-validator/jquery.validate.min.js' />
 				<script type='text/javascript' src='/aloxa_turismo_theme/static/src/libs/form-validator/additional-methods.min.js' />
 				<script type='text/javascript' src='/aloxa_turismo_theme/static/src/libs/form-validator/localization/messages_es.js' />
-				<script type='text/javascript' src='/aloxa_turismo_theme/static/src/libs/moment-js/moment-2.9.0.js' />
-				<script type='text/javascript' src='/aloxa_turismo_theme/static/src/libs/simple-data-picker/jquery.simple-dtpicker.js' />
+				<script type='text/javascript' src='/aloxa_turismo_theme/static/src/libs/moment-js/moment.js' />
+				<script type='text/javascript' src='/aloxa_turismo_theme/static/src/libs/bootstrap-datetime-picker/bootstrap-datetimepicker.min.js' />
 				<script type='text/javascript' src='/aloxa_turismo_theme/static/src/js/main.js' />
 		    </xpath>
 		</template>
@@ -22,7 +22,7 @@
 		     <xpath expr="." position="inside">
 				<link rel="stylesheet" type='text/css' href="https://fonts.googleapis.com/css?family=Poppins" />
 				<!-- <link rel='stylesheet' href='/aloxa_turismo_theme/static/src/libs/jQuery-File-Upload-9.11.2/css/jquery.fileupload.css'/> -->
-				<link rel="stylesheet" type='text/css' href="/aloxa_turismo_theme/static/src/libs/simple-data-picker/jquery.simple-dtpicker.css" />
+				<link rel="stylesheet" type='text/css' href='/aloxa_turismo_theme/static/src/libs/bootstrap-datetime-picker/bootstrap-datetimepicker.css' />
 				<link rel="stylesheet" type='text/css' href="/aloxa_turismo_theme/static/src/libs/select2-4.0.3/select2.css" />
 				<!--link rel="stylesheet" type='text/css' href="/aloxa_turismo_theme/static/src/lib/font-awesome-4.7.0/font-awesome.css" /-->
 				<link rel="stylesheet" type='text/css' href="/aloxa_turismo_theme/static/src/css/style.css" />

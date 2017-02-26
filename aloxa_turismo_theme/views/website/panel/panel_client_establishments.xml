@@ -3,7 +3,7 @@
     <data>    
     
 		<template id="panel_client_establishments" name="Panel Cliente" page="True">
-			<h3 t-if="not establecimientos" class="text-muted text-center">Any establishment found!</h3>
+			<h3 t-if="not establecimientos" class="text-muted text-center">No Establishments Found!</h3>
 			<div t-if="establecimientos" class="text-right" style="margin-bottom:20px;">
 				<a class="btn btn-primary" href="/crear_establecimiento">Create Establishment</a>
 			</div>		
@@ -48,7 +48,7 @@
 							
 								<h4>Links</h4>
 								<t t-set="links" t-value="website.get_contrated_stablisment_links(request.uid,est.id)" />
-								<h3 t-if="not links" class="text-muted text-center">No tiene enlaces contratados</h3>
+								<h3 t-if="not links" class="text-muted text-center">Doesn't have contracted links</h3>
 								<table t-if="links" class="table">
 									<thead>
 										<th>Tipo</th>
@@ -71,7 +71,7 @@
 								<h4>Events</h4>
 								<t t-set="events" t-value="website.get_stablisment_events(est.partner_id.id)" />
 								<h3 t-if="not events" class="text-muted text-center">No events defined</h3>
-								<table t-if="events" class="table">
+								<table t-if="events" class="table" id="events">
 									<thead>
 										<th>Event</th>
 										<th>Address</th>
@@ -81,37 +81,43 @@
 									<tbody>
 										<t t-foreach="events" t-as="event">
 											<tr t-att-class="(event.date_end >= str(datetime.datetime.now())) and 'success' or 'danger'">
-												<td style="vertical-align:middle;" t-esc="event.name" />
+												<td style="vertical-align:middle;" role="tab" t-att-id="'headingTickets%d_%d' % (est.id, event.id)">
+													<a role="button" data-toggle="collapse" data-parent="#events" t-att-href="'#collapseTickets%d_%d' % (est.id, event.id)" aria-expanded="true" t-att-aria-controls="'collapseTickets%d_%d' % (est.id, event.id)">
+														<strong t-esc="event.name" />
+													</a>
+												</td>
 												<td style="vertical-align:middle;" t-esc="event.address_id.get_composed_address(', ')" />
-												<td style="vertical-align:middle;" t-esc="event.date_begin" />
-												<td style="vertical-align:middle;" t-esc="event.date_end" />
+												<td style="vertical-align:middle;"><span t-esc="event.date_begin" /></td>
+												<td style="vertical-align:middle;"><span t-esc="event.date_end" /></td>
 											</tr>
-											<tr class="tr-event-tickets-panel">
-												<td colspan="4">
-													<strong>Tickets:</strong><br/>
-													<h3 t-if="not event.event_ticket_ids" class="text-muted text-center">No tickets defined</h3>
-													<table t-if="event.event_ticket_ids" class="table">
-														<thead>
-															<th>End of sales</th>
-															<th class="text-right">Price</th>
-															<th class="text-right">Max seats available</th>
-															<th class="text-right">Reserved seats</th>
-															<th class="text-right">Reserved seats not confirmed</th>
-														</thead>
-														<tbody>
-															<tr t-foreach="event.event_ticket_ids" t-as="ticket">
-																<td style="vertical-align:middle;" t-esc="ticket.deadline">
-																	<t t-if="ticket.deadline" t-esc="ticket.deadline" />
-																	<span t-if="not ticket.deadline">Never</span>
-																</td>
-																<td style="vertical-align:middle;" class="text-right" t-esc="'%.2f€' % ticket.price" />
-																<td style="vertical-align:middle;" class="text-right" t-esc="ticket.seats_max" />
-																<td style="vertical-align:middle;" class="text-right" t-esc="ticket.seats_reserved" />
-																<td style="vertical-align:middle;" class="text-right" t-esc="ticket.seats_unconfirmed" />
-															</tr>
-														</tbody>
-													</table>
-													<a href="#" t-attf-data-id="#{event.id}" class="btn btn-xs btn-default create-ticket"><i class="fa fa-plus"></i> Create Ticket</a>
+											<tr>
+												<td colspan="4" style="padding:0;">
+													<div t-att-id="'collapseTickets%d_%d' % (est.id, event.id)" class="panel-collapse collapse event-tickets-panel" role="tabpanel" t-att-aria-labelledby="'headingTickets%d_%d' % (est.id, event.id)">
+														<strong>Tickets:</strong><br/>
+														<h3 t-if="not event.event_ticket_ids" class="text-muted text-center">No tickets defined</h3>
+														<table t-if="event.event_ticket_ids" class="table">
+															<thead>
+																<th>End of sales</th>
+																<th class="text-right">Price</th>
+																<th class="text-right">Max seats available</th>
+																<th class="text-right">Reserved seats</th>
+																<th class="text-right">Reserved seats not confirmed</th>
+															</thead>
+															<tbody>
+																<tr t-foreach="event.event_ticket_ids" t-as="ticket">
+																	<td style="vertical-align:middle;" t-esc="ticket.deadline">
+																		<t t-if="ticket.deadline" t-esc="ticket.deadline" />
+																		<span t-if="not ticket.deadline">Never</span>
+																	</td>
+																	<td style="vertical-align:middle;" class="text-right" t-esc="'%.2f€' % ticket.price" />
+																	<td style="vertical-align:middle;" class="text-right" t-esc="ticket.seats_max" />
+																	<td style="vertical-align:middle;" class="text-right" t-esc="ticket.seats_reserved" />
+																	<td style="vertical-align:middle;" class="text-right" t-esc="ticket.seats_unconfirmed" />
+																</tr>
+															</tbody>
+														</table>
+														<a href="#" t-attf-data-id="#{event.id}" class="btn btn-xs btn-default create-ticket"><i class="fa fa-plus"></i> Create Ticket</a>
+													</div>
 												</td>
 											</tr>
 										</t>
@@ -139,7 +145,7 @@
 									<a href="#" t-attf-data-id="#{est.id}" class="btn btn-default btn-xs anhadir-producto"><i class="fa fa-plus"></i> Añadir Producto</a>
 								</div>
 								<h4>Pictures</h4>
-						  		<h3 t-if="len(est.images) == 0" class="text-muted text-center">Any picture uploaded</h3>
+						  		<h3 t-if="len(est.images) == 0" class="text-muted text-center">No Pictures Uploaded</h3>
 						  		<t t-foreach="est.images" t-as="image">
 						  			<div class="col-sm-4 col-md-4">
 							  			<div class="thumbnail">

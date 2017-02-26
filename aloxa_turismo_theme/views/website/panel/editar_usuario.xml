@@ -17,7 +17,7 @@
 							<form method="POST" action="/_editar_usuario" enctype="multipart/form-data">
 								<div class="col-xs-12 col-md-4">
 								  <div class="form-group">
-								    <label for="name">Nombre</label>
+								    <label for="name">Name</label>
 								    <input type="text" t-att-value="partner.name" class="form-control" id="name" name="name" placeholder="Nombre" required="required"/>
 								  </div>
 								  <div class="form-group">
@@ -25,11 +25,11 @@
 								    <input type="text" class="form-control" id="cnif" name="cnif" placeholder="Número de Identificación Fiscal" required="required"/>
 								  </div>
 								  <div class="form-group">
-								    <label for="email">Correo Electronico</label>
+								    <label for="email">E-Mail</label>
 								    <input type="mail" t-att-value="partner.email" class="form-control" id="email" name="email" placeholder="Correo Electronico" required="required"/>
 								  </div>
 								  <div class="form-group">
-								    <label for="image">Imágen</label>
+								    <label for="image">Picture</label>
 								    <input type="file" name="image" id="image" accept="image/*" />
 								  </div>
 								  <div class="form-group">
@@ -42,41 +42,41 @@
 								 </div>
 								 <div class="col-xs-12 col-md-4" id="panel-middle">
 									  <div class="form-group">
-									    <label for="street">Direccion</label>
-					         			<input id="street" t-att-value="partner.street" name="street" type="text" class="form-control" placeholder="Calle"/>
-					         			<input id="city" name="city" t-att-value="partner.city" type="text" class="form-control" placeholder="Ciudad" />
+									    <label for="street">Address</label>
+					         			<input id="street" t-att-value="partner.street" name="street" type="text" class="form-control" placeholder="Street"/>
+					         			<input id="city" name="city" t-att-value="partner.city" type="text" class="form-control" placeholder="City" />
 					                    <select name="province" id="province" class="form-control">
-					                        <option value="">Provincia...</option>
+					                        <option value="">Province...</option>
 					                        <t t-foreach="states or []" t-as="state">
 					                            <option t-att-value="state.id" t-att-selected="(state.id == partner.state_id.id) and 'selected' or ''"><t t-esc="state.name"/></option>
 					                        </t>
 					                    </select>
-					         			<input id="postalcode" t-att-value="partner.zip" name="postalcode" type="text" class="form-control" placeholder="C.P." />
+					         			<input id="postalcode" t-att-value="partner.zip" name="postalcode" type="text" class="form-control" placeholder="Zip" />
 									  </div>
 									  <div class="form-group">
-										    <label for="url_trip">Teléfono</label>
+										    <label for="url_trip">Phone</label>
 											<input type="text" id="phone" name="phone" t-att-value="partner.phone" class="form-control" />
 									  </div>
 								 </div>
 								 <div class="col-xs-12 col-md-4">
-								 	<label for="passwd-row">Cambiar Contraseña</label>
+								 	<label for="passwd-row">Change Password</label>
 								  	<div class="row" id="passwd-row">
 									  <div class="form-group col-md-4">
-									    <label for="old_password">Contraseña Actual</label>
-									    <input type="password" class="form-control" id="old_password" name="old_password" placeholder="Contraseña Actual"/>
+									    <label for="old_password">Current Password</label>
+									    <input type="password" class="form-control" id="old_password" name="old_password" placeholder="Current Password"/>
 									  </div>
 									  <div class="form-group col-md-4">
-									    <label for="password">Contraseña Nueva</label>
-									    <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña Nueva"/>
+									    <label for="password">New Password</label>
+									    <input type="password" class="form-control" id="password" name="password" placeholder="New Password"/>
 									  </div>
 									  <div class="form-group col-md-4">
-									    <label for="password_check">Repita Contraseña</label>
-									    <input type="password" class="form-control" id="password_check" placeholder="Repita Contraseña"/>
+									    <label for="password_check">Repeat Password</label>
+									    <input type="password" class="form-control" id="password_check" placeholder="Repeat Password"/>
 									  </div>
 								 	</div>
 								 </div>
 								 <div class="col-xs-12 col-md-12 text-right">
-								 	<button type="submit" class="btn btn-primary">Guardar Cambios</button>
+								 	<button type="submit" class="btn btn-primary">Save Changes</button>
 								 </div>
 							</form>
 						</div>

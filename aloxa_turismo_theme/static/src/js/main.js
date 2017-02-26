@@ -69,16 +69,15 @@ openerp.website.if_dom_contains('.crear-link-est', function(){
 	});
 	
 	// DATE TIME PICKERS
-	var DTPickerOptions = {
-		'locale': 'es',
-	    'firstDayOfWeek': 1,
-	    'changeMonth': true,
-	    'changeYear': true,
-	    'futureOnly': true,
-	};
-	
-	$('#modalNewLink #date_start').appendDtpicker($.extend({}, DTPickerOptions, { 'minDate': moment().utc() }));
-	$('#modalNewLink #date_end').appendDtpicker(DTPickerOptions);
+	var DTPickerOptions = { };
+	$('#modalNewLink #date_start').datetimepicker(DTPickerOptions);
+	$('#modalNewLink #date_end').datetimepicker($.extend({}, DTPickerOptions, { 'useCurrent': false }));
+	$("#modalNewLink #date_start").on("dp.change", function (e) {
+        $('#modalNewLink #date_end').data("DateTimePicker").minDate(e.date);
+    });
+    $("#modalNewLink #date_end").on("dp.change", function (e) {
+        $('#modalNewLink #date_start').data("DateTimePicker").maxDate(e.date);
+    });
 });
 openerp.website.if_dom_contains('.anhadir-producto', function(){
 	$(document).on('click', '.anhadir-producto', function(ev){
@@ -107,15 +106,8 @@ openerp.website.if_dom_contains('.create-ticket', function(){
 	});
 	
 	// DATE TIME PICKERS
-	var DTPickerOptions = {
-		'locale': 'es',
-	    'firstDayOfWeek': 1,
-	    'changeMonth': true,
-	    'changeYear': true,
-	    'futureOnly': true,
-	};
-	
-	$('#modalNewTicket #deadline').appendDtpicker(DTPickerOptions);
+	var DTPickerOptions = { };
+	$('#modalNewTicket #deadline').datetimepicker(DTPickerOptions);
 });
 
 /** PANEL: PRODUCTOS **/
@@ -129,16 +121,15 @@ openerp.website.if_dom_contains('.crear-link-prod', function(){
 	});
 	
 	// DATE TIME PICKERS
-	var DTPickerOptions = {
-		'locale': 'es',
-	    'firstDayOfWeek': 1,
-	    'changeMonth': true,
-	    'changeYear': true,
-	    'futureOnly': true,
-	};
-	
-	$('#modalNewLink #date_start').appendDtpicker($.extend({}, DTPickerOptions, { 'minDate': moment().utc() }));
-	$('#modalNewLink #date_end').appendDtpicker(DTPickerOptions);
+	var DTPickerOptions = { };
+	$('#modalNewLink #date_start').datetimepicker(DTPickerOptions);
+	$('#modalNewLink #date_end').datetimepicker($.extend({}, DTPickerOptions, { 'useCurrent': false }));
+	$("#modalNewLink #date_start").on("dp.change", function (e) {
+        $('#modalNewLink #date_end').data("DateTimePicker").minDate(e.date);
+    });
+    $("#modalNewLink #date_end").on("dp.change", function (e) {
+        $('#modalNewLink #date_start').data("DateTimePicker").maxDate(e.date);
+    });
 });
 
 
@@ -153,32 +144,30 @@ openerp.website.if_dom_contains('.crear-link', function(){
 	});
 	
 	// DATE TIME PICKERS
-	var DTPickerOptions = {
-		'locale': 'es',
-	    'firstDayOfWeek': 1,
-	    'changeMonth': true,
-	    'changeYear': true,
-	    'futureOnly': true,
-	};
-	
-	$('#modalNewLink #date_start').appendDtpicker($.extend({}, DTPickerOptions, { 'minDate': moment().utc() }));
-	$('#modalNewLink #date_end').appendDtpicker(DTPickerOptions);
+	var DTPickerOptions = { };
+	$('#modalNewLink #date_start').datetimepicker(DTPickerOptions);
+	$('#modalNewLink #date_end').datetimepicker($.extend({}, DTPickerOptions, { 'useCurrent': false }));
+	$("#modalNewLink #date_start").on("dp.change", function (e) {
+        $('#modalNewLink #date_end').data("DateTimePicker").minDate(e.date);
+    });
+    $("#modalNewLink #date_end").on("dp.change", function (e) {
+        $('#modalNewLink #date_start').data("DateTimePicker").maxDate(e.date);
+    });
 });
 
 
 /** PANTALLA: CREAR EVENTO **/
 openerp.website.if_dom_contains('#crear_evento_container', function(){
 	// DATE TIME PICKERS
-	var DTPickerOptions = {
-		'locale': 'es',
-	    'firstDayOfWeek': 1,
-	    'changeMonth': true,
-	    'changeYear': true,
-	    'futureOnly': true,
-	};
-	
-	$('#date_begin').appendDtpicker($.extend({}, DTPickerOptions, { 'minDate': moment().utc() }));
-	$('#date_end').appendDtpicker(DTPickerOptions);
+	var DTPickerOptions = { };
+	$('#date_begin').datetimepicker(DTPickerOptions);
+	$('#date_end').datetimepicker($.extend({}, DTPickerOptions, { 'useCurrent': false }));
+	$("#date_begin").on("dp.change", function (e) {
+        $('#date_end').data("DateTimePicker").minDate(e.date);
+    });
+    $("#date_end").on("dp.change", function (e) {
+        $('#date_begin').data("DateTimePicker").maxDate(e.date);
+    });
 });
 
 /** CREAR NUEVO PRODUCTO **/
