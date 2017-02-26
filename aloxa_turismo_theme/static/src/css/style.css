@@ -16,6 +16,12 @@ header {
 	margin-bottom: 1.5em;
 }
 
+.panel-list:not(:last-child) {
+	padding-bottom: 0.5em;
+}
+.panel-primary.panel-list a {
+	color: white;
+}
 
 /* ACORDEON FILTROS/CATEGORIAS*/
 .accordion-inner a {

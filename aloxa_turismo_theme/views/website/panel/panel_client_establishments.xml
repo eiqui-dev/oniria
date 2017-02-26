@@ -10,7 +10,7 @@
 			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 				<t t-foreach="establecimientos or []" t-as="est">
 					<a t-attf-name="#{slug(est)}"></a>
-					<div t-att-class="'panel panel-%s' % ('primary' if est.website_published else 'default')">
+					<div t-att-class="'panel panel-list panel-%s' % ('primary' if est.website_published else 'default')">
 						<div class="panel-heading" role="tab" t-att-id="'heading%d' % est.id">
 							<a role="button" data-toggle="collapse" data-parent="#accordion" t-att-href="'#collapse%d' % est.id" aria-expanded="true" t-att-aria-controls="'collapse%d' % est.id">
 								<strong t-esc="est.name.upper()" />

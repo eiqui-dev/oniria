@@ -8,7 +8,7 @@
         		<a t-if="productos" style="margin-bottom:20px;" class="btn btn-primary" href="/crear_producto">Create Product</a>
 				<t t-foreach="productos or []" t-as="prod">
 					<a t-attf-name="#{slug(prod)}"></a>
-					<div t-att-class="'panel panel-%s' % ('primary' if prod.website_published else 'default')">
+					<div t-att-class="'panel panel-list panel-%s' % ('primary' if prod.website_published else 'default')">
 						<div class="panel-heading">
 							<strong t-esc="prod.name.upper()" />
 							<span class="pull-right">
