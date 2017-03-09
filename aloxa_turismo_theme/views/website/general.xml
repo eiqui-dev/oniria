@@ -41,9 +41,9 @@
 		
 		<!--
 			Parametros necesario para renderizar:
-				- request.session['directory_view'] > Indica e tipo de vista a cargar
+				- request.session['directory_view'] > Indica e type de vista a cargar
 				- orderby > Indica el campo por el que se ordena
-				- category_type > Indica el tipo de directorio
+				- category_type > Indica el type de directorio
 		-->
 		<template id="toolbar">			
 			<div class="col-md-12" id="directory-toolbar">
@@ -55,8 +55,8 @@
 						Ordernar por 
 						<a class="btn btn-xs dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><t t-esc="orderby.upper()" /> <span class="caret"></span></a>
 			          	<ul class="dropdown-menu">
-			          		<li t-att-class="'menu-orderby active' if orderby == 'nombre' else 'menu-orderby'" data-value="nombre"><a href="#">Nombre</a></li>
-			          		<t t-if="category_type in ['establecimiento','evento']">
+			          		<li t-att-class="'menu-orderby active' if orderby == 'name' else 'menu-orderby'" data-value="name"><a href="#">Name</a></li>
+			          		<t t-if="category_type in ['establishment','evento']">
 					            <li t-att-class="'menu-orderby active' if orderby == 'direccion' else 'menu-orderby'" data-value="direccion"><a href="#">Dirección</a></li>
 				            </t>
 				            <t t-if="category_type == 'vino'">

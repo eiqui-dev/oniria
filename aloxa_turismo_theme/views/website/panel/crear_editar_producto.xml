@@ -2,7 +2,7 @@
 <openerp>
     <data>    
     
-		<template id="crear_producto" name="Crear Producto" page="True">
+		<template id="crear_product" name="Crear Product" page="True">
 			<t t-call="website.layout">
 				<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale">
 					<div class="page-title">
@@ -13,22 +13,22 @@
 						</div>
 				    </div>
 				
-					<section t-attf-class="container mt8" id="crear_producto_container">
+					<section t-attf-class="container mt8" id="crear_product_container">
 				         <div class="row" style="margin-bottom:2em;">
-								<form method="POST" action="/_crear_editar_producto" enctype="multipart/form-data">
+								<form method="POST" action="/_crear_editar_product" enctype="multipart/form-data">
 									<input type="hidden" t-att-value="((prod) and prod.id) or ''" name="prod_id" />
 									<div class="col-xs-12 col-md-4">
 									 	<div class="form-group">
 										    <label for="name">Product Name</label>
-										    <input type="text" t-att-value="((prod) and prod.name) or ''" class="form-control" id="name" name="name" placeholder="Nombre" required="required"/>
+										    <input type="text" t-att-value="((prod) and prod.name) or ''" class="form-control" id="name" name="name" placeholder="Name" required="required"/>
 										</div>
 									 	<div class="form-group">
 										    <label for="type">Type</label>
 						         			<select class="form-control" id="type" name="type" required="required">
 						         				<option value="">Select Type...</option>
-						         				<option value="otro" t-att-selected="(prod and not prod.tipo_producto) and 'selected'">Other</option>
-						         				<option value="vino" t-att-selected="(prod and prod.tipo_producto=='vino') and 'selected'">Wine</option>
-						         				<!--option value="vinagre" t-att-selected="(prod and prod.tipo_producto=='vinagre') and 'selected'">Vinagre</option-->
+						         				<option value="other" t-att-selected="(prod and not prod.type_product) and 'selected'">Other</option>
+						         				<option value="vino" t-att-selected="(prod and prod.type_product=='vino') and 'selected'">Wine</option>
+						         				<!--option value="vinagre" t-att-selected="(prod and prod.type_product=='vinagre') and 'selected'">Vinagre</option-->
 						         			</select>
 						         		</div>
 									 	<div class="form-group">
@@ -46,11 +46,11 @@
 									<div class="col-xs-12 col-md-4" id="panel-middle" style="display:none">
 										<div class="form-group">
 										    <label for="image">Type</label>
-										    <input type="text" id="subtipo" t-att-value="((prod and prod.tipo_producto == 'vino') and prod.tipovino.nombre) or ((prod and prod.tipo_producto == 'vinagre') and prod.tipovinagre.nombre) or ''" name="subtipo" class="form-control" required="required"/>
+										    <input type="text" id="subtype" t-att-value="((prod and prod.type_product == 'vino') and prod.typevino.name) or ((prod and prod.type_product == 'vinagre') and prod.typevinagre.name) or ''" name="subtype" class="form-control" required="required"/>
 										</div>
 										<div class="form-group">
 										    <label for="image">Grape</label>
-										    <input type="text" t-att-value="((prod) and prod.uva.nombre) or ''" id="uva" name="uva" class="form-control"/>
+										    <input type="text" t-att-value="((prod) and prod.uva.name) or ''" id="uva" name="uva" class="form-control"/>
 										</div>
 										<div class="form-group">
 										    <label for="image">Wine Date</label>
@@ -58,10 +58,10 @@
 										</div>
 										<div class="form-group">
 										    <label for="image">Wine Cellar</label>
-										    <select name="bodega" id="bodega" class="form-control">
+										    <select name="winecellar" id="winecellar" class="form-control">
 						                        <option value="">Select Cellar...</option>
-						                        <t t-foreach="bodegas or []" t-as="bodega">
-						                            <option t-att-value="bodega.id" t-att-selected="(prod and prod.establecimiento_id.id == bodega.id) and 'selected'"><t t-esc="bodega.name"/></option>
+						                        <t t-foreach="winecellars or []" t-as="winecellar">
+						                            <option t-att-value="winecellar.id" t-att-selected="(prod and prod.establishment_id.id == winecellar.id) and 'selected'"><t t-esc="winecellar.name"/></option>
 						                        </t>
 						                    </select>
 										</div>

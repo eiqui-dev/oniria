@@ -45,9 +45,9 @@
     'data': [
         'data/ir.model.data.csv',
         'data/turismo.opciones.csv',               
-        'views/establecimientos.xml',
+        'views/establishments.xml',
         'views/comun.xml',
-        'views/productos.xml',
+        'views/products.xml',
         'security/ir.model.access.csv',
 	    'views/turistas.xml',
         #'views/reservas.xml',

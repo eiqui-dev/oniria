@@ -1,0 +1,405 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * schedule
+# 
+# Translators:
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-21 14:08+0000\n"
+"PO-Revision-Date: 2015-08-15 09:35+0000\n"
+"Last-Translator: Yoshi Tashiro <tashiro@roomsfor.hk>\n"
+"Language-Team: Japanese (http://www.transifex.com/odoo/odoo-8/language/ja/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: schedule
+#: code:addons/schedule/schedule.py:685
+#, python-format
+msgid "%s (copy)"
+msgstr "%s（コピー）"
+
+#. module: schedule
+#: code:addons/schedule/faces/schedule.py:340
+#, python-format
+msgid "(vacation)"
+msgstr "（休暇）"
+
+#. module: schedule
+#: model:ir.actions.act_window,help:schedule.action_schedule_calendar_form
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Define working hours and time table that could be scheduled to your project members\n"
+"              </p>\n"
+"            "
+msgstr ""
+
+#. module: schedule
+#: field:schedule.schedule,active:0
+msgid "Active"
+msgstr "アクティブ"
+
+#. module: schedule
+#: model:ir.actions.act_window,name:schedule.schedule_calendar_closing_days
+msgid "Closing Days"
+msgstr "閉鎖日数"
+
+#. module: schedule
+#: field:schedule.schedule,code:0
+msgid "Code"
+msgstr "コード"
+
+#. module: schedule
+#: field:schedule.calendar,company_id:0
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+#: field:schedule.calendar.leaves,company_id:0
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+#: field:schedule.schedule,company_id:0
+msgid "Company"
+msgstr "会社"
+
+#. module: schedule
+#: code:addons/schedule/schedule.py:773
+#, python-format
+msgid "Configuration Error!"
+msgstr "設定エラー"
+
+#. module: schedule
+#: field:schedule.calendar,create_uid:0
+#: field:schedule.calendar.attendance,create_uid:0
+#: field:schedule.calendar.leaves,create_uid:0
+#: field:schedule.schedule,create_uid:0
+msgid "Created by"
+msgstr "作成者"
+
+#. module: schedule
+#: field:schedule.calendar,create_date:0
+#: field:schedule.calendar.attendance,create_date:0
+#: field:schedule.calendar.leaves,create_date:0
+#: field:schedule.schedule,create_date:0
+msgid "Created on"
+msgstr "作成日"
+
+#. module: schedule
+#: field:schedule.calendar.attendance,dayofweek:0
+msgid "Day of Week"
+msgstr "曜日"
+
+#. module: schedule
+#: help:schedule.schedule,calendar_id:0
+msgid "Define the schedule of schedule"
+msgstr "リソースのスケジュールを定義します。"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.schedule_calendar_leave_form
+msgid "Duration"
+msgstr "期間"
+
+#. module: schedule
+#: field:schedule.schedule,time_efficiency:0
+msgid "Efficiency Factor"
+msgstr "効率性の因子"
+
+#. module: schedule
+#: field:schedule.calendar.leaves,date_to:0
+msgid "End Date"
+msgstr "終了日"
+
+#. module: schedule
+#: constraint:schedule.calendar.leaves:0
+msgid "Error! leave start-date must be lower then leave end-date."
+msgstr "エラー。休暇開始日は休暇終了日の前でなければいけません。"
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Friday"
+msgstr "金曜"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "Group By"
+msgstr "グループ化"
+
+#. module: schedule
+#: view:schedule.calendar.attendance:schedule.view_schedule_calendar_attendance_form
+msgid "Hours"
+msgstr "時間"
+
+#. module: schedule
+#: selection:schedule.schedule,schedule_type:0
+msgid "Human"
+msgstr "人間"
+
+#. module: schedule
+#: field:schedule.calendar,id:0 field:schedule.calendar.attendance,id:0
+#: field:schedule.calendar.leaves,id:0 field:schedule.schedule,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: schedule
+#: help:schedule.calendar.leaves,schedule_id:0
+msgid ""
+"If empty, this is a generic holiday for the company. If a schedule is set, "
+"the holiday/leave is only for this schedule"
+msgstr "空の場合、これは会社の一般的な休日です。リソースがセットされている場合、休日 / 休暇はこのリソースのためだけです。"
+
+#. module: schedule
+#: help:schedule.schedule,active:0
+msgid ""
+"If the active field is set to False, it will allow you to hide the schedule "
+"record without removing it."
+msgstr "アクティブ項目をFalse にセットすると、リソースレコードは削除することなく非表示にできます。"
+
+#. module: schedule
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "Inactive"
+msgstr "非アクティブ"
+
+#. module: schedule
+#: field:schedule.calendar,write_uid:0
+#: field:schedule.calendar.attendance,write_uid:0
+#: field:schedule.calendar.leaves,write_uid:0
+#: field:schedule.schedule,write_uid:0
+msgid "Last Updated by"
+msgstr "最終更新者"
+
+#. module: schedule
+#: field:schedule.calendar,write_date:0
+#: field:schedule.calendar.attendance,write_date:0
+#: field:schedule.calendar.leaves,write_date:0
+#: field:schedule.schedule,write_date:0
+msgid "Last Updated on"
+msgstr "最終更新日"
+
+#. module: schedule
+#: model:ir.model,name:schedule.model_schedule_calendar_leaves
+#: view:schedule.calendar.leaves:schedule.schedule_calendar_leave_form
+#: view:schedule.calendar.leaves:schedule.schedule_calendar_leave_tree
+msgid "Leave Detail"
+msgstr "休暇の詳細"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+msgid "Leave Month"
+msgstr ""
+
+#. module: schedule
+#: field:schedule.calendar,leave_ids:0
+msgid "Leaves"
+msgstr "休暇"
+
+#. module: schedule
+#: code:addons/schedule/schedule.py:773
+#, python-format
+msgid "Make sure the Working time has been configured with proper week days!"
+msgstr "作業時間に適切な曜日が設定されていることを確認して下さい。"
+
+#. module: schedule
+#: selection:schedule.schedule,schedule_type:0
+msgid "Material"
+msgstr "材料"
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Monday"
+msgstr "月曜"
+
+#. module: schedule
+#: field:schedule.calendar,name:0 field:schedule.calendar.attendance,name:0
+#: field:schedule.calendar.leaves,name:0 field:schedule.schedule,name:0
+msgid "Name"
+msgstr "名前"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.schedule_calendar_leave_form
+#: view:schedule.calendar.leaves:schedule.schedule_calendar_leave_tree
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+msgid "Reason"
+msgstr "理由"
+
+#. module: schedule
+#: help:schedule.schedule,user_id:0
+msgid "Related user name for the schedule to manage its access."
+msgstr "そのアクセスを管理するためのリソースに関連するユーザ名"
+
+#. module: schedule
+#: model:ir.ui.menu,name:schedule.menu_schedule_config
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+#: field:schedule.calendar.leaves,schedule_id:0
+#: view:schedule.schedule:schedule.schedule_schedule_form
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "schedule"
+msgstr "リソース"
+
+#. module: schedule
+#: model:ir.model,name:schedule.model_schedule_calendar
+msgid "schedule Calendar"
+msgstr "リソースカレンダー」"
+
+#. module: schedule
+#: model:ir.model,name:schedule.model_schedule_schedule
+msgid "schedule Detail"
+msgstr "リソースの詳細"
+
+#. module: schedule
+#: model:ir.actions.act_window,name:schedule.action_schedule_calendar_leave_tree
+#: model:ir.ui.menu,name:schedule.menu_view_schedule_calendar_leaves_search
+msgid "schedule Leaves"
+msgstr "休暇リソース"
+
+#. module: schedule
+#: field:schedule.schedule,schedule_type:0
+msgid "schedule Type"
+msgstr "リソースタイプ"
+
+#. module: schedule
+#: field:schedule.calendar.attendance,calendar_id:0
+msgid "schedule's Calendar"
+msgstr "リソースカレンダー"
+
+#. module: schedule
+#: model:ir.actions.act_window,name:schedule.action_schedule_schedule_tree
+#: model:ir.ui.menu,name:schedule.menu_schedule_schedule
+#: view:schedule.schedule:schedule.schedule_schedule_tree
+msgid "schedules"
+msgstr "リソース"
+
+#. module: schedule
+#: model:ir.actions.act_window,name:schedule.schedule_calendar_schedules_leaves
+msgid "schedules Leaves"
+msgstr "休暇リソース"
+
+#. module: schedule
+#: model:ir.actions.act_window,help:schedule.action_schedule_schedule_tree
+msgid ""
+"schedules allow you to create and manage schedules that should be involved "
+"in a specific project phase. You can also set their efficiency level and "
+"workload based on their weekly working hours."
+msgstr "リソースは特定のプロジェクトフェーズに関与すべきリソースの作成と管理ができます。それらの効率レベルと週間作業時間を基本とする作業負荷を設定できます。"
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Saturday"
+msgstr "土曜"
+
+#. module: schedule
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "Search schedule"
+msgstr "リソースの検索"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+msgid "Search Working Period Leaves"
+msgstr "作業期間休暇の検索"
+
+#. module: schedule
+#: view:schedule.calendar:schedule.view_schedule_calendar_search
+msgid "Search Working Time"
+msgstr "作業時間の検索"
+
+#. module: schedule
+#: field:schedule.calendar.leaves,date_from:0
+msgid "Start Date"
+msgstr "開始日"
+
+#. module: schedule
+#: help:schedule.calendar.attendance,hour_from:0
+msgid "Start and End time of working."
+msgstr ""
+
+#. module: schedule
+#: field:schedule.calendar.attendance,date_from:0
+msgid "Starting Date"
+msgstr "開始日"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+msgid "Starting Date of Leave by Month"
+msgstr ""
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Sunday"
+msgstr "日曜"
+
+#. module: schedule
+#: help:schedule.schedule,time_efficiency:0
+msgid ""
+"This field depict the efficiency of the schedule to complete tasks. e.g  "
+"schedule put alone on a phase of 5 days with 5 tasks assigned to him, will "
+"show a load of 100% for this phase by default, but if we put a efficiency of"
+" 200%, then his load will only be 50%."
+msgstr ""
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Thursday"
+msgstr "木曜"
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Tuesday"
+msgstr "火曜日"
+
+#. module: schedule
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "Type"
+msgstr "タイプ"
+
+#. module: schedule
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+#: field:schedule.schedule,user_id:0
+msgid "User"
+msgstr "ユーザ"
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Wednesday"
+msgstr "水曜"
+
+#. module: schedule
+#: model:ir.model,name:schedule.model_schedule_calendar_attendance
+msgid "Work Detail"
+msgstr "作業詳細"
+
+#. module: schedule
+#: field:schedule.calendar.attendance,hour_from:0
+msgid "Work from"
+msgstr "作業開始時間"
+
+#. module: schedule
+#: field:schedule.calendar.attendance,hour_to:0
+msgid "Work to"
+msgstr "作業終了時間"
+
+#. module: schedule
+#: field:schedule.calendar,manager:0
+msgid "Workgroup Manager"
+msgstr "作業グループマネジャ"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "Working Period"
+msgstr "作業期間"
+
+#. module: schedule
+#: model:ir.actions.act_window,name:schedule.action_schedule_calendar_form
+#: model:ir.ui.menu,name:schedule.menu_schedule_calendar
+#: view:schedule.calendar:schedule.schedule_calendar_form
+#: view:schedule.calendar:schedule.view_schedule_calendar_search
+#: view:schedule.calendar:schedule.view_schedule_calendar_tree
+#: field:schedule.calendar,attendance_ids:0
+#: view:schedule.calendar.attendance:schedule.view_schedule_calendar_attendance_form
+#: view:schedule.calendar.attendance:schedule.view_schedule_calendar_attendance_tree
+#: field:schedule.calendar.leaves,calendar_id:0
+#: field:schedule.schedule,calendar_id:0
+msgid "Working Time"
+msgstr "作業時間"

@@ -23,8 +23,8 @@
 			<t t-foreach="bins" t-as="tr_product">
 				<t t-foreach="tr_product" t-as="td_product">
 					<t t-if="td_product">
-						<t t-set="establecimiento" t-value="td_product['establecimiento']"/>
-                      	<t t-set="producto_contratado" t-value="td_product['producto_contratado']"/>
+						<t t-set="establishment" t-value="td_product['establishment']"/>
+                      	<t t-set="contract_product" t-value="td_product['contract_product']"/>
 						<t t-set="evento" t-value="td_product['events'] if 'events' in td_product and td_product['events'] and len(td_product['events'])==1 else False"/>
 						
 						<!-- GRID -->
@@ -33,13 +33,13 @@
 								<div class="product">
 									<div class="pro-info">
 										<div class="ptitle">
-											<t t-if="establecimiento">
-												<a itemprop="name" t-att-href="keep('/establecimiento/%s' % slug(establecimiento), category=0)" t-field="establecimiento.name"/>
+											<t t-if="establishment">
+												<a itemprop="name" t-att-href="keep('/establishment/%s' % slug(establishment), category=0)" t-field="establishment.name"/>
 											</t>
-											<t t-if="producto_contratado">
-												<t t-if="producto_contratado.product_tur_id">
-													<t t-set="product_type" t-value='producto_contratado.product_tur_id.tipo_producto' />
-													<a itemprop="name" t-attf-href="/shop/product/#{ slug(producto_contratado.product_tur_id) }" t-field="producto_contratado.product_tur_id.name"/>												
+											<t t-if="contract_product">
+												<t t-if="contract_product.product_tur_id">
+													<t t-set="product_type" t-value='contract_product.product_tur_id.type_product' />
+													<a itemprop="name" t-attf-href="/shop/product/#{ slug(contract_product.product_tur_id) }" t-field="contract_product.product_tur_id.name"/>												
 												</t>
 											</t>
 											<t t-if="evento">
@@ -48,24 +48,24 @@
 										</div>
 									</div>
 									
-									<div t-attf-class="product-img {{establecimiento and 'establecimiento-img' or ''}} {{producto_contratado and 'producto-img' or ''}}">
-										<t t-if="establecimiento">
-											<a class="product-image" title="" t-attf-href="/establecimiento/#{ slug(establecimiento) }">
-												<span t-field="establecimiento.image_thumb" t-field-options='{"widget": "image", "class": "directory-img"}' />
+									<div t-attf-class="product-img {{establishment and 'establishment-img' or ''}} {{contract_product and 'product-img' or ''}}">
+										<t t-if="establishment">
+											<a class="product-image" title="" t-attf-href="/establishment/#{ slug(establishment) }">
+												<span t-field="establishment.image_thumb" t-field-options='{"widget": "image", "class": "directory-img"}' />
 											</a>
 										</t>
-										<t t-if="producto_contratado">
-											<t t-if="producto_contratado.product_tur_id">
-												<t t-set="product_type" t-value='producto_contratado.product_tur_id.tipo_producto' />
+										<t t-if="contract_product">
+											<t t-if="contract_product.product_tur_id">
+												<t t-set="product_type" t-value='contract_product.product_tur_id.type_product' />
 												
-												<a class="product-image" title="" t-attf-href="/shop/product/#{ slug(producto_contratado.product_tur_id) }">
-													<span t-field="producto_contratado.image_thumb" t-field-options='{"widget": "image", "class": "directory-img"}' />
+												<a class="product-image" title="" t-attf-href="/shop/product/#{ slug(contract_product.product_tur_id) }">
+													<span t-field="contract_product.image_thumb" t-field-options='{"widget": "image", "class": "directory-img"}' />
 												</a>
 											</t>
-											<t t-if="not producto_contratado.product_tur_id">
-												<a itemprop="url" t-att-href="website.sanitize_url(producto_contratado.url)">
+											<t t-if="not contract_product.product_tur_id">
+												<a itemprop="url" t-att-href="website.sanitize_url(contract_product.url)">
 													<div t-attf-class="oe_product_image">
-														<span t-field="producto_contratado.image_thumb" t-field-options='{"widget": "image", "class": "directory-img"}' />
+														<span t-field="contract_product.image_thumb" t-field-options='{"widget": "image", "class": "directory-img"}' />
 													</div>
 												</a>
 											</t>
@@ -77,26 +77,26 @@
 										</t>        
 									</div>
 									
-									<div class="pro-info" t-if="establecimiento">
+									<div class="pro-info" t-if="establishment">
 										<div style="float:right;">
 											&amp;nbsp;
-											<t t-foreach="establecimiento.services" t-as="service">
+											<t t-foreach="establishment.services" t-as="service">
 												<i t-attf-class="fa fa-{{service.icon}} est-icon" t-att-title='service.name'></i>
 											</t>
 										</div>
 									</div>
 									
-									<t t-if="establecimiento">
-										<t t-if="establecimiento.tripadvisor_url">
-											<div t-attf-id="TA_socialButtonBubbles#{ establecimiento.id }" class="TA_socialButtonBubbles">
+									<t t-if="establishment">
+										<t t-if="establishment.tripadvisor_url">
+											<div t-attf-id="TA_socialButtonBubbles#{ establishment.id }" class="TA_socialButtonBubbles">
 												<ul id="f9MmteFc" class="TA_links byvE2a64XA">
 													<li id="cJ6ruVZoB" class="6jmBS9V">
-														<a target="_blank" t-attf-href="#{ establecimiento.tripadvisor_url }"><img src="http://www.tripadvisor.es/img/cdsi/img2/branding/socialWidget/20x28_green-21693-2.png"/></a>
+														<a target="_blank" t-attf-href="#{ establishment.tripadvisor_url }"><img src="http://www.tripadvisor.es/img/cdsi/img2/branding/socialWidget/20x28_green-21693-2.png"/></a>
 													</li>
 												</ul>
 											</div>
 
-											<script t-attf-src="http://www.jscache.com/wejs?wtype=socialButtonBubbles&amp;uniq=#{ establecimiento.id }&amp;locationId=#{ establecimiento.get_tripadvisor_id() }&amp;color=green&amp;size=rect&amp;lang=es&amp;display_version=2"></script>
+											<script t-attf-src="http://www.jscache.com/wejs?wtype=socialButtonBubbles&amp;uniq=#{ establishment.id }&amp;locationId=#{ establishment.get_tripadvisor_id() }&amp;color=green&amp;size=rect&amp;lang=es&amp;display_version=2"></script>
 										</t>
 									</t>
 								</div>

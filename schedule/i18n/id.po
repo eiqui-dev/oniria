@@ -1,0 +1,404 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * schedule
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-21 14:08+0000\n"
+"PO-Revision-Date: 2015-11-17 11:59+0000\n"
+"Last-Translator: Wahyu Setiawan <wahyusetiaaa@gmail.com>\n"
+"Language-Team: Indonesian (http://www.transifex.com/odoo/odoo-8/language/id/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: id\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: schedule
+#: code:addons/schedule/schedule.py:685
+#, python-format
+msgid "%s (copy)"
+msgstr "%s (copy)"
+
+#. module: schedule
+#: code:addons/schedule/faces/schedule.py:340
+#, python-format
+msgid "(vacation)"
+msgstr "Liburan"
+
+#. module: schedule
+#: model:ir.actions.act_window,help:schedule.action_schedule_calendar_form
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Define working hours and time table that could be scheduled to your project members\n"
+"              </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\"> Tentukan jam kerja dan tabel waktu yang bisa dijadwalkan untuk anggota proyek Anda </p>"
+
+#. module: schedule
+#: field:schedule.schedule,active:0
+msgid "Active"
+msgstr "Aktif"
+
+#. module: schedule
+#: model:ir.actions.act_window,name:schedule.schedule_calendar_closing_days
+msgid "Closing Days"
+msgstr "Hari Penutupan"
+
+#. module: schedule
+#: field:schedule.schedule,code:0
+msgid "Code"
+msgstr "Kode"
+
+#. module: schedule
+#: field:schedule.calendar,company_id:0
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+#: field:schedule.calendar.leaves,company_id:0
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+#: field:schedule.schedule,company_id:0
+msgid "Company"
+msgstr "Perusahaan:"
+
+#. module: schedule
+#: code:addons/schedule/schedule.py:773
+#, python-format
+msgid "Configuration Error!"
+msgstr "Konfigurasi error !"
+
+#. module: schedule
+#: field:schedule.calendar,create_uid:0
+#: field:schedule.calendar.attendance,create_uid:0
+#: field:schedule.calendar.leaves,create_uid:0
+#: field:schedule.schedule,create_uid:0
+msgid "Created by"
+msgstr "Dibuat oleh"
+
+#. module: schedule
+#: field:schedule.calendar,create_date:0
+#: field:schedule.calendar.attendance,create_date:0
+#: field:schedule.calendar.leaves,create_date:0
+#: field:schedule.schedule,create_date:0
+msgid "Created on"
+msgstr "Dibuat pada"
+
+#. module: schedule
+#: field:schedule.calendar.attendance,dayofweek:0
+msgid "Day of Week"
+msgstr "Hari dalam seminggu"
+
+#. module: schedule
+#: help:schedule.schedule,calendar_id:0
+msgid "Define the schedule of schedule"
+msgstr "Tentukan jadwal sumber daya"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.schedule_calendar_leave_form
+msgid "Duration"
+msgstr "Durasi"
+
+#. module: schedule
+#: field:schedule.schedule,time_efficiency:0
+msgid "Efficiency Factor"
+msgstr "Faktor efisiensi"
+
+#. module: schedule
+#: field:schedule.calendar.leaves,date_to:0
+msgid "End Date"
+msgstr "Tanggal berakhir"
+
+#. module: schedule
+#: constraint:schedule.calendar.leaves:0
+msgid "Error! leave start-date must be lower then leave end-date."
+msgstr "Kesalahan! meninggalkan mulai tanggal harus lebih rendah kemudian meninggalkan akhir-date."
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Friday"
+msgstr "Jumat"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "Group By"
+msgstr "Dikelompokan berdasarkan .."
+
+#. module: schedule
+#: view:schedule.calendar.attendance:schedule.view_schedule_calendar_attendance_form
+msgid "Hours"
+msgstr "Jam"
+
+#. module: schedule
+#: selection:schedule.schedule,schedule_type:0
+msgid "Human"
+msgstr "Manusia"
+
+#. module: schedule
+#: field:schedule.calendar,id:0 field:schedule.calendar.attendance,id:0
+#: field:schedule.calendar.leaves,id:0 field:schedule.schedule,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: schedule
+#: help:schedule.calendar.leaves,schedule_id:0
+msgid ""
+"If empty, this is a generic holiday for the company. If a schedule is set, "
+"the holiday/leave is only for this schedule"
+msgstr "Jika kosong, ini adalah hari libur umum bagi perusahaan. Jika sumber daya diatur, liburan / cuti hanya untuk sumber daya ini"
+
+#. module: schedule
+#: help:schedule.schedule,active:0
+msgid ""
+"If the active field is set to False, it will allow you to hide the schedule "
+"record without removing it."
+msgstr "Jika bidang aktif diatur ke False, itu akan memungkinkan Anda untuk menyembunyikan catatan sumber daya tanpa menghapusnya."
+
+#. module: schedule
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "Inactive"
+msgstr "Tidak aktif"
+
+#. module: schedule
+#: field:schedule.calendar,write_uid:0
+#: field:schedule.calendar.attendance,write_uid:0
+#: field:schedule.calendar.leaves,write_uid:0
+#: field:schedule.schedule,write_uid:0
+msgid "Last Updated by"
+msgstr "Diperbaharui oleh"
+
+#. module: schedule
+#: field:schedule.calendar,write_date:0
+#: field:schedule.calendar.attendance,write_date:0
+#: field:schedule.calendar.leaves,write_date:0
+#: field:schedule.schedule,write_date:0
+msgid "Last Updated on"
+msgstr "Diperbaharui pada"
+
+#. module: schedule
+#: model:ir.model,name:schedule.model_schedule_calendar_leaves
+#: view:schedule.calendar.leaves:schedule.schedule_calendar_leave_form
+#: view:schedule.calendar.leaves:schedule.schedule_calendar_leave_tree
+msgid "Leave Detail"
+msgstr "Detil Cuti"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+msgid "Leave Month"
+msgstr "Tinggalkan Bulan"
+
+#. module: schedule
+#: field:schedule.calendar,leave_ids:0
+msgid "Leaves"
+msgstr "Cuti"
+
+#. module: schedule
+#: code:addons/schedule/schedule.py:773
+#, python-format
+msgid "Make sure the Working time has been configured with proper week days!"
+msgstr "Pastikan waktu Kerja telah dikonfigurasi dengan hari seminggu yang tepat!"
+
+#. module: schedule
+#: selection:schedule.schedule,schedule_type:0
+msgid "Material"
+msgstr "Material"
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Monday"
+msgstr "Senin"
+
+#. module: schedule
+#: field:schedule.calendar,name:0 field:schedule.calendar.attendance,name:0
+#: field:schedule.calendar.leaves,name:0 field:schedule.schedule,name:0
+msgid "Name"
+msgstr "Nama"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.schedule_calendar_leave_form
+#: view:schedule.calendar.leaves:schedule.schedule_calendar_leave_tree
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+msgid "Reason"
+msgstr "Alasan"
+
+#. module: schedule
+#: help:schedule.schedule,user_id:0
+msgid "Related user name for the schedule to manage its access."
+msgstr "Terkait nama pengguna untuk sumber daya untuk mengelola aksesnya."
+
+#. module: schedule
+#: model:ir.ui.menu,name:schedule.menu_schedule_config
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+#: field:schedule.calendar.leaves,schedule_id:0
+#: view:schedule.schedule:schedule.schedule_schedule_form
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "schedule"
+msgstr "Sumber Daya"
+
+#. module: schedule
+#: model:ir.model,name:schedule.model_schedule_calendar
+msgid "schedule Calendar"
+msgstr "Sumber daya Kalender"
+
+#. module: schedule
+#: model:ir.model,name:schedule.model_schedule_schedule
+msgid "schedule Detail"
+msgstr "Sumber daya Detil"
+
+#. module: schedule
+#: model:ir.actions.act_window,name:schedule.action_schedule_calendar_leave_tree
+#: model:ir.ui.menu,name:schedule.menu_view_schedule_calendar_leaves_search
+msgid "schedule Leaves"
+msgstr "Sumber daya Daun"
+
+#. module: schedule
+#: field:schedule.schedule,schedule_type:0
+msgid "schedule Type"
+msgstr "Jenis sumber daya"
+
+#. module: schedule
+#: field:schedule.calendar.attendance,calendar_id:0
+msgid "schedule's Calendar"
+msgstr "Kalender sumber daya yang"
+
+#. module: schedule
+#: model:ir.actions.act_window,name:schedule.action_schedule_schedule_tree
+#: model:ir.ui.menu,name:schedule.menu_schedule_schedule
+#: view:schedule.schedule:schedule.schedule_schedule_tree
+msgid "schedules"
+msgstr "Sumber daya"
+
+#. module: schedule
+#: model:ir.actions.act_window,name:schedule.schedule_calendar_schedules_leaves
+msgid "schedules Leaves"
+msgstr "Sumber Daun"
+
+#. module: schedule
+#: model:ir.actions.act_window,help:schedule.action_schedule_schedule_tree
+msgid ""
+"schedules allow you to create and manage schedules that should be involved "
+"in a specific project phase. You can also set their efficiency level and "
+"workload based on their weekly working hours."
+msgstr "Sumber daya memungkinkan Anda untuk membuat dan mengelola sumber daya yang harus terlibat dalam fase proyek tertentu. Anda juga dapat mengatur tingkat efisiensi dan beban kerja berdasarkan jam kerja mingguan mereka."
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Saturday"
+msgstr "Sabtu"
+
+#. module: schedule
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "Search schedule"
+msgstr "Cari Sumber Daya"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+msgid "Search Working Period Leaves"
+msgstr "Cari Masa Kerja Daun"
+
+#. module: schedule
+#: view:schedule.calendar:schedule.view_schedule_calendar_search
+msgid "Search Working Time"
+msgstr "Cari Waktu Kerja"
+
+#. module: schedule
+#: field:schedule.calendar.leaves,date_from:0
+msgid "Start Date"
+msgstr "Tanggal Mulai"
+
+#. module: schedule
+#: help:schedule.calendar.attendance,hour_from:0
+msgid "Start and End time of working."
+msgstr "Mulai dan Akhir waktu bekerja."
+
+#. module: schedule
+#: field:schedule.calendar.attendance,date_from:0
+msgid "Starting Date"
+msgstr "Tanggal Awal"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+msgid "Starting Date of Leave by Month"
+msgstr "Mulai Tanggal Cuti Menurut Bulan"
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Sunday"
+msgstr "Minggu"
+
+#. module: schedule
+#: help:schedule.schedule,time_efficiency:0
+msgid ""
+"This field depict the efficiency of the schedule to complete tasks. e.g  "
+"schedule put alone on a phase of 5 days with 5 tasks assigned to him, will "
+"show a load of 100% for this phase by default, but if we put a efficiency of"
+" 200%, then his load will only be 50%."
+msgstr "Bidang ini menggambarkan efisiensi sumber daya untuk menyelesaikan tugas. misalnya sumber daya menempatkan sendirian di fase 5 hari dengan 5 tugas yang diberikan kepadanya, akan menunjukkan beban 100% untuk fase ini secara default, tetapi jika kita menempatkan efisiensi suatu dari 200%, maka bebannya hanya akan menjadi 50%."
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Thursday"
+msgstr "Kamis"
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Tuesday"
+msgstr "Selasa"
+
+#. module: schedule
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "Type"
+msgstr "Jenis"
+
+#. module: schedule
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+#: field:schedule.schedule,user_id:0
+msgid "User"
+msgstr "Pengguna"
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Wednesday"
+msgstr "Rabu"
+
+#. module: schedule
+#: model:ir.model,name:schedule.model_schedule_calendar_attendance
+msgid "Work Detail"
+msgstr "Detil pekerjaan"
+
+#. module: schedule
+#: field:schedule.calendar.attendance,hour_from:0
+msgid "Work from"
+msgstr "Kerja dari"
+
+#. module: schedule
+#: field:schedule.calendar.attendance,hour_to:0
+msgid "Work to"
+msgstr "Bekerja untuk"
+
+#. module: schedule
+#: field:schedule.calendar,manager:0
+msgid "Workgroup Manager"
+msgstr "Workgroup Manager"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "Working Period"
+msgstr "Masa kerja"
+
+#. module: schedule
+#: model:ir.actions.act_window,name:schedule.action_schedule_calendar_form
+#: model:ir.ui.menu,name:schedule.menu_schedule_calendar
+#: view:schedule.calendar:schedule.schedule_calendar_form
+#: view:schedule.calendar:schedule.view_schedule_calendar_search
+#: view:schedule.calendar:schedule.view_schedule_calendar_tree
+#: field:schedule.calendar,attendance_ids:0
+#: view:schedule.calendar.attendance:schedule.view_schedule_calendar_attendance_form
+#: view:schedule.calendar.attendance:schedule.view_schedule_calendar_attendance_tree
+#: field:schedule.calendar.leaves,calendar_id:0
+#: field:schedule.schedule,calendar_id:0
+msgid "Working Time"
+msgstr "Hari Kerja"

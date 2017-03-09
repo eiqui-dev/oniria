@@ -43,8 +43,8 @@ class QueryURL(object):
 
 # Clase intermedia para generar la tabla del directorio
 class htmlBannerDirectorio:
-    producto_contratado = None
-    establecimiento = None
+    contract_product = None
+    establishment = None
     events = None
 
 
@@ -69,9 +69,9 @@ class website_aloxa_turismo(Website):
         request.session['search_records'] = False
 
         # pydevd.settrace("10.0.3.1")
-        # Recoger los establecimientos
+        # Recoger los establishments
         searchDomain = []
-        if not product_category and (product_type == "establecimiento" or not product_type):
+        if not product_category and (product_type == "establishment" or not product_type):
             searchDomain.append(('website_published', '=', True))
             if params and 'search' in params.keys():
                 # Busqueda por cajetin
@@ -91,12 +91,12 @@ class website_aloxa_turismo(Website):
                     searchDomain.append(('services', 'in', services))
 
                 # pydevd.settrace("10.0.3.1")
-                param_tipo_est_k = [s for s in params
-                                    if s.startswith("tipo_establecimiento-")]
-                param_tipo_est = [werkzeug.url_unquote_plus(params[s])
-                                  for s in param_tipo_est_k]
-                if len(param_tipo_est) > 0:
-                    searchDomain.append(('tipo', 'in', param_tipo_est))
+                param_type_est_k = [s for s in params
+                                    if s.startswith("type_establishment-")]
+                param_type_est = [werkzeug.url_unquote_plus(params[s])
+                                  for s in param_type_est_k]
+                if len(param_type_est) > 0:
+                    searchDomain.append(('type', 'in', param_type_est))
 
             # OrderBy
             if orderby == 'direccion':
@@ -104,12 +104,12 @@ class website_aloxa_turismo(Website):
             else:
                 orderby_key = 'name'
 
-            registros = request.env['turismo.establecimiento']\
+            registros = request.env['turismo.establishment']\
                 .search(searchDomain).sorted(key=lambda r: r[orderby_key])
             request.session['search_records'] = registros.mapped('id')
             for reg in registros:
                 tmp_banner = htmlBannerDirectorio()
-                tmp_banner.establecimiento = reg
+                tmp_banner.establishment = reg
                 events = request.env['event.event'].search([
                                     ('website_published', '=', True),
                                     ('organizer_id', '=', reg.partner_id.id),
@@ -150,7 +150,7 @@ class website_aloxa_turismo(Website):
             if product_category:
                 searchDomain.append(('public_category_id', '=', product_category.id))
             if product_type:
-                searchDomain.append(('product_tur_id.tipo_producto', '=', product_type))
+                searchDomain.append(('product_tur_id.type_product', '=', product_type))
             
             #pydevd.settrace("10.0.3.1")
             if params and 'search' in params.keys():
@@ -160,12 +160,12 @@ class website_aloxa_turismo(Website):
                     searchDomain.append(('product_tur_id.description', 'ilike', params['search']))
                 if 'anhada' in params.keys() and len(params['anhada']) > 0:
                     searchDomain.append(('product_tur_id.anho', '=', params['anhada']))
-                if 'tipo_vino' in params.keys() and len(params['tipo_vino']) > 0:
-                    searchDomain.append(('product_tur_id.tipovino', '=', params['tipo_vino'].lower()))
-                if 'tipo_vinagre' in params.keys() and len(params['tipo_vinagre']) > 0:
-                    searchDomain.append(('product_tur_id.tipovinagre', '=', params['tipo_vinagre'].lower()))
-                if 'tipo_uva' in params.keys() and len(params['tipo_uva']) > 0:
-                    searchDomain.append(('product_tur_id.uva', '=', params['tipo_uva'].lower()))
+                if 'type_vino' in params.keys() and len(params['type_vino']) > 0:
+                    searchDomain.append(('product_tur_id.typevino', '=', params['type_vino'].lower()))
+                if 'type_vinagre' in params.keys() and len(params['type_vinagre']) > 0:
+                    searchDomain.append(('product_tur_id.typevinagre', '=', params['type_vinagre'].lower()))
+                if 'type_uva' in params.keys() and len(params['type_uva']) > 0:
+                    searchDomain.append(('product_tur_id.uva', '=', params['type_uva'].lower()))
                 if 'premios' in params.keys() and len(params['premios']) > 0:
                     searchDomain.append(('product_tur_id.premios', '=', params['premios'].lower()))
                 if 'localidad' in params.keys() and len(params['localidad']) > 0:
@@ -176,12 +176,12 @@ class website_aloxa_turismo(Website):
             else:
                 orderby_key = 'name'
             
-            productos_contratados = request.env['turismo.producto_contratado_cliente'].search(searchDomain).sorted(key=lambda r: r.product_tur_id[orderby_key])
-            request.session['search_records'] = productos_contratados.mapped('id')
-            num_items = len(productos_contratados)
+            products_contratados = request.env['turismo.contract_product_customer'].search(searchDomain).sorted(key=lambda r: r.product_tur_id[orderby_key])
+            request.session['search_records'] = products_contratados.mapped('id')
+            num_items = len(products_contratados)
             for i in range(num_items):
                 tmp_banner = htmlBannerDirectorio()
-                tmp_banner.producto_contratado = productos_contratados[i]
+                tmp_banner.contract_product = products_contratados[i]
                 banners_directorio.append(tmp_banner)
                 
         # Mezclar items
@@ -196,10 +196,10 @@ class website_aloxa_turismo(Website):
     def _create_directory_attributes(self, product_type = None, params = None):
         attributes = []
         
-        if product_type == 'establecimiento':
+        if product_type == 'establishment':
             searchDomain = [('website_published','=',True)]
             
-            param_tipo_establecimiento = []
+            param_type_establishment = []
             param_localidades = []
             param_services = []
             if params and 'search' in params.keys():
@@ -213,72 +213,72 @@ class website_aloxa_turismo(Website):
                 param_localidades_k = [s for s in params if s.startswith("localidad-")]
                 param_localidades = [werkzeug.url_unquote_plus(params[s]) for s in param_localidades_k]
                 
-                # Tipo Establecimiento
-                param_tipo_establecimento_k = [s for s in params if s.startswith("tipo_establecimiento-")]
-                param_tipo_establecimiento = [werkzeug.url_unquote_plus(params[s]) for s in param_tipo_establecimento_k]
+                # Type establishment
+                param_type_establecimento_k = [s for s in params if s.startswith("type_establishment-")]
+                param_type_establishment = [werkzeug.url_unquote_plus(params[s]) for s in param_type_establecimento_k]
      
-                # Tipo Establecimiento
+                # Type establishment
                 param_services_k = [s for s in params if s.startswith("service-")]
                 param_services = [int(werkzeug.url_unquote_plus(params[s])) for s in param_services_k]
     
-            searchDomainEstablecimientos = list(searchDomain)
+            searchDomainestablishments = list(searchDomain)
             searchDomainLocalidades = []
             searchDomainServices = []
-            searchDomainTipos = []
+            searchDomainTypes = []
             if any(param_localidades):
                 searchDomainLocalidades.append(('city', 'in', [False if q=='none' else q for q in param_localidades]))
             if any(param_services):
                 searchDomainServices.append(('services', 'in', [False if q=='none' else q for q in param_services]))
-            if any(param_tipo_establecimiento):
-                searchDomainTipos.append(('tipo', 'in', [False if q=='none' else q for q in param_tipo_establecimiento])) 
+            if any(param_type_establishment):
+                searchDomainTypes.append(('type', 'in', [False if q=='none' else q for q in param_type_establishment])) 
             
             attribute = attrDirectorio()
             attribute.open = True
             attribute.icon = 'fa-tag'
-            attribute.label = "Tipo"
-            attribute.name = "tipo_establecimiento"    
+            attribute.label = "Type"
+            attribute.name = "type_establishment"    
             attribute.values = []
             value = attrValueDirectorio()
-            value.label = 'Bodegas'
-            value.name = 'bodega'
-            value.sel = True if value.name in param_tipo_establecimiento else False
-            value.num = request.env['turismo.establecimiento'].search_count(searchDomainEstablecimientos+searchDomainLocalidades+searchDomainServices+[('tipo','=','bodega')])
+            value.label = 'Winecellars'
+            value.name = 'winecellar'
+            value.sel = True if value.name in param_type_establishment else False
+            value.num = request.env['turismo.establishment'].search_count(searchDomainestablishments+searchDomainLocalidades+searchDomainServices+[('type','=','winecellar')])
             attribute.values.append(value)
             value = attrValueDirectorio()
-            value.label = 'Restaurantes'
-            value.name = 'restaurante'
-            value.sel = True if value.name in param_tipo_establecimiento else False
-            value.num = request.env['turismo.establecimiento'].search_count(searchDomainEstablecimientos+searchDomainLocalidades+searchDomainServices+[('tipo','=','restaurante')])
+            value.label = 'Restaurants'
+            value.name = 'restaurant'
+            value.sel = True if value.name in param_type_establishment else False
+            value.num = request.env['turismo.establishment'].search_count(searchDomainestablishments+searchDomainLocalidades+searchDomainServices+[('type','=','restaurant')])
             attribute.values.append(value)
             value = attrValueDirectorio()
-            value.label = 'Hospedajes'
-            value.name = 'hospedaje'
-            value.sel = True if value.name in param_tipo_establecimiento else False
-            value.num = request.env['turismo.establecimiento'].search_count(searchDomainEstablecimientos+searchDomainLocalidades+searchDomainServices+[('tipo','=','hospedaje')])
+            value.label = 'Lodgings'
+            value.name = 'lodging'
+            value.sel = True if value.name in param_type_establishment else False
+            value.num = request.env['turismo.establishment'].search_count(searchDomainestablishments+searchDomainLocalidades+searchDomainServices+[('type','=','lodging')])
             attribute.values.append(value)
             value = attrValueDirectorio()
             value.label = 'Viñedos'
             value.name = 'vinhedo'
-            value.sel = True if value.name in param_tipo_establecimiento else False
-            value.num = request.env['turismo.establecimiento'].search_count(searchDomainEstablecimientos+searchDomainLocalidades+searchDomainServices+[('tipo','=','vinhedo')])
+            value.sel = True if value.name in param_type_establishment else False
+            value.num = request.env['turismo.establishment'].search_count(searchDomainestablishments+searchDomainLocalidades+searchDomainServices+[('type','=','vinhedo')])
             attribute.values.append(value)
             value = attrValueDirectorio()
-            value.label = 'Arte y Cultura'
+            value.label = 'Art and Culture'
             value.name = 'cultural'
-            value.sel = True if value.name in param_tipo_establecimiento else False
-            value.num = request.env['turismo.establecimiento'].search_count(searchDomainEstablecimientos+searchDomainLocalidades+searchDomainServices+[('tipo','=','cultural')])
+            value.sel = True if value.name in param_type_establishment else False
+            value.num = request.env['turismo.establishment'].search_count(searchDomainestablishments+searchDomainLocalidades+searchDomainServices+[('type','=','cultural')])
             attribute.values.append(value)
             value = attrValueDirectorio()
-            value.label = 'Vinotecas'
-            value.name = 'vinoteca'
-            value.sel = True if value.name in param_tipo_establecimiento else False
-            value.num = request.env['turismo.establecimiento'].search_count(searchDomainEstablecimientos+searchDomainLocalidades+searchDomainServices+[('tipo','=','vinoteca')])
+            value.label = 'winebars'
+            value.name = 'winebar'
+            value.sel = True if value.name in param_type_establishment else False
+            value.num = request.env['turismo.establishment'].search_count(searchDomainestablishments+searchDomainLocalidades+searchDomainServices+[('type','=','winebar')])
             attribute.values.append(value)
             value = attrValueDirectorio()
-            value.label = 'Otros'
-            value.name = 'otro'
-            value.sel = True if value.name in param_tipo_establecimiento else False
-            value.num = request.env['turismo.establecimiento'].search_count(searchDomainEstablecimientos+searchDomainLocalidades+searchDomainServices+[('tipo','=','otro')])
+            value.label = 'Others'
+            value.name = 'other'
+            value.sel = True if value.name in param_type_establishment else False
+            value.num = request.env['turismo.establishment'].search_count(searchDomainestablishments+searchDomainLocalidades+searchDomainServices+[('type','=','other')])
             attribute.values.append(value)
             attributes.append(attribute)
             
@@ -289,11 +289,11 @@ class website_aloxa_turismo(Website):
             attribute.name = "service"
             
             attribute.values = []
-            services = request.env['establecimiento.services'].search([])
-            establecimientos = request.env['turismo.establecimiento']
+            services = request.env['establishment.services'].search([])
+            establishments = request.env['turismo.establishment']
             for service in services:
                 value = attrValueDirectorio()
-                value.num = establecimientos.search_count(searchDomainEstablecimientos+searchDomainLocalidades+searchDomainTipos+[('services','in',[service.id])])
+                value.num = establishments.search_count(searchDomainestablishments+searchDomainLocalidades+searchDomainTypes+[('services','in',[service.id])])
                 value.name = service.id
                 value.label = service.name
                 value.sel = True if service.id in param_services else False
@@ -307,16 +307,16 @@ class website_aloxa_turismo(Website):
             attribute.name = "localidad"
             
             #searchDomainLocalidades = list(searchDomain)
-            #if len(param_tipo_establecimiento) > 0:
-            #    searchDomainLocalidades.append(('tipo', 'in', param_tipo_establecimiento)) 
+            #if len(param_type_establishment) > 0:
+            #    searchDomainLocalidades.append(('type', 'in', param_type_establishment)) 
             
             attribute.values = []
-            establecimientos = request.env['turismo.establecimiento'].search(searchDomainEstablecimientos+searchDomainTipos+searchDomainServices, order='city')
-            localidades = establecimientos.mapped('city')
+            establishments = request.env['turismo.establishment'].search(searchDomainestablishments+searchDomainTypes+searchDomainServices, order='city')
+            localidades = establishments.mapped('city')
             localidades = OrderedDict.fromkeys(localidades).keys()
             for localidad in localidades:
                 value = attrValueDirectorio()
-                value.num = establecimientos.search_count([('city','=',localidad)])
+                value.num = establishments.search_count([('city','=',localidad)])
                 value.name = localidad or 'none'
                 value.label = localidad or "Sin Definir"
                 value.sel = True if localidad in param_localidades or (not localidad and value.name in param_localidades) else False
@@ -326,8 +326,8 @@ class website_aloxa_turismo(Website):
         elif product_type == 'vino':
             searchDomain = [('product_tur_id.website_published','=',True)]
             
-            param_tipo_vino = []
-            param_tipo_uva = []
+            param_type_vino = []
+            param_type_uva = []
             param_premios = []
             param_anhada = []
             if params and 'search' in params.keys():
@@ -337,13 +337,13 @@ class website_aloxa_turismo(Website):
                     searchDomain.append(('product_tur_id.name', 'ilike', werkzeug.url_unquote_plus(params['search'])))
                     searchDomain.append(('product_tur_id.description', 'ilike', werkzeug.url_unquote_plus(params['search'])))
                     
-                # Tipo Vino
-                param_tipo_vino_k = [s for s in params if s.startswith("tipo_vino-")]
-                param_tipo_vino = [werkzeug.url_unquote_plus(params[s]) for s in param_tipo_vino_k]
+                # Type Vino
+                param_type_vino_k = [s for s in params if s.startswith("type_vino-")]
+                param_type_vino = [werkzeug.url_unquote_plus(params[s]) for s in param_type_vino_k]
                 
-                # Tipo Uva
-                param_tipo_uva_k= [s for s in params if s.startswith("tipo_uva-")]
-                param_tipo_uva = [werkzeug.url_unquote_plus(params[s]) for s in param_tipo_uva_k]
+                # Type Uva
+                param_type_uva_k= [s for s in params if s.startswith("type_uva-")]
+                param_type_uva = [werkzeug.url_unquote_plus(params[s]) for s in param_type_uva_k]
                 
                 # Premios
                 param_premios_k = [s for s in params if s.startswith("premios-")]
@@ -354,48 +354,48 @@ class website_aloxa_turismo(Website):
                 param_anhada = [werkzeug.url_unquote_plus(params[s]) for s in param_anhada_k]
                 
             searchDomainVinos = list(searchDomain)
-            if any(param_tipo_vino):
-                searchDomainVinos.append(('product_tur_id.tipovino.nombre', 'in', [False if q=='none' else q for q in param_tipo_vino]))
-            if any(param_tipo_uva):
-                searchDomainVinos.append(('product_tur_id.uva.nombre', 'in', [False if q=='none' else q for q in param_tipo_uva]))
+            if any(param_type_vino):
+                searchDomainVinos.append(('product_tur_id.typevino.name', 'in', [False if q=='none' else q for q in param_type_vino]))
+            if any(param_type_uva):
+                searchDomainVinos.append(('product_tur_id.uva.name', 'in', [False if q=='none' else q for q in param_type_uva]))
             if any(param_premios):
-                searchDomainVinos.append(('product_tur_id.premios.nombre', 'in', [False if q=='none' else q for q in param_premios]))
+                searchDomainVinos.append(('product_tur_id.premios.name', 'in', [False if q=='none' else q for q in param_premios]))
             if any(param_anhada):
                 searchDomainVinos.append(('product_tur_id.anho', 'in', [False if q=='none' else q for q in param_anhada]))
             
             attribute = attrDirectorio()
             attribute.open = True
             attribute.icon = 'fa-glass'
-            attribute.label = "Tipo Vino"
-            attribute.name = "tipo_vino"
-            vino_tags = request.env['turismo.vino.tag'].search([], order='nombre')
-            vino_tags = vino_tags.mapped('nombre')
+            attribute.label = "Type Vino"
+            attribute.name = "type_vino"
+            vino_tags = request.env['turismo.vino.tag'].search([], order='name')
+            vino_tags = vino_tags.mapped('name')
             vino_tags = OrderedDict.fromkeys(vino_tags).keys()
             attribute.values = []
             for tag in vino_tags: 
                 value = attrValueDirectorio()
-                value.num = request.env['turismo.producto_contratado_cliente'].search_count(searchDomainVinos+[('product_tur_id.tipo_producto','=','vino'),
-                                                                                             ('product_tur_id.tipovino','=',tag)])
+                value.num = request.env['turismo.contract_product_customer'].search_count(searchDomainVinos+[('product_tur_id.type_product','=','vino'),
+                                                                                             ('product_tur_id.typevino','=',tag)])
                 value.name = value.label = tag
-                value.sel = True if value.name in param_tipo_vino else False
+                value.sel = True if value.name in param_type_vino else False
                 attribute.values.append(value)
             attributes.append(attribute)
             
             attribute = attrDirectorio()
             attribute.open = True
             attribute.icon = 'fa-tint'
-            attribute.label = "Tipo Uva"
-            attribute.name = "tipo_uva"
-            uva_tags = request.env['turismo.uva.tag'].search([], order='nombre')
-            uva_tags = uva_tags.mapped('nombre')
+            attribute.label = "Type Uva"
+            attribute.name = "type_uva"
+            uva_tags = request.env['turismo.uva.tag'].search([], order='name')
+            uva_tags = uva_tags.mapped('name')
             uva_tags = OrderedDict.fromkeys(uva_tags).keys()
             attribute.values = []
             for tag in uva_tags: 
                 value = attrValueDirectorio()
-                value.num = request.env['turismo.producto_contratado_cliente'].search_count(searchDomainVinos+[('product_tur_id.tipo_producto','=','vino'),
+                value.num = request.env['turismo.contract_product_customer'].search_count(searchDomainVinos+[('product_tur_id.type_product','=','vino'),
                                                                                              ('product_tur_id.uva','=',tag)])
                 value.name = value.label = tag
-                value.sel = True if value.name in param_tipo_uva else False
+                value.sel = True if value.name in param_type_uva else False
                 attribute.values.append(value)
             attributes.append(attribute)
             
@@ -403,13 +403,13 @@ class website_aloxa_turismo(Website):
             attribute.icon = 'fa-star'
             attribute.label = "Premios"
             attribute.name = "premios"
-            premio_tags = request.env['turismo.premio.tag'].search([], order='nombre')
-            premio_tags = premio_tags.mapped('nombre')
+            premio_tags = request.env['turismo.premio.tag'].search([], order='name')
+            premio_tags = premio_tags.mapped('name')
             premio_tags = OrderedDict.fromkeys(premio_tags).keys()
             attribute.values = []
             for tag in premio_tags: 
                 value = attrValueDirectorio()
-                value.num = request.env['turismo.producto_contratado_cliente'].search_count(searchDomainVinos+[('product_tur_id.tipo_producto','=','vino'),
+                value.num = request.env['turismo.contract_product_customer'].search_count(searchDomainVinos+[('product_tur_id.type_product','=','vino'),
                                                                                              ('product_tur_id.premios','=',tag)])
                 value.name = value.label = tag
                 value.sel = True if value.name in param_premios else False
@@ -420,13 +420,13 @@ class website_aloxa_turismo(Website):
             attribute.icon = 'fa-calendar'
             attribute.label = "Añada"
             attribute.name = "anhada"
-            vinos = request.env['product.template'].search([('tipo_producto','=','vino')], order='anho')
+            vinos = request.env['product.template'].search([('type_product','=','vino')], order='anho')
             anhos = vinos.mapped('anho')
             anhos = OrderedDict.fromkeys(anhos).keys()
             attribute.values = []
             for anho in anhos:
                 value = attrValueDirectorio()
-                value.num = request.env['turismo.producto_contratado_cliente'].search_count(searchDomainVinos+[('product_tur_id.tipo_producto','=','vino'),
+                value.num = request.env['turismo.contract_product_customer'].search_count(searchDomainVinos+[('product_tur_id.type_product','=','vino'),
                                                                                              ('product_tur_id.anho','=',anho)])
                 value.name = value.label = str(anho)
                 value.sel = True if value.name in param_anhada else False
@@ -476,8 +476,8 @@ class website_aloxa_turismo(Website):
         elif product_type == 'vinagre':
             searchDomain = [('product_tur_id.website_published','=',True)]
             
-            param_tipo_vinagre = []
-            param_tipo_uva = []
+            param_type_vinagre = []
+            param_type_uva = []
             param_premios = []
             param_anhada = []
             if params and 'search' in params.keys():
@@ -487,13 +487,13 @@ class website_aloxa_turismo(Website):
                     searchDomain.append(('name', 'ilike', params['search']))
                     searchDomain.append(('descripcion', 'ilike', params['search']))
                     
-                # Tipo Vino
-                param_tipo_vinagre_k = [s for s in params if s.startswith("tipo_vinagre-")]
-                param_tipo_vinagre = [werkzeug.url_unquote_plus(params[s]) for s in param_tipo_vinagre_k]
+                # Type Vino
+                param_type_vinagre_k = [s for s in params if s.startswith("type_vinagre-")]
+                param_type_vinagre = [werkzeug.url_unquote_plus(params[s]) for s in param_type_vinagre_k]
                 
-                # Tipo Uva
-                param_tipo_uva_k= [s for s in params if s.startswith("tipo_uva-")]
-                param_tipo_uva = [werkzeug.url_unquote_plus(params[s]).lower() for s in param_tipo_uva_k]
+                # Type Uva
+                param_type_uva_k= [s for s in params if s.startswith("type_uva-")]
+                param_type_uva = [werkzeug.url_unquote_plus(params[s]).lower() for s in param_type_uva_k]
                 
                 # Premios
                 param_premios_k = [s for s in params if s.startswith("premios-")]
@@ -504,10 +504,10 @@ class website_aloxa_turismo(Website):
                 param_anhada = [werkzeug.url_unquote_plus(params[s]).lower() for s in param_anhada_k]
                     
             searchDomainVinagres = list(searchDomain)
-            if any(param_tipo_vinagre):
-                searchDomainVinagres.append(('product_tur_id.tipovino', 'in', [False if q=='none' else q for q in param_tipo_vinagre]))
-            if any(param_tipo_uva):
-                searchDomainVinagres.append(('product_tur_id.uva', 'in', [False if q=='none' else q for q in param_tipo_uva]))
+            if any(param_type_vinagre):
+                searchDomainVinagres.append(('product_tur_id.typevino', 'in', [False if q=='none' else q for q in param_type_vinagre]))
+            if any(param_type_uva):
+                searchDomainVinagres.append(('product_tur_id.uva', 'in', [False if q=='none' else q for q in param_type_uva]))
             if any(param_premios):
                 searchDomainVinagres.append(('product_tur_id.premios', 'in', [False if q=='none' else q for q in param_premios]))
             if any(param_anhada):
@@ -516,16 +516,16 @@ class website_aloxa_turismo(Website):
             attribute = attrDirectorio()
             attribute.open = True
             attribute.icon = 'fa-glass'
-            attribute.label = "Tipo Vinagre"
-            attribute.name = "tipo_vinagre"
-            vino_tags = request.env['turismo.vinagre.tag'].search([], order='nombre')
-            vino_tags = vino_tags.mapped('nombre')
+            attribute.label = "Type Vinagre"
+            attribute.name = "type_vinagre"
+            vino_tags = request.env['turismo.vinagre.tag'].search([], order='name')
+            vino_tags = vino_tags.mapped('name')
             vino_tags = OrderedDict.fromkeys(vino_tags).keys()
             attribute.values = []
             for tag in vino_tags: 
                 value = attrValueDirectorio()
-                value.num = request.env['turismo.producto_contratado_cliente'].search_count(searchDomainVinagres+[('product_tur_id.tipo_producto','=','vinagre'),
-                                                                                             ('product_tur_id.tipovinagre','=',tag)])
+                value.num = request.env['turismo.contract_product_customer'].search_count(searchDomainVinagres+[('product_tur_id.type_product','=','vinagre'),
+                                                                                             ('product_tur_id.typevinagre','=',tag)])
                 value.name = value.label = tag
                 attribute.values.append(value)
             attributes.append(attribute)
@@ -533,15 +533,15 @@ class website_aloxa_turismo(Website):
             attribute = attrDirectorio()
             attribute.open = True
             attribute.icon = 'fa-tint'
-            attribute.label = "Tipo Uva"
-            attribute.name = "tipo_uva"
-            uva_tags = request.env['turismo.uva.tag'].search([], order='nombre')
-            uva_tags = uva_tags.mapped('nombre')
+            attribute.label = "Type Uva"
+            attribute.name = "type_uva"
+            uva_tags = request.env['turismo.uva.tag'].search([], order='name')
+            uva_tags = uva_tags.mapped('name')
             uva_tags = OrderedDict.fromkeys(uva_tags).keys()
             attribute.values = []
             for tag in uva_tags: 
                 value = attrValueDirectorio()
-                value.num = request.env['turismo.producto_contratado_cliente'].search_count(searchDomainVinagres+[('product_tur_id.tipo_producto','=','vino'),
+                value.num = request.env['turismo.contract_product_customer'].search_count(searchDomainVinagres+[('product_tur_id.type_product','=','vino'),
                                                                                              ('product_tur_id.uva','=',tag)])
                 value.name = value.label = tag
                 attribute.values.append(value)
@@ -551,13 +551,13 @@ class website_aloxa_turismo(Website):
             attribute.icon = 'fa-star'
             attribute.label = "Premios"
             attribute.name = "premios"
-            premio_tags = request.env['turismo.premio.tag'].search([], order='nombre')
-            premio_tags = premio_tags.mapped('nombre')
+            premio_tags = request.env['turismo.premio.tag'].search([], order='name')
+            premio_tags = premio_tags.mapped('name')
             premio_tags = OrderedDict.fromkeys(premio_tags).keys()
             attribute.values = []
             for tag in premio_tags: 
                 value = attrValueDirectorio()
-                value.num = request.env['turismo.producto_contratado_cliente'].search_count(searchDomainVinagres+[('product_tur_id.tipo_producto','=','vinagre'),
+                value.num = request.env['turismo.contract_product_customer'].search_count(searchDomainVinagres+[('product_tur_id.type_product','=','vinagre'),
                                                                                              ('product_tur_id.premios','=',tag)])
                 value.name = value.label = tag
                 attribute.values.append(value)
@@ -567,13 +567,13 @@ class website_aloxa_turismo(Website):
             attribute.icon = 'fa-calendar'
             attribute.label = "Añada"
             attribute.name = "anhada"
-            vinos = request.env['product.template'].search([('tipo_producto','=','vinagre')], order='anho')
+            vinos = request.env['product.template'].search([('type_product','=','vinagre')], order='anho')
             anhos = vinos.mapped('anho')
             anhos = OrderedDict.fromkeys(anhos).keys()
             attribute.values = []
             for anho in anhos:
                 value = attrValueDirectorio()
-                value.num = request.env['turismo.producto_contratado_cliente'].search_count(searchDomainVinagres+[('product_tur_id.tipo_producto','=','vinagre'),
+                value.num = request.env['turismo.contract_product_customer'].search_count(searchDomainVinagres+[('product_tur_id.type_product','=','vinagre'),
                                                                                              ('product_tur_id.anho','=',anho)])
                 value.name = value.label = anho
                 attribute.values.append(value)
@@ -718,16 +718,16 @@ class website_aloxa_turismo(Website):
         user_partner.sudo().write(regData)
         return http.redirect_with_hash('/panel')
     
-    @http.route(['/crear_establecimiento',
-                 '/editar_establecimiento/<model("turismo.establecimiento"):stablisment>'], type='http', auth="public", methods=["GET"], website=True)
-    def nuevo_editar_establecimiento(self, stablisment=None):
+    @http.route(['/crear_establishment',
+                 '/editar_establishment/<model("turismo.establishment"):stablisment>'], type='http', auth="public", methods=["GET"], website=True)
+    def nuevo_editar_establishment(self, stablisment=None):
         cr, uid, context = request.cr, request.uid, request.context
         if not request.session.uid:
             return login_redirect()
         user = request.env['res.users'].search([('id','=',uid)])
         state_orm = request.env['res.country.state']
         states_ids = state_orm.search([])
-        services_orm = request.env['establecimiento.services']
+        services_orm = request.env['establishment.services']
         services_ids = services_orm.search([])
         
         values = {
@@ -736,16 +736,16 @@ class website_aloxa_turismo(Website):
             'est': stablisment,
             'services': services_ids,
         }
-        return request.website.render('aloxa_turismo_theme.crear_establecimiento', values)
-    @http.route(['/_crear_editar_establecimiento'], type='http', auth="public", methods=["POST"], website=True)
-    def crear_editar_establecimiento(self, name, type, image, phone=None,street=None, city=None, province=None, postalcode=None, url_trip=None, desc=None, est_id=None, **kwargs):
+        return request.website.render('aloxa_turismo_theme.crear_establishment', values)
+    @http.route(['/_crear_editar_establishment'], type='http', auth="public", methods=["POST"], website=True)
+    def crear_editar_establishment(self, name, type, image, phone=None,street=None, city=None, province=None, postalcode=None, url_trip=None, desc=None, est_id=None, **kwargs):
         cr, uid, context = request.cr, request.uid, request.context
         if not request.session.uid:
             return login_redirect()
         user = request.env['res.users'].search([('id','=',uid)])
         ModelCountry = request.env['res.country']
         country_id = ModelCountry.search([('name','=','Spain')])
-        ModelEstablecimiento = request.session.model('turismo.establecimiento')
+        Modelestablishment = request.session.model('turismo.establishment')
         
         # Servicios
         param_services_k = [s for s in kwargs if s.startswith("service-")]
@@ -753,7 +753,7 @@ class website_aloxa_turismo(Website):
         
         modelData = {
             'name': name,
-            'tipo': type,
+            'type': type,
             'street': street,
             'zip': postalcode,
             'state_id': province,
@@ -770,33 +770,33 @@ class website_aloxa_turismo(Website):
         if image.filename:
             modelData.update({'imagen': base64.encodestring(image.read())})
         if not est_id:
-            establecimiento_id = ModelEstablecimiento.create(modelData)
-            establecimiento_id = ModelEstablecimiento.browse([establecimiento_id])
+            establishment_id = Modelestablishment.create(modelData)
+            establishment_id = Modelestablishment.browse([establishment_id])
         else:
-            establecimiento_id = ModelEstablecimiento.browse([int(est_id)])
-            establecimiento_id.write(modelData)
-        return http.redirect_with_hash('/panel/establecimientos#%s' % slug(establecimiento_id))
+            establishment_id = Modelestablishment.browse([int(est_id)])
+            establishment_id.write(modelData)
+        return http.redirect_with_hash('/panel/establishments#%s' % slug(establishment_id))
     
-    @http.route(['/preview/establecimiento/<model("turismo.establecimiento"):establecimiento>',
-                 '/preview/producto/<model("product.template"):producto>',
+    @http.route(['/preview/establishment/<model("turismo.establishment"):establishment>',
+                 '/preview/product/<model("product.template"):product>',
                  ], type='http', auth="user", methods=["GET"], website=True)
-    def preview(self, producto=None, establecimiento=None):
+    def preview(self, product=None, establishment=None):
         if not request.session.uid:
             return login_redirect()
-        if establecimiento:
+        if establishment:
             events = request.env['event.event'].search([('website_published','=',True),
-                                                    ('organizer_id','=',establecimiento.partner_id.id),
+                                                    ('organizer_id','=',establishment.partner_id.id),
                                                     ('date_end','>=',datetime.now().strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT))])
-            products = request.env['product.template'].search([('seller_ids.name','in',[establecimiento.partner_id.id])])
+            products = request.env['product.template'].search([('seller_ids.name','in',[establishment.partner_id.id])])
             values = {
-                'establecimiento': establecimiento,
+                'establishment': establishment,
                 'events': events,
-                'products_table': table_compute().process_productos_establecimiento(products),
+                'products_table': table_compute().process_products_establishment(products),
             }
-            return request.website.render("aloxa_turismo_theme.establecimiento_details", values)
+            return request.website.render("aloxa_turismo_theme.establishment_details", values)
         else:
             values = {
-                'producto_contratado': producto
+                'contract_product': product
             }
             return request.website.render("aloxa_turismo_theme.product_details", values)
     
@@ -805,13 +805,13 @@ class website_aloxa_turismo(Website):
         if not request.session.uid:
             return login_redirect()
         
-        ModelTurismoEst = request.env['turismo.establecimiento']
-        establecimiento_id = ModelTurismoEst.browse([int(est_id)])
+        ModelTurismoEst = request.env['turismo.establishment']
+        establishment_id = ModelTurismoEst.browse([int(est_id)])
         ModelSupplierInfo = request.env['product.supplierinfo']
-        supplierinfo_id = ModelSupplierInfo.search([('name','=',establecimiento_id.partner_id.id),('product_tmpl_id','=',product)])
+        supplierinfo_id = ModelSupplierInfo.search([('name','=',establishment_id.partner_id.id),('product_tmpl_id','=',product)])
         if not supplierinfo_id:
             supplierinfo_id = ModelSupplierInfo.create({
-                'name': establecimiento_id.partner_id.id,
+                'name': establishment_id.partner_id.id,
                 'delay': 1,
                 'min_qty': 0.0,
                 'sequence': 1,
@@ -820,22 +820,22 @@ class website_aloxa_turismo(Website):
         ModelProductTemplate = request.env['product.template']
         product_id = ModelProductTemplate.browse([int(product)])
         product_id.seller_ids |= supplierinfo_id
-        return http.redirect_with_hash('/panel/establecimientos')
+        return http.redirect_with_hash('/panel/establishments')
     
     @http.route(['/_add_image'], type='http', auth="user", methods=["POST"], website=True)
     def add_image(self, est_id, name, image):
         if not request.session.uid:
             return login_redirect()
         
-        ModelTurismoEst = request.env['turismo.establecimiento']
-        establecimiento_id = ModelTurismoEst.browse([int(est_id)])
-        ModelEstImages = request.env['establecimiento.images']
+        ModelTurismoEst = request.env['turismo.establishment']
+        establishment_id = ModelTurismoEst.browse([int(est_id)])
+        ModelEstImages = request.env['establishment.images']
         image_id = ModelEstImages.create({
             'name': name,
             'image': base64.encodestring(image.read()),
         })
-        establecimiento_id.images |= image_id
-        return http.redirect_with_hash('/panel/establecimientos')
+        establishment_id.images |= image_id
+        return http.redirect_with_hash('/panel/establishments')
     
     @http.route(['/_create_ticket'], type='http', auth="user", methods=["POST"], website=True)
     def create_ticket(self, event_id, name, deadline, price, seats_max):
@@ -854,22 +854,22 @@ class website_aloxa_turismo(Website):
             'product_id': request.env['product.product'].search([('event_ok','=',True)], limit=1).id,
         })
         event.event_ticket_ids |= ticket_id
-        return http.redirect_with_hash('/panel/establecimientos')
+        return http.redirect_with_hash('/panel/establishments')
     
-    @http.route(['/crear_producto',
-                 '/editar_producto/<model("product.template"):product>'], type='http', auth="user", methods=["GET"], website=True)
-    def nuevo_editar_producto(self, product=None):
+    @http.route(['/crear_product',
+                 '/editar_product/<model("product.template"):product>'], type='http', auth="user", methods=["GET"], website=True)
+    def nuevo_editar_product(self, product=None):
         cr, uid, context = request.cr, request.uid, request.context
         if not request.session.uid:
             return login_redirect()
         user = request.env['res.users'].search([('id','=',uid)])
         values = {
-            'bodegas': request.env['turismo.establecimiento'].search([('res_partner_id','=',user.partner_id.id),('tipo','=','bodega')]),
+            'winecellars': request.env['turismo.establishment'].search([('res_partner_id','=',user.partner_id.id),('type','=','winecellar')]),
             'prod': product
         }
-        return request.website.render('aloxa_turismo_theme.crear_producto', values)
-    @http.route(['/_crear_editar_producto'], type='http', auth="user", methods=["POST"], website=True)
-    def crear_editar_producto(self, name, type, price, image=None, anhada=None, uva=None, subtipo=None, bodega=None, premios=None, desc=None, prod_id=None, vender=False):
+        return request.website.render('aloxa_turismo_theme.crear_product', values)
+    @http.route(['/_crear_editar_product'], type='http', auth="user", methods=["POST"], website=True)
+    def crear_editar_product(self, name, type, price, image=None, anhada=None, uva=None, subtype=None, winecellar=None, premios=None, desc=None, prod_id=None, vender=False):
         cr, uid, context = request.cr, request.uid, request.context
         if not request.session.uid:
             return login_redirect()
@@ -877,12 +877,12 @@ class website_aloxa_turismo(Website):
         ModelProductTemplate = request.session.model('product.template')
         
         # FIXME: Super guarrada!
-        if type == 'otro':
+        if type == 'other':
             type = None
             
         recordValues = {
             'name': name,
-            'tipo_producto': type,
+            'type_product': type,
             'list_price': price,
             'description': desc,
             'website_published': False,
@@ -896,33 +896,33 @@ class website_aloxa_turismo(Website):
         
         if type in ['vino','vinagre']:
             ModelUvaTag = request.env['turismo.uva.tag']
-            uva_tag_id = ModelUvaTag.search([('nombre','=',uva)])
+            uva_tag_id = ModelUvaTag.search([('name','=',uva)])
             if not uva_tag_id:
-                uva_tag_id = ModelUvaTag.create({'nombre':uva})
+                uva_tag_id = ModelUvaTag.create({'name':uva})
                 
             ModelPremiosTag = request.env['turismo.premio.tag']
-            premios_tag_id = ModelPremiosTag.search([('nombre','=',premios)])
+            premios_tag_id = ModelPremiosTag.search([('name','=',premios)])
             if not premios_tag_id:
-                premios_tag_id = ModelPremiosTag.create({'nombre':premios})
+                premios_tag_id = ModelPremiosTag.create({'name':premios})
             
             recordValues.update({
                 'anho': anhada,
                 'uva': uva_tag_id.id,
-                'establecimiento_id': bodega,
+                'establishment_id': winecellar,
                 'premios': [premios_tag_id.id],
             })
             if type == 'vino':
                 ModelVinoTag = request.env['turismo.vino.tag']
-                vino_tag_id = ModelVinoTag.search([('nombre','=',subtipo)])
+                vino_tag_id = ModelVinoTag.search([('name','=',subtype)])
                 if not vino_tag_id:
-                    vino_tag_id = ModelVinoTag.create({'nombre':subtipo})
-                recordValues.update({'tipovino': vino_tag_id.id})
+                    vino_tag_id = ModelVinoTag.create({'name':subtype})
+                recordValues.update({'typevino': vino_tag_id.id})
             elif type == 'vinagre':
                 ModelVinagreTag = request.env['turismo.vinagre.tag']
-                vinagre_tag_id = ModelVinagreTag.search([('nombre','=',subtipo)])
+                vinagre_tag_id = ModelVinagreTag.search([('name','=',subtype)])
                 if not vino_tag_id:
-                    vinagre_tag_id = ModelVinagreTag.create({'nombre':subtipo})
-                recordValues.update({'tipovinagre': vinagre_tag_id.id})
+                    vinagre_tag_id = ModelVinagreTag.create({'name':subtype})
+                recordValues.update({'typevinagre': vinagre_tag_id.id})
                 
         if not prod_id:
             product_template_id = ModelProductTemplate.create(recordValues)
@@ -939,7 +939,7 @@ class website_aloxa_turismo(Website):
         else:
             product_template_id = ModelProductTemplate.browse([int(prod_id)])
             product_template_id.write(recordValues);
-        return http.redirect_with_hash('/panel/productos#%s' % slug(product_template_id))
+        return http.redirect_with_hash('/panel/products#%s' % slug(product_template_id))
     
     @http.route(['/_crear_link'], type='http', auth="user", methods=["POST"], website=True)
     def crear_link(self, typelink, image, date_start, date_end, est_id=None, prod_id=None):
@@ -950,21 +950,21 @@ class website_aloxa_turismo(Website):
             return http.redirect_with_hash('/panel/links')
         
         user = request.env['res.users'].search([('id','=',uid)])
-        ModelProductoContratadoCliente = request.session.model('turismo.producto_contratado_cliente')
-        producto_contratado_cliente_id = ModelProductoContratadoCliente.create({
+        ModelProductContratadoCustomer = request.session.model('turismo.contract_product_customer')
+        contract_product_customer_id = ModelProductContratadoCustomer.create({
             'partner_id': user.partner_id.id,
             'product_id': typelink,
-            'establecimiento_id': est_id,
+            'establishment_id': est_id,
             'product_tur_id': prod_id,
             'image': base64.encodestring(image.read()),
             'fecha_inicio': date_start,
             'fecha_fin': date_end,
         })
-        return http.redirect_with_hash('/panel/%s' % ('establecimientos' if est_id else 'productos'))
+        return http.redirect_with_hash('/panel/%s' % ('establishments' if est_id else 'products'))
 
     @http.route(['/crear_evento',
-                 '/crear_evento/<model("turismo.establecimiento"):establecimiento>'], type='http', auth="user", methods=["GET"], website=True)
-    def nuevo_evento(self, establecimiento=None):
+                 '/crear_evento/<model("turismo.establishment"):establishment>'], type='http', auth="user", methods=["GET"], website=True)
+    def nuevo_evento(self, establishment=None):
         cr, uid, context = request.cr, request.uid, request.context
         if not request.session.uid:
             return login_redirect()
@@ -976,10 +976,10 @@ class website_aloxa_turismo(Website):
             'states': states_ids,
             'countries': country_ids,
         })
-        if not establecimiento:
-            values['establecimientos'] = request.env['turismo.establecimiento'].search([('res_partner_id','=',user.partner_id.id)])
+        if not establishment:
+            values['establishments'] = request.env['turismo.establishment'].search([('res_partner_id','=',user.partner_id.id)])
         else:
-            values['est_partner'] = establecimiento.partner_id
+            values['est_partner'] = establishment.partner_id
         
         return request.website.render("aloxa_turismo_theme.crear_evento", values)
     
@@ -1006,26 +1006,26 @@ class website_aloxa_turismo(Website):
             'website_published': True,
         })
         
-        est = request.env['turismo.establecimiento'].search([('partner_id.id','=',organizer)], limit=1)
-        return http.redirect_with_hash('/panel/establecimientos#%s' % slug(est))
+        est = request.env['turismo.establishment'].search([('partner_id.id','=',organizer)], limit=1)
+        return http.redirect_with_hash('/panel/establishments#%s' % slug(est))
     
     @http.route(['/panel',
-                 '/panel/establecimientos',
-                 '/panel/productos',
+                 '/panel/establishments',
+                 '/panel/products',
                  '/panel/eventos',
                  '/panel/facturas',
                  '/panel/links',
                  '/panel/vinos'], type='http', auth="user", website=True)
-    def panel_cliente(self):
+    def panel_customer(self):
         cr, uid, context = request.cr, request.uid, request.context
         if not request.session.uid:
             return login_redirect()
             
         user = request.env['res.users'].search([('id','=',uid)])
         values = dict()
-        if request.httprequest.path.endswith('/productos'):
+        if request.httprequest.path.endswith('/products'):
             values['panel'] = 'products'
-        elif user.partner_id.is_company and request.httprequest.path.endswith('/establecimientos'):
+        elif user.partner_id.is_company and request.httprequest.path.endswith('/establishments'):
             values['servicios'] = request.env['product.template'].search([
                 ('servicio', '=', True)
             ]);
@@ -1033,12 +1033,12 @@ class website_aloxa_turismo(Website):
             values['products_partner'] = request.env['product.template'].search([
                 ('seller_ids.name', 'in', [user.partner_id.id])
             ])
-            values['establecimientos'] = request.env['turismo.establecimiento'].search([
+            values['establishments'] = request.env['turismo.establishment'].search([
                 ('res_partner_id', '=', user.partner_id.id)
             ])
         elif user.partner_id.is_company and request.httprequest.path.endswith('/eventos'):
             values['panel'] = 'events'
-            establishment_ids = request.env['turismo.establecimiento'].search([
+            establishment_ids = request.env['turismo.establishment'].search([
                 ('res_partner_id', '=', user.partner_id.id)
             ]).mapped('partner_id.id')
             event_ids = request.env['event.event'].search([
@@ -1047,7 +1047,7 @@ class website_aloxa_turismo(Website):
             values['events'] = event_ids
         elif user.partner_id.is_company and request.httprequest.path.endswith('/links'):
             values['panel'] = 'links'
-            products_c_ids = user.partner_id.product_contratado_cliente_ids
+            products_c_ids = user.partner_id.contract_product_customer_ids
             values['links'] = products_c_ids
             values['servicios'] = request.env['product.template'].search([('servicio','=',True)]);
         elif user.partner_id.is_company and request.httprequest.path.endswith('/facturas'):
@@ -1061,28 +1061,28 @@ class website_aloxa_turismo(Website):
             values['servicios'] = request.env['product.template'].search([
                 ('servicio', '=', True)
             ])
-            values['productos'] = request.env['product.template'].search([
+            values['products'] = request.env['product.template'].search([
                 ('seller_ids.name', 'in', [user.partner_id.id])
             ])
         else:
             values['panel'] = 'general'
             if user.partner_id.is_company:
-                values['num_productos'] = request.env['product.template'].search_count([
+                values['num_products'] = request.env['product.template'].search_count([
                     ('seller_ids.name', 'in', [user.partner_id.id])
                 ])
-                establecimientos = request.env['turismo.establecimiento'].search([
+                establishments = request.env['turismo.establishment'].search([
                     ('res_partner_id', '=', user.partner_id.id)
                 ])
-                values['num_establecimientos'] = len(establecimientos)
+                values['num_establishments'] = len(establishments)
                 num_events = 0
-                for est in establecimientos:
+                for est in establishments:
                     num_events = num_events + request.env['event.event'].search_count([
                         ('organizer_id', '=', est.partner_id.id)
                     ])
                 values['num_eventos'] = num_events
         
         values['partner'] = user.partner_id
-        return request.website.render("aloxa_turismo_theme.panel_cliente", values)
+        return request.website.render("aloxa_turismo_theme.panel_customer", values)
     
     @http.route(['/factura/descargar'], type='http', auth="user", methods=['GET'], website=True)
     def generate_invoice_report(self, id):
@@ -1110,10 +1110,10 @@ class website_aloxa_turismo(Website):
     @http.route([
                  # '/directorio',
                  # '/directorio/categoria/<model("product.public.category"):category>',
-                 '/directorio/establecimientos',
-                 '/establecimiento/<model("turismo.establecimiento"):establishment>',
+                 '/directorio/establishments',
+                 '/establishment/<model("turismo.establishment"):establishment>',
                  '/directorio/vinos',
-                 '/vino/<model("turismo.producto_contratado_cliente"):contracted_product>',
+                 '/vino/<model("turismo.contract_product_customer"):contracted_product>',
                  # '/directorio/vinagres',
                  '/directorio/eventos',
                  '/evento/<model("event.event"):event>'
@@ -1135,10 +1135,10 @@ class website_aloxa_turismo(Website):
 
         keep_url = '/directorio'
         category_type = None
-        if request.httprequest.path.startswith('/directorio/establecimientos') or establishment:
-            keep_url = '/directorio/establecimientos'
-            category_type = "establecimiento"
-            categories = request.env['product.public.category'].search(['&',('parent_id', '=', False),('link', '=', True),('name', '=', 'Establecimientos')])
+        if request.httprequest.path.startswith('/directorio/establishments') or establishment:
+            keep_url = '/directorio/establishments'
+            category_type = "establishment"
+            categories = request.env['product.public.category'].search(['&',('parent_id', '=', False),('link', '=', True),('name', '=', 'establishments')])
         elif request.httprequest.path.startswith('/directorio/vinos') or contracted_product:
             keep_url = '/directorio/vinos'
             category_type = "vino"
@@ -1160,7 +1160,7 @@ class website_aloxa_turismo(Website):
         keep = QueryURL(keep_url, search='', attrib=attrib_list)
 
         # orderby
-        orderby = str(params['orderby'].lower()) if params and 'orderby' in params.keys() else 'nombre'
+        orderby = str(params['orderby'].lower()) if params and 'orderby' in params.keys() else 'name'
         bins, numres = self._get_banners_directorio(orderby, product_type=category_type, params=params)
 
         values = {
@@ -1186,14 +1186,14 @@ class website_aloxa_turismo(Website):
                 elif sri >= len(request.session['search_records']):
                     sri = len(request.session['search_records'])-1
 
-            if category_type == 'establecimiento':
+            if category_type == 'establishment':
                 if not establishment and request.session['search_records']:
                     if not sri:
                         sri = 0
-                    establishment = request.env['turismo.establecimiento'].browse([request.session['search_records'][sri]])
+                    establishment = request.env['turismo.establishment'].browse([request.session['search_records'][sri]])
 
                 if establishment:
-                    # Buscar SRI del establecimiento
+                    # Buscar SRI del establishment
                     if not sri:
                         count = 0
                         for rec_id in request.session['search_records']:
@@ -1206,9 +1206,9 @@ class website_aloxa_turismo(Website):
                     next_est = False
                     if request.session['search_records']:
                         if sri > 0:
-                            prev_est = request.env['turismo.establecimiento'].browse([request.session['search_records'][sri-1]])
+                            prev_est = request.env['turismo.establishment'].browse([request.session['search_records'][sri-1]])
                         if sri < len(request.session['search_records'])-1:
-                            next_est = request.env['turismo.establecimiento'].browse([request.session['search_records'][sri+1]])
+                            next_est = request.env['turismo.establishment'].browse([request.session['search_records'][sri+1]])
 
                     events = request.env['event.event'].search([
                                         ('website_published', '=', True),
@@ -1216,8 +1216,8 @@ class website_aloxa_turismo(Website):
                                         ('date_end', '>', datetime.now().strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT))
                                     ])
                     products = request.env['product.template'].search([('website_published','=',True),
-                                                                       ('establecimiento_id','=',establishment.id)])
-                    related_est = request.env['turismo.establecimiento'].search([
+                                                                       ('establishment_id','=',establishment.id)])
+                    related_est = request.env['turismo.establishment'].search([
                                             ('id', '!=', establishment.id),
                                             ('res_partner_id', '=', establishment.res_partner_id.id)
                                         ])
@@ -1228,7 +1228,7 @@ class website_aloxa_turismo(Website):
                         'establishment': establishment,
                         'events': events,
                         'related': related_est,
-                        'products_table': table_compute().process_productos_establecimiento(products),
+                        'products_table': table_compute().process_products_establishment(products),
                     })
                 else:
                     request.session['directory_view'] = 'grid'
@@ -1236,9 +1236,9 @@ class website_aloxa_turismo(Website):
                 if not contracted_product and request.session['search_records']:
                     if not sri:
                         sri = 0
-                    contracted_product = request.env['turismo.producto_contratado_cliente'].browse([request.session['search_records'][sri]])
+                    contracted_product = request.env['turismo.contract_product_customer'].browse([request.session['search_records'][sri]])
                 if contracted_product:
-                    # Buscar SRI del establecimiento
+                    # Buscar SRI del establishment
                     if not sri:
                         count = 0
                         for rec_id in request.session['search_records']:
@@ -1251,10 +1251,10 @@ class website_aloxa_turismo(Website):
                     next_event = False
                     if request.session['search_records']:
                         if sri > 0:
-                            prev_event = request.env['turismo.producto_contratado_cliente'].browse([request.session['search_records'][sri-1]])
+                            prev_event = request.env['turismo.contract_product_customer'].browse([request.session['search_records'][sri-1]])
                         if sri < len(request.session['search_records'])-1:
-                            next_event = request.env['turismo.producto_contratado_cliente'].browse([request.session['search_records'][sri+1]])
-                    related_prods = request.env['turismo.producto_contratado_cliente'].search([('id', '!=', contracted_product.id),('partner_id', '=', contracted_product.partner_id.id)])
+                            next_event = request.env['turismo.contract_product_customer'].browse([request.session['search_records'][sri+1]])
+                    related_prods = request.env['turismo.contract_product_customer'].search([('id', '!=', contracted_product.id),('partner_id', '=', contracted_product.partner_id.id)])
                     values.update({
                         'sri': sri+1,
                         'prev_prod': prev_event,
@@ -1270,7 +1270,7 @@ class website_aloxa_turismo(Website):
                         sri = 0
                     event = request.env['event.event'].browse([request.session['search_records'][sri]])
                 if event:
-                    # Buscar SRI del establecimiento
+                    # Buscar SRI del establishment
                     if not sri:
                         count = 0
                         for rec_id in request.session['search_records']:

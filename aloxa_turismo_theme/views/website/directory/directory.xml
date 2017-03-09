@@ -4,7 +4,7 @@
     
 		<template id="directory" name="Directorio" page="True">						
 			<t t-call="website.layout">
-				<!-- Lista de Establecimientos -->
+				<!-- Lista de establishments -->
 				<div id="wrap" class="js_sale">
 	       			<div class="oe_structure"/>
 					<div class="container">
@@ -32,7 +32,7 @@
 								<t t-if="view_mode == 'list' and not is_direct_form">
 									<t t-call="aloxa_turismo_theme.directory_list"/>
 								</t>
-								<!-- VISTA FORM ESTABLECIMIENTO -->
+								<!-- VISTA FORM establishment -->
 								<t t-if="(view_mode == 'form' or is_direct_form) and establishment">
 									<t t-set="title" t-value="'Establishment - %s' % establishment.name.title()"/>
 									<t t-call="aloxa_turismo_theme.directory_form_establishment"/>

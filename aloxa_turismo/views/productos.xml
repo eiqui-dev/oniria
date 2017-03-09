@@ -2,7 +2,7 @@
 <openerp>
 	<data>
 <!-- FORMS -->
-	<!-- FORM product.template productos turisticos-->
+	<!-- FORM product.template products turisticos-->
     <record id="product_template_turismo_inherit_form" model="ir.ui.view">
         <field name="name">product.template.turismo.view.form</field>
         <field name="model">product.template</field>
@@ -13,30 +13,30 @@
                    <label for="servicio" string="Servicio Turístico"/>                      
                </xpath>  
            	<xpath expr="//field[@name='type']" position="after">	            		            		
-           		<field name='tipo_producto' attrs="{'invisible':[('servicio','=',True)]}"/>           		          		               	
+           		<field name='type_product' attrs="{'invisible':[('servicio','=',True)]}"/>           		          		               	
             </xpath>       	
         	<xpath expr="//field[@name='description']" position="before">
 	   			<group string="Datos del Link" attrs="{'invisible':['!',('servicio','=',True)]}" col="4">	   				
 	   				<field name='link_size' colspan="2"/>
 	   				<field name='link_position' colspan="2"/> 				
 	   			</group>        		       		
-        		<group string="Datos del Vino" attrs="{'invisible':['!',('tipo_producto','=','vino')]}">	   				
-	   				<field name='tipovino' colspan="2"/>							  				
+        		<group string="Datos del Vino" attrs="{'invisible':['!',('type_product','=','vino')]}">	   				
+	   				<field name='typevino' colspan="2"/>							  				
    				</group>
-        		<group string="Datos del Vinagre" attrs="{'invisible':['!',('tipo_producto','=','vinagre')]}">	   				
-	   				<field name='tipovinagre' colspan="2"/>	   					   				  				    								  				
+        		<group string="Datos del Vinagre" attrs="{'invisible':['!',('type_product','=','vinagre')]}">	   				
+	   				<field name='typevinagre' colspan="2"/>	   					   				  				    								  				
    				</group>   				
-   				<group string="" attrs="{'invisible':['!','|',['tipo_producto','=','vinagre'], ['tipo_producto','=','vino']]}" col="4">
+   				<group string="" attrs="{'invisible':['!','|',['type_product','=','vinagre'], ['type_product','=','vino']]}" col="4">
 	   				<field name='uva' colspan="2"/>
 	   				<field name='anho' colspan="2"/>
 	   				<field name='premios' colspan="2" widget="many2many_tags"/>	
-	   				<field name='establecimiento_id'/>
+	   				<field name='establishment_id'/>
 	   			</group>
 	   							
    			</xpath>        	        
         </field>	        
     </record>
-    <!-- FORM product.public.category productos servicio turistico -->
+    <!-- FORM product.public.category products servicio turistico -->
     <record id="product_public_category_turismo_inherit_form" model="ir.ui.view">
         <field name="name">product.public.category.turismo.view.form</field>
         <field name="model">product.public.category</field>
@@ -47,21 +47,21 @@
 	        </field>
     	</field>
     </record>
-    <!-- FORM de productos asociados a cliente -->
- 	<record id="producto_contratado_cliente_view_form" model="ir.ui.view">
- 		<field name="name">producto.contratado.cliente.form</field>
- 		<field name="model">turismo.producto_contratado_cliente</field> 		
+    <!-- FORM de products asociados a customer -->
+ 	<record id="contract_product_customer_view_form" model="ir.ui.view">
+ 		<field name="name">product.contratado.customer.form</field>
+ 		<field name="model">turismo.contract_product_customer</field> 		
 		<field name="type">form</field>
 		<field name="arch" type="xml">
-		<form string="Productos Contratados">
+		<form string="Contract Products">
 			<group>        	
 	        	<field name="product_id" domain="[('servicio', '=', True)]"/>
 	        	<field name="product_tur_id" domain="[('servicio', '!=', True)]"/>
-	        	<field name="establecimiento_id" attrs="{'invisible':[('product_tur_id','!=',False)]}"/>
+	        	<field name="establishment_id" attrs="{'invisible':[('product_tur_id','!=',False)]}"/>
 	        	<field name="publicado"/>
 	        	<field name="public_category_id" domain="[('link', '=', True)]"/>
 	        	<field name="imagen"/>
-	        	<field name="url" attrs="{'invisible':['|',('product_tur_id','!=',False),('establecimiento_id','!=',False)]}"/>
+	        	<field name="url" attrs="{'invisible':['|',('product_tur_id','!=',False),('establishment_id','!=',False)]}"/>
 	        	<field name="fecha_inicio"/>
 	        	<field name="fecha_fin"/>
 	        	<field name="factura_id" attrs="{'invisible':[('factura_id','=',False)]}"/>
@@ -74,27 +74,27 @@
 		</field>
 	</record>
 <!-- TREES -->
-	<!-- TREE de Productos de Bodega -->
- 	<record id="bodega_productos_tree" model="ir.ui.view">
- 		<field name="name">bodegas.productos.view.tree</field>
+	<!-- TREE de Products de Winecellar -->
+ 	<record id="winecellar_products_tree" model="ir.ui.view">
+ 		<field name="name">winecellars.products.view.tree</field>
  		<field name="model">product.template</field>	 		
 		<field name="type">tree</field>
 		<field name="arch" type="xml">
-		<tree string="Productos de Bodega">
+		<tree string="Products de Winecellar">
 			<field name="name"/>	        	
 		</tree>
 		</field>
 	</record>
-    <!-- TREE de productos asociados a cliente -->
- 	<record id="producto_contratado_cliente_view_tree" model="ir.ui.view">
- 		<field name="name">producto.contratado.cliente.tree</field>
- 		<field name="model">turismo.producto_contratado_cliente</field> 		
+    <!-- TREE de products asociados a customer -->
+ 	<record id="contract_product_customer_view_tree" model="ir.ui.view">
+ 		<field name="name">product.contratado.customer.tree</field>
+ 		<field name="model">turismo.contract_product_customer</field> 		
 		<field name="type">tree</field>
 		<field name="arch" type="xml">
-		<tree string="Productos Contratados">        	
+		<tree string="Contract Products">        	
         	<field name="product_id"/>
         	<field name="product_tur_id"/>
-        	<field name="establecimiento_id"/>
+        	<field name="establishment_id"/>
         	<field name="publicado"/>
         	<field name="public_category_id"/>
         	<field name="imagen"/>
@@ -105,65 +105,65 @@
 		</field>
 	</record>	
     <!-- TREE de vinos -->
- 	<record id="producto_vino_view_tree" model="ir.ui.view">
- 		<field name="name">producto.vino.tree</field>
+ 	<record id="product_vino_view_tree" model="ir.ui.view">
+ 		<field name="name">product.vino.tree</field>
  		<field name="model">product.template</field> 		
 		<field name="type">tree</field>
 		<field name="arch" type="xml">
 		<tree string="Vinos">        	
         	<field name="uva"/>
-        	<field name="tipovino"/>
+        	<field name="typevino"/>
         	<field name="anho"/>
         	<field name="premios"/>
 		</tree>
 		</field>
 	</record>
     <!-- TREE de vinagre -->
- 	<record id="producto_vinagre_view_tree" model="ir.ui.view">
- 		<field name="name">producto.vinagre.tree</field>
+ 	<record id="product_vinagre_view_tree" model="ir.ui.view">
+ 		<field name="name">product.vinagre.tree</field>
  		<field name="model">product.template</field> 		
 		<field name="type">tree</field>
 		<field name="arch" type="xml">
 		<tree string="Vinagre">        	
         	<field name="uva"/>
-        	<field name="tipovinagre"/>
+        	<field name="typevinagre"/>
         	<field name="premios"/>
 		</tree>
 		</field>
 	</record>	
 <!--  SEARCH -->
-	<!-- SEARCH product.template para agregar filtros por tipos de producto -->
+	<!-- SEARCH product.template para agregar filtros por types de product -->
 	<record model="ir.ui.view" id="product_template_turismo_view_inherit_search">
-        <field name="name">tipos.producto.search</field>
+        <field name="name">types.product.search</field>
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_search_view" /> 
         <field name="arch" type="xml">
         	<xpath expr="filter[@string='Services']" position='replace'>
-        		<filter name= "producto_contratado" string="Servicio Turístico" domain="[['servicio', '=', True]]" />				
+        		<filter name= "contract_product" string="Servicio Turístico" domain="[['servicio', '=', True]]" />				
 			</xpath> 
 			<xpath expr="filter[@string='Consumable']" position='replace'>
-        		<!-- filter name= "tipo_productos_turismo" string="Productos Establecimiento"
-        				domain="['|', '|', '|', ['tipo_producto', '=', 'visita'], ['tipo_producto', '=', 'menu'], ['tipo_producto', '=', 'vino'], ['tipo_producto', '=', 'habitacion']]" /-->
-        		<filter name= "tipo_productos_turismo" string="Productos Establecimiento"
-        				domain="['|', ['tipo_producto', '=', 'vino'], ['tipo_producto', '=', 'vinagre']]" />        				
+        		<!-- filter name= "type_products_turismo" string="Products establishment"
+        				domain="['|', '|', '|', ['type_product', '=', 'visita'], ['type_product', '=', 'menu'], ['type_product', '=', 'vino'], ['type_product', '=', 'habitacion']]" /-->
+        		<filter name= "type_products_turismo" string="Establishment's Products"
+        				domain="['|', ['type_product', '=', 'vino'], ['type_product', '=', 'vinagre']]" />        				
 			</xpath>
 			<xpath expr="filter[@string='Can be Sold']" position='replace'>
-				<filter name= "tipo_vino" string="Vinos" domain="[('tipo_producto','=','vino')]" />
-				<filter name= "tipo_vinagre" string="Vinagres" domain="[('tipo_producto','=','vinagre')]" />
-				<filter name= "otros" string="Otros" domain="[('tipo_producto','=','')]" />
-				<!-- filter name= "tipo_visita" string="Visitas" domain="[('tipo_producto','=','visita')]" />
-				<filter name= "tipo_menu" string="Menús" domain="[('tipo_producto','=','menu')]" />
-				<filter name= "tipo_habitacion" string="Habitaciones" domain="[('tipo_producto','=','habitacion')]" /-->				
+				<filter name= "type_vino" string="Vinos" domain="[('type_product','=','vino')]" />
+				<filter name= "type_vinagre" string="Vinagres" domain="[('type_product','=','vinagre')]" />
+				<filter name= "others" string="Others" domain="[('type_product','=','')]" />
+				<!-- filter name= "type_visita" string="Visitas" domain="[('type_product','=','visita')]" />
+				<filter name= "type_menu" string="Menús" domain="[('type_product','=','menu')]" />
+				<filter name= "type_habitacion" string="Habitaciones" domain="[('type_product','=','habitacion')]" /-->				
 			</xpath>
 		</field>
 	</record>
-	<record model="ir.ui.view" id="producto_contratado_cliente_view_search">
-        <field name="name">Search producto contratado</field>
-        <field name="model">turismo.producto_contratado_cliente</field> 
+	<record model="ir.ui.view" id="contract_product_customer_view_search">
+        <field name="name">Search product contratado</field>
+        <field name="model">turismo.contract_product_customer</field> 
         <field name="arch" type="xml">
         	<search>
         		<group expand="0" string="Group By">
-					<filter name="group_by_partner_id" string="Cliente"
+					<filter name="group_by_partner_id" string="Customer"
 					        context="{'group_by': 'partner_id'}"/>
 		        </group>
         	</search>
@@ -175,35 +175,35 @@
 		<field name="res_model">product.template</field>		
 		<field name="view_mode">tree,form</field>		
 		<field name="view_type">form</field>
-		<field name="context">{'search_default_producto_contratado': 1, 'default_servicio': 1 }</field>					 
+		<field name="context">{'search_default_contract_product': 1, 'default_servicio': 1 }</field>					 
 	</record>
-	<record id="producto_contratado_action_tree" model="ir.actions.act_window">		
+	<record id="contract_product_action_tree" model="ir.actions.act_window">		
 		<field name="name">Links</field>
-		<field name="res_model">turismo.producto_contratado_cliente</field>		
+		<field name="res_model">turismo.contract_product_customer</field>		
 		<field name="view_mode">tree,form</field>		
 		<field name="view_type">form</field>
 		<field name="context">{'search_default_group_by_partner_id': 1}</field>					 
 	</record>
-	<record id="producto_vino_action_tree" model="ir.actions.act_window">		
+	<record id="product_vino_action_tree" model="ir.actions.act_window">		
 		<field name="name">Vinos</field>
 		<field name="res_model">product.template</field>		
 		<field name="view_mode">tree,form</field>		
 		<field name="view_type">form</field>
-		<field name="context">{'search_default_tipo_vino': 1}</field>					 
+		<field name="context">{'search_default_type_vino': 1}</field>					 
 	</record>	
-	<record id="producto_vinagre_action_tree" model="ir.actions.act_window">		
+	<record id="product_vinagre_action_tree" model="ir.actions.act_window">		
 		<field name="name">Vinagres</field>
 		<field name="res_model">product.template</field>		
 		<field name="view_mode">tree,form</field>		
 		<field name="view_type">form</field>
-		<field name="context">{'search_default_tipo_vinagre': 1}</field>					 
+		<field name="context">{'search_default_type_vinagre': 1}</field>					 
 	</record>
-	<record id="producto_otros_action_tree" model="ir.actions.act_window">		
-		<field name="name">Otros</field>
+	<record id="product_others_action_tree" model="ir.actions.act_window">		
+		<field name="name">Others</field>
 		<field name="res_model">product.template</field>		
 		<field name="view_mode">tree,form</field>		
 		<field name="view_type">form</field>
-		<field name="context">{'search_default_otros': 1}</field>					 
+		<field name="context">{'search_default_others': 1}</field>					 
 	</record>
 	</data>
 </openerp>

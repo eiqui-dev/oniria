@@ -36,9 +36,9 @@ except ImportError:
 
 class opciones(models.Model):
     _name = 'turismo.opciones'
-    _rec_name = 'nombre'
+    _rec_name = 'name'
     #Fields
-    nombre=fields.Char('Nombre', default=lambda self: "Default",)
+    name=fields.Char('Name', default=lambda self: "Default",)
     account_id=fields.Many2one('account.account', 'Cuenta Contable para Facturas Automaticas')   
     journal_id=fields.Many2one('account.journal', 'Diario para Facturas Automaticas')
    

@@ -8,7 +8,7 @@
         <field name="inherit_id" ref="hotel_reservation.view_hotel_reservation_form"/>
         <field name="arch" type="xml">
                <xpath expr="//field[@name='warehouse_id']" position="attributes"> 	                	            
-                   <attribute name="string">Cliente</attribute>                   
+                   <attribute name="string">Customer</attribute>                   
                </xpath>             
         </field>	        
     </record>

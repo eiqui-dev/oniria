@@ -2,7 +2,7 @@
 from openerp import models, fields, api, exceptions
 #import pydevd
 
-##Ampliación del modelo cliente para turistas##
+##Ampliación del modelo customer para turistas##
 class res_partner(models.Model):
     _name = 'res.partner'
     _inherit = "res.partner"	

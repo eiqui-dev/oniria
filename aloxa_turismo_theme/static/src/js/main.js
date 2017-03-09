@@ -58,7 +58,7 @@ openerp.website.if_dom_contains('.open-map-image', function(){
 	});
 });
 
-/** PANEL: ESTABLECIMIENTOS **/
+/** PANEL: establishmentS **/
 openerp.website.if_dom_contains('.crear-link-est', function(){
 	$(document).on('click', '.crear-link-est', function(ev){
 		var $this = $(this);
@@ -79,8 +79,8 @@ openerp.website.if_dom_contains('.crear-link-est', function(){
         $('#modalNewLink #date_start').data("DateTimePicker").maxDate(e.date);
     });
 });
-openerp.website.if_dom_contains('.anhadir-producto', function(){
-	$(document).on('click', '.anhadir-producto', function(ev){
+openerp.website.if_dom_contains('.anhadir-product', function(){
+	$(document).on('click', '.anhadir-product', function(ev){
 		var $this = $(this);
 		$('form#add_product #est_id').val($this.data('id'));
 		$('#modalAddProduct').modal('show');
@@ -147,7 +147,7 @@ openerp.website.if_dom_contains('#crear_evento_container', function(){
 });
 
 /** CREAR NUEVO PRODUCTO **/
-openerp.website.if_dom_contains('#crear_producto_container', function(){
+openerp.website.if_dom_contains('#crear_product_container', function(){
 	$(document).on('change','#type', function(ev){
 		refresh_create_product_form();
 	});
@@ -159,19 +159,19 @@ openerp.website.if_dom_contains('#crear_producto_container', function(){
 		{
 			$('#panel-right').removeClass('col-md-8').addClass('col-md-4');
 			$('#panel-middle').show('slow');
-			$('#subtipo').prop('required', true);
+			$('#subtype').prop('required', true);
 			$('#uva').prop('required', true);
 			$('#anhada').prop('required', true);
-			$('#bodega').prop('required', true);
+			$('#winecellar').prop('required', true);
 		}
 		else
 		{
 			$('#panel-right').removeClass('col-md-4').addClass('col-md-8');
 			$('#panel-middle').hide('normal');
-			$('#subtipo').prop('required', false);
+			$('#subtype').prop('required', false);
 			$('#uva').prop('required', false);
 			$('#anhada').prop('required', false);
-			$('#bodega').prop('required', false);
+			$('#winecellar').prop('required', false);
 		}
 	}
 	
@@ -238,8 +238,8 @@ function refresh_create_link_page()
 	else if ("Directorio" === $BANNER_TYPE.position)
 	{
 		var selIndex = $('#linkaction')[0].selectedIndex+1;
-		var html = "<option value='product'>Producto</option>"+
-						"<option value='establishment'>Establecimiento</option>";
+		var html = "<option value='product'>Product</option>"+
+						"<option value='establishment'>establishment</option>";
 		$('#linkaction').html(html);
 		$('#linkaction').show();
 		$('#linkaction').prop('disabled', false);
@@ -248,7 +248,7 @@ function refresh_create_link_page()
 		$('#panel-middle').show('slow');
 	}
 	
-	// Crear Producto o Establecimimiento
+	// Crear Product o Establecimimiento
 	var action = $('#linkaction').val();
 	if (action == 'product')
 	{
@@ -317,7 +317,7 @@ function readURL(input)
 }
 
 
-/** DETALLE ESTABLECIMIENTO **/
+/** DETALLE establishment **/
 function initializeGMaps(querySelector, lat, long, address) {
     var mapCanvas = document.querySelector(querySelector) || false;
     if (!mapCanvas)
@@ -355,7 +355,7 @@ function initializeGMaps(querySelector, lat, long, address) {
 		});
 	}
 }
-/** FIN: DETALLE ESTABLECIMIENTO **/
+/** FIN: DETALLE establishment **/
 
 /** RUTAS **/
 function calculateAndDisplayRoute(directionsService, directionsDisplay, orig, dest, waypts)
@@ -521,7 +521,7 @@ function add_address_to_directory_map(address, url, title) {
 	    		map: $DIRECTORY_MAP,
 	        	position: results[0].geometry.location,
 				animation: google.maps.Animation.DROP,
-				icon: '/aloxa_turismo_theme/static/src/img/marker-establecimiento.png',
+				icon: '/aloxa_turismo_theme/static/src/img/marker-establishment.png',
 	      	});
 	    	marker['url'] = url;
 	    	marker['title'] = title;

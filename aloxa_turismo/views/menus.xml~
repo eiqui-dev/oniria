@@ -5,9 +5,9 @@
 	<menuitem id="oniria_menu" name="Oniria" sequence="1"/>
 	<menuitem id="oniria_menu_turismo" name="Turismo"
 		      parent="oniria_menu" sequence="10"/>
-	<menuitem id="oniria_clientes" name="Clientes"
+	<menuitem id="oniria_customers" name="Customers"
 		      parent="oniria_menu_turismo"
-		      action="action_clientes_form"/>
+		      action="action_customers_form"/>
 	<menuitem id="oniria_turistas" name="Turistas"
 		      parent="oniria_menu_turismo"
 		      action="action_turista_form"/>		      
@@ -18,37 +18,37 @@
 		      parent="oniria_menu_turismo"/>
 	<menuitem id="oniria_links" name="Links"
 		      parent="oniria_servicios_contratados"
-		      action="producto_contratado_action_tree"/>
+		      action="contract_product_action_tree"/>
 	<menuitem id="oniria_reservas" name="Reservas"
 		      parent="oniria_servicios_contratados"
-		      action="aloxa_turismo.producto_contratado_action_tree"/>	
+		      action="aloxa_turismo.contract_product_action_tree"/>	
 	<menuitem id="oniria_ecommerce" name="Ecommerce"
 		      parent="oniria_servicios_contratados"
-		      action="producto_contratado_action_tree"/>	
-	<menuitem id="oniria_menu_productos" name="Productos"
+		      action="contract_product_action_tree"/>	
+	<menuitem id="oniria_menu_products" name="Products"
 		      parent="oniria_menu" sequence="20"/>
 	<menuitem id="oniria_servicios" name="Servicios Turísticos"
-		      parent="oniria_menu_productos"
+		      parent="oniria_menu_products"
 		      action="product.product_template_action"/>
-	<menuitem id="oniria_productos_clientes" name="Productos Clientes"
-		      parent="oniria_menu_productos"
+	<menuitem id="oniria_products_customers" name="Products Customers"
+		      parent="oniria_menu_products"
 		      action="product.product_template_action"/>
 	<menuitem id="oniria_vinos" name="Vinos"
-		      parent="oniria_productos_clientes"
-		      action="producto_vino_action_tree"/>
+		      parent="oniria_products_customers"
+		      action="product_vino_action_tree"/>
 	<menuitem id="oniria_vinagres" name="Vinagres"
-		      parent="oniria_productos_clientes"
-		      action="producto_vinagre_action_tree"/>
+		      parent="oniria_products_customers"
+		      action="product_vinagre_action_tree"/>
 	<menuitem id="oniria_reservas" name="Reservas"
-		      parent="oniria_menu_productos"
+		      parent="oniria_menu_products"
 		      action="product.product_template_action"/>
 	<menuitem id="oniria_catas" name="Catas"
 		      parent="oniria_reservas"
 		      action="product.product_template_action"/>
-	<menuitem id="oniria_visitas_bodegas" name="Visitas Bodegas"
+	<menuitem id="oniria_visitas_winecellars" name="Visitas Winecellars"
 		      parent="oniria_reservas"
 		      action="product.product_template_action"/>
-	<menuitem id="oniria_restaurantes" name="Restaurantes"
+	<menuitem id="oniria_restaurants" name="Restaurants"
 		      parent="oniria_reservas"
 		      action="product.product_template_action"/>      		      		      		      		      
 	<menuitem id="oniria_menu_configuracion" name="Configuración"

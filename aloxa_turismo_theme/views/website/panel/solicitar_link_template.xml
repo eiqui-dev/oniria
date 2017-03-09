@@ -64,10 +64,10 @@
 					         		<div style="margin-bottom:2em;" class="col-xs-12 col-md-12" id="product_name">
 					         			<input type="text" class="form-control" />
 					         		</div>
-					         		<h3>Tipo</h3>
+					         		<h3>Type</h3>
 					         		<div style="margin-bottom:2em;" class="col-xs-12 col-md-12" id="product_type">
 					         			<select class="form-control">
-					         				<option value="Otro">Other</option>
+					         				<option value="Other">Other</option>
 					         				<option value="Vino">Wine</option>
 					         				<!--option value="Vinagre">Vinagre</option-->
 					         			</select>
@@ -93,13 +93,13 @@
 					         		<h3>Type</h3>
 					         		<div style="margin-bottom:2em;" class="col-xs-12 col-md-12" id="establishment_type">
 					         			<select class="form-control">
-					         				<option value="Bodega">Wine Cellar</option>
-					         				<option value="Restaurante">Restaurant</option>
-					         				<option value="Hospedaje">Lodging</option>
-					         				<option value="Arte y Cultura">Art and Culture</option>
-					         				<option value="Vinoteca">Wine Library</option>
+					         				<option value="Winecellar">Wine Cellar</option>
+					         				<option value="Restaurant">Restaurant</option>
+					         				<option value="Lodging">Lodging</option>
+					         				<option value="Art and Culture">Art and Culture</option>
+					         				<option value="winebar">Wine Library</option>
 					         				<option value="Viñedo">Vineyard</option>
-					         				<option value="Otro">Other</option>
+					         				<option value="Other">Other</option>
 					         			</select>
 					         		</div>
 					     			<h3>Picture</h3>

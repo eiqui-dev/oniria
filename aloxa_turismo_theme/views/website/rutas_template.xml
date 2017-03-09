@@ -5,7 +5,7 @@
 		<template id="pageRoutes" name="Rutas" page="True">
 			<t t-call="website.layout">
 				<t t-set="additional_title" t-value="'Buscador de rutas'"/>
-				<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale establecimiento-page">				
+				<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale establishment-page">				
 					<section class="container mt8">
 				         <div class="row">
 							<div id="geoLocation" style="min-height:350px; clear:both;">

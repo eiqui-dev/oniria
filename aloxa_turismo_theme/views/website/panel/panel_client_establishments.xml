@@ -2,13 +2,13 @@
 <openerp>
     <data>    
     
-		<template id="panel_client_establishments" name="Panel Cliente" page="True">
-			<h3 t-if="not establecimientos" class="text-muted text-center">No Establishments Found!</h3>
-			<div t-if="establecimientos" class="text-right" style="margin-bottom:20px;">
-				<a class="btn btn-primary" href="/crear_establecimiento">Create Establishment</a>
+		<template id="panel_client_establishments" name="Panel Customer" page="True">
+			<h3 t-if="not establishments" class="text-muted text-center">No Establishments Found!</h3>
+			<div t-if="establishments" class="text-right" style="margin-bottom:20px;">
+				<a class="btn btn-primary" href="/crear_establishment">Create Establishment</a>
 			</div>		
 			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-				<t t-foreach="establecimientos or []" t-as="est">
+				<t t-foreach="establishments or []" t-as="est">
 					<a t-attf-name="#{slug(est)}"></a>
 					<div t-att-class="'panel panel-list panel-%s' % ('primary' if est.website_published else 'default')">
 						<div class="panel-heading" role="tab" t-att-id="'heading%d' % est.id">
@@ -17,9 +17,9 @@
 							</a>
 							<span class="pull-right">
 								<span t-if="not est.website_published" class="label label-default" title="This establishment isn't show in the directory">Not Published</span>
-								<a t-att-href="'/editar_establecimiento/%s' % slug(est)" class="btn btn-default btn-xs" style="margin-left:0.5em;"><i class="fa fa-pencil"></i> Edit</a>
-								<a t-if="not est.website_published" t-att-href="'/preview/establecimiento/%s' % slug(est)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> Preview</a>
-								<a t-if="est.website_published" t-att-href="'/establecimiento/%s' % slug(est)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> View</a>
+								<a t-att-href="'/editar_establishment/%s' % slug(est)" class="btn btn-default btn-xs" style="margin-left:0.5em;"><i class="fa fa-pencil"></i> Edit</a>
+								<a t-if="not est.website_published" t-att-href="'/preview/establishment/%s' % slug(est)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> Preview</a>
+								<a t-if="est.website_published" t-att-href="'/establishment/%s' % slug(est)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> View</a>
 							</span>
 						</div>
 						<div t-att-id="'collapse%d' % est.id" class="panel-collapse collapse" role="tabpanel" t-att-aria-labelledby="'heading%d' % est.id">
@@ -27,7 +27,7 @@
 								<div class="well" style="margin-bottom:1.5em;">
 									<div class="row">
 										<div class="col-sm-8 col-md-8">
-											<strong>Type:</strong> <i t-esc="est.tipo" /><br/>
+											<strong>Type:</strong> <i t-esc="est.type" /><br/>
 											<strong>Phone:</strong> <i t-esc="est.phone" /><br/>
 											<strong>Address:</strong> <i t-esc="est.partner_id.get_composed_address(', ')" /><br/>
 											<strong>TripAdvisor URL:</strong> <i t-esc="est.tripadvisor_url" /><br/>
@@ -51,7 +51,7 @@
 								<h3 t-if="not links" class="text-muted text-center">Doesn't have contracted links</h3>
 								<table t-if="links" class="table">
 									<thead>
-										<th>Tipo</th>
+										<th>Type</th>
 										<th>Caduca</th>
 										<th class="text-right">Uniqe Clicks</th>
 										<th class="text-right">Total Clicks</th>
@@ -142,14 +142,14 @@
 									</tbody>
 								</table>
 								<div class="text-right" style="clear:both;">
-									<a href="#" t-attf-data-id="#{est.id}" class="btn btn-default btn-xs anhadir-producto"><i class="fa fa-plus"></i> Añadir Producto</a>
+									<a href="#" t-attf-data-id="#{est.id}" class="btn btn-default btn-xs anhadir-product"><i class="fa fa-plus"></i> Añadir Product</a>
 								</div>
 								<h4>Pictures</h4>
 						  		<h3 t-if="len(est.images) == 0" class="text-muted text-center">No Pictures Uploaded</h3>
 						  		<t t-foreach="est.images" t-as="image">
 						  			<div class="col-sm-4 col-md-4">
 							  			<div class="thumbnail">
-							  				<img t-attf-src="/web/binary/image?model=establecimiento.images&amp;id=#{image.id}&amp;field=image"/>
+							  				<img t-attf-src="/web/binary/image?model=establishment.images&amp;id=#{image.id}&amp;field=image"/>
 									   		<div class="caption">
 									        	<strong t-esc="image.name"/>
 									      </div>
@@ -165,7 +165,7 @@
 				</t>
 			</div>
 			<div class="text-right">
-				<a class="btn btn-primary" href="/crear_establecimiento">Create Establishment</a>
+				<a class="btn btn-primary" href="/crear_establishment">Create Establishment</a>
 			</div>
 		</template>
 		

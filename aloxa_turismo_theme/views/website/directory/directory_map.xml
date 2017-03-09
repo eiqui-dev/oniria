@@ -11,13 +11,13 @@
 				<t t-foreach="bins" t-as="tr_product">
 					<t t-foreach="tr_product" t-as="td_product">
 						<t t-if="td_product">
-							<t t-set="establecimiento" t-value="td_product['establecimiento']"/>
+							<t t-set="establishment" t-value="td_product['establishment']"/>
 							<t t-set="evento" t-value="td_product['events'] if 'events' in td_product and td_product['events'] and len(td_product['events'])==1 else False"/>
 
-							<t t-if="establecimiento">
-								'<t t-esc="establecimiento.partner_id.get_composed_address(',')" />',
-								'/establecimiento/<t t-esc="slug(establecimiento)"/>',
-								'<t t-esc="establecimiento.name"/>',
+							<t t-if="establishment">
+								'<t t-esc="establishment.partner_id.get_composed_address(',')" />',
+								'/establishment/<t t-esc="slug(establishment)"/>',
+								'<t t-esc="establishment.name"/>',
 							</t>
 							<t t-if="evento">
 								<t t-set="is_events" t-value="True" />

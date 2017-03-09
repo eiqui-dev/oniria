@@ -1,0 +1,405 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * schedule
+# 
+# Translators:
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-21 14:08+0000\n"
+"PO-Revision-Date: 2015-07-17 07:59+0000\n"
+"Last-Translator: Martin Trigaux\n"
+"Language-Team: Polish (http://www.transifex.com/odoo/odoo-8/language/pl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: pl\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#. module: schedule
+#: code:addons/schedule/schedule.py:685
+#, python-format
+msgid "%s (copy)"
+msgstr "%s (kopia)"
+
+#. module: schedule
+#: code:addons/schedule/faces/schedule.py:340
+#, python-format
+msgid "(vacation)"
+msgstr "(wakacje)"
+
+#. module: schedule
+#: model:ir.actions.act_window,help:schedule.action_schedule_calendar_form
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Define working hours and time table that could be scheduled to your project members\n"
+"              </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n                Definiuj czas pracy, który będzie stosowany do planowania zadań\n              </p>\n            "
+
+#. module: schedule
+#: field:schedule.schedule,active:0
+msgid "Active"
+msgstr "Aktywne"
+
+#. module: schedule
+#: model:ir.actions.act_window,name:schedule.schedule_calendar_closing_days
+msgid "Closing Days"
+msgstr "Dni zamknięcia"
+
+#. module: schedule
+#: field:schedule.schedule,code:0
+msgid "Code"
+msgstr "Kod"
+
+#. module: schedule
+#: field:schedule.calendar,company_id:0
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+#: field:schedule.calendar.leaves,company_id:0
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+#: field:schedule.schedule,company_id:0
+msgid "Company"
+msgstr "Firma"
+
+#. module: schedule
+#: code:addons/schedule/schedule.py:773
+#, python-format
+msgid "Configuration Error!"
+msgstr "Błąd konfiguracji!"
+
+#. module: schedule
+#: field:schedule.calendar,create_uid:0
+#: field:schedule.calendar.attendance,create_uid:0
+#: field:schedule.calendar.leaves,create_uid:0
+#: field:schedule.schedule,create_uid:0
+msgid "Created by"
+msgstr "Utworzone przez"
+
+#. module: schedule
+#: field:schedule.calendar,create_date:0
+#: field:schedule.calendar.attendance,create_date:0
+#: field:schedule.calendar.leaves,create_date:0
+#: field:schedule.schedule,create_date:0
+msgid "Created on"
+msgstr "Data utworzenia"
+
+#. module: schedule
+#: field:schedule.calendar.attendance,dayofweek:0
+msgid "Day of Week"
+msgstr "Dzień tygodnia"
+
+#. module: schedule
+#: help:schedule.schedule,calendar_id:0
+msgid "Define the schedule of schedule"
+msgstr "Definiuj terminarz zasobu"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.schedule_calendar_leave_form
+msgid "Duration"
+msgstr "Czas trwania"
+
+#. module: schedule
+#: field:schedule.schedule,time_efficiency:0
+msgid "Efficiency Factor"
+msgstr "Współczynnik efektywności"
+
+#. module: schedule
+#: field:schedule.calendar.leaves,date_to:0
+msgid "End Date"
+msgstr "Data końcowa"
+
+#. module: schedule
+#: constraint:schedule.calendar.leaves:0
+msgid "Error! leave start-date must be lower then leave end-date."
+msgstr "Błąd ! data początkowa nieobecności musi być wcześniejsza niż data końcowa nieobecności."
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Friday"
+msgstr "Piątek"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "Group By"
+msgstr "Grupuj wg"
+
+#. module: schedule
+#: view:schedule.calendar.attendance:schedule.view_schedule_calendar_attendance_form
+msgid "Hours"
+msgstr "Godziny"
+
+#. module: schedule
+#: selection:schedule.schedule,schedule_type:0
+msgid "Human"
+msgstr "Człowiek"
+
+#. module: schedule
+#: field:schedule.calendar,id:0 field:schedule.calendar.attendance,id:0
+#: field:schedule.calendar.leaves,id:0 field:schedule.schedule,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: schedule
+#: help:schedule.calendar.leaves,schedule_id:0
+msgid ""
+"If empty, this is a generic holiday for the company. If a schedule is set, "
+"the holiday/leave is only for this schedule"
+msgstr "Jeśli puste, to jest to ogólny dzień wolny dla firmy. Jeśli ustawiono zasób, to jest to dzień wolny/urlop tylko dla tego zasobu"
+
+#. module: schedule
+#: help:schedule.schedule,active:0
+msgid ""
+"If the active field is set to False, it will allow you to hide the schedule "
+"record without removing it."
+msgstr "Możesz zgasić to pole, że jeśli nie chcesz widzieć zasobu bez usuwania."
+
+#. module: schedule
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "Inactive"
+msgstr "Nieaktywne"
+
+#. module: schedule
+#: field:schedule.calendar,write_uid:0
+#: field:schedule.calendar.attendance,write_uid:0
+#: field:schedule.calendar.leaves,write_uid:0
+#: field:schedule.schedule,write_uid:0
+msgid "Last Updated by"
+msgstr "Ostatnio modyfikowane przez"
+
+#. module: schedule
+#: field:schedule.calendar,write_date:0
+#: field:schedule.calendar.attendance,write_date:0
+#: field:schedule.calendar.leaves,write_date:0
+#: field:schedule.schedule,write_date:0
+msgid "Last Updated on"
+msgstr "Data ostatniej modyfikacji"
+
+#. module: schedule
+#: model:ir.model,name:schedule.model_schedule_calendar_leaves
+#: view:schedule.calendar.leaves:schedule.schedule_calendar_leave_form
+#: view:schedule.calendar.leaves:schedule.schedule_calendar_leave_tree
+msgid "Leave Detail"
+msgstr "Opis nieobecności"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+msgid "Leave Month"
+msgstr "Miesiąc nieobecności"
+
+#. module: schedule
+#: field:schedule.calendar,leave_ids:0
+msgid "Leaves"
+msgstr "Nieobecności"
+
+#. module: schedule
+#: code:addons/schedule/schedule.py:773
+#, python-format
+msgid "Make sure the Working time has been configured with proper week days!"
+msgstr "Upewnij się, że czas pracy jest skonfigurowany z odpowiednimi dniami tygodnia!"
+
+#. module: schedule
+#: selection:schedule.schedule,schedule_type:0
+msgid "Material"
+msgstr "Materiał"
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Monday"
+msgstr "Poniedziałek"
+
+#. module: schedule
+#: field:schedule.calendar,name:0 field:schedule.calendar.attendance,name:0
+#: field:schedule.calendar.leaves,name:0 field:schedule.schedule,name:0
+msgid "Name"
+msgstr "Nazwa"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.schedule_calendar_leave_form
+#: view:schedule.calendar.leaves:schedule.schedule_calendar_leave_tree
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+msgid "Reason"
+msgstr "Przyczyna"
+
+#. module: schedule
+#: help:schedule.schedule,user_id:0
+msgid "Related user name for the schedule to manage its access."
+msgstr "Użytkownik powiązany z zasobem do zarządzania jego dostępnością"
+
+#. module: schedule
+#: model:ir.ui.menu,name:schedule.menu_schedule_config
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+#: field:schedule.calendar.leaves,schedule_id:0
+#: view:schedule.schedule:schedule.schedule_schedule_form
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "schedule"
+msgstr "Zasób"
+
+#. module: schedule
+#: model:ir.model,name:schedule.model_schedule_calendar
+msgid "schedule Calendar"
+msgstr "Kalendarz zasobu"
+
+#. module: schedule
+#: model:ir.model,name:schedule.model_schedule_schedule
+msgid "schedule Detail"
+msgstr "Szczegóły zasobu"
+
+#. module: schedule
+#: model:ir.actions.act_window,name:schedule.action_schedule_calendar_leave_tree
+#: model:ir.ui.menu,name:schedule.menu_view_schedule_calendar_leaves_search
+msgid "schedule Leaves"
+msgstr "Niebecności zasobu"
+
+#. module: schedule
+#: field:schedule.schedule,schedule_type:0
+msgid "schedule Type"
+msgstr "Typ zasobu"
+
+#. module: schedule
+#: field:schedule.calendar.attendance,calendar_id:0
+msgid "schedule's Calendar"
+msgstr "Kalendarz zasobów"
+
+#. module: schedule
+#: model:ir.actions.act_window,name:schedule.action_schedule_schedule_tree
+#: model:ir.ui.menu,name:schedule.menu_schedule_schedule
+#: view:schedule.schedule:schedule.schedule_schedule_tree
+msgid "schedules"
+msgstr "Zasoby"
+
+#. module: schedule
+#: model:ir.actions.act_window,name:schedule.schedule_calendar_schedules_leaves
+msgid "schedules Leaves"
+msgstr "Nieobecności zasobów"
+
+#. module: schedule
+#: model:ir.actions.act_window,help:schedule.action_schedule_schedule_tree
+msgid ""
+"schedules allow you to create and manage schedules that should be involved "
+"in a specific project phase. You can also set their efficiency level and "
+"workload based on their weekly working hours."
+msgstr ""
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Saturday"
+msgstr "Sobota"
+
+#. module: schedule
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "Search schedule"
+msgstr "Szukaj zasobów"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+msgid "Search Working Period Leaves"
+msgstr "Szukaj nieobecności w okresie pracy"
+
+#. module: schedule
+#: view:schedule.calendar:schedule.view_schedule_calendar_search
+msgid "Search Working Time"
+msgstr "Szukaj czasów pracy"
+
+#. module: schedule
+#: field:schedule.calendar.leaves,date_from:0
+msgid "Start Date"
+msgstr "Data Początkowa"
+
+#. module: schedule
+#: help:schedule.calendar.attendance,hour_from:0
+msgid "Start and End time of working."
+msgstr "Początek i koniec czasu pracy"
+
+#. module: schedule
+#: field:schedule.calendar.attendance,date_from:0
+msgid "Starting Date"
+msgstr "Data rozpoczęcia"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+msgid "Starting Date of Leave by Month"
+msgstr "Data początkowa nieobecności wg miesięcy"
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Sunday"
+msgstr "Niedziela"
+
+#. module: schedule
+#: help:schedule.schedule,time_efficiency:0
+msgid ""
+"This field depict the efficiency of the schedule to complete tasks. e.g  "
+"schedule put alone on a phase of 5 days with 5 tasks assigned to him, will "
+"show a load of 100% for this phase by default, but if we put a efficiency of"
+" 200%, then his load will only be 50%."
+msgstr ""
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Thursday"
+msgstr "Czwartek"
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Tuesday"
+msgstr "Wtorek"
+
+#. module: schedule
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "Type"
+msgstr "Typ"
+
+#. module: schedule
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+#: field:schedule.schedule,user_id:0
+msgid "User"
+msgstr "Użytkownik"
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Wednesday"
+msgstr "Środa"
+
+#. module: schedule
+#: model:ir.model,name:schedule.model_schedule_calendar_attendance
+msgid "Work Detail"
+msgstr "Szczegóły pracy"
+
+#. module: schedule
+#: field:schedule.calendar.attendance,hour_from:0
+msgid "Work from"
+msgstr "Pracuje od"
+
+#. module: schedule
+#: field:schedule.calendar.attendance,hour_to:0
+msgid "Work to"
+msgstr "Pracuje do"
+
+#. module: schedule
+#: field:schedule.calendar,manager:0
+msgid "Workgroup Manager"
+msgstr "Menedżer grupy"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "Working Period"
+msgstr "Godziny pracy"
+
+#. module: schedule
+#: model:ir.actions.act_window,name:schedule.action_schedule_calendar_form
+#: model:ir.ui.menu,name:schedule.menu_schedule_calendar
+#: view:schedule.calendar:schedule.schedule_calendar_form
+#: view:schedule.calendar:schedule.view_schedule_calendar_search
+#: view:schedule.calendar:schedule.view_schedule_calendar_tree
+#: field:schedule.calendar,attendance_ids:0
+#: view:schedule.calendar.attendance:schedule.view_schedule_calendar_attendance_form
+#: view:schedule.calendar.attendance:schedule.view_schedule_calendar_attendance_tree
+#: field:schedule.calendar.leaves,calendar_id:0
+#: field:schedule.schedule,calendar_id:0
+msgid "Working Time"
+msgstr "Czas pracy"

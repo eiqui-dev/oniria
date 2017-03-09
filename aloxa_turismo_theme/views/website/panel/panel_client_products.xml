@@ -3,30 +3,30 @@
     <data>    
     
 		<template id="panel_client_products">
-			<h3 t-if="not productos" class="text-muted text-center">No products found</h3>
+			<h3 t-if="not products" class="text-muted text-center">No products found</h3>
 			<t t-if="partner.is_company">
-        		<a t-if="productos" style="margin-bottom:20px;" class="btn btn-primary" href="/crear_producto">Create Product</a>
-				<t t-foreach="productos or []" t-as="prod">
+        		<a t-if="products" style="margin-bottom:20px;" class="btn btn-primary" href="/crear_product">Create Product</a>
+				<t t-foreach="products or []" t-as="prod">
 					<a t-attf-name="#{slug(prod)}"></a>
 					<div t-att-class="'panel panel-list panel-%s' % ('primary' if prod.website_published else 'default')">
 						<div class="panel-heading">
 							<strong t-esc="prod.name.upper()" />
 							<span class="pull-right">
-								<a t-att-href="'/editar_producto/%s' % slug(prod)" class="btn btn-default btn-xs" style="margin-left:0.5em;"><i class="fa fa-pencil"></i> Edit</a>
-								<a t-if="not prod.website_published" t-att-href="'/preview/producto/%s' % slug(prod)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> Preview</a>
-								<a t-if="prod.website_published" t-att-href="'/producto/%s' % slug(prod)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> View</a>
+								<a t-att-href="'/editar_product/%s' % slug(prod)" class="btn btn-default btn-xs" style="margin-left:0.5em;"><i class="fa fa-pencil"></i> Edit</a>
+								<a t-if="not prod.website_published" t-att-href="'/preview/product/%s' % slug(prod)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> Preview</a>
+								<a t-if="prod.website_published" t-att-href="'/product/%s' % slug(prod)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> View</a>
 							</span>
 						</div>
 						<div class="panel-body">
 							<div class="well" style="margin-bottom:1.5em;">
 								<div class="row">
 									<div class="col-sm-8 col-md-8">
-										<strong>Type:</strong> <i t-if="prod.tipo_producto" t-field="prod.tipo_producto" /><i t-if="not prod.tipo_producto">other</i><br/>
+										<strong>Type:</strong> <i t-if="prod.type_product" t-field="prod.type_product" /><i t-if="not prod.type_product">other</i><br/>
 										<strong>Price:</strong> <i t-field="prod.list_price" />€<br/>
-										<t t-if="prod.tipo_producto in ['vino','vinagre']">
+										<t t-if="prod.type_product in ['vino','vinagre']">
 											<strong>Wine Date:</strong> <i t-field="prod.anho" /><br/>
-											<t t-if="prod.tipo_producto == 'vino'"><strong>Wine Type:</strong> <i t-field="prod.tipovino" /><br/></t>
-											<t t-if="prod.tipo_producto == 'vinagre'"><strong>Vinegar Type:</strong> <i t-field="prod.tipovinagre" /><br/></t>
+											<t t-if="prod.type_product == 'vino'"><strong>Wine Type:</strong> <i t-field="prod.typevino" /><br/></t>
+											<t t-if="prod.type_product == 'vinagre'"><strong>Vinegar Type:</strong> <i t-field="prod.typevinagre" /><br/></t>
 											<strong>Grape Type:</strong> <i t-field="prod.uva" /><br/>
 											<strong>Awards:</strong> <i t-field="prod.premios" /><br/>
 										</t>
@@ -70,7 +70,7 @@
 						</div>
 					</div>
 				</t>
-				<a class="btn btn-primary" href="/crear_producto">Create Product</a>
+				<a class="btn btn-primary" href="/crear_product">Create Product</a>
 			</t>
 			<t t-if=" not partner.is_company">
 				PRODUCTOS COMPRADOS CLIENTE NORMAL

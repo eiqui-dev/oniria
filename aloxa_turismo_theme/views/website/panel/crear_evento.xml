@@ -21,13 +21,13 @@
 								<div class="col-xs-12 col-md-4">
 						          	<div class="form-group">
 									    <label for="name">Event Name</label>
-									    <input type="text" class="form-control" id="name" name="name" placeholder="Nombre" required="required"/>
+									    <input type="text" class="form-control" id="name" name="name" placeholder="Name" required="required"/>
 									</div>
 						          	<div t-if="not est_partner" class="form-group">
 									    <label for="organizer">Organizer</label>
 									    <select name="organizer" class="form-control" id="organizer" required="required">
 									    	<option value="">Select Establishment...</option>
-									    	<t t-foreach="establecimientos or []" t-as="est">
+									    	<t t-foreach="establishments or []" t-as="est">
 									    		<option t-attf-value="#{est.partner_id.id}" t-esc="est.name"/>
 									    	</t>
 									    </select>

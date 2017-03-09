@@ -23,31 +23,31 @@
 			<t t-foreach="bins" t-as="tr_product">
 				<t t-foreach="tr_product" t-as="td_product">
 					<t t-if="td_product">
-						<t t-set="establecimiento" t-value="td_product['establecimiento']"/>
-                      	<t t-set="producto_contratado" t-value="td_product['producto_contratado']"/>
+						<t t-set="establishment" t-value="td_product['establishment']"/>
+                      	<t t-set="contract_product" t-value="td_product['contract_product']"/>
 						<t t-set="evento" t-value="td_product['events'] if 'events' in td_product and td_product['events'] and len(td_product['events'])==1 else False"/>
 
 						<!-- LISTA -->
 						<t t-if="request.session['directory_view'] == 'list'">													
 							<div class="col-md-12 product-list-item">
 								<div class="col-md-4 product-img">
-									<t t-if="establecimiento">
-										<a class="product-image" title="" t-attf-href="/establecimiento/#{ slug(establecimiento) }">
-											<span t-field="establecimiento.image_thumb" t-field-options='{"widget": "image", "class": "directory-img"}' />
+									<t t-if="establishment">
+										<a class="product-image" title="" t-attf-href="/establishment/#{ slug(establishment) }">
+											<span t-field="establishment.image_thumb" t-field-options='{"widget": "image", "class": "directory-img"}' />
 										</a>
 									</t>
-									<t t-if="producto_contratado">
-										<t t-if="producto_contratado.product_tur_id">
-											<t t-set="product_type" t-value='producto_contratado.product_tur_id.tipo_producto' />
+									<t t-if="contract_product">
+										<t t-if="contract_product.product_tur_id">
+											<t t-set="product_type" t-value='contract_product.product_tur_id.type_product' />
 											
-											<a class="product-image" title="" t-attf-href="/shop/product/#{ slug(producto_contratado.product_tur_id) }">
-												<span t-field="producto_contratado.image_thumb" t-field-options='{"widget": "image", "class": "directory-img"}' />
+											<a class="product-image" title="" t-attf-href="/shop/product/#{ slug(contract_product.product_tur_id) }">
+												<span t-field="contract_product.image_thumb" t-field-options='{"widget": "image", "class": "directory-img"}' />
 											</a>
 										</t>
-										<t t-if="not producto_contratado.product_tur_id">
-											<a itemprop="url" t-att-href="website.sanitize_url(producto_contratado.url)">
+										<t t-if="not contract_product.product_tur_id">
+											<a itemprop="url" t-att-href="website.sanitize_url(contract_product.url)">
 												<div t-attf-class="oe_product_image">
-													<span t-field="producto_contratado.image_thumb" t-field-options='{"widget": "image", "class": "directory-img"}' />
+													<span t-field="contract_product.image_thumb" t-field-options='{"widget": "image", "class": "directory-img"}' />
 												</div>
 											</a>
 										</t>
@@ -60,27 +60,27 @@
 								</div>
 								<div class="col-md-8">
 									<h3 style="margin:0;font-weight: 700; color:#666;">
-										<t t-if="establecimiento">
-											<a class="product-list-item-name" itemprop="name" t-att-href="keep('/establecimiento/%s' % slug(establecimiento), category=0)" t-esc="establecimiento.name.upper()"/>
+										<t t-if="establishment">
+											<a class="product-list-item-name" itemprop="name" t-att-href="keep('/establishment/%s' % slug(establishment), category=0)" t-esc="establishment.name.upper()"/>
 											<div style="float:right;">
 												&amp;nbsp;
-												<t t-foreach="establecimiento.services" t-as="service">
+												<t t-foreach="establishment.services" t-as="service">
 													<i t-attf-class="fa fa-{{service.icon}} est-icon" t-att-title='service.name'></i>
 												</t>
 											</div>
 										</t>
-										<t t-if="producto_contratado">
-											<t t-if="producto_contratado.product_tur_id">
-												<t t-set="product_type" t-value='producto_contratado.product_tur_id.tipo_producto' />
-												<a class="product-list-item-name" itemprop="name" t-att-href="keep('/shop/product/%s' % slug(producto_contratado.product_tur_id), category=0)" t-esc="producto_contratado.product_tur_id.name.upper()"/>												
+										<t t-if="contract_product">
+											<t t-if="contract_product.product_tur_id">
+												<t t-set="product_type" t-value='contract_product.product_tur_id.type_product' />
+												<a class="product-list-item-name" itemprop="name" t-att-href="keep('/shop/product/%s' % slug(contract_product.product_tur_id), category=0)" t-esc="contract_product.product_tur_id.name.upper()"/>												
 											</t>
 										</t>
 										<t t-if="evento">
 											<a class="product-list-item-name" itemprop="name" t-att-href="keep('/evento/%s' % slug(evento), category=0)" t-esc="evento.name.upper()"/>
 										</t>
 									</h3>
-									<t t-if="establecimiento">
-										<t t-set="address" t-value="establecimiento.partner_id.get_composed_address(',')"/>
+									<t t-if="establishment">
+										<t t-set="address" t-value="establishment.partner_id.get_composed_address(',')"/>
 										<div class="product-list-item-address">
 											<i class="fa fa-map-marker"></i>
 											<t t-if="not address == ''">
@@ -91,12 +91,12 @@
 											</t>
 										</div>
 										<div style="margin-top:0.3em;">
-											<span t-if="establecimiento.descripcion and len(establecimiento.descripcion) &gt; 200"> 
-				 								<t t-set="description" t-value="establecimiento.descripcion[:200] and establecimiento.descripcion[:200].replace('+', '\n')+'...'"/>
+											<span t-if="establishment.descripcion and len(establishment.descripcion) &gt; 200"> 
+				 								<t t-set="description" t-value="establishment.descripcion[:200] and establishment.descripcion[:200].replace('+', '\n')+'...'"/>
 												<p><t t-esc="description"/></p>
 											</span>				
-											<span t-if="establecimiento.descripcion and len(establecimiento.descripcion) &lt; 200">
-												<p t-if="establecimiento.descripcion and len(establecimiento.descripcion)&gt; 0" t-field="establecimiento.descripcion"/>
+											<span t-if="establishment.descripcion and len(establishment.descripcion) &lt; 200">
+												<p t-if="establishment.descripcion and len(establishment.descripcion)&gt; 0" t-field="establishment.descripcion"/>
 											</span>
 											
 											<t t-set="events" t-value="td_product['events']"/>
@@ -108,20 +108,20 @@
 												<tbody>
 													<tr t-foreach="events" t-as="event">
 														<td style="text-align:left; vertical-align: middle;"><strong style="margin:0; font-weight: bold;" t-esc="event.name" /></td>
-														<td><a t-att-href="keep('/establecimiento/%s#events' % slug(establecimiento), category=0)" class="pull-right btn btn-primary" t-field="event.date_begin" /></td>
+														<td><a t-att-href="keep('/establishment/%s#events' % slug(establishment), category=0)" class="pull-right btn btn-primary" t-field="event.date_begin" /></td>
 													</tr>
 												</tbody>
 											</table>
 										</div>
 									</t>
-									<t t-if="producto_contratado">
+									<t t-if="contract_product">
 										<div style="margin-top:0.3em;">
-											<span t-if="producto_contratado.product_tur_id.description and len(producto_contratado.product_tur_id.description) &gt; 200"> 
-				 								<t t-set="description" t-value="producto_contratado.product_tur_id.description[:200] and producto_contratado.product_tur_id.description[:200].replace('+', '\n')+'...'"/>
+											<span t-if="contract_product.product_tur_id.description and len(contract_product.product_tur_id.description) &gt; 200"> 
+				 								<t t-set="description" t-value="contract_product.product_tur_id.description[:200] and contract_product.product_tur_id.description[:200].replace('+', '\n')+'...'"/>
 												<p><t t-esc="description"/></p>
 											</span>				
-											<span t-if="producto_contratado.product_tur_id.description and len(producto_contratado.product_tur_id.description) &lt; 200">
-												<p t-if="producto_contratado.product_tur_id.description and len(producto_contratado.product_tur_id.description)&gt; 0" t-field="producto_contratado.product_tur_id.description" />
+											<span t-if="contract_product.product_tur_id.description and len(contract_product.product_tur_id.description) &lt; 200">
+												<p t-if="contract_product.product_tur_id.description and len(contract_product.product_tur_id.description)&gt; 0" t-field="contract_product.product_tur_id.description" />
 											</span>
 										</div>
 									</t>
