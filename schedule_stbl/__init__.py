@@ -19,9 +19,9 @@
 #
 ##############################################################################
 
-from schedule_stbl import schedule_stbl
-import establishment
-import faces
+from . import schedule_stbl
+from . import establishment
+from . import faces
 
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
