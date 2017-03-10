@@ -712,7 +712,7 @@ class website_aloxa_turismo(Website):
                 regData.update({'image': base64.encodestring(kw['image'].read())});
         else:
             regData.update({
-                'turista': True
+                'turist': True
             })
             
         user_partner.sudo().write(regData)

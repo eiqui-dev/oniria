@@ -8,9 +8,9 @@
 			<menuitem id="oniria_customers" name="Customers"
 				      parent="oniria_menu_turismo"
 				      action="action_customers_form"/>
-			<menuitem id="oniria_turistas" name="Turistas"
+			<menuitem id="oniria_turists" name="Turistas"
 				      parent="oniria_menu_turismo"
-				      action="action_turista_form"/>		      
+				      action="action_turist_form"/>		      
 			<menuitem id="oniria_establishments" name="Establishments"
 				      parent="oniria_menu_turismo"
 				      action="aloxa_turismo.establishment_action_tree"/>

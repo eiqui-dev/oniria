@@ -53,7 +53,7 @@
         'views/establecimientos.xml',
         'views/products.xml',
         'security/ir.model.access.csv',
-	'views/turistas.xml',
+	'views/turists.xml',
         'views/menus.xml',
     ],
     # only loaded in demonstration mode

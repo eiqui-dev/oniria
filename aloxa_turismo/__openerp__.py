@@ -49,7 +49,7 @@
         'views/comun.xml',
         'views/products.xml',
         'security/ir.model.access.csv',
-	    'views/turistas.xml',
+	    'views/turists.xml',
         #'views/reservas.xml',
         'views/menus.xml',
     ],
