@@ -22,14 +22,14 @@ class uva_tag(models.Model):
     
 uva_tag()
 
-class vino_tag(models.Model):
-    _name='turismo.vino.tag'
+class wine_tag(models.Model):
+    _name='turismo.wine.tag'
     _rec_name='name'
     
     #Fields
     name = fields.Char('Name', size=80, translate=True)
     
-vino_tag()
+wine_tag()
 
 class vinagre_tag(models.Model):
     _name='turismo.vinagre.tag'
@@ -177,13 +177,13 @@ class product_turismo(models.Model):
     #         visita_def = visita_def[0]
     #     return visita_def        
     #   
-    # def _vino_default(self):
-    #     vino_def = self.env['turismo.vino'].search([('id','=',99999)])
-    #     if not vino_def:
-    #         vino_def = self.env['turismo.vino'].create({'id':'99999'})
+    # def _wine_default(self):
+    #     wine_def = self.env['turismo.wine'].search([('id','=',99999)])
+    #     if not wine_def:
+    #         wine_def = self.env['turismo.wine'].create({'id':'99999'})
     #     else:
-    #         vino_def = vino_def[0]
-    #     return vino_def
+    #         wine_def = wine_def[0]
+    #     return wine_def
     #   
     # def _menu_default(self):
     #     menu_def = self.env['turismo.menu'].search([('id','=',99999)])
@@ -211,8 +211,8 @@ class product_turismo(models.Model):
     def default_get(self, fields):
         #pydevd.settrace("192.168.3.1")
         data = super(product_turismo, self).default_get(fields)
-        if 'search_default_type_vino' in self.env.context:            
-            data['type_product'] = ('vino','Wine')
+        if 'search_default_type_wine' in self.env.context:            
+            data['type_product'] = ('wine','Wine')
         elif 'search_default_type_vinagre' in self.env.context:
             data['type_product'] = ('vinagre','Vinagre')            
         return data
@@ -239,7 +239,7 @@ class product_turismo(models.Model):
     modelo actual, sin embargo requiere que los campos de relacion sean definidos
     '''
     uva = fields.Many2one('turismo.uva.tag', string='Grape')
-    typevino = fields.Many2one('turismo.vino.tag', string='Type')
+    typewine = fields.Many2one('turismo.wine.tag', string='Type')
     typevinagre = fields.Many2one('turismo.vinagre.tag', string='Type')
     anho = fields.Char('Year', size=30)
     premios = fields.Many2many('turismo.premio.tag', string='Awards')

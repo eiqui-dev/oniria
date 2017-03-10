@@ -155,7 +155,7 @@ openerp.website.if_dom_contains('#crear_product_container', function(){
 	function refresh_create_product_form()
 	{
 		var $type = $('#type');
-		if ($type.val() == 'vino' || $type.val() == 'vinagre')
+		if ($type.val() == 'wine' || $type.val() == 'vinagre')
 		{
 			$('#panel-right').removeClass('col-md-8').addClass('col-md-4');
 			$('#panel-middle').show('slow');

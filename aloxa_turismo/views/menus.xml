@@ -54,9 +54,9 @@
 				      action="event.action_event_view"/> -->         	
 		<menuitem id="oniria_menu_products" name="Products"
 			      parent="oniria_menu" sequence="40"/>
-			<menuitem id="oniria_vinos" name="Wines"
+			<menuitem id="oniria_wines" name="Wines"
 				      parent="oniria_menu_products"
-				      action="product_vino_action_tree"/>
+				      action="product_wine_action_tree"/>
 			<menuitem id="oniria_others_products" name="Others Products"
 				      parent="oniria_menu_products"
 				      action="product_others_action_tree"/>					            		      		      		      		      

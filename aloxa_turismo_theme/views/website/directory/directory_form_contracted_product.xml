@@ -44,9 +44,9 @@
 										<tr><td style="width:16px">
 											<div class="icon"><span class="icon fa fa-flask"/></div>
 										</td><td>
-											<t t-if="product_type == 'vino'">
+											<t t-if="product_type == 'wine'">
 												<b>Wine Type:</b> 
-												<span t-if="contracted_product.product_tur_id.typevino" t-esc="contracted_product.product_tur_id.typevino.name" />
+												<span t-if="contracted_product.product_tur_id.typewine" t-esc="contracted_product.product_tur_id.typewine.name" />
 											</t>
 											<!--t t-if="product_type == 'vinagre'">
 												<b>Type Vinagre:</b> 

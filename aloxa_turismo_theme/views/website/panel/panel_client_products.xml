@@ -23,9 +23,9 @@
 									<div class="col-sm-8 col-md-8">
 										<strong>Type:</strong> <i t-if="prod.type_product" t-field="prod.type_product" /><i t-if="not prod.type_product">other</i><br/>
 										<strong>Price:</strong> <i t-field="prod.list_price" />€<br/>
-										<t t-if="prod.type_product in ['vino','vinagre']">
+										<t t-if="prod.type_product in ['wine','vinagre']">
 											<strong>Wine Date:</strong> <i t-field="prod.anho" /><br/>
-											<t t-if="prod.type_product == 'vino'"><strong>Wine Type:</strong> <i t-field="prod.typevino" /><br/></t>
+											<t t-if="prod.type_product == 'wine'"><strong>Wine Type:</strong> <i t-field="prod.typewine" /><br/></t>
 											<t t-if="prod.type_product == 'vinagre'"><strong>Vinegar Type:</strong> <i t-field="prod.typevinagre" /><br/></t>
 											<strong>Grape Type:</strong> <i t-field="prod.uva" /><br/>
 											<strong>Awards:</strong> <i t-field="prod.premios" /><br/>

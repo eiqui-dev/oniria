@@ -23,9 +23,9 @@
 										    <h4 class="list-group-item-heading">Events</h4>
 										    <p class="list-group-item-text">Aquí puede crear y ver sus eventos, crear tickets, ...</p>
 										  </a>
-										  <a href="/panel/vinos" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'wines' else ''}">
+										  <a href="/panel/wines" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'wines' else ''}">
 										    <h4 class="list-group-item-heading">Wines</h4>
-										    <p class="list-group-item-text">Aquí puede crear y ver sus vinos, ...</p>
+										    <p class="list-group-item-text">Aquí puede crear y ver sus wines, ...</p>
 										  </a>
 										  <a href="/panel/links" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'links' else ''}">
 										    <h4 class="list-group-item-heading">Contracted Links</h4>

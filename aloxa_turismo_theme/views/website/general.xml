@@ -59,7 +59,7 @@
 			          		<t t-if="category_type in ['establishment','evento']">
 					            <li t-att-class="'menu-orderby active' if orderby == 'direccion' else 'menu-orderby'" data-value="direccion"><a href="#">Dirección</a></li>
 				            </t>
-				            <t t-if="category_type == 'vino'">
+				            <t t-if="category_type == 'wine'">
 					            <li t-att-class="'menu-orderby active' if orderby == 'precio' else 'menu-orderby'" data-value="precio"><a href="#">Precio</a></li>
 				            </t>
 			          	</ul>
@@ -68,7 +68,7 @@
 		          		<button title="Vista Formulario" id="view-form" type="button" t-att-data-link-target="category_type" t-att-class="'btn btn-sm btn-default' + ('active' if view_mode=='form' else '')"><i class="fa fa-file-text-o"></i></button>
 		          		<button title="Vista Rejilla" id="view-grid" type="button" t-att-data-link-target="category_type" t-att-class="'btn btn-sm btn-default' + ('active' if view_mode=='grid' else '')"><i class="fa fa-th"></i></button>
 		          		<button title="Vista Lista" id="view-list" type="button" t-att-data-link-target="category_type" t-att-class="'btn btn-sm btn-default' + ('active' if view_mode=='list' else '')"><i class="fa fa-list"></i></button>
-		          		<button title="Vista Mapa" t-if="not category_type == 'vino'" id="view-map" type="button" t-att-data-link-target="category_type" t-att-class="'btn btn-sm btn-default' + ('active' if view_mode=='map' else '')"><i class="fa fa-globe"></i></button>
+		          		<button title="Vista Mapa" t-if="not category_type == 'wine'" id="view-map" type="button" t-att-data-link-target="category_type" t-att-class="'btn btn-sm btn-default' + ('active' if view_mode=='map' else '')"><i class="fa fa-globe"></i></button>
 		          	</span>
 		    	</span>
 			</div>

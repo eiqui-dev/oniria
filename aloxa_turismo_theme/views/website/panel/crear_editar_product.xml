@@ -27,7 +27,7 @@
 						         			<select class="form-control" id="type" name="type" required="required">
 						         				<option value="">Select Type...</option>
 						         				<option value="other" t-att-selected="(prod and not prod.type_product) and 'selected'">Other</option>
-						         				<option value="vino" t-att-selected="(prod and prod.type_product=='vino') and 'selected'">Wine</option>
+						         				<option value="wine" t-att-selected="(prod and prod.type_product=='wine') and 'selected'">Wine</option>
 						         				<!--option value="vinagre" t-att-selected="(prod and prod.type_product=='vinagre') and 'selected'">Vinagre</option-->
 						         			</select>
 						         		</div>
@@ -46,7 +46,7 @@
 									<div class="col-xs-12 col-md-4" id="panel-middle" style="display:none">
 										<div class="form-group">
 										    <label for="image">Type</label>
-										    <input type="text" id="subtype" t-att-value="((prod and prod.type_product == 'vino') and prod.typevino.name) or ((prod and prod.type_product == 'vinagre') and prod.typevinagre.name) or ''" name="subtype" class="form-control" required="required"/>
+										    <input type="text" id="subtype" t-att-value="((prod and prod.type_product == 'wine') and prod.typewine.name) or ((prod and prod.type_product == 'vinagre') and prod.typevinagre.name) or ''" name="subtype" class="form-control" required="required"/>
 										</div>
 										<div class="form-group">
 										    <label for="image">Grape</label>

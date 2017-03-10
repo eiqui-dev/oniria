@@ -6,17 +6,17 @@ from datetime import datetime
 
 #import pydevd
 
-class vino(models.Model):
-    _name = 'turismo.vino'
+class wine(models.Model):
+    _name = 'turismo.wine'
       
     #fields
     uva = fields.Many2one('turismo.uva.tag', string='Uva')
-    type = fields.Many2one('turismo.vino.tag', string='Type')
+    type = fields.Many2one('turismo.wine.tag', string='Type')
     anho = fields.Char('Añada', size=30)
     premios = fields.Many2many('turismo.premio.tag', string='Premios')
-    #product_id = fields.One2many('product.template', 'vino_id', 'Product')
+    #product_id = fields.One2many('product.template', 'wine_id', 'Product')
 
-vino()
+wine()
 
 class vinagre(models.Model):
     _name = 'turismo.vinagre'
@@ -37,14 +37,14 @@ class uva_tag(models.Model):
     
 uva_tag()
 
-class vino_tag(models.Model):
-    _name='turismo.vino.tag'
+class wine_tag(models.Model):
+    _name='turismo.wine.tag'
     _rec_name='name'
     
     #Fields
     name = fields.Char('Name', size=80)
     
-vino_tag()
+wine_tag()
 
 class vinagre_tag(models.Model):
     _name='turismo.vinagre.tag'
@@ -170,13 +170,13 @@ class product_turismo(models.Model):
     #         visita_def = visita_def[0]
     #     return visita_def        
     #   
-    # def _vino_default(self):
-    #     vino_def = self.env['turismo.vino'].search([('id','=',99999)])
-    #     if not vino_def:
-    #         vino_def = self.env['turismo.vino'].create({'id':'99999'})
+    # def _wine_default(self):
+    #     wine_def = self.env['turismo.wine'].search([('id','=',99999)])
+    #     if not wine_def:
+    #         wine_def = self.env['turismo.wine'].create({'id':'99999'})
     #     else:
-    #         vino_def = vino_def[0]
-    #     return vino_def
+    #         wine_def = wine_def[0]
+    #     return wine_def
     #   
     # def _menu_default(self):
     #     menu_def = self.env['turismo.menu'].search([('id','=',99999)])
@@ -204,8 +204,8 @@ class product_turismo(models.Model):
     def default_get(self, fields):
         #pydevd.settrace("192.168.3.1")
         data = super(product_turismo, self).default_get(fields)
-        if 'search_default_type_vino' in self.env.context:            
-            data['type_product'] = ('vino','Vino')
+        if 'search_default_type_wine' in self.env.context:            
+            data['type_product'] = ('wine','wine')
         elif 'search_default_type_vinhedo' in self.env.context:
             data['type_product'] = ('vinagre','Vinagre')
             
@@ -219,7 +219,7 @@ class product_turismo(models.Model):
     link_position = fields.Selection([('Portada','Portada'),('Directorio','Directorio')],
                                      'Ubicación del Link')    
     
-    type_product = fields.Selection([('vino','Vino'), ('vinagre','Vinagre')],
+    type_product = fields.Selection([('wine','wine'), ('vinagre','Vinagre')],
                                      'Type de Product Turistico')    
 
     '''
@@ -227,7 +227,7 @@ class product_turismo(models.Model):
     modelo actual, sin embargo requiere que los campos de relacion sean definidos
     '''
 
-    vino_id = fields.Many2one('turismo.vino', 'Vino', delegate=True)
+    wine_id = fields.Many2one('turismo.wine', 'wine', delegate=True)
     vinagre_id = fields.Many2one('turismo.vinagre', 'vinagre', delegate=True)
     establecimiento_id = fields.Many2one('turismo.establecimiento', 'Winecellar', domain="[('type', '=', 'winecellar')]")
 

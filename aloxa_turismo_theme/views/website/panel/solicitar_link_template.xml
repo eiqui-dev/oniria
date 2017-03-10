@@ -68,7 +68,7 @@
 					         		<div style="margin-bottom:2em;" class="col-xs-12 col-md-12" id="product_type">
 					         			<select class="form-control">
 					         				<option value="Other">Other</option>
-					         				<option value="Vino">Wine</option>
+					         				<option value="wine">Wine</option>
 					         				<!--option value="Vinagre">Vinagre</option-->
 					         			</select>
 					         		</div>

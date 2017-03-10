@@ -33,9 +33,9 @@
 	<menuitem id="oniria_products_customers" name="Products Customers"
 		      parent="oniria_menu_products"
 		      action="product.product_template_action"/>
-	<menuitem id="oniria_vinos" name="Vinos"
+	<menuitem id="oniria_wines" name="wines"
 		      parent="oniria_products_customers"
-		      action="product_vino_action_tree"/>
+		      action="product_wine_action_tree"/>
 	<menuitem id="oniria_vinagres" name="Vinagres"
 		      parent="oniria_products_customers"
 		      action="product_vinagre_action_tree"/>

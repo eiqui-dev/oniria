@@ -20,7 +20,7 @@
 	   				<field name='link_size' colspan="2"/>
 	   				<field name='link_position' colspan="2"/> 				
 	   			</group>        		       		
-        		<group string="Datos del Vino" attrs="{'invisible':['!',('type_product','=','vino')]}" col="4">	   				
+        		<group string="Datos del wine" attrs="{'invisible':['!',('type_product','=','wine')]}" col="4">	   				
 	   				<field name='uva' colspan="2"/>
 	   				<field name='type' colspan="2"/>
 	   				<field name='anho' colspan="2"/>
@@ -32,10 +32,10 @@
 	   				<field name='premios' colspan="2"/>	   					   				  				    								  				
    				</group>   				
    				
-	   			<!-- El campo winecellar_id comun a vinos y visitas se mete una sola vez, si se pone en Datos Visita y
-	   				 Datos Vino entonces no se muestra correctamente
+	   			<!-- El campo winecellar_id comun a wines y visitas se mete una sola vez, si se pone en Datos Visita y
+	   				 Datos wine entonces no se muestra correctamente
 	   			 -->
-	   			<group string="" attrs="{'invisible':['!','|',['type_product','=','vinagre'], ['type_product','=','vino']]}">
+	   			<group string="" attrs="{'invisible':['!','|',['type_product','=','vinagre'], ['type_product','=','wine']]}">
 	   				<field name='establecimiento_id'/>
 	   			</group>
 	   							
@@ -110,13 +110,13 @@
 		</tree>
 		</field>
 	</record>	
-    <!-- TREE de vinos -->
- 	<record id="product_vino_view_tree" model="ir.ui.view">
- 		<field name="name">product.vino.tree</field>
- 		<field name="model">turismo.vino</field> 		
+    <!-- TREE de wines -->
+ 	<record id="product_wine_view_tree" model="ir.ui.view">
+ 		<field name="name">product.wine.tree</field>
+ 		<field name="model">turismo.wine</field> 		
 		<field name="type">tree</field>
 		<field name="arch" type="xml">
-		<tree string="Vinos">        	
+		<tree string="wines">        	
         	<field name="uva"/>
         	<field name="type"/>
         	<field name="anho"/>
@@ -149,12 +149,12 @@
 			</xpath> 
 			<xpath expr="filter[@string='Consumable']" position='replace'>
         		<!-- filter name= "type_products_turismo" string="Products Establecimiento"
-        				domain="['|', '|', '|', ['type_product', '=', 'visita'], ['type_product', '=', 'menu'], ['type_product', '=', 'vino'], ['type_product', '=', 'habitacion']]" /-->
+        				domain="['|', '|', '|', ['type_product', '=', 'visita'], ['type_product', '=', 'menu'], ['type_product', '=', 'wine'], ['type_product', '=', 'habitacion']]" /-->
         		<filter name= "type_products_turismo" string="Products Establecimiento"
-        				domain="['|', ['type_product', '=', 'vino'], ['type_product', '=', 'vinagre']]" />        				
+        				domain="['|', ['type_product', '=', 'wine'], ['type_product', '=', 'vinagre']]" />        				
 			</xpath>
 			<xpath expr="filter[@string='Can be Sold']" position='replace'>
-				<filter name= "type_vino" string="Vinos" domain="[('type_product','=','vino')]" />
+				<filter name= "type_wine" string="wines" domain="[('type_product','=','wine')]" />
 				<filter name= "type_vinagre" string="Vinagres" domain="[('type_product','=','vinagre')]" />
 				<!-- filter name= "type_visita" string="Visitas" domain="[('type_product','=','visita')]" />
 				<filter name= "type_menu" string="Menús" domain="[('type_product','=','menu')]" />
@@ -189,12 +189,12 @@
 		<field name="view_type">form</field>
 		<field name="context">{'search_default_group_by_partner_id': 1}</field>					 
 	</record>
-	<record id="product_vino_action_tree" model="ir.actions.act_window">		
-		<field name="name">Vinos</field>
+	<record id="product_wine_action_tree" model="ir.actions.act_window">		
+		<field name="name">wines</field>
 		<field name="res_model">product.template</field>		
 		<field name="view_mode">tree,form</field>		
 		<field name="view_type">form</field>
-		<field name="context">{'search_default_type_vino': 1}</field>					 
+		<field name="context">{'search_default_type_wine': 1}</field>					 
 	</record>	
 	<record id="product_vinagre_action_tree" model="ir.actions.act_window">		
 		<field name="name">Vinagres</field>
