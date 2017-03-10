@@ -51,7 +51,7 @@
         <field name="model">establishment.services</field>  	
         <field name="arch" type="xml">
         	<form string="Servicio" create="false">	            		
-       			<group string="Datos del servicio ofrecio por el establishment" colspan="4">
+       			<group string="Establishments Services" colspan="4">
 	         		<field name="name"/>
 					<field name="description"/>
 					<field name="icon"/>			
@@ -149,7 +149,7 @@
         <search string="Establishments">
         	<filter name= "winecellar" string="Winecellars" domain="[['type', '=', 'winecellar']]" />				
 			<filter name= "restaurant" string="Restaurants" domain="[['type', '=', 'restaurant']]" />
-			<filter name= "vinhedo" string="Viñedos" domain="[['type', '=', 'vinhedo']]" />
+			<filter name= "vineyard" string="Vineyards" domain="[['type', '=', 'vinhedo']]" />
 			<filter name= "lodging" string="Lodgings" domain="[['type', '=', 'lodging']]" />
 			<filter name= "cultural" string="Art and Culture" domain="[['type', '=', 'cultural']]" />
 			<filter name= "winebar" string="winebars" domain="[['type', '=', 'winebar']]" />
