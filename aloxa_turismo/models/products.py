@@ -128,18 +128,17 @@ class contract_product_customer(models.Model):
     
     #fields
     partner_id = fields.Many2one('res.partner', 'Customer', required=True)
-    product_id = fields.Many2one('product.template', 'Servicio', required=True)
+    product_id = fields.Many2one('product.template', 'Service', required=True)
     product_tur_id = fields.Many2one('product.template', 'Product')
     establishment_id = fields.Many2one('turismo.establishment', 'establishment')
     image = fields.Binary('Image')
     image_thumb = fields.Binary('Thumbnail', compute="_get_image_thumb", store=True)
     url = fields.Char('Enlace', size=50)
-    fecha_inicio = fields.Date('Inicio')
-    fecha_fin = fields.Date('Fin')
-    publicado = fields.Boolean('Publicado')
-    public_category_id = fields.Many2one('product.public.category', 'Categoría', compute=get_categoria_publica)
-    publicado = fields.Boolean('Publicado')
-    factura_id = fields.Many2one('account.invoice', 'Factura')
+    fecha_inicio = fields.Date('Init')
+    fecha_fin = fields.Date('End')
+    publicado = fields.Boolean('Published')
+    public_category_id = fields.Many2one('product.public.category', 'Category', compute=get_categoria_publica)
+    factura_id = fields.Many2one('account.invoice', 'Invoice')
     
 contract_product_customer()
 
@@ -213,7 +212,7 @@ class product_turismo(models.Model):
         #pydevd.settrace("192.168.3.1")
         data = super(product_turismo, self).default_get(fields)
         if 'search_default_type_vino' in self.env.context:            
-            data['type_product'] = ('vino','Vino')
+            data['type_product'] = ('vino','Wine')
         elif 'search_default_type_vinagre' in self.env.context:
             data['type_product'] = ('vinagre','Vinagre')            
         return data
@@ -228,22 +227,22 @@ class product_turismo(models.Model):
     #fields
 
     servicio = fields.Boolean('Link')
-    link_size = fields.Selection([('S','S'),('M','M')], 'Tamaño del Link')
-    link_position = fields.Selection([('Portada','Portada'),('Directorio','Directorio')],
+    link_size = fields.Selection([('S','S'),('M','M')], 'Link Size')
+    link_position = fields.Selection([('Portada','Home'),('Directorio','Wines')],
                                      'Ubicación del Link')    
     
-    type_product = fields.Selection([('vino','Vino'), ('vinagre','Vinagre')],
-                                     'Type de Product Turistico')    
+    type_product = fields.Selection([('wine','Wine'), ('vinagre','Vinagre')],
+                                     'Product Turistic type')    
 
     '''
     El atributo delegate=True permite acceder a los fields del modelo relacionado directamente desde el
     modelo actual, sin embargo requiere que los campos de relacion sean definidos
     '''
-    uva = fields.Many2one('turismo.uva.tag', string='Uva')
+    uva = fields.Many2one('turismo.uva.tag', string='Grape')
     typevino = fields.Many2one('turismo.vino.tag', string='Type')
     typevinagre = fields.Many2one('turismo.vinagre.tag', string='Type')
-    anho = fields.Char('Añada', size=30)
-    premios = fields.Many2many('turismo.premio.tag', string='Premios')
+    anho = fields.Char('Year', size=30)
+    premios = fields.Many2many('turismo.premio.tag', string='Awards')
     establishment_id = fields.Many2one('turismo.establishment', 'Winecellar', domain="[('type', '=', 'winecellar')]")
 
 
