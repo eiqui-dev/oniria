@@ -118,7 +118,7 @@
                         <field name="country_id" placeholder="Country" class="oe_no_button" options='{"no_open": True, "no_create": True}' attrs="{'readonly': [('use_parent_address','=',True)]}"/>
                     </div>
            			<notebook colspan="4">
-           				<page string="Stablishment Images">
+           				<page string="Establishment Images">
 						   <field name="images">
 						        <tree editable="bottom">
 									<field name="name"/>
