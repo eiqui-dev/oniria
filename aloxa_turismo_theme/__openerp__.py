@@ -39,7 +39,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['website', 'website_sale', 'aloxa_turismo', 'l10n_es_partner', 'website_google_apis', 'schedule'],
+    'depends': ['website', 'website_sale', 'aloxa_turismo', 'l10n_es_partner', 'website_google_apis', 'schedule_stbl'],
 
     # always loaded
     'data': [

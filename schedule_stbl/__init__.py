@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-import schedule
+from schedule_stbl import schedule_stbl
 import establishment
 import faces
 

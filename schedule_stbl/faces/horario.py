@@ -1,5 +1,5 @@
 #@+leo-ver=4
-#@+node:@file schedule.py
+#@+node:@file schedule_stbl.py
 #@@language python
 #@<< Copyright >>
 #@+node:<< Copyright >>
@@ -58,7 +58,7 @@ def _isattrib(obj, a):
 #@+node:class scheduleCalendar
 class scheduleCalendar(object):
     """
-    The schedule calendar saves the load time of a schedule.
+    The schedule_stbl calendar saves the load time of a schedule_stbl.
     Is ia sequence of time intervals of loads. An example of
     such a sequence is:
         [ (datetime.min, 0),
@@ -66,7 +66,7 @@ class scheduleCalendar(object):
           (2006/1/10, 0.5),
           (2006/1/15, 0) ]
 
-    That means the schedule:
+    That means the schedule_stbl:
         is free till january the first 2006
         is fully booked from january the first to january 10th
         is half booked from january 10th to january 15th
@@ -234,21 +234,21 @@ class _scheduleBase(object):
 #@+node:class _Metaschedule
 class _Metaschedule(type):
     doc_template = """
-    A schedule class. The schedules default attributes can
+    A schedule_stbl class. The schedules default attributes can
     be changed when the class ist instanciated, i.e.
     %(name)s(max_load=2.0)
 
     @var max_load:
     Specify the maximal allowed load sum of all simultaneously
-    allocated tasks of a schedule. A ME{max_load} of 1.0 (default)
-    means the schedule may be fully allocated. A ME{max_load} of 1.3
-    means the schedule may be allocated with 30%% overtime.
+    allocated tasks of a schedule_stbl. A ME{max_load} of 1.0 (default)
+    means the schedule_stbl may be fully allocated. A ME{max_load} of 1.3
+    means the schedule_stbl may be allocated with 30%% overtime.
 
     @var title:
     Specifies an alternative more descriptive name for the task.
 
     @var efficiency:
-    The efficiency of a schedule can be used for two purposes. First
+    The efficiency of a schedule_stbl can be used for two purposes. First
     you can use it as a crude way to model a team. A team of 5 people
     should have an efficiency of 5.0. Keep in mind that you cannot
     track the member of the team individually if you use this
@@ -256,7 +256,7 @@ class _Metaschedule(type):
     your schedules.
 
     @var vacation:
-    Specifies the vacation of the schedule. This attribute is
+    Specifies the vacation of the schedule_stbl. This attribute is
     specified as a list of date literals or date literal intervals.
     Be aware that the end of an interval is excluded, i.e. it is
     the first working date.
@@ -288,7 +288,7 @@ class _Metaschedule(type):
     #@-node:__cmp__
     #@+node:__repr__
     def __repr__(self):
-        return "<schedule %s>" % self.name
+        return "<schedule_stbl %s>" % self.name
     #@-node:__repr__
     #@+node:__str__
     def __str__(self):
@@ -417,7 +417,7 @@ class scheduleList(list):
     #@-node:__init__
     #@-others
 #@-node:class scheduleList
-#@+node:class schedule
+#@+node:class schedule_stbl
 class schedule(_scheduleBase):
     #@	<< declarations >>
     #@+node:<< declarations >>
@@ -445,13 +445,13 @@ class schedule(_scheduleBase):
     #@-node:__init__
     #@+node:_idendity_
     def _idendity_(cls):
-        return "schedule:" + cls.__name__
+        return "schedule_stbl:" + cls.__name__
 
     _idendity_ = classmethod(_idendity_)
     #@-node:_idendity_
     #@+node:__repr__
     def __repr__(self):
-        return "<schedule %s>" % self.__class__.__name__
+        return "<schedule_stbl %s>" % self.__class__.__name__
     #@-node:__repr__
     #@+node:__str__
     def __str__(self):
@@ -499,10 +499,10 @@ class schedule(_scheduleBase):
         if hasattr(self, "_subschedule"):
             result = self._subschedule._get_schedules(state)
 
-            if self.name != "schedule":
+            if self.name != "schedule_stbl":
                 result.name = self.name
 
-            if self.title != "schedule":
+            if self.title != "schedule_stbl":
                 result.title = self.title
 
             return result
@@ -723,7 +723,7 @@ class schedule(_scheduleBase):
         return self.name + "(%s)" % ", ".join(attribs)
     #@-node:snapshot
     #@-others
-#@-node:class schedule
+#@-node:class schedule_stbl
 #@+node:class _scheduleGroup
 
 
@@ -862,7 +862,7 @@ class _AndscheduleGroup(_scheduleGroup):
     #@-others
 #@-node:class _AndscheduleGroup
 #@-others
-#@-node:@file schedule.py
+#@-node:@file schedule_stbl.py
 #@-leo
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

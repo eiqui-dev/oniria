@@ -33,7 +33,7 @@ This module contains all classes for project plan objects
 #@<< Imports >>
 #@+node:<< Imports >>
 import pcalendar
-import schedule
+import schedule_stbl
 import types
 import sys
 import datetime
@@ -122,7 +122,7 @@ class _MeProxy(object):
 
         if name in ("name", "up", "root", "path",
                     "depth", "index", "calendar",
-                    "children", "schedule", "balance"):
+                    "children", "schedule_stbl", "balance"):
             return getattr(self.task, name)
 
         value = self.task.__dict__.get(name, _NEVER_USED_)
@@ -924,7 +924,7 @@ def _as_string(val):
         result = map(_as_string, val)
         return "[%s]" % ", ".join(result)
 
-    if isinstance(val, schedule.schedule):
+    if isinstance(val, schedule_stbl.schedule_stbl):
         return val._as_string()
 
     if isinstance(val, Task):
@@ -958,12 +958,12 @@ def clear_cache():
     balancing_cache.clear()
 #@nonl
 #@-node:Cache
-#@+node:schedule Allocators
+#@+node:schedule_stbl Allocators
 #@+others
 #@+node:VariableLoad
 def VariableLoad(limit=0):
     """
-    Allocates the schedule with maximal possible load.
+    Allocates the schedule_stbl with maximal possible load.
     If limit is given, a the load is at least limit or more.
     """
     try:
@@ -977,33 +977,33 @@ def VariableLoad(limit=0):
     return -limit
 #@-node:VariableLoad
 #@+node:_calc_load
-def _calc_load(task, schedule):
-    #changed at the schedule instance
-    load = schedule.__dict__.get("load")
+def _calc_load(task, schedule_stbl):
+    #changed at the schedule_stbl instance
+    load = schedule_stbl.__dict__.get("load")
     if load is not None: return load
 
     load = task.__dict__.get("load")
     if load is not None: return load
 
     #inherited by the task
-    return min(task.load, task.max_load, schedule.max_load or 100.0)
+    return min(task.load, task.max_load, schedule_stbl.max_load or 100.0)
 #@-node:_calc_load
 #@+node:_calc_maxload
-def _calc_maxload(task, schedule):
-    #changed at the schedule instance
-    max_load = schedule.__dict__.get("max_load")
+def _calc_maxload(task, schedule_stbl):
+    #changed at the schedule_stbl instance
+    max_load = schedule_stbl.__dict__.get("max_load")
     if max_load: return max_load
 
     #an explicit load can overwrite max_load
-    load = max(schedule.__dict__.get("load", 0),
+    load = max(schedule_stbl.__dict__.get("load", 0),
                task.__dict__.get("load"), 0)
 
     #change at the task
     max_load = task.__dict__.get("max_load")
     if max_load: return max(max_load, load)
 
-    #inherited by the schedule
-    max_load = schedule.max_load
+    #inherited by the schedule_stbl
+    max_load = schedule_stbl.max_load
     if max_load: return max(max_load, load)
 
     #inherited by the task
@@ -1011,20 +1011,20 @@ def _calc_maxload(task, schedule):
 #@-node:_calc_maxload
 #@+node:class AllocationAlgorithm
 class AllocationAlgorithm(object):
-    """This class is a base for schedule allocation algorithms"""
+    """This class is a base for schedule_stbl allocation algorithms"""
     #@	@+others
     #@+node:test_allocation
-    def test_allocation(self, task, schedule):
-        """This method simulates the allocation of a specific schedule.
+    def test_allocation(self, task, schedule_stbl):
+        """This method simulates the allocation of a specific schedule_stbl.
         It returns a list of values representing the state of the allocation.
-        The task allocator calls test_allocation for every alternative schedule.
+        The task allocator calls test_allocation for every alternative schedule_stbl.
         It compares the first items of all return lists, and allocates the
-        schedule with the minum first item value"""
+        schedule_stbl with the minum first item value"""
         return (task.end, )
     #@-node:test_allocation
     #@+node:allocate
     def allocate(self, task, state):
-        """This method eventually allocates a specific schedule.
+        """This method eventually allocates a specific schedule_stbl.
         State is the return list of test_allocation"""
         pass
     #@-node:allocate
@@ -1032,13 +1032,13 @@ class AllocationAlgorithm(object):
 #@-node:class AllocationAlgorithm
 #@+node:class StrictAllocator
 class StrictAllocator(AllocationAlgorithm):
-    """This class implements the STRICT schedule allocation"""
+    """This class implements the STRICT schedule_stbl allocation"""
     #@	@+others
     #@+node:_distribute_len_loads
-    def _distribute_len_loads(self, task, schedule, effort, length):
+    def _distribute_len_loads(self, task, schedule_stbl, effort, length):
         # A special load calculation, if effort and length are given.
         # and the schedules have a defined maxload, the load must be
-        # individually calculated for each schedule.
+        # individually calculated for each schedule_stbl.
 
         # Formulars: r=schedules, t=task
         #   effort = length * efficiency(t) * sum[load(r) * effiency(r)]
@@ -1050,14 +1050,14 @@ class StrictAllocator(AllocationAlgorithm):
 
         # algorithm:
         # The goal is to distribute the load (norm_load) equally
-        # to all schedules. If a schedule has a max_load(r) < norm_load
-        # the load of this schedule will be max_load(r), and the other
+        # to all schedules. If a schedule_stbl has a max_load(r) < norm_load
+        # the load of this schedule_stbl will be max_load(r), and the other
         # schedules will have another (higher) norm_load
 
-        max_loads = map(lambda r: (_calc_maxload(task, r), r), schedule)
+        max_loads = map(lambda r: (_calc_maxload(task, r), r), schedule_stbl)
         max_loads.sort()
 
-        efficiency_sum = sum(map(lambda r: r.efficiency, schedule))
+        efficiency_sum = sum(map(lambda r: r.efficiency, schedule_stbl))
         norm_load = sum_load / efficiency_sum
 
         loads = {}
@@ -1075,7 +1075,7 @@ class StrictAllocator(AllocationAlgorithm):
         return loads
     #@-node:_distribute_len_loads
     #@+node:test_allocation
-    def test_allocation(self, task, schedule):
+    def test_allocation(self, task, schedule_stbl):
         effort = task.__dict__.get("effort")
         to_start = task._to_start
         to_end = task._to_end
@@ -1092,7 +1092,7 @@ class StrictAllocator(AllocationAlgorithm):
 
         base_start = to_start(task.performed_start or task.start)
         calc_load = lambda r: _calc_load(task, r)
-        loads = map(lambda r: (r, calc_load(r)), schedule)
+        loads = map(lambda r: (r, calc_load(r)), schedule_stbl)
 
         length = task.__dict__.get("length")
         duration = task.__dict__.get("duration")
@@ -1132,7 +1132,7 @@ class StrictAllocator(AllocationAlgorithm):
             if length is not None:
                 #if length and effort is set, the load will be calculated
                 length = length or task.calendar.minimum_time_unit
-                loads = self._distribute_len_loads(task, schedule,
+                loads = self._distribute_len_loads(task, schedule_stbl,
                                                    effort, length)
                 def calc_load(res):
                     return loads[res]
@@ -1160,7 +1160,7 @@ class StrictAllocator(AllocationAlgorithm):
         # find the earliest start date
         start, book_load\
                = self.balance(task, start, delta, adjust_date,
-                              calc_load, schedule)
+                              calc_load, schedule_stbl)
 
         end = to_end(start + delta)
         start = to_start(start)
@@ -1173,12 +1173,12 @@ class StrictAllocator(AllocationAlgorithm):
             effort = to_delta(length * factor\
                               + task.performed_effort).round()
 
-        return (end, book_load), schedule, calc_load, start, effort
+        return (end, book_load), schedule_stbl, calc_load, start, effort
     #@-node:test_allocation
     #@+node:allocate
     def allocate(self, task, state):
-        # now really book the schedule
-        end_bl, schedule, calc_load, start, effort = state
+        # now really book the schedule_stbl
+        end_bl, schedule_stbl, calc_load, start, effort = state
         end = end_bl[0]
         cal = task.root.calendar
         to_start = task._to_start
@@ -1194,7 +1194,7 @@ class StrictAllocator(AllocationAlgorithm):
         task._unfreeze("duration")
         length = end - start
 
-        for r in schedule:
+        for r in schedule_stbl:
             book_load = calc_load(r)
             work_time = to_delta(length * book_load).round()
             r.book_task(task, start, end, book_load, work_time, False)
@@ -1205,7 +1205,7 @@ class StrictAllocator(AllocationAlgorithm):
         #    - the existence of effort (if effort was set or not set)
         #    - book_task (they can only be calculated, if the task is booked)
         #    - booked_schedule (to get the booked tasks)
-        task.booked_schedule = schedule
+        task.booked_schedule = schedule_stbl
         task.done = task.done
         task.todo = task.todo
         task.length = end - task.start
@@ -1216,8 +1216,8 @@ class StrictAllocator(AllocationAlgorithm):
 
 
     def balance(self, task, start, delta, adjust_date,
-                calc_load, schedule):
-        book_load = max(map(lambda r: r.get_load(task.start, task.scenario), schedule))
+                calc_load, schedule_stbl):
+        book_load = max(map(lambda r: r.get_load(task.start, task.scenario), schedule_stbl))
         return start, book_load
     #@-node:balance
     #@-others
@@ -1229,7 +1229,7 @@ class SmartAllocator(StrictAllocator):
     #@	@+others
     #@+node:balance
     def balance(self, task, start, delta, adjust_date,
-                calc_load, schedule):
+                calc_load, schedule_stbl):
         #find the earliest start date, at which all
         #schedules in the team are free
 
@@ -1241,18 +1241,18 @@ class SmartAllocator(StrictAllocator):
         while True:
             #we have finished, when all schedules have the
             #same next free start date
-            for r in schedule:
+            for r in schedule_stbl:
                 max_load = _calc_maxload(task, r)
                 load = calc_load(r)
 
-                #find the next free time of the schedule
+                #find the next free time of the schedule_stbl
                 s = r.find_free_time(start, delta, load, max_load, scenario)
                 if s != start:
                     s = to_start(s)
                     start = adjust_date(s)
                     break
             else:
-                #only one schedule
+                #only one schedule_stbl
                 break
 
         return start, 1.0
@@ -1265,14 +1265,14 @@ class SmartAllocator(StrictAllocator):
 class SloppyAllocator(AllocationAlgorithm):
     #@	@+others
     #@+node:test_allocation
-    def test_allocation(self, task, schedule):
+    def test_allocation(self, task, schedule_stbl):
         if task.__dict__.has_key("effort"):
-            return self.test_allocation_effort(task, schedule)
+            return self.test_allocation_effort(task, schedule_stbl)
 
-        return self.test_allocation_length(task, schedule)
+        return self.test_allocation_length(task, schedule_stbl)
     #@-node:test_allocation
     #@+node:test_allocation_length
-    def test_allocation_length(self, task, schedule):
+    def test_allocation_length(self, task, schedule_stbl):
         #length is frozen ==> effort will be calculated
         to_start = task._to_start
         to_end = task._to_end
@@ -1291,7 +1291,7 @@ class SloppyAllocator(AllocationAlgorithm):
         sum_effort = 0
         intervals = []
         scenario = task.scenario
-        for r in schedule:
+        for r in schedule_stbl:
             date = start
             max_load = _calc_maxload(task, r)
             book_load = _calc_load(task, r)
@@ -1319,10 +1319,10 @@ class SloppyAllocator(AllocationAlgorithm):
 
                 date = to_start(endi)
 
-        return -sum_effort, end, schedule, intervals
+        return -sum_effort, end, schedule_stbl, intervals
     #@-node:test_allocation_length
     #@+node:test_allocation_effort
-    def test_allocation_effort(self, task, schedule):
+    def test_allocation_effort(self, task, schedule_stbl):
         #effort is frozen ==> length will be calculated
 
         to_start = task._to_start
@@ -1342,7 +1342,7 @@ class SloppyAllocator(AllocationAlgorithm):
                 next_date = max(next_date, to_start(task.root.calendar.now))
 
         #walks chronologicly through the booking
-        #intervals of each schedule, and reduces
+        #intervals of each schedule_stbl, and reduces
         #the effort for each free interval
         #until it becomes 0
 
@@ -1355,7 +1355,7 @@ class SloppyAllocator(AllocationAlgorithm):
             interval_end = to_start(sys.maxint)
             factor = 0
 
-            for r in schedule:
+            for r in schedule_stbl:
                 max_load = _calc_maxload(task, r)
                 book_load = _calc_load(task, r)
                 end, load = r.end_of_booking_interval(date, task)
@@ -1396,7 +1396,7 @@ class SloppyAllocator(AllocationAlgorithm):
                 book_end = to_end(book_end)
                 intervals.append((date, book_end, length, interval_schedule))
 
-        return next_date, alloc_effort, schedule, intervals
+        return next_date, alloc_effort, schedule_stbl, intervals
     #@-node:test_allocation_effort
     #@+node:allocate
     def allocate(self, task, state):
@@ -1405,8 +1405,8 @@ class SloppyAllocator(AllocationAlgorithm):
     #@-node:allocate
     #@+node:allocate_length
     def allocate_length(self, task, state):
-        # now really book the schedule
-        neg_sum_effort, end, schedule, intervals = state
+        # now really book the schedule_stbl
+        neg_sum_effort, end, schedule_stbl, intervals = state
 
         cal = task.root.calendar
         to_start = task._to_start
@@ -1425,15 +1425,15 @@ class SloppyAllocator(AllocationAlgorithm):
             r.book_task(task, s, e, load, work_time, False)
 
         #see comment at StrictAllocator.allocate
-        task.booked_schedule = schedule
+        task.booked_schedule = schedule_stbl
         task.done = task.done
         task.todo = task.todo
         task.effort = to_delta(effort + task.performed_effort).round()
     #@-node:allocate_length
     #@+node:allocate_effort
     def allocate_effort(self, task, state):
-        # now really book the schedule
-        end, effort, schedule, intervals = state
+        # now really book the schedule_stbl
+        end, effort, schedule_stbl, intervals = state
         to_start = task._to_start
         to_end = task._to_end
         to_delta = task._to_delta
@@ -1450,7 +1450,7 @@ class SloppyAllocator(AllocationAlgorithm):
                 work_time = to_delta(length * load)
                 r.book_task(task, start, end, load, work_time, False)
 
-        task.booked_schedule = schedule
+        task.booked_schedule = schedule_stbl
         task.done = task.done
         task.todo = task.todo
         task.effort = to_delta(effort)
@@ -1470,7 +1470,7 @@ _allocators = { SMART: _smart_allocator,
 _allocator_strings = { SMART: "SMART",
                        SLOPPY: "SLOPPY",
                        STRICT: "STRICT" }
-#@-node:schedule Allocators
+#@-node:schedule_stbl Allocators
 #@+node:Load Calculators
 #@+node:YearlyMax
 def YearlyMax(value):
@@ -1661,7 +1661,7 @@ class Task(object):
 
     @var performed:
     Specifies a list of actual working times performed on the task.
-    The format is: C{[ (schedule, from, to, time), ... ]}
+    The format is: C{[ (schedule_stbl, from, to, time), ... ]}
 
     @var performed_work_time:
     Specifies the sum of all working times. This attribute is
@@ -1682,10 +1682,10 @@ class Task(object):
 
 
     @var balance:
-    Specifies the schedule allocation type. Possible values are
+    Specifies the schedule_stbl allocation type. Possible values are
     CO{STRICT}, CO{SLOPPY}, CO{SMART}.
 
-    @var schedule:
+    @var schedule_stbl:
     Specifies the possible schedules, that may be allocated for the
     task.
 
@@ -1694,20 +1694,20 @@ class Task(object):
     readonly.
 
     @var load:
-    Specifies the daily load of a schedule for an allocation of the
-    specified task. A load of 1.0 (default) means the schedule is
+    Specifies the daily load of a schedule_stbl for an allocation of the
+    specified task. A load of 1.0 (default) means the schedule_stbl is
     allocated for as many hours as specified by
     ME{working_hours_per_day}. A load of 0.5 means half that many
     hours.
 
     @var max_load:
     Specify the maximal allowed load sum of all simultaneously
-    allocated tasks of a schedule. A ME{max_load} of 1.0 (default)
-    means the schedule may be fully allocated. A ME{max_load} of 1.3
-    means the schedule may be allocated with 30% overtime.
+    allocated tasks of a schedule_stbl. A ME{max_load} of 1.0 (default)
+    means the schedule_stbl may be fully allocated. A ME{max_load} of 1.3
+    means the schedule_stbl may be allocated with 30% overtime.
 
     @var efficiency:
-    The efficiency of a schedule can be used for two purposes. First
+    The efficiency of a schedule_stbl can be used for two purposes. First
     you can use it as a crude way to model a team. A team of 5 people
     should have an efficiency of 5.0. Keep in mind that you cannot
     track the member of the team individually if you use this
@@ -1843,8 +1843,8 @@ class Task(object):
         "__constraint__": '__constraint__():\n|"',
         "priority": 'priority = ',
         "balance" : 'balance = ',
-        "schedule": 'schedule = ',
-        "performed"  : 'performed = [(|schedule, "2002-02-01", "2002-02-05", "2H"),]',
+        "schedule_stbl": 'schedule_stbl = ',
+        "performed"  : 'performed = [(|schedule_stbl, "2002-02-01", "2002-02-05", "2H"),]',
         "add_attrib": "add_attrib(|'name', None)",
         "working_days_per_week": 'working_days_per_week = ',
         "working_days_per_month": 'working_days_per_month = ',
@@ -1872,7 +1872,7 @@ class Task(object):
         "#length": _delta_completion,
         "#todo": _delta_completion,
         "#done": _delta_completion,
-        "#schedule" : "get_schedule_completions",
+        "#schedule_stbl" : "get_schedule_completions",
         "#calendar" : "get_calendar_completions",
         "#balance": { "STRICT": "STRICT",
                       "SMART": "SMART",
@@ -1900,7 +1900,7 @@ class Task(object):
                 "max" : "%.2f",
                 "min" : "%.2f",
                 "milestone" : "%s",
-                "schedule" : "%s",
+                "schedule_stbl" : "%s",
                 "booked_schedule" : "%s",
                 "performed_schedule" : "%s" }
 
@@ -2039,7 +2039,7 @@ class Task(object):
     #@+node:costs
     def costs(self, cost_name, mode="ep"):
         """
-        calculates the schedule costs for the task.
+        calculates the schedule_stbl costs for the task.
         cost_name is the name of a rate attribute of the reosurce
         mode is character combination:
                   e calculates the estimated costs
@@ -2145,7 +2145,7 @@ class Task(object):
             if name.startswith("performed"): continue
             val = getattr(self, name, None)
             try:
-                if issubclass(val, schedule.schedule): continue
+                if issubclass(val, schedule_stbl.schedule_stbl): continue
             except TypeError:
                 pass
             text += "%s%s = %s\n" % (indent, name, _as_string(val))
@@ -2229,7 +2229,7 @@ class Task(object):
         return str
     #@-node:formatter
     #@-node:Public methods
-    #@+node:schedule allocation Methods
+    #@+node:schedule_stbl allocation Methods
     #@+node:_all_schedules_as_dict
     def _all_schedules_as_dict(self):
         if self.children:
@@ -2246,11 +2246,11 @@ class Task(object):
     #@-node:_all_schedules_as_dict
     #@+node:_test_allocation
     def _test_allocation(self, schedule_state, allocator):
-        schedule = self.schedule._get_schedules(schedule_state)
-        if not schedule:
+        schedule_stbl = self.schedule._get_schedules(schedule_state)
+        if not schedule_stbl:
             return False
 
-        return allocator.test_allocation(self, schedule)
+        return allocator.test_allocation(self, schedule_stbl)
     #@-node:_test_allocation
     #@+node:_allocate
     def _allocate(self, state, allocator):
@@ -2294,9 +2294,9 @@ class Task(object):
                 if found: res = found[0]
 
             try:
-                if not isinstance(res, (schedule.schedule,
-                                        schedule._Metaschedule)):
-                    raise ValueError("the schedule '%s' is unknown." %  res)
+                if not isinstance(res, (schedule_stbl.schedule_stbl,
+                                        schedule_stbl._Metaschedule)):
+                    raise ValueError("the schedule_stbl '%s' is unknown." %  res)
 
                 start = _to_datetime(start)
                 end = _to_datetime(end)
@@ -2367,7 +2367,7 @@ class Task(object):
             assert(end.__class__ is datetime.datetime)
 
             #the booking limits should be inside the workingtime
-            #to display them correct in schedule charts
+            #to display them correct in schedule_stbl charts
             cstart = to_start(start).to_datetime()
             if cstart > start: cstart = to_end(start).to_datetime()
 
@@ -2401,7 +2401,7 @@ class Task(object):
         result.update(dict(map(lambda r: (r, 1), self.booked_schedule)))
         return result.iterkeys()
     #@-node:_iter_booked_schedules
-    #@-node:schedule allocation Methods
+    #@-node:schedule_stbl allocation Methods
     #@+node:Compile Methods
     #@+node:_generate
     def _generate(self, deferred=None):
@@ -3359,7 +3359,7 @@ class _ProjectBase(Task):
     efficiency = 1.0
     max_load = 1.0
     balance = 0
-    schedule = None
+    schedule_stbl = None
     copy_src = None
     has_actual_data = False
     is_snapshot = False
@@ -3424,12 +3424,12 @@ class _ProjectBase(Task):
         indent += "    "
 
         def make_schedule(r):
-            return '%sclass %s(schedule): title = "%s"\n' \
+            return '%sclass %s(schedule_stbl): title = "%s"\n' \
                    % (indent, r.name, r.title)
 
         now = datetime.datetime.now().strftime("%x %H:%M")
         schedule_text = map(lambda r: make_schedule(r), self.all_schedules())
-        lines.insert(1, "%sfrom faces import schedule\n" % indent)
+        lines.insert(1, "%sfrom faces import schedule_stbl\n" % indent)
         lines.insert(2, "".join(schedule_text) + "\n")
         lines.insert(3, '%snow = "%s"\n' % (indent, now))
         lines.insert(4, '%sis_snapshot = True\n' % indent)
@@ -3447,7 +3447,7 @@ class Project(_ProjectBase):
     @param scenario: Specifies the name of the scenario which should be scheduled.
 
     @param id: Specifiess a unique idenfication name to distinguish the project from
-    other projects in the schedule database. The default value for id
+    other projects in the schedule_stbl database. The default value for id
     is the name of top_task.
     """
     #@	<< class Project declarations >>
@@ -3760,8 +3760,8 @@ class AdjustedProject(_AllocationPoject):
                 if t.__dict__.has_key("effort"):
                     t.effort = t._to_delta(src.done + src.todo).round()
 
-                schedule = src.booked_schedule or src.performed_schedule
-                state = allocator.test_allocation(t, schedule)
+                schedule_stbl = src.booked_schedule or src.performed_schedule
+                state = allocator.test_allocation(t, schedule_stbl)
                 if state:
                     t._allocate(state, allocator)
                 #@nonl
@@ -3801,7 +3801,7 @@ class AdjustedProject(_AllocationPoject):
     length
     effort
     duration
-    schedule
+    schedule_stbl
     booked_schedule
 
     milestone
@@ -3842,7 +3842,7 @@ class AdjustedProject(_AllocationPoject):
 
 
 
-    schedule
+    schedule_stbl
     ----------
     efficiency
     load

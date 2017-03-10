@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,16 +15,32 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
-from pcalendar import Calendar, WorkingDate, StartDate, EndDate, Minutes
+{
+    'name' : 'schedule_stbl',
+    'version' : '1.1',
+    'author' : 'OpenERP SA',
+    'category' : 'Hidden/Dependency',
+    'website' : 'http://www.openerp.com',
+    'description': """
+Module for schedule_stbl management.
+===============================
 
-from task import Project, BalancedProject, AdjustedProject, Task, \
-    STRICT, SLOPPY, SMART, Multi, YearlyMax, WeeklyMax, MonthlyMax, \
-    DailyMax, VariableLoad
-
-from schedule import schedule
+A schedule_stbl represent something that can be scheduled (a developer on a task or a
+work center on manufacturing orders). This module manages a schedule_stbl calendar
+associated to every schedule_stbl. It also manages the leaves of every schedule_stbl.
+    """,
+    'author': 'OpenERP SA',
+    'website': 'http://www.openerp.com',
+    'depends': ['base','aloxa_turismo'],
+    'data': ['schedule_view.xml'],
+    'demo': [],
+    'test': [],
+    'installable': True,
+    'auto_install': False,
+}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
