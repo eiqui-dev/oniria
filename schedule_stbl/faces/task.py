@@ -33,7 +33,7 @@ This module contains all classes for project plan objects
 #@<< Imports >>
 #@+node:<< Imports >>
 import pcalendar
-import schedule_stbl
+import schedule
 import types
 import sys
 import datetime
