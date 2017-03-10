@@ -7,9 +7,4 @@ class res_partner(models.Model):
     _name = 'res.partner'
     _inherit = "res.partner"	
 
-    turist = fields.Boolean(
-	    string="Turista",
-	    help="Activa este check si el contacto es un visitante/turist")
-res_partner()
-
-
+    turist = fields.Boolean(string="Turist", help=("Turist Contact")
