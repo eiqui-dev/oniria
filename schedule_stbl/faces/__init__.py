@@ -25,6 +25,5 @@ from task import Project, BalancedProject, AdjustedProject, Task, \
     STRICT, SLOPPY, SMART, Multi, YearlyMax, WeeklyMax, MonthlyMax, \
     DailyMax, VariableLoad
 
-import schedule_stbl.schedule_stbl
-
+import schedule
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
