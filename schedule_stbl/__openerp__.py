@@ -36,7 +36,7 @@ associated to every schedule_stbl. It also manages the leaves of every schedule_
     'author': 'OpenERP SA',
     'website': 'http://www.openerp.com',
     'depends': ['base','aloxa_turismo'],
-    'data': ['schedule_view.xml'],
+    'data': ['schedule_stbl_view.xml'],
     'demo': [],
     'test': [],
     'installable': True,
