@@ -31,7 +31,7 @@
 				                          	<t t-if="not banner_url and banner.url"><t t-set="banner_url" t-value="website.sanitize_url(banner_url)"/><t t-set="banner_target" t-value="_blank"/></t>
 											<a itemprop="url" t-att-href="banner_url or '#'" t-att-target="banner_target">
 												<div class="oe_product_image" style="height:100%;">
-													<span t-field="banner.imagen" t-field-options='{"widget": "image", "class": "img-crop"}' />
+													<span t-field="banner.image" t-field-options='{"widget": "image", "class": "img-crop"}' />
 												</div>
 											</a>
 				                      </td>
@@ -49,7 +49,7 @@
 			                      		<div class="col-md-12 text-center" style="margin-bottom: 0.5em;">
 											<a itemprop="url" t-att-href="website.sanitize_url(banner.url)" target="_blank">
 												<div class="oe_product_image">
-													<span t-field="banner.imagen" t-field-options='{"widget": "image", "class": "img-responsive img-crop"}' />
+													<span t-field="banner.image" t-field-options='{"widget": "image", "class": "img-responsive img-crop"}' />
 												</div>
 											</a>
 			                      		</div>

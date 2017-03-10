@@ -88,8 +88,8 @@ openerp.website.if_dom_contains('.anhadir-product', function(){
 	});
 	
 });
-openerp.website.if_dom_contains('.anhadir-imagen', function(){
-	$(document).on('click', '.anhadir-imagen', function(ev){
+openerp.website.if_dom_contains('.anhadir-image', function(){
+	$(document).on('click', '.anhadir-image', function(ev){
 		var $this = $(this);
 		$('form#add_image #est_id').val($this.data('id'));
 		$('#modalAddImage').modal('show');

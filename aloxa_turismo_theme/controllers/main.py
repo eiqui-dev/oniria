@@ -768,7 +768,7 @@ class website_aloxa_turismo(Website):
         }
         
         if image.filename:
-            modelData.update({'imagen': base64.encodestring(image.read())})
+            modelData.update({'image': base64.encodestring(image.read())})
         if not est_id:
             establishment_id = Modelestablishment.create(modelData)
             establishment_id = Modelestablishment.browse([establishment_id])

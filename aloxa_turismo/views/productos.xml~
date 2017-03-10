@@ -66,7 +66,7 @@
 	        	<field name="establecimiento_id" attrs="{'invisible':[('product_tur_id','!=',False)]}"/>
 	        	<field name="publicado"/>
 	        	<field name="public_category_id" domain="[('link', '=', True)]"/>
-	        	<field name="imagen"/>
+	        	<field name="image"/>
 	        	<field name="url" attrs="{'invisible':['|',('product_tur_id','!=',False),('establecimiento_id','!=',False)]}"/>
 	        	<field name="fecha_inicio"/>
 	        	<field name="fecha_fin"/>
@@ -103,7 +103,7 @@
         	<field name="establecimiento_id"/>
         	<field name="publicado"/>
         	<field name="public_category_id"/>
-        	<field name="imagen"/>
+        	<field name="image"/>
         	<field name="url"/>
         	<field name="fecha_inicio"/>
         	<field name="fecha_fin"/>

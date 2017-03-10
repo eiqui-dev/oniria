@@ -124,7 +124,7 @@ class contract_product_customer(models.Model):
     product_id = fields.Many2one('product.template', 'Servicio', required=True)
     product_tur_id = fields.Many2one('product.template', 'Product')
     establecimiento_id = fields.Many2one('turismo.establecimiento', 'Establecimiento')
-    imagen = fields.Binary('Imagen')
+    image = fields.Binary('Imagen')
     url = fields.Char('Enlace', size=50)
     fecha_inicio = fields.Date('Inicio')
     fecha_fin = fields.Date('Fin')

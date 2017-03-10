@@ -157,7 +157,7 @@
 								    </div>
 						  		</t>
 								<div class="text-right" style="clear:both;">
-									<a href="#" t-attf-data-id="#{est.id}" class="btn btn-default btn-xs anhadir-imagen"><i class="fa fa-plus"></i> Add Picture</a>
+									<a href="#" t-attf-data-id="#{est.id}" class="btn btn-default btn-xs anhadir-image"><i class="fa fa-plus"></i> Add Picture</a>
 								</div>
 							</div>
 						</div>

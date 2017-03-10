@@ -23,7 +23,7 @@
 			         <div class="row">
 						<!-- IMAGEN -->
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 product-detail">
-	                		<span itemprop="image" t-field="establishment.imagen" t-field-options='{"widget": "image", "class": "product_detail_img product-image"}'/>
+	                		<span itemprop="image" t-field="establishment.image" t-field-options='{"widget": "image", "class": "product_detail_img product-image"}'/>
 	                	</div>
 	                	<!-- INFO -->
 						<div class="product-info"> 
@@ -151,7 +151,7 @@
 						  		<t t-foreach="related" t-as="est">
 						  			<div class="col-sm-4 col-md-2">
 							  			<div class="image-grid">
-							  				<a t-att-href="'/establishment/%s' % slug(est)"><img t-att-title="est.name" t-attf-src="/web/binary/image?model=turismo.establishment&amp;id=#{est.id}&amp;field=imagen"/></a>
+							  				<a t-att-href="'/establishment/%s' % slug(est)"><img t-att-title="est.name" t-attf-src="/web/binary/image?model=turismo.establishment&amp;id=#{est.id}&amp;field=image"/></a>
 									    </div>
 								    </div>
 						  		</t>
