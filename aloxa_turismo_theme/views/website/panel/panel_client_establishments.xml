@@ -32,12 +32,12 @@
 											<strong>Address:</strong> <i t-esc="est.partner_id.get_composed_address(', ')" /><br/>
 											<strong>TripAdvisor URL:</strong> <i t-esc="est.tripadvisor_url" /><br/>
 											<strong>Description:</strong>
-											<span t-if="est.descripcion and len(est.descripcion) &gt; 200"> 
-				 								<t t-set="description" t-value="est.descripcion[:200] and est.descripcion[:200].replace('+', '\n')+'...'"/>
+											<span t-if="est.description and len(est.description) &gt; 200"> 
+				 								<t t-set="description" t-value="est.description[:200] and est.description[:200].replace('+', '\n')+'...'"/>
 												<i><t t-esc="description"/></i>
 											</span>				
-											<span t-if="est.descripcion and len(est.descripcion) &lt; 200">
-												<i t-if="est.descripcion and len(est.descripcion)&gt; 0" t-field="est.descripcion"/>
+											<span t-if="est.description and len(est.description) &lt; 200">
+												<i t-if="est.description and len(est.description)&gt; 0" t-field="est.description"/>
 											</span>
 										</div>
 										<div class="col-sm-4 col-md-4 text-right">

@@ -40,7 +40,7 @@
 					                <div><i class="fa fa-map-marker"></i> <a href="#" data-toggle="modal" data-target="#map-viewer" class="open-map-image" t-att-data-address="address" t-esc="address" /></div>
 					            	<div><i class="fa fa-link"></i> <a t-attf-href="tel:#{establishment.phone}" t-field="establishment.phone"/> | <a t-att-href="establishment.website" t-field="establishment.website"/> | <a t-attf-href="mailto:#{establishment.email}" t-field="establishment.email"/></div>
 					            </div>
-								<p t-esc="establishment.descripcion" class="text-muted text-justify"
+								<p t-esc="establishment.description" class="text-muted text-justify"
 									style="margin-top:1.5em;"/>   
 							</div> 
 							

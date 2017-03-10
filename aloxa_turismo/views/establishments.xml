@@ -87,7 +87,7 @@
 	            		<field name="type"/>
 	            		<field name="res_partner_id" attrs="{'required':1}"/>
 	            		<field name="parent_id" attrs="{'invisible':1}"/>
-	            		<field name="descripcion"/>
+	            		<field name="description"/>
 	            		<field name="longitude"/>
 	            		<field name="latitude"/>	            		
 	            		<field name='languages' widget="many2many_tags"/>

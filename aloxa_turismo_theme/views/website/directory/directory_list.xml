@@ -91,12 +91,12 @@
 											</t>
 										</div>
 										<div style="margin-top:0.3em;">
-											<span t-if="establishment.descripcion and len(establishment.descripcion) &gt; 200"> 
-				 								<t t-set="description" t-value="establishment.descripcion[:200] and establishment.descripcion[:200].replace('+', '\n')+'...'"/>
+											<span t-if="establishment.description and len(establishment.description) &gt; 200"> 
+				 								<t t-set="description" t-value="establishment.description[:200] and establishment.description[:200].replace('+', '\n')+'...'"/>
 												<p><t t-esc="description"/></p>
 											</span>				
-											<span t-if="establishment.descripcion and len(establishment.descripcion) &lt; 200">
-												<p t-if="establishment.descripcion and len(establishment.descripcion)&gt; 0" t-field="establishment.descripcion"/>
+											<span t-if="establishment.description and len(establishment.description) &lt; 200">
+												<p t-if="establishment.description and len(establishment.description)&gt; 0" t-field="establishment.description"/>
 											</span>
 											
 											<t t-set="events" t-value="td_product['events']"/>

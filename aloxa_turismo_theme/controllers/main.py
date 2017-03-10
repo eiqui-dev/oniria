@@ -78,7 +78,7 @@ class website_aloxa_turismo(Website):
                 if any(params['search']):
                     searchDomain.append('|')
                     searchDomain.append(('name', 'ilike', params['search']))
-                    searchDomain.append(('descripcion', 'ilike', params['search']))
+                    searchDomain.append(('description', 'ilike', params['search']))
                 # Localidades
                 localidades_k = [s for s in params if s.startswith("localidad-")]
                 localidades = [werkzeug.url_unquote_plus(params[s]) for s in localidades_k]
@@ -125,7 +125,7 @@ class website_aloxa_turismo(Website):
                 if len(params['search']) > 0:
                     searchDomain.append('|')
                     searchDomain.append(('name', 'ilike', params['search']))
-                    searchDomain.append(('descripcion', 'ilike', params['search']))
+                    searchDomain.append(('description', 'ilike', params['search']))
                 # Localidades
                 localidades_k = [s for s in params if s.startswith("localidad-")]
                 localidades = [werkzeug.url_unquote_plus(params[s]) for s in localidades_k]
@@ -207,7 +207,7 @@ class website_aloxa_turismo(Website):
                 if len(params['search']) > 0:
                     searchDomain.append('|')
                     searchDomain.append(('name', 'ilike', params['search']))
-                    searchDomain.append(('descripcion', 'ilike', params['search']))
+                    searchDomain.append(('description', 'ilike', params['search']))
                     
                 # Localidades
                 param_localidades_k = [s for s in params if s.startswith("localidad-")]
@@ -485,7 +485,7 @@ class website_aloxa_turismo(Website):
                 if any(params['search']):
                     searchDomain.append('|')
                     searchDomain.append(('name', 'ilike', params['search']))
-                    searchDomain.append(('descripcion', 'ilike', params['search']))
+                    searchDomain.append(('description', 'ilike', params['search']))
                     
                 # Type Vino
                 param_type_vinagre_k = [s for s in params if s.startswith("type_vinagre-")]
@@ -762,7 +762,7 @@ class website_aloxa_turismo(Website):
             'use_parent_address': False,
             'city': city,
             'tripadvisor_url': url_trip,
-            'descripcion': desc,
+            'description': desc,
             'res_partner_id': user.partner_id.id,
             'services': [(6, 0, param_services)] if not len(param_services) == 0 else [],
         }
