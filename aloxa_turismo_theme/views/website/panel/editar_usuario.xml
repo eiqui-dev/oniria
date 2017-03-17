@@ -2,13 +2,13 @@
 <openerp>
     <data>    
     
-		<template id="editar_usuario" name="Editar Usuario" page="True">
+		<template id="editar_usuario" name="Edit Usuario" page="True">
 			<t t-call="website.layout">
 				<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale">
 					<div class="page-title">
 			      		<div class="container">
 							<div class="oe_structure"/>
-						    <h1  t-esc="'Editar Datos %s' % ((partner.is_company) and 'Empresa' or 'Usuario')" />
+						    <h1  t-esc="'Edit Data %s' % ((partner.is_company) and 'Empresa' or 'Usuario')" />
 						</div>
 				    </div>
 				

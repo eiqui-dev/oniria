@@ -108,7 +108,7 @@
 			<t t-if="not bins">
 				<div class="text-center text-muted">
 					<div class="expanded-message well col-md-6 col-md-offset-3">
-						<h3>No se han encontrado resultados.</h3>            
+						<h3>No results found.</h3>            
 					</div>
 				</div>
 			</t>

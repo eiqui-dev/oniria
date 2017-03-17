@@ -31,7 +31,7 @@
 						         				<option value="lodging" t-att-selected="(est and est.type=='lodging') and 'selected'">Lodging</option>
 						         				<option value="Art and Culture" t-att-selected="(est and est.type=='Art and Culture') and 'selected'">Art and Culture</option>
 						         				<option value="winebar" t-att-selected="(est and est.type=='winebar') and 'selected'">Wine Library</option>
-						         				<option value="viñedo" t-att-selected="(est and est.type=='vinhedo') and 'selected'">Vineyard</option>
+						         				<option value="vineyard" t-att-selected="(est and est.type=='vineyard') and 'selected'">Vineyard</option>
 						         				<option value="other" t-att-selected="(est and est.type=='other') and 'selected'">Other</option>
 						         			</select>
 						         		</div>

@@ -33,8 +33,8 @@
 												<strong>Wine Date:</strong> <i t-field="prod.anho" /><br/>
 												<t t-if="prod.type_product == 'wine'"><strong>Wine Type:</strong> <i t-field="prod.typewine" /><br/></t>
 												<t t-if="prod.type_product == 'vinagre'"><strong>Vinegar Type:</strong> <i t-field="prod.typevinagre" /><br/></t>
-												<strong>Grape Type:</strong> <i t-field="prod.uva" /><br/>
-												<strong>Awards:</strong> <i t-field="prod.premios" /><br/>
+												<strong>Grape Type:</strong> <i t-field="prod.grape" /><br/>
+												<strong>Awards:</strong> <i t-field="prod.awards" /><br/>
 											</t>
 											<strong>Description:</strong>
 											<span t-if="prod.description and len(prod.description) &gt; 200"> 

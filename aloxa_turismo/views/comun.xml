@@ -56,14 +56,14 @@
             <field name="view_mode">tree,kanban,form</field>
 	    	<field name="context">{'search_default_winecellar': 1,'default_type': "winecellar"}</field>           
      </record>
-     <!--Action para Viñedos dentro de establishments--> 
-	<record id="action_vinhedos_form" model="ir.actions.act_window">
-            <field name="name">Vinhedos</field>
+     <!--Action para Vineyards dentro de establishments--> 
+	<record id="action_vineyards_form" model="ir.actions.act_window">
+            <field name="name">Vineyards</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">turismo.establishment</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,kanban,form</field>
-	    	<field name="context">{'search_default_vinhedo': 1,'default_type': "vinhedo"}</field>           
+	    	<field name="context">{'search_default_vineyard': 1,'default_type': "vineyard"}</field>           
      </record>
      <!--Action para Restaurants dentro de establishments--> 
 	<record id="action_restaurants_form" model="ir.actions.act_window">

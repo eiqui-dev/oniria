@@ -12,7 +12,7 @@
 									<div class="list-group">
 									  <a href="/panel" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'general' else ''}">
 									    <h4 class="list-group-item-heading">General</h4>
-									    <p class="list-group-item-text">Consulte y edite sus datos</p>
+									    <p class="list-group-item-text">See and edit your data</p>
 									  </a>
 									  <t t-if="partner.is_company">
 										  <a href="/panel/establishments" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'establishments' else ''}">
@@ -39,7 +39,7 @@
 									  <t t-if="not partner.is_company">
 										  <a href="/panel/products" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'products' else ''}">
 										    <h4 class="list-group-item-heading">My Purchases</h4>
-										    <p class="list-group-item-text">Aquí puede ver sus compras</p>
+										    <p class="list-group-item-text">See your purchases</p>
 										  </a>
 									  </t>
 									</div>

@@ -10,7 +10,7 @@
 							<div class="oe_structure"/>
 						    <h1>
 						    	<t t-if="not partner">Registrar Nuevo Usuario</t>
-						    	<t t-if="partner"><t t-esc="'Editar Datos %s' % ((partner.is_company) and 'Empresa' or 'Usuario')" /></t>
+						    	<t t-if="partner"><t t-esc="'Edit Data %s' % ((partner.is_company) and 'Empresa' or 'Usuario')" /></t>
 						    </h1>
 						</div>
 				    </div>

@@ -14,20 +14,20 @@
 	<menuitem id="oniria_establecimientos" name="Establecimientos"
 		      parent="oniria_menu_turismo"
 		      action="aloxa_turismo.establecimiento_action_tree"/>
-	<menuitem id="oniria_servicios_contratados" name="Servicios Contratados"
+	<menuitem id="oniria_services_contratados" name="Services Contratados"
 		      parent="oniria_menu_turismo"/>
 	<menuitem id="oniria_links" name="Links"
-		      parent="oniria_servicios_contratados"
+		      parent="oniria_services_contratados"
 		      action="contract_product_action_tree"/>
 	<menuitem id="oniria_reservas" name="Reservas"
-		      parent="oniria_servicios_contratados"
+		      parent="oniria_services_contratados"
 		      action="aloxa_turismo.contract_product_action_tree"/>	
 	<menuitem id="oniria_ecommerce" name="Ecommerce"
-		      parent="oniria_servicios_contratados"
+		      parent="oniria_services_contratados"
 		      action="contract_product_action_tree"/>	
 	<menuitem id="oniria_menu_products" name="Products"
 		      parent="oniria_menu" sequence="20"/>
-	<menuitem id="oniria_servicios" name="Servicios Turísticos"
+	<menuitem id="oniria_services" name="Services Turísticos"
 		      parent="oniria_menu_products"
 		      action="product.product_template_action"/>
 	<menuitem id="oniria_products_customers" name="Products Customers"

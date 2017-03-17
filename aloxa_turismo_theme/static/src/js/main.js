@@ -160,7 +160,7 @@ openerp.website.if_dom_contains('#crear_product_container', function(){
 			$('#panel-right').removeClass('col-md-8').addClass('col-md-4');
 			$('#panel-middle').show('slow');
 			$('#subtype').prop('required', true);
-			$('#uva').prop('required', true);
+			$('#grape').prop('required', true);
 			$('#anhada').prop('required', true);
 			$('#winecellar').prop('required', true);
 		}
@@ -169,7 +169,7 @@ openerp.website.if_dom_contains('#crear_product_container', function(){
 			$('#panel-right').removeClass('col-md-4').addClass('col-md-8');
 			$('#panel-middle').hide('normal');
 			$('#subtype').prop('required', false);
-			$('#uva').prop('required', false);
+			$('#grape').prop('required', false);
 			$('#anhada').prop('required', false);
 			$('#winecellar').prop('required', false);
 		}
@@ -369,7 +369,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, orig, de
 		if (status == 'OK')
 			directionsDisplay.setDirections(response);
 		else
-			window.alert('La petición al servicio \'Directions\' ha fallado por '+status);
+			window.alert('La petición al service \'Directions\' ha fallado por '+status);
 	});
 }
 

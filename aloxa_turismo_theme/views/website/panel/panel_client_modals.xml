@@ -17,7 +17,7 @@
 					          	<div class="form-group">
 					            	<label for="typelink" class="control-label">Type:</label>
 					         		<select class="form-control" id="typelink" name="typelink" required="required">
-					         			<t t-foreach="servicios or []" t-as="serv">
+					         			<t t-foreach="services or []" t-as="serv">
 					         				<option t-attf-value="#{serv.id}" t-attf-data-position="#{serv.link_position}" t-attf-data-size="#{serv.link_size}"><t t-esc="serv.name"/></option>
 					         			</t>
 					         		</select>

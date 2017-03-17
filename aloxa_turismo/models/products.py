@@ -13,14 +13,14 @@ from PIL import Image
 
 #import pydevd
 
-class uva_tag(models.Model):
-    _name='turismo.uva.tag'
+class grape_tag(models.Model):
+    _name='turismo.grape.tag'
     _rec_name='name'
     
     #Fields
     name = fields.Char('Name', size=80, translate=True)
     
-uva_tag()
+grape_tag()
 
 class wine_tag(models.Model):
     _name='turismo.wine.tag'
@@ -40,14 +40,14 @@ class vinagre_tag(models.Model):
     
 vinagre_tag()
 
-class premio_tag(models.Model):
-    _name='turismo.premio.tag'
+class award_tag(models.Model):
+    _name='turismo.award.tag'
     _rec_name='name'
     
     #Fields
     name = fields.Char('Name', size=80, translate=True)
     
-premio_tag()
+award_tag()
 
 '''
 Modelo de la tabla de relacion many2many entre Customers y products turisticos
@@ -66,7 +66,7 @@ class contract_product_customer(models.Model):
     Metodo que genera una factura borrado asociada al product contratado y al customer
     '''
     @api.one
-    def generar_factura_servicio(self):        
+    def generar_factura_service(self):        
         ai_model = self.env['account.invoice']
         ail_model = self.env['account.invoice.line']
         #pydevd.settrace("192.168.3.1")
@@ -226,7 +226,7 @@ class product_turismo(models.Model):
     
     #fields
 
-    servicio = fields.Boolean('Link')
+    service = fields.Boolean('Link')
     link_size = fields.Selection([('S','S'),('M','M')], 'Link Size')
     link_position = fields.Selection([('Portada','Home'),('Directorio','Wines')],
                                      'Ubicación del Link')    
@@ -238,11 +238,11 @@ class product_turismo(models.Model):
     El atributo delegate=True permite acceder a los fields del modelo relacionado directamente desde el
     modelo actual, sin embargo requiere que los campos de relacion sean definidos
     '''
-    uva = fields.Many2one('turismo.uva.tag', string='Grape')
+    grape = fields.Many2one('turismo.grape.tag', string='Grape')
     typewine = fields.Many2one('turismo.wine.tag', string='Type')
     typevinagre = fields.Many2one('turismo.vinagre.tag', string='Type')
     anho = fields.Char('Year', size=30)
-    premios = fields.Many2many('turismo.premio.tag', string='Awards')
+    awards = fields.Many2many('turismo.award.tag', string='Awards')
     establishment_id = fields.Many2one('turismo.establishment', 'Winecellar', domain="[('type', '=', 'winecellar')]")
 
 

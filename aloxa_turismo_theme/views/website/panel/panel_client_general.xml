@@ -77,7 +77,7 @@
 				<div class="panel-heading">
 					<strong>Contact Information</strong>
 					<span class="pull-right">
-						<a href="/editar_usuario" class="btn btn-default btn-xs" style="margin-left:0.5em;"><i class="fa fa-pencil"></i> Editar</a>
+						<a href="/editar_usuario" class="btn btn-default btn-xs" style="margin-left:0.5em;"><i class="fa fa-pencil"></i> Edit</a>
 					</span>
 				</div>
 				<div class="panel-body">

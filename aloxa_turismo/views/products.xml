@@ -9,34 +9,34 @@
         <field name="inherit_id" ref="product.product_template_only_form_view"/>
         <field name="arch" type="xml">
                <xpath expr="//field[@name='sale_ok']" position="before"> 	                	            
-                   <field name="servicio"/>                
-                   <label for="servicio" string="Servicio Turístico"/>                      
+                   <field name="service"/>                
+                   <label for="service" string="Servicio Turístico"/>                      
                </xpath>  
            	<xpath expr="//field[@name='type']" position="after">	            		            		
-           		<field name='type_product' attrs="{'invisible':[('servicio','=',True)]}"/>           		          		               	
+           		<field name='type_product' attrs="{'invisible':[('service','=',True)]}"/>           		          		               	
             </xpath>       	
         	<xpath expr="//field[@name='description']" position="before">
-	   			<group string="Datos del Link" attrs="{'invisible':['!',('servicio','=',True)]}" col="4">	   				
+	   			<group string="Data del Link" attrs="{'invisible':['!',('service','=',True)]}" col="4">	   				
 	   				<field name='link_size' colspan="2"/>
 	   				<field name='link_position' colspan="2"/> 				
 	   			</group>        		       		
-        		<group string="Datos del wine" attrs="{'invisible':['!',('type_product','=','wine')]}">	   				
+        		<group string="Data del wine" attrs="{'invisible':['!',('type_product','=','wine')]}">	   				
 	   				<field name='typewine' colspan="2"/>							  				
    				</group>
-        		<group string="Datos del Vinagre" attrs="{'invisible':['!',('type_product','=','vinagre')]}">	   				
+        		<group string="Data del Vinagre" attrs="{'invisible':['!',('type_product','=','vinagre')]}">	   				
 	   				<field name='typevinagre' colspan="2"/>	   					   				  				    								  				
    				</group>   				
    				<group string="" attrs="{'invisible':['!','|',['type_product','=','vinagre'], ['type_product','=','wine']]}" col="4">
-	   				<field name='uva' colspan="2"/>
+	   				<field name='grape' colspan="2"/>
 	   				<field name='anho' colspan="2"/>
-	   				<field name='premios' colspan="2" widget="many2many_tags"/>	
+	   				<field name='awards' colspan="2" widget="many2many_tags"/>	
 	   				<field name='establishment_id'/>
 	   			</group>
 	   							
    			</xpath>        	        
         </field>	        
     </record>
-    <!-- FORM product.public.category products servicio turistico -->
+    <!-- FORM product.public.category products service turistico -->
     <record id="product_public_category_turismo_inherit_form" model="ir.ui.view">
         <field name="name">product.public.category.turismo.view.form</field>
         <field name="model">product.public.category</field>
@@ -55,8 +55,8 @@
 		<field name="arch" type="xml">
 		<form string="Contract Products">
 			<group>        	
-	        	<field name="product_id" domain="[('servicio', '=', True)]"/>
-	        	<field name="product_tur_id" domain="[('servicio', '!=', True)]"/>
+	        	<field name="product_id" domain="[('service', '=', True)]"/>
+	        	<field name="product_tur_id" domain="[('service', '!=', True)]"/>
 	        	<field name="establishment_id" attrs="{'invisible':[('product_tur_id','!=',False)]}"/>
 	        	<field name="publicado"/>
 	        	<field name="public_category_id" domain="[('link', '=', True)]"/>
@@ -65,7 +65,7 @@
 	        	<field name="fecha_inicio"/>
 	        	<field name="fecha_fin"/>
 	        	<field name="factura_id" attrs="{'invisible':[('factura_id','=',False)]}"/>
-    			<button name="generar_factura_servicio" type="object" class="oe_inline oe_stat_button"
+    			<button name="generar_factura_service" type="object" class="oe_inline oe_stat_button"
     					string="Facturar" icon="fa-check"
     					help="Generar Factura de Servicio"
     					attrs="{'invisible':[('factura_id','!=',False)]}"/>	        
@@ -111,10 +111,10 @@
 		<field name="type">tree</field>
 		<field name="arch" type="xml">
 		<tree string="wines">        	
-        	<field name="uva"/>
+        	<field name="grape"/>
         	<field name="typewine"/>
         	<field name="anho"/>
-        	<field name="premios"/>
+        	<field name="awards"/>
 		</tree>
 		</field>
 	</record>
@@ -125,9 +125,9 @@
 		<field name="type">tree</field>
 		<field name="arch" type="xml">
 		<tree string="Vinagre">        	
-        	<field name="uva"/>
+        	<field name="grape"/>
         	<field name="typevinagre"/>
-        	<field name="premios"/>
+        	<field name="awards"/>
 		</tree>
 		</field>
 	</record>	
@@ -139,7 +139,7 @@
         <field name="inherit_id" ref="product.product_template_search_view" /> 
         <field name="arch" type="xml">
         	<xpath expr="filter[@string='Services']" position='replace'>
-        		<filter name= "contract_product" string="Servicio Turístico" domain="[['servicio', '=', True]]" />				
+        		<filter name= "contract_product" string="Servicio Turístico" domain="[['service', '=', True]]" />				
 			</xpath> 
 			<xpath expr="filter[@string='Consumable']" position='replace'>
         		<!-- filter name= "type_products_turismo" string="Products establishment"
@@ -170,12 +170,12 @@
 		</field>
 	</record>
 <!-- ACTIONS -->
-	<record id="servicios_turisticos_action_tree" model="ir.actions.act_window">		
+	<record id="services_turisticos_action_tree" model="ir.actions.act_window">		
 		<field name="name">Links</field>
 		<field name="res_model">product.template</field>		
 		<field name="view_mode">tree,form</field>		
 		<field name="view_type">form</field>
-		<field name="context">{'search_default_contract_product': 1, 'default_servicio': 1 }</field>					 
+		<field name="context">{'search_default_contract_product': 1, 'default_service': 1 }</field>					 
 	</record>
 	<record id="contract_product_action_tree" model="ir.actions.act_window">		
 		<field name="name">Links</field>

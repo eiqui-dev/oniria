@@ -129,7 +129,7 @@ class establishment(models.Model):
     image_thumb = fields.Binary('Thumbnail', compute="_get_image_thumb", store=True)
     description = fields.Text(string='Description', translate=True)   
     #direccion = fields.Char(string='Dirección', size=120, default=default_direccion, translate=True)
-    #localidad = fields.Char(string='Localidad', size=120, default=default_localidad, translate=True)
+    #locality = fields.Char(string='locality', size=120, default=default_locality, translate=True)
     schedule = fields.Char(string='Schedule', size=120)
     res_partner_id = fields.Many2one('res.partner', 'Customer', default=default_res_partner_id)   
     tripadvisor_url = fields.Char(string="TripAdvisor Url", size=255)

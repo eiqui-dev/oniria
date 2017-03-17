@@ -10,10 +10,10 @@ class wine(models.Model):
     _name = 'turismo.wine'
       
     #fields
-    uva = fields.Many2one('turismo.uva.tag', string='Uva')
+    grape = fields.Many2one('turismo.grape.tag', string='grape')
     type = fields.Many2one('turismo.wine.tag', string='Type')
-    anho = fields.Char('Añada', size=30)
-    premios = fields.Many2many('turismo.premio.tag', string='Premios')
+    anho = fields.Char('Year', size=30)
+    awards = fields.Many2many('turismo.award.tag', string='Awards')
     #product_id = fields.One2many('product.template', 'wine_id', 'Product')
 
 wine()
@@ -22,20 +22,20 @@ class vinagre(models.Model):
     _name = 'turismo.vinagre'
       
     #fields
-    uva = fields.Many2one('turismo.uva.tag', string='Uva')
+    grape = fields.Many2one('turismo.grape.tag', string='grape')
     type = fields.Many2one('turismo.vinagre.tag', string='Type')
-    premios = fields.Many2many('turismo.premio.tag', string='Premios')
+    awards = fields.Many2many('turismo.award.tag', string='Awards')
 
 vinagre()
 
-class uva_tag(models.Model):
-    _name='turismo.uva.tag'
+class grape_tag(models.Model):
+    _name='turismo.grape.tag'
     _rec_name='name'
     
     #Fields
     name = fields.Char('Name', size=80)
     
-uva_tag()
+grape_tag()
 
 class wine_tag(models.Model):
     _name='turismo.wine.tag'
@@ -55,14 +55,14 @@ class vinagre_tag(models.Model):
     
 vinagre_tag()
 
-class premio_tag(models.Model):
-    _name='turismo.premio.tag'
+class award_tag(models.Model):
+    _name='turismo.award.tag'
     _rec_name='name'
     
     #Fields
     name = fields.Char('Name', size=80)
     
-premio_tag()
+award_tag()
 
 '''
 Modelo de la tabla de relacion many2many entre Customers y products turisticos
@@ -81,7 +81,7 @@ class contract_product_customer(models.Model):
     Metodo que genera una factura borrado asociada al product contratado y al customer
     '''
     @api.one
-    def generar_factura_servicio(self):        
+    def generar_factura_service(self):        
         ai_model = self.env['account.invoice']
         ail_model = self.env['account.invoice.line']
         #pydevd.settrace("192.168.3.1")
@@ -206,7 +206,7 @@ class product_turismo(models.Model):
         data = super(product_turismo, self).default_get(fields)
         if 'search_default_type_wine' in self.env.context:            
             data['type_product'] = ('wine','wine')
-        elif 'search_default_type_vinhedo' in self.env.context:
+        elif 'search_default_type_vineyard' in self.env.context:
             data['type_product'] = ('vinagre','Vinagre')
             
         return data
@@ -214,7 +214,7 @@ class product_turismo(models.Model):
     
     #fields
 
-    servicio = fields.Boolean('Servicio Turístico')
+    service = fields.Boolean('Servicio Turístico')
     link_size = fields.Selection([('S','S'),('M','M'),('L','L')], 'Tamaño del Link')
     link_position = fields.Selection([('Portada','Portada'),('Directorio','Directorio')],
                                      'Ubicación del Link')    

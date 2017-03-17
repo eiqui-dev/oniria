@@ -19,7 +19,7 @@
 					         		<h3>Link Type</h3>
 					    			<div style="margin-bottom:2em;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 						         		<select class="form-control" id="typelink">
-						         			<t t-foreach="servicios" t-as="serv">
+						         			<t t-foreach="services" t-as="serv">
 						         				<option t-attf-value="#{serv.id}" t-attf-data-position="#{serv.link_position}" t-attf-data-size="#{serv.link_size}"><t t-esc="serv.name"/> – <t t-esc="'%.2f' % serv.list_price"/>€</option>
 						         			</t>
 						         		</select>

@@ -48,11 +48,11 @@
 		<template id="toolbar">			
 			<div class="col-md-12" id="directory-toolbar">
 				<span>
-					<strong t-esc="numresults" /> resultados encontrados
+					<strong t-esc="numresults" /> results found
 				</span>
 				<span class="pull-right">
 					<span class="dropdown">
-						Ordernar por 
+						Order by 
 						<a class="btn btn-xs dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><t t-esc="orderby.upper()" /> <span class="caret"></span></a>
 			          	<ul class="dropdown-menu">
 			          		<li t-att-class="'menu-orderby active' if orderby == 'name' else 'menu-orderby'" data-value="name"><a href="#">Name</a></li>
