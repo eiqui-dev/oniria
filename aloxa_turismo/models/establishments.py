@@ -80,12 +80,6 @@ class establishment(models.Model):
             return partner.image
         return None
     
-    def default_name(self):        
-        if 'res_partner_id' in self.env.context:
-            partner = self.env['res.partner'].search([('id','=',self.env.context['res_partner_id'])])
-            return partner.comercial
-        return None
-    
     def default_res_partner_id(self):        
         if 'res_partner_id' in self.env.context:
             partner = self.env['res.partner'].search([('id','=',self.env.context['res_partner_id'])])
@@ -160,7 +154,6 @@ class establishment(models.Model):
     services = fields.Many2many('establishment.services',string='Services')
     email = fields.Char(string="Email", default=default_email)
     phone = fields.Char(string="Phone", default=default_phone)
-    name = fields.Char (string="Name", default=default_name)
     
 establishment()
     
