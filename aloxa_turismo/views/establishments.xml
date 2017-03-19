@@ -95,7 +95,7 @@
 						<field name="tripadvisor_url"/>						
            			</group>
            			 <group>
-                    	<field name="website"/>
+                    	<field name="web"/>
                         <field name="phone"/>
                     	<field name="user_ids" invisible="1"/>
                     	<field name="email" widget="email" attrs="{'required': [('user_ids','!=', [])]}"/>

@@ -92,6 +92,18 @@ class establishment(models.Model):
             return partner.website
         return ''
     
+    def default_email(self):        
+        if 'res_partner_id' in self.env.context:
+            partner = self.env['res.partner'].search([('id','=',self.env.context['res_partner_id'])])
+            return partner.email
+        return ''
+    
+    def default_phone(self):        
+        if 'res_partner_id' in self.env.context:
+            partner = self.env['res.partner'].search([('id','=',self.env.context['res_partner_id'])])
+            return partner.phone
+        return ''
+    
     @api.onchange('res_partner_id')
     def onchange_res_partner_id(self):
         self.parent_id = self.res_partner_id
@@ -140,7 +152,9 @@ class establishment(models.Model):
     website_published = fields.Boolean('WebSite Published', copy=False)
     images = fields.One2many('establishment.images', 'establishment_tmpl_id',string='Images')
     services = fields.Many2many('establishment.services',string='Services')
-
+    email = fields.Char(string="Email", default=default_email)
+    phone = fields.Char(string="Phone", default=default_phone)
+    
 establishment()
     
 
