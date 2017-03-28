@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    
+    
+		<template id="crear_establishment" name="Crear establishment" page="True">
+			<t t-call="website.layout">
+				<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale">
+					<div class="page-title">
+			      		<div class="container">
+							<div class="oe_structure"/>
+						    <h1 t-if="est">Edit Establishment</h1>
+						    <h1 t-if="not est">New Establishment</h1>
+						</div>
+				    </div>
+				
+					<section t-attf-class="container mt8" id="solicitud_link_container">
+				         <div class="row" style="margin-bottom:2em;">
+								<form method="POST" action="/_crear_editar_establishment" enctype="multipart/form-data">
+									<input type="hidden" t-att-value="((est) and est.id) or ''" name="est_id" />
+									<div class="col-xs-12 col-md-4">
+									 	<div class="form-group">
+										    <label for="name">Establishment Name</label>
+										    <input type="text" class="form-control" t-att-value="((est) and est.name) or ''" id="name" name="name" placeholder="Name" required="required"/>
+										</div>
+									 	<div class="form-group">
+										    <label for="type">Type</label>
+				         					<select class="form-control" id="type" name="type" required="required">
+				         						<option value="">Select Type...</option>
+						         				<option value="winecellar" t-att-selected="(est and est.type=='winecellar') and 'selected'">Wine Cellar</option>
+						         				<option value="restaurant" t-att-selected="(est and est.type=='restaurant') and 'selected'">Restaurant</option>
+						         				<option value="lodging" t-att-selected="(est and est.type=='lodging') and 'selected'">Lodging</option>
+						         				<option value="Art and Culture" t-att-selected="(est and est.type=='Art and Culture') and 'selected'">Art and Culture</option>
+						         				<option value="winebar" t-att-selected="(est and est.type=='winebar') and 'selected'">Wine Library</option>
+						         				<option value="vineyard" t-att-selected="(est and est.type=='vineyard') and 'selected'">Vineyard</option>
+						         				<option value="other" t-att-selected="(est and est.type=='other') and 'selected'">Other</option>
+						         			</select>
+						         		</div>
+									 	<div class="form-group">
+										    <label for="image">Picture</label>
+										    <input id="image" type="file" name="image" accept="image/*" t-att-required="(not est) and 'required'" />
+										</div>
+										<div class="form-group">
+										    <label>Services</label>
+										    <div>
+										    	<t t-foreach="services" t-as="service">
+										    		<input type="checkbox" t-att-title="service.description" t-att-name="'service-%s' % (service.id)" t-att-value="service.id"/> <i t-attf-class="fa fa-{{service.icon}}"></i> <t t-esc="service.name"/><br/>
+										    	</t>
+										    </div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-md-4">
+									 	<div class="form-group">
+										    <label for="street">Address</label>
+						         			<input id="street" name="street" t-att-value="partner.street if not est else est.partner_id.street" type="text" class="form-control" placeholder="Street" required="required"/>
+						         			<input id="city" name="city" t-att-value="partner.city if not est else est.partner_id.city" type="text" class="form-control" placeholder="City" required="required"/>
+						                    <select name="province" class="form-control" required="required">
+						                        <option value="">Province...</option>
+						                        <t t-foreach="states or []" t-as="state">
+						                            <option t-att-value="state.id" t-att-selected="'selected' if state.id == partner.state_id.id else ''"><t t-esc="state.name"/></option>
+						                        </t>
+						                    </select>
+						         			<input id="postalcode" name="postalcode" t-att-value="partner.zip if not est else est.partner_id.zip" type="text" class="form-control" placeholder="C.P." required="required"/>
+										</div>
+										<div class="form-group">
+										    <label for="url_trip">Phone</label>
+											 <input type="text" id="phone" name="phone" t-att-value="partner.phone if not est else est.partner_id.phone" class="form-control" />
+										</div>
+									 	<div class="form-group">
+										    <label for="url_trip">TripAdvisor URL</label>
+							       			<div class="input-group">
+											  <span class="input-group-addon" id="basic-addon1">http://</span>
+											  <input type="text" id="url_trip" name="url_trip" t-att-value="((est) and est.tripadvisor_url) or ''" class="form-control" aria-describedby="basic-addon1"/>
+											</div>
+										</div>
+									</div>
+									<div class="col-xs-12 col-md-4">
+									 	<div class="form-group">
+										    <label for="desc">Description</label>
+										    <textarea rows="12" id="desc" name="desc" class="form-control" required="required"><t t-esc="((est) and est.description) or ''"/></textarea>
+										</div>
+									</div>
+									<div class="col-xs-12 col-md-12 text-right">
+										<button t-if="est" type="submit" class="btn btn-primary">Save Changes</button>
+									 	<button t-if="not est" type="submit" class="btn btn-primary">Create Establishment</button>
+									</div>
+								</form>
+							</div>
+					</section>
+				</div>
+			</t>
+		</template>
+		
+    </data>
+</openerp>

@@ -69,12 +69,12 @@ class table_compute(object):
         return rows
     
     def process_directory(self, banners_directorio):
-        # Compute establecimientos positions on the grid
+        # Compute establishments positions on the grid
         minpos = 0
         index = 0
         maxy = 0
         for banner in banners_directorio:
-            #csize = self._get_banner_size(banner.producto_contratado) if banner.producto_contratado else [1 , 1]
+            #csize = self._get_banner_size(banner.contract_product) if banner.contract_product else [1 , 1]
             csize = self.cCRPB['s']
             x = min(max(csize[0], 1), self.IPR)
             y = min(max(csize[1], 1), self.IPR)
@@ -90,8 +90,8 @@ class table_compute(object):
                 for x2 in range(x):
                     self.table[(pos/self.IPR)+y2][(pos%self.IPR)+x2] = False
             self.table[pos/self.IPR][pos%self.IPR] = {
-                'establecimiento': banner.establecimiento,
-                'producto_contratado': banner.producto_contratado,
+                'establishment': banner.establishment,
+                'contract_product': banner.contract_product,
                 'events': banner.events,
                 'x':x, 'y': y,
                 'class': ""
@@ -112,13 +112,13 @@ class table_compute(object):
 
         return rows
     
-    def process_productos_establecimiento(self, products):
-        # Compute establecimientos positions on the grid
+    def process_products_establishment(self, products):
+        # Compute establishments positions on the grid
         minpos = 0
         index = 0
         maxy = 0
         for product in products:
-            #csize = self._get_banner_size(banner.producto_contratado) if banner.producto_contratado else [1 , 1]
+            #csize = self._get_banner_size(banner.contract_product) if banner.contract_product else [1 , 1]
             csize = self.cCRPB['s']
             x = min(max(csize[0], 1), self.IPR)
             y = min(max(csize[1], 1), self.IPR)

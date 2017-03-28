@@ -35,80 +35,80 @@
 		<field name="view_mode">tree,form</field>		
 		<field name="view_type">form</field>							 
 	</record>   
-	<!--que en la lista de clientes del menu oniria no aparezcan los turistas--> 
-	<record id="action_clientes_form" model="ir.actions.act_window">
-            <field name="name">Clientes</field>
+	<!--que en la lista de customers del menu oniria no aparezcan los turists--> 
+	<record id="action_customers_form" model="ir.actions.act_window">
+            <field name="name">Customers</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">res.partner</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,kanban,form</field>
-            <field name="view_id" ref="clientes_view_tree"/>
+            <field name="view_id" ref="customers_view_tree"/>
 	    <!--<field name="domain">[('is_company','=',1)]</field>-->
 	    <field name="context">{'search_default_type_company': 1, 'default_is_company': 1, 'default_customer': 1, 'default_supplier': 0}</field>
             <!-- <field name="search_view_id" ref="view_res_partner_filter"/> -->
         </record>
-    <!--Action para Bodegas dentro de Establecimientos--> 
-	<record id="action_bodegas_form" model="ir.actions.act_window">
-            <field name="name">Bodegas</field>
+    <!--Action para Winecellars dentro de establishments--> 
+	<record id="action_winecellars_form" model="ir.actions.act_window">
+            <field name="name">Winecellars</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">turismo.establecimiento</field>
+            <field name="res_model">turismo.establishment</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,kanban,form</field>
-	    	<field name="context">{'search_default_bodega': 1,'default_tipo': "bodega"}</field>           
+	    	<field name="context">{'search_default_winecellar': 1,'default_type': "winecellar"}</field>           
      </record>
-     <!--Action para Viñedos dentro de Establecimientos--> 
-	<record id="action_vinhedos_form" model="ir.actions.act_window">
-            <field name="name">Vinhedos</field>
+     <!--Action para Vineyards dentro de establishments--> 
+	<record id="action_vineyards_form" model="ir.actions.act_window">
+            <field name="name">Vineyards</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">turismo.establecimiento</field>
+            <field name="res_model">turismo.establishment</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,kanban,form</field>
-	    	<field name="context">{'search_default_vinhedo': 1,'default_tipo': "vinhedo"}</field>           
+	    	<field name="context">{'search_default_vineyard': 1,'default_type': "vineyard"}</field>           
      </record>
-     <!--Action para Restaurantes dentro de Establecimientos--> 
-	<record id="action_restaurantes_form" model="ir.actions.act_window">
-            <field name="name">Restaurantes</field>
+     <!--Action para Restaurants dentro de establishments--> 
+	<record id="action_restaurants_form" model="ir.actions.act_window">
+            <field name="name">Restaurants</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">turismo.establecimiento</field>
+            <field name="res_model">turismo.establishment</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,kanban,form</field>
-	    	<field name="context">{'search_default_restaurante': 1,'default_tipo': "restaurante"}</field>           
+	    	<field name="context">{'search_default_restaurant': 1,'default_type': "restaurant"}</field>           
      </record>
-     <!--Action para Hospedajes dentro de Establecimientos--> 
-	<record id="action_hospedajes_form" model="ir.actions.act_window">
-            <field name="name">Hospedajes</field>
+     <!--Action para Lodgings dentro de establishments--> 
+	<record id="action_lodgings_form" model="ir.actions.act_window">
+            <field name="name">Lodgings</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">turismo.establecimiento</field>
+            <field name="res_model">turismo.establishment</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,kanban,form</field>
-	    	<field name="context">{'search_default_hospedaje': 1,'default_tipo': "hospedaje"}</field>           
+	    	<field name="context">{'search_default_lodging': 1,'default_type': "lodging"}</field>           
      </record>
-     <!--Action para Cultural dentro de Establecimientos--> 
+     <!--Action para Cultural dentro de establishments--> 
 	<record id="action_cultural_form" model="ir.actions.act_window">
             <field name="name">Cultura</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">turismo.establecimiento</field>
+            <field name="res_model">turismo.establishment</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,kanban,form</field>
-	    	<field name="context">{'search_default_cultural': 1,'default_tipo': "cultural"}</field>           
+	    	<field name="context">{'search_default_cultural': 1,'default_type': "cultural"}</field>           
      </record>
-     <!--Action para Vinotecas dentro de Establecimientos--> 
-	<record id="action_vinotecas_form" model="ir.actions.act_window">
-            <field name="name">Vinoteca</field>
+     <!--Action para winebars dentro de establishments--> 
+	<record id="action_winebars_form" model="ir.actions.act_window">
+            <field name="name">winebar</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">turismo.establecimiento</field>
+            <field name="res_model">turismo.establishment</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,kanban,form</field>
-	    	<field name="context">{'search_default_vinoteca': 1,'default_tipo': "vinoteca"}</field>           
+	    	<field name="context">{'search_default_winebar': 1,'default_type': "winebar"}</field>           
      </record>
-     <!--Action para Otros dentro de Establecimientos--> 
-	<record id="action_otros_form" model="ir.actions.act_window">
-            <field name="name">Otros</field>
+     <!--Action para Others dentro de establishments--> 
+	<record id="action_others_form" model="ir.actions.act_window">
+            <field name="name">Others</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">turismo.establecimiento</field>
+            <field name="res_model">turismo.establishment</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,kanban,form</field>
-	    	<field name="context">{'search_default_otro': 1,'default_tipo': "otro"}</field>           
+	    	<field name="context">{'search_default_other': 1,'default_type': "other"}</field>           
      </record>
 	</data>
 </openerp>

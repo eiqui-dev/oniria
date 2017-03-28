@@ -1,0 +1,406 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * schedule
+# 
+# Translators:
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2014
+# Saban Yildiz <sabany@projetgrup.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-21 14:08+0000\n"
+"PO-Revision-Date: 2015-07-20 16:02+0000\n"
+"Last-Translator: Murat Kaplan <muratk@projetgrup.com>\n"
+"Language-Team: Turkish (http://www.transifex.com/odoo/odoo-8/language/tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: schedule
+#: code:addons/schedule/schedule.py:685
+#, python-format
+msgid "%s (copy)"
+msgstr "%s (kopya)"
+
+#. module: schedule
+#: code:addons/schedule/faces/schedule.py:340
+#, python-format
+msgid "(vacation)"
+msgstr "(tatil)"
+
+#. module: schedule
+#: model:ir.actions.act_window,help:schedule.action_schedule_calendar_form
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Define working hours and time table that could be scheduled to your project members\n"
+"              </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\nÇalışma saatlerini tanımlama ve zaman tablosu proje üyelerine göre planlanabilir\n</p>"
+
+#. module: schedule
+#: field:schedule.schedule,active:0
+msgid "Active"
+msgstr "Etkin"
+
+#. module: schedule
+#: model:ir.actions.act_window,name:schedule.schedule_calendar_closing_days
+msgid "Closing Days"
+msgstr "Kapanış Günleri"
+
+#. module: schedule
+#: field:schedule.schedule,code:0
+msgid "Code"
+msgstr "Kod"
+
+#. module: schedule
+#: field:schedule.calendar,company_id:0
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+#: field:schedule.calendar.leaves,company_id:0
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+#: field:schedule.schedule,company_id:0
+msgid "Company"
+msgstr "Firma"
+
+#. module: schedule
+#: code:addons/schedule/schedule.py:773
+#, python-format
+msgid "Configuration Error!"
+msgstr "Yapılandırma Hatası!"
+
+#. module: schedule
+#: field:schedule.calendar,create_uid:0
+#: field:schedule.calendar.attendance,create_uid:0
+#: field:schedule.calendar.leaves,create_uid:0
+#: field:schedule.schedule,create_uid:0
+msgid "Created by"
+msgstr "Oluşturan"
+
+#. module: schedule
+#: field:schedule.calendar,create_date:0
+#: field:schedule.calendar.attendance,create_date:0
+#: field:schedule.calendar.leaves,create_date:0
+#: field:schedule.schedule,create_date:0
+msgid "Created on"
+msgstr "Oluşturma"
+
+#. module: schedule
+#: field:schedule.calendar.attendance,dayofweek:0
+msgid "Day of Week"
+msgstr "Haftanın Günü"
+
+#. module: schedule
+#: help:schedule.schedule,calendar_id:0
+msgid "Define the schedule of schedule"
+msgstr "Kaynağın planlamasını tanımla"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.schedule_calendar_leave_form
+msgid "Duration"
+msgstr "Süre"
+
+#. module: schedule
+#: field:schedule.schedule,time_efficiency:0
+msgid "Efficiency Factor"
+msgstr "Verimlilik Çarpanı"
+
+#. module: schedule
+#: field:schedule.calendar.leaves,date_to:0
+msgid "End Date"
+msgstr "Bitiş Tarihi"
+
+#. module: schedule
+#: constraint:schedule.calendar.leaves:0
+msgid "Error! leave start-date must be lower then leave end-date."
+msgstr "Hata! İzin başlangıç tarihi izin bitiş tarihinden önce olmalı."
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Friday"
+msgstr "Cuma"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "Group By"
+msgstr "Guruplandır"
+
+#. module: schedule
+#: view:schedule.calendar.attendance:schedule.view_schedule_calendar_attendance_form
+msgid "Hours"
+msgstr "Saat"
+
+#. module: schedule
+#: selection:schedule.schedule,schedule_type:0
+msgid "Human"
+msgstr "İnsan"
+
+#. module: schedule
+#: field:schedule.calendar,id:0 field:schedule.calendar.attendance,id:0
+#: field:schedule.calendar.leaves,id:0 field:schedule.schedule,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: schedule
+#: help:schedule.calendar.leaves,schedule_id:0
+msgid ""
+"If empty, this is a generic holiday for the company. If a schedule is set, "
+"the holiday/leave is only for this schedule"
+msgstr "Boşsa, bu firma için genel bir tatildir. Bir kaynak ayarlanmışsa, tatil/izin yalnızca bu kaynak içindir"
+
+#. module: schedule
+#: help:schedule.schedule,active:0
+msgid ""
+"If the active field is set to False, it will allow you to hide the schedule "
+"record without removing it."
+msgstr "Etkin alan Yanlış olarak ayarlıysa, kaynak kaydını silmeden gizlemenizi sağlayacaktır."
+
+#. module: schedule
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "Inactive"
+msgstr "Etkinsiz"
+
+#. module: schedule
+#: field:schedule.calendar,write_uid:0
+#: field:schedule.calendar.attendance,write_uid:0
+#: field:schedule.calendar.leaves,write_uid:0
+#: field:schedule.schedule,write_uid:0
+msgid "Last Updated by"
+msgstr "Son Güncelleyen"
+
+#. module: schedule
+#: field:schedule.calendar,write_date:0
+#: field:schedule.calendar.attendance,write_date:0
+#: field:schedule.calendar.leaves,write_date:0
+#: field:schedule.schedule,write_date:0
+msgid "Last Updated on"
+msgstr "Son Güncelleme"
+
+#. module: schedule
+#: model:ir.model,name:schedule.model_schedule_calendar_leaves
+#: view:schedule.calendar.leaves:schedule.schedule_calendar_leave_form
+#: view:schedule.calendar.leaves:schedule.schedule_calendar_leave_tree
+msgid "Leave Detail"
+msgstr "İzin Ayrıntısı"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+msgid "Leave Month"
+msgstr "İzin Ayı"
+
+#. module: schedule
+#: field:schedule.calendar,leave_ids:0
+msgid "Leaves"
+msgstr "İzinler"
+
+#. module: schedule
+#: code:addons/schedule/schedule.py:773
+#, python-format
+msgid "Make sure the Working time has been configured with proper week days!"
+msgstr "Çalışma süresinin haftanın doğru günleriyle yapılandırıldığından emin olun!"
+
+#. module: schedule
+#: selection:schedule.schedule,schedule_type:0
+msgid "Material"
+msgstr "Malzeme"
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Monday"
+msgstr "Pazartesi"
+
+#. module: schedule
+#: field:schedule.calendar,name:0 field:schedule.calendar.attendance,name:0
+#: field:schedule.calendar.leaves,name:0 field:schedule.schedule,name:0
+msgid "Name"
+msgstr "Adı"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.schedule_calendar_leave_form
+#: view:schedule.calendar.leaves:schedule.schedule_calendar_leave_tree
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+msgid "Reason"
+msgstr "Neden"
+
+#. module: schedule
+#: help:schedule.schedule,user_id:0
+msgid "Related user name for the schedule to manage its access."
+msgstr "Erişimini yönetmek için kaynak için ilgili kullanıcı adı."
+
+#. module: schedule
+#: model:ir.ui.menu,name:schedule.menu_schedule_config
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+#: field:schedule.calendar.leaves,schedule_id:0
+#: view:schedule.schedule:schedule.schedule_schedule_form
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "schedule"
+msgstr "Kaynak"
+
+#. module: schedule
+#: model:ir.model,name:schedule.model_schedule_calendar
+msgid "schedule Calendar"
+msgstr "Kaynak Takvim"
+
+#. module: schedule
+#: model:ir.model,name:schedule.model_schedule_schedule
+msgid "schedule Detail"
+msgstr "Kaynak Ayrıntısı"
+
+#. module: schedule
+#: model:ir.actions.act_window,name:schedule.action_schedule_calendar_leave_tree
+#: model:ir.ui.menu,name:schedule.menu_view_schedule_calendar_leaves_search
+msgid "schedule Leaves"
+msgstr "Kaynak İzinler"
+
+#. module: schedule
+#: field:schedule.schedule,schedule_type:0
+msgid "schedule Type"
+msgstr "Kaynak Tipi"
+
+#. module: schedule
+#: field:schedule.calendar.attendance,calendar_id:0
+msgid "schedule's Calendar"
+msgstr "Kaynağın Takvimi"
+
+#. module: schedule
+#: model:ir.actions.act_window,name:schedule.action_schedule_schedule_tree
+#: model:ir.ui.menu,name:schedule.menu_schedule_schedule
+#: view:schedule.schedule:schedule.schedule_schedule_tree
+msgid "schedules"
+msgstr "Kaynaklar"
+
+#. module: schedule
+#: model:ir.actions.act_window,name:schedule.schedule_calendar_schedules_leaves
+msgid "schedules Leaves"
+msgstr "İzin Kaynakları"
+
+#. module: schedule
+#: model:ir.actions.act_window,help:schedule.action_schedule_schedule_tree
+msgid ""
+"schedules allow you to create and manage schedules that should be involved "
+"in a specific project phase. You can also set their efficiency level and "
+"workload based on their weekly working hours."
+msgstr "Kaynaklar spesifik bir proje aşamasında bulunması kaynak yaratma ve yönetmenize olanak sağlar. Ayrıca etkililik seviyesini ve haftalık çalışma saatine bağlı olarak iş yükünü de\nayarlayabilirisiniz."
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Saturday"
+msgstr "Cumartesi"
+
+#. module: schedule
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "Search schedule"
+msgstr "Arama Kaynağı"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+msgid "Search Working Period Leaves"
+msgstr "Çalışma Dönemi İzinleri Ara"
+
+#. module: schedule
+#: view:schedule.calendar:schedule.view_schedule_calendar_search
+msgid "Search Working Time"
+msgstr "Çalışma Süresi Ara"
+
+#. module: schedule
+#: field:schedule.calendar.leaves,date_from:0
+msgid "Start Date"
+msgstr "Başlangıç Tarihi"
+
+#. module: schedule
+#: help:schedule.calendar.attendance,hour_from:0
+msgid "Start and End time of working."
+msgstr "İşin başlama ve bitiş zamanı"
+
+#. module: schedule
+#: field:schedule.calendar.attendance,date_from:0
+msgid "Starting Date"
+msgstr "Başlangıç Tarihi"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+msgid "Starting Date of Leave by Month"
+msgstr "Aylık İzin Başlangıç Tarihleri"
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Sunday"
+msgstr "Pazar"
+
+#. module: schedule
+#: help:schedule.schedule,time_efficiency:0
+msgid ""
+"This field depict the efficiency of the schedule to complete tasks. e.g  "
+"schedule put alone on a phase of 5 days with 5 tasks assigned to him, will "
+"show a load of 100% for this phase by default, but if we put a efficiency of"
+" 200%, then his load will only be 50%."
+msgstr "This field depict the efficiency of the schedule to complete tasks. e.g schedule put alone on a phase of 5 days with 5 tasks assigned to him, will show a load of 100% for this phase by default, but if we put a efficiency of 200%, then his load will only be 50%."
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Thursday"
+msgstr "Perşembe"
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Tuesday"
+msgstr "Salı"
+
+#. module: schedule
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "Type"
+msgstr "Tür:"
+
+#. module: schedule
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+#: field:schedule.schedule,user_id:0
+msgid "User"
+msgstr "Kullanıcı"
+
+#. module: schedule
+#: selection:schedule.calendar.attendance,dayofweek:0
+msgid "Wednesday"
+msgstr "Çarşamba"
+
+#. module: schedule
+#: model:ir.model,name:schedule.model_schedule_calendar_attendance
+msgid "Work Detail"
+msgstr "Çalışma Ayrıntısı"
+
+#. module: schedule
+#: field:schedule.calendar.attendance,hour_from:0
+msgid "Work from"
+msgstr "Çalışma Başlangıcı"
+
+#. module: schedule
+#: field:schedule.calendar.attendance,hour_to:0
+msgid "Work to"
+msgstr "Çalışılacak"
+
+#. module: schedule
+#: field:schedule.calendar,manager:0
+msgid "Workgroup Manager"
+msgstr "İş grubu müdürü"
+
+#. module: schedule
+#: view:schedule.calendar.leaves:schedule.view_schedule_calendar_leaves_search
+#: view:schedule.schedule:schedule.view_schedule_schedule_search
+msgid "Working Period"
+msgstr "Çalışma Aralığı"
+
+#. module: schedule
+#: model:ir.actions.act_window,name:schedule.action_schedule_calendar_form
+#: model:ir.ui.menu,name:schedule.menu_schedule_calendar
+#: view:schedule.calendar:schedule.schedule_calendar_form
+#: view:schedule.calendar:schedule.view_schedule_calendar_search
+#: view:schedule.calendar:schedule.view_schedule_calendar_tree
+#: field:schedule.calendar,attendance_ids:0
+#: view:schedule.calendar.attendance:schedule.view_schedule_calendar_attendance_form
+#: view:schedule.calendar.attendance:schedule.view_schedule_calendar_attendance_tree
+#: field:schedule.calendar.leaves,calendar_id:0
+#: field:schedule.schedule,calendar_id:0
+msgid "Working Time"
+msgstr "Çalışma Süresi"

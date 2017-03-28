@@ -51,9 +51,9 @@
         'data/turismo.opciones.csv',
         'views/comun.xml',        
         'views/establecimientos.xml',
-        'views/productos.xml',
+        'views/products.xml',
         'security/ir.model.access.csv',
-	'views/turistas.xml',
+	'views/turists.xml',
         'views/menus.xml',
     ],
     # only loaded in demonstration mode

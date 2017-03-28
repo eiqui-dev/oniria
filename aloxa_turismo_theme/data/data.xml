@@ -7,13 +7,13 @@
     	
 		<record id="menu_directory_establishment" model="website.menu">
             <field name="name">Establishments</field>
-            <field name="url" eval="'/directorio/establecimientos'"/>
+            <field name="url" eval="'/directorio/establishments'"/>
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">30</field>
         </record>
 		<record id="menu_directory_wine" model="website.menu">
             <field name="name">Wines</field>
-            <field name="url" eval="'/directorio/vinos'"/>
+            <field name="url" eval="'/directorio/wines'"/>
             <field name="parent_id" ref="website.main_menu"/>
             <field name="sequence" type="int">40</field>
         </record>

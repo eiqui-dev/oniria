@@ -5,7 +5,7 @@
 		<template id="home_page" inherit_id="website.homepage" name="Oniria Turismo">
 			<xpath expr="//t[@t-call='website.layout']" position="replace">
 				<t t-call="website.layout">
-					<t t-set="title" t-value="'Inforwine - La vinoteca virtual'" />
+					<t t-set="title" t-value="'Inforwine - La winebar virtual'" />
 					
 					<t t-set="bins" t-value="website.get_banners_portada()"/>
 					<t t-set="rows" t-value="4"/>
@@ -27,11 +27,11 @@
 				                          	<t t-set="banner_url" t-value="False"/>
 				                          	<t t-set="banner_target" t-value="_self"/>
 				                          	<t t-if="banner.product_tur_id"><t t-set="banner_url" t-value="'/shop/product/%s' % slug(banner.product_tur_id)"/></t>
-				                          	<t t-if="not banner_url and banner.establecimiento_id"><t t-set="banner_url" t-value="'/establecimiento/%s' % slug(banner.establecimiento_id)"/></t>
+				                          	<t t-if="not banner_url and banner.establishment_id"><t t-set="banner_url" t-value="'/establishment/%s' % slug(banner.establishment_id)"/></t>
 				                          	<t t-if="not banner_url and banner.url"><t t-set="banner_url" t-value="website.sanitize_url(banner_url)"/><t t-set="banner_target" t-value="_blank"/></t>
 											<a itemprop="url" t-att-href="banner_url or '#'" t-att-target="banner_target">
 												<div class="oe_product_image" style="height:100%;">
-													<span t-field="banner.imagen" t-field-options='{"widget": "image", "class": "img-crop"}' />
+													<span t-field="banner.image" t-field-options='{"widget": "image", "class": "img-crop"}' />
 												</div>
 											</a>
 				                      </td>
@@ -49,7 +49,7 @@
 			                      		<div class="col-md-12 text-center" style="margin-bottom: 0.5em;">
 											<a itemprop="url" t-att-href="website.sanitize_url(banner.url)" target="_blank">
 												<div class="oe_product_image">
-													<span t-field="banner.imagen" t-field-options='{"widget": "image", "class": "img-responsive img-crop"}' />
+													<span t-field="banner.image" t-field-options='{"widget": "image", "class": "img-responsive img-crop"}' />
 												</div>
 											</a>
 			                      		</div>
@@ -61,7 +61,7 @@
 			                	<div class="text-center text-muted">
 			                 		<h3 class="css_editable_display">Ningún banner definido.</h3>
 			                  		<t groups="base.group_website_publisher">
-			                    		<p groups="base.group_sale_manager">- Añadelos desde el panel de productos de Odoo -</p>
+			                    		<p groups="base.group_sale_manager">- Añadelos desde el panel de products de Odoo -</p>
 			                  		</t>
 			                	</div>
 			              	</t>

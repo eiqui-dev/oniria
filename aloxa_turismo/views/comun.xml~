@@ -35,9 +35,9 @@
 		<field name="view_mode">tree,form</field>		
 		<field name="view_type">form</field>							 
 	</record>   
-	<!--que en la lista de clientes del menu oniria no aparezcan los turistas--> 
-	<record id="action_clientes_form" model="ir.actions.act_window">
-            <field name="name">Clientes</field>
+	<!--que en la lista de customers del menu oniria no aparezcan los turists--> 
+	<record id="action_customers_form" model="ir.actions.act_window">
+            <field name="name">Customers</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">res.partner</field>
             <field name="view_type">form</field>

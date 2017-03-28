@@ -5,71 +5,68 @@
 	<menuitem id="oniria_menu" name="Oniria" sequence="1"/>
 		<menuitem id="oniria_menu_turismo" name="Turismo"
 			      parent="oniria_menu" sequence="10"/>
-			<menuitem id="oniria_clientes" name="Clientes"
+			<menuitem id="oniria_customers" name="Customers"
 				      parent="oniria_menu_turismo"
-				      action="action_clientes_form"/>
-			<menuitem id="oniria_turistas" name="Turistas"
+				      action="action_customers_form"/>
+			<menuitem id="oniria_turists" name="Turists"
 				      parent="oniria_menu_turismo"
-				      action="action_turista_form"/>		      
-			<menuitem id="oniria_establecimientos" name="Establecimientos"
+				      action="action_turist_form"/>		      
+			<menuitem id="oniria_establishments" name="Establishments"
 				      parent="oniria_menu_turismo"
-				      action="aloxa_turismo.establecimiento_action_tree"/>
-				      <menuitem id="oniria_bodegas" name="Bodegas"
-				      			parent="oniria_establecimientos"
-				     			action="aloxa_turismo.action_bodegas_form" sequence="10"/>
-				      <menuitem id="oniria_vinhedos" name="Viñedos"
-							    parent="oniria_establecimientos"
-							    action="aloxa_turismo.action_vinhedos_form" sequence="20"/>
-				      <menuitem id="oniria_restaurantes" name="Restaurantes"
-							    parent="oniria_establecimientos"
-							    action="aloxa_turismo.action_restaurantes_form" sequence="30"/>
-				      <menuitem id="oniria_hospedaje" name="Hospedaje"
-							    parent="oniria_establecimientos"
-							    action="aloxa_turismo.action_hospedajes_form" sequence="40"/>
-				      <menuitem id="oniria_cultural" name="Arte y Cultura"
-							    parent="oniria_establecimientos"
+				      action="aloxa_turismo.establishment_action_tree"/>
+				      <menuitem id="oniria_winecellars" name="Winecellars"
+				      			parent="oniria_establishments"
+				     			action="aloxa_turismo.action_winecellars_form" sequence="10"/>
+				      <menuitem id="oniria_vineyards" name="Vineyards"
+							    parent="oniria_establishments"
+							    action="aloxa_turismo.action_vineyards_form" sequence="20"/>
+				      <menuitem id="oniria_restaurants" name="Restaurants"
+							    parent="oniria_establishments"
+							    action="aloxa_turismo.action_restaurants_form" sequence="30"/>
+				      <menuitem id="oniria_lodging" name="Lodgings"
+							    parent="oniria_establishments"
+							    action="aloxa_turismo.action_lodgings_form" sequence="40"/>
+				      <menuitem id="oniria_cultural" name="Art and Culture"
+							    parent="oniria_establishments"
 							    action="aloxa_turismo.action_cultural_form" sequence="50"/>
-					  <menuitem id="oniria_vinotecas" name="Vinotecas"
-							    parent="oniria_establecimientos"
-							    action="aloxa_turismo.action_vinotecas_form" sequence="60"/>
-					  <menuitem id="oniria_otros" name="Otros"
-							    parent="oniria_establecimientos"
-							    action="aloxa_turismo.action_otros_form" sequence="70"/>
+					  <menuitem id="oniria_winebars" name="winebars"
+							    parent="oniria_establishments"
+							    action="aloxa_turismo.action_winebars_form" sequence="60"/>
+					  <menuitem id="oniria_others" name="Others"
+							    parent="oniria_establishments"
+							    action="aloxa_turismo.action_others_form" sequence="70"/>
 	      		      
-		<menuitem id="oniria_servicios_contratados" name="Links"
+		<menuitem id="oniria_services_contratados" name="Links"
 			      parent="oniria_menu" sequence="20"/>
-			<menuitem id="oniria_links" name="Links Contratados"
-				      parent="oniria_servicios_contratados"
-				      action="producto_contratado_action_tree" sequence="10"/>
-			<menuitem id="oniria_servicios" name="Tipos de Links"
-				      parent="oniria_servicios_contratados"
-				      action="servicios_turisticos_action_tree" sequence="20"/>
-	    <menuitem id="oniria_menu_reservas" name="Reservas"
+			<menuitem id="oniria_links" name="Contract Links"
+				      parent="oniria_services_contratados"
+				      action="contract_product_action_tree" sequence="10"/>
+			<menuitem id="oniria_services" name="Links types"
+				      parent="oniria_services_contratados"
+				      action="services_turisticos_action_tree" sequence="20"/>
+	    <menuitem id="oniria_menu_reservas" name="Reservations"
 			      parent="oniria_menu" sequence="30"/>	
-		<menuitem id="oniria_reservas" name="Todas las reservas"
+		<menuitem id="oniria_reservas" name="All reservations"
 				      parent="oniria_menu_reservas"
 				      action="event.action_registration"/>
-		<menuitem id="oniria_visitas" name="Visitas"
+		<menuitem id="oniria_visitas" name="Visits"
 				      parent="oniria_menu_reservas"
 				      action="event.action_event_view"/> -->         	
-		<menuitem id="oniria_menu_productos" name="Productos"
+		<menuitem id="oniria_menu_products" name="Products"
 			      parent="oniria_menu" sequence="40"/>
-			<menuitem id="oniria_vinos" name="Vinos"
-				      parent="oniria_menu_productos"
-				      action="producto_vino_action_tree"/>
-			<menuitem id="oniria_vinagres" name="Vinagres"
-				      parent="oniria_menu_productos"
-				      action="producto_vinagre_action_tree"/>
-			<menuitem id="oniria_otros_productos" name="Otros Productos"
-				      parent="oniria_menu_productos"
-				      action="producto_otros_action_tree"/>					            		      		      		      		      
-		<menuitem id="oniria_menu_configuracion" name="Configuración"
+			<menuitem id="oniria_wines" name="Wines"
+				      parent="oniria_menu_products"
+				      action="product_wine_action_tree"/>
+			<menuitem id="oniria_others_products" name="Others Products"
+				      parent="oniria_menu_products"
+				      action="product_others_action_tree"/>					            		      		      		      		      
+		<menuitem id="oniria_menu_configuracion" name="Configuration"
 			      parent="oniria_menu" sequence="50"/>
-			<menuitem id="oniria_opciones" name="Opciones"
+			<menuitem id="oniria_opciones" name="Options"
 				      parent="oniria_menu_configuracion"
 				      action="aloxa_turismo_action_opciones_form" sequence="20"/>	
-			<menuitem id="oniria_establecimientos_servicios" name="Servicios Establecimiento"
+			<menuitem id="oniria_establishments_services" name="Services Establishments"
 				      parent="oniria_menu_configuracion"
-				      action="establecimiento_servicios_action_tree" sequence="30"/>      
+				      action="establishment_services_action_tree" sequence="30"/>      
 	</data>
 </openerp>

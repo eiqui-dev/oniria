@@ -6,69 +6,69 @@ from datetime import datetime
 
 #import pydevd
 
-class vino(models.Model):
-    _name = 'turismo.vino'
+class wine(models.Model):
+    _name = 'turismo.wine'
       
     #fields
-    uva = fields.Many2one('turismo.uva.tag', string='Uva')
-    tipo = fields.Many2one('turismo.vino.tag', string='Tipo')
-    anho = fields.Char('Añada', size=30)
-    premios = fields.Many2many('turismo.premio.tag', string='Premios')
-    #product_id = fields.One2many('product.template', 'vino_id', 'Producto')
+    grape = fields.Many2one('turismo.grape.tag', string='grape')
+    type = fields.Many2one('turismo.wine.tag', string='Type')
+    anho = fields.Char('Year', size=30)
+    awards = fields.Many2many('turismo.award.tag', string='Awards')
+    #product_id = fields.One2many('product.template', 'wine_id', 'Product')
 
-vino()
+wine()
 
 class vinagre(models.Model):
     _name = 'turismo.vinagre'
       
     #fields
-    uva = fields.Many2one('turismo.uva.tag', string='Uva')
-    tipo = fields.Many2one('turismo.vinagre.tag', string='Tipo')
-    premios = fields.Many2many('turismo.premio.tag', string='Premios')
+    grape = fields.Many2one('turismo.grape.tag', string='grape')
+    type = fields.Many2one('turismo.vinagre.tag', string='Type')
+    awards = fields.Many2many('turismo.award.tag', string='Awards')
 
 vinagre()
 
-class uva_tag(models.Model):
-    _name='turismo.uva.tag'
-    _rec_name='nombre'
+class grape_tag(models.Model):
+    _name='turismo.grape.tag'
+    _rec_name='name'
     
     #Fields
-    nombre = fields.Char('Nombre', size=80)
+    name = fields.Char('Name', size=80)
     
-uva_tag()
+grape_tag()
 
-class vino_tag(models.Model):
-    _name='turismo.vino.tag'
-    _rec_name='nombre'
+class wine_tag(models.Model):
+    _name='turismo.wine.tag'
+    _rec_name='name'
     
     #Fields
-    nombre = fields.Char('Nombre', size=80)
+    name = fields.Char('Name', size=80)
     
-vino_tag()
+wine_tag()
 
 class vinagre_tag(models.Model):
     _name='turismo.vinagre.tag'
-    _rec_name='nombre'
+    _rec_name='name'
     
     #Fields
-    nombre = fields.Char('Nombre', size=80)
+    name = fields.Char('Name', size=80)
     
 vinagre_tag()
 
-class premio_tag(models.Model):
-    _name='turismo.premio.tag'
-    _rec_name='nombre'
+class award_tag(models.Model):
+    _name='turismo.award.tag'
+    _rec_name='name'
     
     #Fields
-    nombre = fields.Char('Nombre', size=80)
+    name = fields.Char('Name', size=80)
     
-premio_tag()
+award_tag()
 
 '''
-Modelo de la tabla de relacion many2many entre Clientes y productos turisticos
+Modelo de la tabla de relacion many2many entre Customers y products turisticos
 '''
-class producto_contratado_cliente(models.Model):
-    _name = 'turismo.producto_contratado_cliente'
+class contract_product_customer(models.Model):
+    _name = 'turismo.contract_product_customer'
         
     @api.one
     @api.depends('product_tur_id')
@@ -78,17 +78,17 @@ class producto_contratado_cliente(models.Model):
     
        
     '''
-    Metodo que genera una factura borrado asociada al producto contratado y al cliente
+    Metodo que genera una factura borrado asociada al product contratado y al customer
     '''
     @api.one
-    def generar_factura_servicio(self):        
+    def generar_factura_service(self):        
         ai_model = self.env['account.invoice']
         ail_model = self.env['account.invoice.line']
         #pydevd.settrace("192.168.3.1")
         #Para cada tarea del proyecto creamos una linea de factura
         if self.partner_id:
             partner = self.partner_id
-            oo = self.env['turismo.opciones'].search([('nombre','=','Default')])            
+            oo = self.env['turismo.opciones'].search([('name','=','Default')])            
             if oo and oo.account_id and oo.journal_id:                    
                 company = self.env.user.company_id
                 currency = self.env.user.company_id.currency_id
@@ -115,16 +115,16 @@ class producto_contratado_cliente(models.Model):
             else:
                 raise osv.except_osv(('Falta información'), ('Faltan Opciones de Contabilidad en Configuración'))
         else:
-            raise osv.except_osv(('Falta información'), ('No ha especificado Cliente para el Proyecto...'))
+            raise osv.except_osv(('Falta información'), ('No ha especificado Customer para el Proyecto...'))
 
         
     
     #fields
-    partner_id = fields.Many2one('res.partner', 'Cliente', required=True)
+    partner_id = fields.Many2one('res.partner', 'Customer', required=True)
     product_id = fields.Many2one('product.template', 'Servicio', required=True)
-    product_tur_id = fields.Many2one('product.template', 'Producto')
+    product_tur_id = fields.Many2one('product.template', 'Product')
     establecimiento_id = fields.Many2one('turismo.establecimiento', 'Establecimiento')
-    imagen = fields.Binary('Imagen')
+    image = fields.Binary('Imagen')
     url = fields.Char('Enlace', size=50)
     fecha_inicio = fields.Date('Inicio')
     fecha_fin = fields.Date('Fin')
@@ -133,12 +133,12 @@ class producto_contratado_cliente(models.Model):
     publicado = fields.Boolean('Publicado')
     factura_id = fields.Many2one('account.invoice', 'Factura')
     
-producto_contratado_cliente()
+contract_product_customer()
 
 '''
 Modelo que extiende product.public.category para agregar un campo booleano indicando
 si la categoria esta asociada a links
-Este modelo permite organizar los productos en la zona publica
+Este modelo permite organizar los products en la zona publica
 '''
 class product_public_category(models.Model):
     _name='product.public.category'
@@ -151,9 +151,9 @@ product_public_category()
 
 '''
 Modelos construidos mediante herencia de product.template
-Tiene referencias many2one a las entidades de estructuras de producto turistico
+Tiene referencias many2one a las entidades de estructuras de product turistico
 '''
-class producto_turismo(models.Model):
+class product_turismo(models.Model):
     _name = 'product.template'
     _inherit = 'product.template'
     
@@ -170,13 +170,13 @@ class producto_turismo(models.Model):
     #         visita_def = visita_def[0]
     #     return visita_def        
     #   
-    # def _vino_default(self):
-    #     vino_def = self.env['turismo.vino'].search([('id','=',99999)])
-    #     if not vino_def:
-    #         vino_def = self.env['turismo.vino'].create({'id':'99999'})
+    # def _wine_default(self):
+    #     wine_def = self.env['turismo.wine'].search([('id','=',99999)])
+    #     if not wine_def:
+    #         wine_def = self.env['turismo.wine'].create({'id':'99999'})
     #     else:
-    #         vino_def = vino_def[0]
-    #     return vino_def
+    #         wine_def = wine_def[0]
+    #     return wine_def
     #   
     # def _menu_default(self):
     #     menu_def = self.env['turismo.menu'].search([('id','=',99999)])
@@ -197,39 +197,39 @@ class producto_turismo(models.Model):
     
     '''
     Metodo default_get para en funcion del valor en el contexto se establecen valores de campos
-    por defecto. En este caso si estan activados filtros de busqueda se preselecciona el tipo
-    de producto
+    por defecto. En este caso si estan activados filtros de busqueda se preselecciona el type
+    de product
     '''
     @api.model
     def default_get(self, fields):
         #pydevd.settrace("192.168.3.1")
-        data = super(producto_turismo, self).default_get(fields)
-        if 'search_default_tipo_vino' in self.env.context:            
-            data['tipo_producto'] = ('vino','Vino')
-        elif 'search_default_tipo_vinhedo' in self.env.context:
-            data['tipo_producto'] = ('vinagre','Vinagre')
+        data = super(product_turismo, self).default_get(fields)
+        if 'search_default_type_wine' in self.env.context:            
+            data['type_product'] = ('wine','wine')
+        elif 'search_default_type_vineyard' in self.env.context:
+            data['type_product'] = ('vinagre','Vinagre')
             
         return data
     
     
     #fields
 
-    servicio = fields.Boolean('Servicio Turístico')
+    service = fields.Boolean('Servicio Turístico')
     link_size = fields.Selection([('S','S'),('M','M'),('L','L')], 'Tamaño del Link')
     link_position = fields.Selection([('Portada','Portada'),('Directorio','Directorio')],
                                      'Ubicación del Link')    
     
-    tipo_producto = fields.Selection([('vino','Vino'), ('vinagre','Vinagre')],
-                                     'Tipo de Producto Turistico')    
+    type_product = fields.Selection([('wine','wine'), ('vinagre','Vinagre')],
+                                     'Type de Product Turistico')    
 
     '''
     El atributo delegate=True permite acceder a los fields del modelo relacionado directamente desde el
     modelo actual, sin embargo requiere que los campos de relacion sean definidos
     '''
 
-    vino_id = fields.Many2one('turismo.vino', 'Vino', delegate=True)
+    wine_id = fields.Many2one('turismo.wine', 'wine', delegate=True)
     vinagre_id = fields.Many2one('turismo.vinagre', 'vinagre', delegate=True)
-    establecimiento_id = fields.Many2one('turismo.establecimiento', 'Bodega', domain="[('tipo', '=', 'bodega')]")
+    establecimiento_id = fields.Many2one('turismo.establecimiento', 'Winecellar', domain="[('type', '=', 'winecellar')]")
 
 
-producto_turismo()
+product_turismo()

@@ -7,23 +7,23 @@
 			<div t-if="not is_direct_form and (prev_est or next_est)" id="nav_buttons" class="col-md-12 col-lg-12">
 				<div class="col-md-6 col-lg-6">
 					<t t-if="sri &gt; 1">
-						<a class="btn-form-nav" data-link-target="/directorio/establecimientos" t-att-data-sri="sri-1" href="#"><i class="fa fa-lg fa-arrow-left"></i> Previous Establishment</a>
+						<a class="btn-form-nav" data-link-target="/directorio/establishments" t-att-data-sri="sri-1" href="#"><i class="fa fa-lg fa-arrow-left"></i> Previous Establishment</a>
 					</t>
 				</div>
 				<div class="col-md-6 col-lg-6 text-right">
 					<t t-if="sri &lt; len(request.session['search_records'])">
-						<a class="btn-form-nav" data-link-target="/directorio/establecimientos" t-att-data-sri="sri+1" href="#">Next Establishment <i class="fa fa-lg fa-arrow-right"></i></a>
+						<a class="btn-form-nav" data-link-target="/directorio/establishments" t-att-data-sri="sri+1" href="#">Next Establishment <i class="fa fa-lg fa-arrow-right"></i></a>
 					</t>
 				</div>
 			</div>
 			
 			<!-- DETALLE -->
-			<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale establecimiento-page">
+			<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale establishment-page">
 				<section class="container mt8 oe_website_sale" id="product_detail">
 			         <div class="row">
 						<!-- IMAGEN -->
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 product-detail">
-	                		<span itemprop="image" t-field="establishment.imagen" t-field-options='{"widget": "image", "class": "product_detail_img product-image"}'/>
+	                		<span itemprop="image" t-field="establishment.image" t-field-options='{"widget": "image", "class": "product_detail_img product-image"}'/>
 	                	</div>
 	                	<!-- INFO -->
 						<div class="product-info"> 
@@ -40,16 +40,16 @@
 					                <div><i class="fa fa-map-marker"></i> <a href="#" data-toggle="modal" data-target="#map-viewer" class="open-map-image" t-att-data-address="address" t-esc="address" /></div>
 					            	<div><i class="fa fa-link"></i> <a t-attf-href="tel:#{establishment.phone}" t-field="establishment.phone"/> | <a t-att-href="establishment.website" t-field="establishment.website"/> | <a t-attf-href="mailto:#{establishment.email}" t-field="establishment.email"/></div>
 					            </div>
-								<p t-esc="establishment.descripcion" class="text-muted text-justify"
+								<p t-esc="establishment.description" class="text-muted text-justify"
 									style="margin-top:1.5em;"/>   
 							</div> 
 							
 							<!-- HORARIO -->
 							<div class="col-xs-12 col-md-3 col-lg-3 col-sm-12 product-detail"> 
-								<div class="block-hours" t-if="establishment.horario and len(establishment.horario)>0">
-									<h4>Horario</h4>
+								<div class="block-hours" t-if="establishment.schedule and len(establishment.schedule)>0">
+									<h4>Schedule</h4>
 									<table>
-										<tr t-foreach="establishment.horario" t-as="hln">
+										<tr t-foreach="establishment.schedule" t-as="hln">
 											<td><t t-esc="website.get_day_of_week(hln.dayofweek)" /></td><td style="text-align:right"><t t-esc="'%s – %s' % (website.get_float_hours(hln.hour_from), website.get_float_hours(hln.hour_to))" /></td>
 										</tr>
 									</table>
@@ -115,9 +115,9 @@
 						<!-- PRODUCTOS RELACIONADOS -->
 						<!--div id="products" class="col-md-12 col-lg-12" style="min-height:150px">
 							<div class="row">
-				  				<h4 class="detail-section-title"><strong>Productos</strong></h4>
+				  				<h4 class="detail-section-title"><strong>Products</strong></h4>
 				  			</div>
-							<h3 t-if="len(products_table) == 0" class="text-muted text-center">No se han encontrado productos</h3>
+							<h3 t-if="len(products_table) == 0" class="text-muted text-center">No se han encontrado products</h3>
 							<t t-foreach="products_table" t-as="tr_product">
 								<t t-foreach="tr_product" t-as="td_product">
 									<t t-if="td_product">
@@ -142,7 +142,7 @@
 								</t>
 							</t>
 						</div-->
-						<!-- ESTABLECIMIENTO RELACIONADOS -->
+						<!-- establishment RELACIONADOS -->
 					  	<div id="related_est" t-if="len(related) > 0" class="col-md-12 col-lg-12" style="min-height:150px">
 				  			<div class="row">
 				  				<h4 class="detail-section-title"><strong>RELATED ESTABLISHMENTS</strong></h4>
@@ -151,7 +151,7 @@
 						  		<t t-foreach="related" t-as="est">
 						  			<div class="col-sm-4 col-md-2">
 							  			<div class="image-grid">
-							  				<a t-att-href="'/establecimiento/%s' % slug(est)"><img t-att-title="est.name" t-attf-src="/web/binary/image?model=turismo.establecimiento&amp;id=#{est.id}&amp;field=imagen"/></a>
+							  				<a t-att-href="'/establishment/%s' % slug(est)"><img t-att-title="est.name" t-attf-src="/web/binary/image?model=turismo.establishment&amp;id=#{est.id}&amp;field=image"/></a>
 									    </div>
 								    </div>
 						  		</t>

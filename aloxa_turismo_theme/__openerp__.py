@@ -79,8 +79,8 @@
         'views/website/panel/panel_client_modals.xml',
         'views/website/panel/solicitar_link_template.xml',
         'views/website/panel/editar_usuario.xml',
-        'views/website/panel/crear_editar_establecimiento.xml',
-        'views/website/panel/crear_editar_producto.xml',
+        'views/website/panel/crear_editar_establishment.xml',
+        'views/website/panel/crear_editar_product.xml',
         'views/website/panel/crear_evento.xml',
         
         'views/website/inherit_website_sale_products.xml',

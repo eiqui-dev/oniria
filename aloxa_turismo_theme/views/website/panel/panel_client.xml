@@ -2,30 +2,30 @@
 <openerp>
     <data>    
     
-		<template id="panel_cliente" name="Panel Cliente" page="True">
+		<template id="panel_customer" name="Panel Customer" page="True">
 			<t t-call="website.layout">
 				<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale">				
-					<section t-attf-class="container mt8" id="panel_cliente_container">
+					<section t-attf-class="container mt8" id="panel_customer_container">
 				        <div class="row" style="margin-bottom:2em;">
 				        	<div class="col-xs-12 col-md-3">
 				        		<nav>
 									<div class="list-group">
 									  <a href="/panel" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'general' else ''}">
 									    <h4 class="list-group-item-heading">General</h4>
-									    <p class="list-group-item-text">Consulte y edite sus datos</p>
+									    <p class="list-group-item-text">See and edit your data</p>
 									  </a>
 									  <t t-if="partner.is_company">
-										  <a href="/panel/establecimientos" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'establishments' else ''}">
+										  <a href="/panel/establishments" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'establishments' else ''}">
 										    <h4 class="list-group-item-heading">Establishments</h4>
-										    <p class="list-group-item-text">Aquí puede crear y ver sus establecimientos, contratar links, asignar eventos y agregar productos a los mismos</p>
+										    <p class="list-group-item-text">Aquí puede crear y ver sus establishments, contratar links, asignar eventos y agregar products a los mismos</p>
 										  </a>
 										  <a href="/panel/eventos" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'events' else ''}">
 										    <h4 class="list-group-item-heading">Events</h4>
 										    <p class="list-group-item-text">Aquí puede crear y ver sus eventos, crear tickets, ...</p>
 										  </a>
-										  <a href="/panel/vinos" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'wines' else ''}">
+										  <a href="/panel/wines" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'wines' else ''}">
 										    <h4 class="list-group-item-heading">Wines</h4>
-										    <p class="list-group-item-text">Aquí puede crear y ver sus vinos, ...</p>
+										    <p class="list-group-item-text">Aquí puede crear y ver sus wines, ...</p>
 										  </a>
 										  <a href="/panel/links" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'links' else ''}">
 										    <h4 class="list-group-item-heading">Contracted Links</h4>
@@ -37,9 +37,9 @@
 										  </a>
 									  </t>
 									  <t t-if="not partner.is_company">
-										  <a href="/panel/productos" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'products' else ''}">
+										  <a href="/panel/products" style="z-index:1;" t-attf-class="list-group-item #{'active' if panel == 'products' else ''}">
 										    <h4 class="list-group-item-heading">My Purchases</h4>
-										    <p class="list-group-item-text">Aquí puede ver sus compras</p>
+										    <p class="list-group-item-text">See your purchases</p>
 										  </a>
 									  </t>
 									</div>

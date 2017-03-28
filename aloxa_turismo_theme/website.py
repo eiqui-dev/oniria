@@ -25,7 +25,7 @@ class website(models.Model):
     def get_banners_portada(self):
         #pydevd.settrace("10.0.3.1")
         #('product_id.link_position', '=', 'Portada')
-        banners = self.env['turismo.producto_contratado_cliente'].search(['|','&',('fecha_fin', '>=', datetime.now()),('fecha_fin', '=', False),('publicado', '=', True),('product_id.link_position', '=', 'Portada')])
+        banners = self.env['turismo.contract_product_customer'].search(['|','&',('fecha_fin', '>=', datetime.now()),('fecha_fin', '=', False),('publicado', '=', True),('product_id.link_position', '=', 'Portada')])
         num_banners = len(banners)
         random_indices = random.sample(range(num_banners), num_banners)
         banners = [ banners[i] for i in random_indices ]
@@ -61,16 +61,16 @@ class website(models.Model):
     
     def get_contrated_stablisment_links(self, uid, stablisment_id):
         user = self.env['res.users'].browse([uid])
-        products_c = user.partner_id.product_contratado_cliente_ids
+        products_c = user.partner_id.contract_product_customer_ids
         links = list()
         for product in products_c:
-            if stablisment_id == product.establecimiento_id.id:
+            if stablisment_id == product.establishment_id.id:
                 links.append(product)
         return links
     
     def get_contrated_product_links(self, uid, product_id):
         user = self.env['res.users'].browse([uid])
-        products_c = user.partner_id.product_contratado_cliente_ids
+        products_c = user.partner_id.contract_product_customer_ids
         links = list()
         for product in products_c:
             if product_id == product.product_tur_id.id:

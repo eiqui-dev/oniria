@@ -19,7 +19,7 @@
 					         		<h3>Link Type</h3>
 					    			<div style="margin-bottom:2em;" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 						         		<select class="form-control" id="typelink">
-						         			<t t-foreach="servicios" t-as="serv">
+						         			<t t-foreach="services" t-as="serv">
 						         				<option t-attf-value="#{serv.id}" t-attf-data-position="#{serv.link_position}" t-attf-data-size="#{serv.link_size}"><t t-esc="serv.name"/> – <t t-esc="'%.2f' % serv.list_price"/>€</option>
 						         			</t>
 						         		</select>
@@ -64,11 +64,11 @@
 					         		<div style="margin-bottom:2em;" class="col-xs-12 col-md-12" id="product_name">
 					         			<input type="text" class="form-control" />
 					         		</div>
-					         		<h3>Tipo</h3>
+					         		<h3>Type</h3>
 					         		<div style="margin-bottom:2em;" class="col-xs-12 col-md-12" id="product_type">
 					         			<select class="form-control">
-					         				<option value="Otro">Other</option>
-					         				<option value="Vino">Wine</option>
+					         				<option value="Other">Other</option>
+					         				<option value="wine">Wine</option>
 					         				<!--option value="Vinagre">Vinagre</option-->
 					         			</select>
 					         		</div>
@@ -93,13 +93,13 @@
 					         		<h3>Type</h3>
 					         		<div style="margin-bottom:2em;" class="col-xs-12 col-md-12" id="establishment_type">
 					         			<select class="form-control">
-					         				<option value="Bodega">Wine Cellar</option>
-					         				<option value="Restaurante">Restaurant</option>
-					         				<option value="Hospedaje">Lodging</option>
-					         				<option value="Arte y Cultura">Art and Culture</option>
-					         				<option value="Vinoteca">Wine Library</option>
+					         				<option value="Winecellar">Wine Cellar</option>
+					         				<option value="Restaurant">Restaurant</option>
+					         				<option value="Lodging">Lodging</option>
+					         				<option value="Art and Culture">Art and Culture</option>
+					         				<option value="winebar">Wine Library</option>
 					         				<option value="Viñedo">Vineyard</option>
-					         				<option value="Otro">Other</option>
+					         				<option value="Other">Other</option>
 					         			</select>
 					         		</div>
 					     			<h3>Picture</h3>

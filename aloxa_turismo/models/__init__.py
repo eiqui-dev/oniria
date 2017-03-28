@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from . import establecimientos
-from . import productos
 from . import reservas
+from . import establishments
+from . import products
 from . import comun

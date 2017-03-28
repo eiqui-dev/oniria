@@ -3,13 +3,13 @@
     <data>    
     
 		<template id="directory_form_contracted_product">
-			<t t-set="product_type" t-value='contracted_product.product_tur_id.tipo_producto' />
+			<t t-set="product_type" t-value='contracted_product.product_tur_id.type_product' />
 			
 			<!-- ANTERIOR Y SIGUIENTE -->
 			<div t-if="not is_direct_form and (prev_prod or next_prod)" id="nav_buttons" class="col-md-12 col-lg-12">
 				<div class="col-md-6 col-lg-6">
 					<t t-if="sri &gt; 1">
-						<a class="btn-form-nav" t-att-data-link-target="'/directorio/%s' % product_type" t-att-data-sri="sri-1" href="#"><i class="fa fa-lg fa-arrow-left"></i> Previus Producto</a>
+						<a class="btn-form-nav" t-att-data-link-target="'/directorio/%s' % product_type" t-att-data-sri="sri-1" href="#"><i class="fa fa-lg fa-arrow-left"></i> Previus Product</a>
 					</t>
 				</div>
 				<div class="col-md-6 col-lg-6 text-right">
@@ -44,13 +44,13 @@
 										<tr><td style="width:16px">
 											<div class="icon"><span class="icon fa fa-flask"/></div>
 										</td><td>
-											<t t-if="product_type == 'vino'">
+											<t t-if="product_type == 'wine'">
 												<b>Wine Type:</b> 
-												<span t-if="contracted_product.product_tur_id.tipovino" t-esc="contracted_product.product_tur_id.tipovino.nombre" />
+												<span t-if="contracted_product.product_tur_id.typewine" t-esc="contracted_product.product_tur_id.typewine.name" />
 											</t>
 											<!--t t-if="product_type == 'vinagre'">
-												<b>Tipo Vinagre:</b> 
-												<span t-if="contracted_product.product_tur_id.tipovinagre" t-esc="contracted_product.product_tur_id.tipovinagre.nombre" />
+												<b>Type Vinagre:</b> 
+												<span t-if="contracted_product.product_tur_id.typevinagre" t-esc="contracted_product.product_tur_id.typevinagre.name" />
 											</t-->
 										</td></tr>
 										
@@ -58,14 +58,14 @@
 											<div class="icon"><span class="icon fa fa-tint"/></div>
 										</td><td>
 											<b>Grape Type:</b> 
-											<span t-if="contracted_product.product_tur_id.uva" t-esc="contracted_product.product_tur_id.uva.nombre" />
+											<span t-if="contracted_product.product_tur_id.grape" t-esc="contracted_product.product_tur_id.grape.name" />
 										</td></tr>
 										
 										<tr><td style="width:16px">
 											<div class="icon"><span class="icon fa fa-star"/></div>
 										</td><td>
 											<b>Awards:</b> 
-											<span t-if="contracted_product.product_tur_id.premios" t-esc="contracted_product.product_tur_id.premios.nombre" />
+											<span t-if="contracted_product.product_tur_id.awards" t-esc="contracted_product.product_tur_id.awards.name" />
 										</td></tr>
 									</table>
 								</div>

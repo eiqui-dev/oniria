@@ -2,14 +2,14 @@
 from openerp import models, fields, api, exceptions
 #import pydevd
 
-##Ampliación del modelo cliente para turistas##
+##Ampliación del modelo customer para turists##
 class res_partner(models.Model):
     _name = 'res.partner'
     _inherit = "res.partner"	
 
-    turista = fields.Boolean(
-	    string="Turista",
-	    help="Activa este check si el contacto es un visitante/turista")
+    turist = fields.Boolean(
+	    string="Turist",
+	    help="Turist Contact")
 res_partner()
 
 

@@ -209,10 +209,10 @@ header {
   border: 0 !important;
 }
 
-.product .producto-img {
+.product .product-img {
 	border-width: 0 1px 1px 1px !important;
 }
-.product .establecimiento-img {
+.product .establishment-img {
 	border-width: 0 1px !important;
 }
 
@@ -268,7 +268,7 @@ header {
   min-height: 100%;
 }
 
-/* DETALLE ESTABLECIMIENTO */
+/* DETALLE establishment */
 
 #nav_buttons {
 	font-size: large;
@@ -379,18 +379,18 @@ header {
     height: 34px;
 }
 
-/* IMAGENES ESTABLECIMIENTO */
+/* IMAGENES establishment */
 .thumbnail img {
 	height: 150px !important;
 }
 
-/* EVENTOS ESTABLECIMIENTO */
+/* EVENTOS establishment */
 #table-events td {
 	text-align: center;
 	vertical-align: middle;
 }
 
-/* HEAD ESTABLECIMIENTOS */
+/* HEAD establishmentS */
 #head-name {
 
 }
@@ -401,7 +401,7 @@ header {
 	font-weight: bold !important;
 }
 
-/* PANEL ESTABLECIMIENTO */
+/* PANEL establishment */
 a.list-group-item {
 	min-height: 100px;
 }

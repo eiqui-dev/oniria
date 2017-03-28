@@ -35,12 +35,12 @@
 	                                    <i class="fa fa-building fa-5x"></i>
 	                                </div>
 	                                <div class="col-xs-9 text-right">
-	                                    <div class="huge"><t t-esc="num_establecimientos"/></div>
+	                                    <div class="huge"><t t-esc="num_establishments"/></div>
 	                                    <div>Establishments</div>
 	                                </div>
 	                            </div>
 	                        </div>
-	                        <a href="/crear_establecimiento">
+	                        <a href="/crear_establishment">
 	                            <div class="panel-footer">
 	                                <span class="pull-left">New Establishment</span>
 	                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -57,12 +57,12 @@
 	                                    <i class="fa fa-tag fa-5x"></i>
 	                                </div>
 	                                <div class="col-xs-9 text-right">
-	                                    <div class="huge"><t t-esc="num_productos"/></div>
+	                                    <div class="huge"><t t-esc="num_products"/></div>
 	                                    <div>Products</div>
 	                                </div>
 	                            </div>
 	                        </div>
-	                        <a href="/crear_producto">
+	                        <a href="/crear_product">
 	                            <div class="panel-footer">
 	                                <span class="pull-left">New Product</span>
 	                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -77,7 +77,7 @@
 				<div class="panel-heading">
 					<strong>Contact Information</strong>
 					<span class="pull-right">
-						<a href="/editar_usuario" class="btn btn-default btn-xs" style="margin-left:0.5em;"><i class="fa fa-pencil"></i> Editar</a>
+						<a href="/editar_usuario" class="btn btn-default btn-xs" style="margin-left:0.5em;"><i class="fa fa-pencil"></i> Edit</a>
 					</span>
 				</div>
 				<div class="panel-body">

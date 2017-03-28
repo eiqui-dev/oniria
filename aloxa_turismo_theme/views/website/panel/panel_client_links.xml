@@ -18,7 +18,7 @@
 				<tbody>
 					<tr t-foreach="links" t-as="link">
 						<td style="vertical-align:middle;">
-							<t t-if="link.establecimiento_id"><span t-field="link.establecimiento_id.name"/></t>
+							<t t-if="link.establishment_id"><span t-field="link.establishment_id.name"/></t>
 							<t t-if="link.product_tur_id"><span t-field="link.product_tur_id.name"/></t>
 						</td>
 						<td style="vertical-align:middle;" t-esc="link.product_id.name" />
