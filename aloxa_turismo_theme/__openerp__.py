@@ -35,11 +35,20 @@
     # Check https://github.com/odoo/odoo/blob/master/openerp/addons/base/module/module_data.xml
     # for the full list
     'category': 'Theme/Creative',
-    "icon": "/aloxa_turismo_theme/static/src/img/icon.png",    
+    "icon": "/aloxa_turismo_theme/static/src/img/icon.png",
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['website', 'website_sale', 'aloxa_turismo', 'l10n_es_partner', 'website_google_apis', 'horario'],
+    'depends': [
+        'website',
+        'website_sale',
+        'aloxa_turismo',
+        'l10n_es_partner',
+        'website_google_apis',
+        'horario',
+        'base_geolocalize',
+        'famfamfam_flag_icons',
+    ],
 
     # always loaded
     'data': [

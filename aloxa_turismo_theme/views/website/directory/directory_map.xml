@@ -14,16 +14,16 @@
 							<t t-set="establecimiento" t-value="td_product['establecimiento']"/>
 							<t t-set="evento" t-value="td_product['events'] if 'events' in td_product and td_product['events'] and len(td_product['events'])==1 else False"/>
 
-							<t t-if="establecimiento">
-								'<t t-esc="establecimiento.partner_id.get_composed_address(',')" />',
+							<t t-if="establecimiento and establecimiento.partner_id.partner_latitude and establecimiento.partner_id.partner_longitude">
+								[<t t-field="establecimiento.partner_id.partner_latitude"/>, <t t-field="establecimiento.partner_id.partner_longitude)" />],
 								'/establecimiento/<t t-esc="slug(establecimiento)"/>',
-								'<t t-esc="establecimiento.name"/>',
+								'<t t-field="establecimiento.name"/>',
 							</t>
-							<t t-if="evento">
+							<t t-if="evento and evento.address_id.partner_latitude and evento.address_id.partner_longitude">
 								<t t-set="is_events" t-value="True" />
-								'<t t-esc="evento.address_id.get_composed_address(',')" />',
+								[<t t-field="evento.address_id.partner_latitude"/>, <t t-field="evento.address_id.partner_longitude)" />],
 								'/evento/<t t-esc="slug(evento)"/>',
-								'<t t-esc="evento.name"/>',
+								'<t t-field="evento.name"/>',
 							</t>
 	                	</t>
 	                </t>

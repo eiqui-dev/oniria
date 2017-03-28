@@ -123,8 +123,6 @@ class establecimiento(models.Model):
     #fields
     partner_id = fields.Many2one('res.partner')
     res_partner_id = fields.Many2one('res.partner', 'Cliente', required=True ,default=default_res_partner_id)   
-    latitud = fields.Float('Latitud', digits=(6,3))
-    longitud = fields.Float('Longitud', digits=(6,3))
     imagen = fields.Binary('Imagen', default=default_imagen)
     image_thumb = fields.Binary('Thumbnail', compute="_get_image_thumb", store=True)
     descripcion = fields.Text(string='Descripción', translate=True)   

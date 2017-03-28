@@ -508,37 +508,33 @@ openerp.website.if_dom_contains('#directory-map', function(){
     // Put markers
     for (var i=0; i<$DIRECTORY_ADDRESS.length; i+=3)
     	add_address_to_directory_map($DIRECTORY_ADDRESS[i], $DIRECTORY_ADDRESS[i+1], $DIRECTORY_ADDRESS[i+2]);
+	// Center camera on markers
+    center_directory_map();
 });
+
+function center_directory_map() {
+	var markers = $MARKER_CLUSTER.getMarkers();
+	var bounds = new google.maps.LatLngBounds();
+	markers.forEach(function(item, index){ bounds.extend(item.getPosition()); });
+	$DIRECTORY_MAP.fitBounds(bounds);	
+}
 
 function add_address_to_directory_map(address, url, title) {
 	if ($DIRECTORY_MAP == 0)
 		return;
 	
-	var geocoder = new google.maps.Geocoder();
-	geocoder.geocode({'address': address}, function(results, status) {
-		if (status === google.maps.GeocoderStatus.OK) {
-	    	var marker = new google.maps.Marker({
-	    		map: $DIRECTORY_MAP,
-	        	position: results[0].geometry.location,
-				animation: google.maps.Animation.DROP,
-				icon: '/aloxa_turismo_theme/static/src/img/marker-establecimiento.png',
-	      	});
-	    	marker['url'] = url;
-	    	marker['title'] = title;
-			marker.addListener('click', function() {
-				window.location.href = this.url;
-			});
-			$MARKER_CLUSTER.addMarker(marker);
-			
-			// Center camera on markers
-			var markers = $MARKER_CLUSTER.getMarkers();
-			var bounds = new google.maps.LatLngBounds();
-			markers.forEach(function(item, index){ bounds.extend(item.getPosition()); });
-			$DIRECTORY_MAP.fitBounds(bounds);
-	    } else {
-	    	console.log('Geocode was not successful for the following reason: ' + status);
-	    }
+	var marker = new google.maps.Marker({
+		map: $DIRECTORY_MAP,
+    	position: new google.maps.LatLng(address[0], address[1]),
+		animation: google.maps.Animation.DROP,
+		icon: '/aloxa_turismo_theme/static/src/img/marker-establecimiento.png',
+  	});
+	marker['url'] = url;
+	marker['title'] = title;
+	marker.addListener('click', function() {
+		window.location.href = this.url;
 	});
+	$MARKER_CLUSTER.addMarker(marker);
 }
 
 function get_google_map_image_url(address, w, h, center, zoom)

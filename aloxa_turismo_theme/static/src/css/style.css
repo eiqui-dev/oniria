@@ -8,9 +8,11 @@ footer {
 	border-width: 6px 0 0 0;
 	margin-top: 1.5em;
 }
-header>div {
-	background-color: #dadada;
+header>div:first-child {
 	margin-top: 3em;
+}
+header>div:nth-child(2) {
+	background-color: #dadada;
 }
 header {
 	margin-bottom: 1.5em;
@@ -49,7 +51,15 @@ header {
     height: 34px;
 }
 
+/* LANGUAGE BAR */
+.langbar {
+	padding: 5px;
+}
 
+.langbar .dropdown {
+	margig-right: 1em;
+	z-index: 1001;
+}
 
 /* MAIN MENU */
 .top-subtotal {

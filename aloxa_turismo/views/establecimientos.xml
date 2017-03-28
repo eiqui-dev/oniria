@@ -87,9 +87,7 @@
 	            		<field name="tipo"/>
 	            		<field name="res_partner_id" attrs="{'required':1}"/>
 	            		<field name="parent_id" attrs="{'invisible':1}"/>
-	            		<field name="descripcion"/>
-	            		<field name="longitud"/>
-	            		<field name="latitud"/>	            		
+	            		<field name="descripcion"/>            		
 	            		<field name='idiomas' widget="many2many_tags"/>
 	            		<field name="imagen"/>
 						<field name="tripadvisor_url"/>						
@@ -136,6 +134,20 @@
 									<field name="icon"/>
 						        </tree>
 						   </field>
+	                    </page>
+	                    <page string="Geo Localization" name="geo_localization">
+	                        <group colspan="2" col="2">
+	                            <separator string="Geo Localization" colspan="2"/>
+	                            <button
+	                                string="Geo Localize"
+	                                name="geo_localize"
+	                                colspan="2"
+	                                icon="gtk-apply"
+	                                type="object"/>
+	                            <field name="partner_latitude"/>
+	                            <field name="partner_longitude"/>
+	                            <field name="date_localization"/>
+	                        </group>
 	                    </page>
 	           		</notebook>     		
             	</form>	

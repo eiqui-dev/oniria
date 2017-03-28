@@ -182,7 +182,7 @@
 			<xpath expr="//html/head" position="inside">
 				<script type='text/javascript'>
 					window.addEventListener('load', function(){
-						google.maps.event.addDomListener(window, 'load', initializeGMaps('#map_est', <t t-esc="establishment.latitud" />, <t t-esc="establishment.longitud" />, '<t t-esc="establishment.partner_id.get_composed_address(',')" />'));
+						google.maps.event.addDomListener(window, 'load', initializeGMaps('#map_est', <t t-esc="establishment.partner_latitude" />, <t t-esc="establishment.partner_longitude" />));
 					});
 				</script>
 			</xpath>
