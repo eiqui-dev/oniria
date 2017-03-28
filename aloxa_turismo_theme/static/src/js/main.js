@@ -564,6 +564,16 @@ openerp.website.if_dom_contains('.btn-form-nav', function(){
 	});
 });
 
+/** FILTROS */
+openerp.website.if_dom_contains('.accordion-body', function(){
+	$('.accordion-body').on('show.bs.collapse', function () {
+		$(this).parent().find('.fa-caret-right').removeClass('fa-caret-right').addClass('fa-caret-down');
+	});
+	$('.accordion-body').on('hide.bs.collapse', function () {
+		$(this).parent().find('.fa-caret-down').removeClass('fa-caret-down').addClass('fa-caret-right');
+	});
+});
+
 /** BUSCADOR **/
 /*openerp.website.if_dom_contains('.searchbar', function(){
 	$(document).on('mouseleave', '.searchbar', function(e){
