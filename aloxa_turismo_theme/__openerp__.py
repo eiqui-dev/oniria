@@ -45,7 +45,7 @@
         'aloxa_turismo',
         'l10n_es_partner',
         'website_google_apis',
-        'horario',
+        'schedule_stbl',
         'base_geolocalize',
         'famfamfam_flag_icons',
     ],

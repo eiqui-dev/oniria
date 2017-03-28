@@ -44,12 +44,12 @@
     # always loaded
     'data': [
         'data/ir.model.data.csv',
-        'data/turismo.opciones.csv',               
+        'data/turismo.opciones.csv',
         'views/establishments.xml',
         'views/comun.xml',
         'views/products.xml',
         'security/ir.model.access.csv',
-	    'views/turists.xml',
+        'views/turists.xml',
         #'views/reservas.xml',
         'views/menus.xml',
     ],

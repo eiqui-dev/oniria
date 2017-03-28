@@ -51,9 +51,9 @@ class establishment(models.Model):
         (_check_company, 'The chosen company is not in the allowed companies for this user', ['company_id', 'company_ids']),
     ]
 
-    _sql_constraints = [
-        ('login_key', 'UNIQUE (login)',  'You can not have two users with the same login !')
-    ]
+    #_sql_constraints = [
+    #    ('login_key', 'UNIQUE (login)',  'You can not have two users with the same login !')
+    #]
 
     def _get_company(self,cr, uid, context=None, uid2=False):
         if not uid2:
