@@ -1155,8 +1155,8 @@ class website_aloxa_turismo(Website):
 #             # Los vinagres no tienen mapa
 #             if request.session['directory_view'] == 'map':
 #                 request.session['directory_view'] = 'grid'
-        elif request.httprequest.path.startswith('/directory/eventos') or event:
-            keep_url = '/directory/eventos'
+        elif request.httprequest.path.startswith('/directory/events') or event:
+            keep_url = '/directory/events'
             category_type = "event"
 
         keep = QueryURL(keep_url, search='', attrib=attrib_list)
