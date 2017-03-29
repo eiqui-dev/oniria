@@ -25,7 +25,7 @@
 					<t t-if="td_product">
 						<t t-set="establishment" t-value="td_product['establishment']"/>
                       	<t t-set="contract_product" t-value="td_product['contract_product']"/>
-						<t t-set="evento" t-value="td_product['events'] if 'events' in td_product and td_product['events'] and len(td_product['events'])==1 else False"/>
+						<t t-set="event" t-value="td_product['events'] if not establishment and 'events' in td_product and td_product['events'] and len(td_product['events'])==1 else False"/>
 						
 						<!-- GRID -->
 						<t t-if="request.session['directory_view'] == 'grid'">
@@ -42,8 +42,8 @@
 													<a itemprop="name" t-attf-href="/shop/product/#{ slug(contract_product.product_tur_id) }" t-field="contract_product.product_tur_id.name"/>												
 												</t>
 											</t>
-											<t t-if="evento">
-												<a itemprop="name" t-att-href="keep('/evento/%s' % slug(evento), category=0)" t-field="evento.name"/>
+											<t t-if="event">
+												<a itemprop="name" t-att-href="keep('/event/%s' % slug(event), category=0)" t-field="evento.name"/>
 											</t>
 										</div>
 									</div>

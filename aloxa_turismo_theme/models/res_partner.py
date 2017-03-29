@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from openerp import models, fields, api, exceptions
+from openerp.tools.translate import _
 try:
     import simplejson as json
 except ImportError:
@@ -29,6 +30,16 @@ def matrix_distance(origin, dest):
 class res_partner(models.Model):
     _inherit = 'res.partner'
     
+    @api.constrains('vat')
+    def _check_vat(self):
+        for record in self:
+            if not record.vat:
+                continue
+            partner_id = self.search([('vat', '=', record.vat)], limit=1)
+            if partner_id:
+                partner_id.user_id.action_reset_password()
+                raise exceptions.ValidationError(_("Already exists an record with the same vat. Sending reset password mail to '%s'") % partner_id.user_id.email)
+        
     def get_matrix_distance(self, partner_id):
         return matrix_distance(self._get_geo_location_array(), partner_id._get_geo_location_array())
     

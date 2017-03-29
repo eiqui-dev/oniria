@@ -7,12 +7,12 @@
 			<div t-if="not is_direct_form and (prev_est or next_est)" id="nav_buttons" class="col-md-12 col-lg-12">
 				<div class="col-md-6 col-lg-6">
 					<t t-if="sri &gt; 1">
-						<a class="btn-form-nav" data-link-target="/directorio/establishments" t-att-data-sri="sri-1" href="#"><i class="fa fa-lg fa-arrow-left"></i> Previous Establishment</a>
+						<a class="btn-form-nav" data-link-target="/directory/establishments" t-att-data-sri="sri-1" href="#"><i class="fa fa-lg fa-arrow-left"></i> Previous Establishment</a>
 					</t>
 				</div>
 				<div class="col-md-6 col-lg-6 text-right">
 					<t t-if="sri &lt; len(request.session['search_records'])">
-						<a class="btn-form-nav" data-link-target="/directorio/establishments" t-att-data-sri="sri+1" href="#">Next Establishment <i class="fa fa-lg fa-arrow-right"></i></a>
+						<a class="btn-form-nav" data-link-target="/directory/establishments" t-att-data-sri="sri+1" href="#">Next Establishment <i class="fa fa-lg fa-arrow-right"></i></a>
 					</t>
 				</div>
 			</div>

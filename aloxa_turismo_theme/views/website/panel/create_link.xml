@@ -2,7 +2,7 @@
 <openerp>
     <data>    
     
-		<template id="solicitud_link" name="Crontratar Link" page="True">
+		<template id="create_link" name="Create Link" page="True">
 			<t t-call="website.layout">
 				<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale">
 					<div class="page-title">

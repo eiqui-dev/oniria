@@ -5,7 +5,7 @@
     	<template id="panel_client_events">
 			<h3 t-if="not events" class="text-muted text-center">No events defined</h3>
 			<div t-if="events" class="text-right" style="margin-bottom:20px;">
-				<a href="/crear_evento" class="btn btn-primary"><i class="fa fa-plus"></i> Create Event</a>
+				<a href="/create_event" class="btn btn-primary"><i class="fa fa-plus"></i> Create Event</a>
 			</div>
 			<table t-if="events" class="table table-condensed">
 				<thead>
@@ -56,7 +56,7 @@
 				</tbody>
 			</table>
 			<div class="text-right">
-				<a href="/crear_evento" class="btn btn-primary"><i class="fa fa-plus"></i> Create Event</a>
+				<a href="/create_event" class="btn btn-primary"><i class="fa fa-plus"></i> Create Event</a>
 			</div>
 		</template>
 		

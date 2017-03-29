@@ -6,7 +6,7 @@
 			<div class="modal fade" id="modalNewLink" tabindex="-1" role="dialog">
 				<div class="modal-dialog" role="document">
 			    	<div class="modal-content">
-				    	<form action="/_crear_link" method="post" enctype="multipart/form-data" id='create_link'>
+				    	<form action="/_create_link" method="post" enctype="multipart/form-data" id='create_link'>
 				      		<div class="modal-header">
 				        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
 				        		<h4 class="modal-title" id="exampleModalLabel">Contract Link</h4>

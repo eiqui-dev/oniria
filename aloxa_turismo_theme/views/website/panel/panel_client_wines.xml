@@ -5,7 +5,7 @@
     	<template id="panel_client_wines">
     		<h3 t-if="not products" class="text-muted text-center">No products found</h3>
     		<div t-if="products" class="text-right" style="margin-bottom:20px;">
-    			<a class="btn btn-primary" href="/crear_product">Create Product</a>
+    			<a class="btn btn-primary" href="/create_product">Create Product</a>
 			</div>
 			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 				<t t-foreach="products or []" t-as="prod">
@@ -13,11 +13,11 @@
 					<div t-att-class="'panel panel-%s' % ('primary' if prod.website_published else 'default')">
 						<div class="panel-heading">
 							<a role="button" data-toggle="collapse" data-parent="#accordion" t-att-href="'#collapse%d' % prod.id" aria-expanded="true" t-att-aria-controls="'collapse%d' % prod.id">
-								<strong t-esc="prod.name.upper()" />
+								<span class="indicator fa fa-caret-down"></span> <strong t-esc="prod.name.upper()" />
 							</a>
 							<span class="pull-right">
 								<span t-if="not prod.website_published" class="label label-default" title="This product isn't show in the directory">Not Published</span>
-								<a t-att-href="'/editar_product/%s' % slug(prod)" class="btn btn-default btn-xs" style="margin-left:0.5em;"><i class="fa fa-pencil"></i> Edit</a>
+								<a t-att-href="'/edit_product/%s' % slug(prod)" class="btn btn-default btn-xs" style="margin-left:0.5em;"><i class="fa fa-pencil"></i> Edit</a>
 								<a t-if="not prod.website_published" t-att-href="'/preview/product/%s' % slug(prod)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> Preview</a>
 								<a t-if="prod.website_published" t-att-href="'/product/%s' % slug(prod)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> View</a>
 							</span>
@@ -79,7 +79,7 @@
 				</t>
 			</div>
 			<div class="text-right">
-				<a class="btn btn-primary" href="/crear_product">Create Product</a>
+				<a class="btn btn-primary" href="/create_product">Create Product</a>
 			</div>
 		</template>
 		

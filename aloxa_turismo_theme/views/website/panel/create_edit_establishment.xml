@@ -2,7 +2,7 @@
 <openerp>
     <data>    
     
-		<template id="crear_establishment" name="Crear establishment" page="True">
+		<template id="create_establishment" name="Create Establishment" page="True">
 			<t t-call="website.layout">
 				<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale">
 					<div class="page-title">
@@ -15,7 +15,7 @@
 				
 					<section t-attf-class="container mt8" id="solicitud_link_container">
 				         <div class="row" style="margin-bottom:2em;">
-								<form method="POST" action="/_crear_editar_establishment" enctype="multipart/form-data">
+								<form method="POST" action="/_create_edit_establishment" enctype="multipart/form-data">
 									<input type="hidden" t-att-value="((est) and est.id) or ''" name="est_id" />
 									<div class="col-xs-12 col-md-4">
 									 	<div class="form-group">
@@ -24,15 +24,15 @@
 										</div>
 									 	<div class="form-group">
 										    <label for="type">Type</label>
-				         					<select class="form-control" id="type" name="type" required="required">
+				         					<select class="form-control" id="type_s" name="type_s" required="required">
 				         						<option value="">Select Type...</option>
-						         				<option value="winecellar" t-att-selected="(est and est.type=='winecellar') and 'selected'">Wine Cellar</option>
-						         				<option value="restaurant" t-att-selected="(est and est.type=='restaurant') and 'selected'">Restaurant</option>
-						         				<option value="lodging" t-att-selected="(est and est.type=='lodging') and 'selected'">Lodging</option>
-						         				<option value="Art and Culture" t-att-selected="(est and est.type=='Art and Culture') and 'selected'">Art and Culture</option>
-						         				<option value="winebar" t-att-selected="(est and est.type=='winebar') and 'selected'">Wine Library</option>
-						         				<option value="vineyard" t-att-selected="(est and est.type=='vineyard') and 'selected'">Vineyard</option>
-						         				<option value="other" t-att-selected="(est and est.type=='other') and 'selected'">Other</option>
+						         				<option value="winecellar" t-att-selected="(est and est.type_s=='winecellar') and 'selected'">Wine Cellar</option>
+						         				<option value="restaurant" t-att-selected="(est and est.type_s=='restaurant') and 'selected'">Restaurant</option>
+						         				<option value="lodging" t-att-selected="(est and est.type_s=='lodging') and 'selected'">Lodging</option>
+						         				<option value="Art and Culture" t-att-selected="(est and est.type_s=='Art and Culture') and 'selected'">Art and Culture</option>
+						         				<option value="winebar" t-att-selected="(est and est.type_s=='winebar') and 'selected'">Wine Library</option>
+						         				<option value="vineyard" t-att-selected="(est and est.type_s=='vineyard') and 'selected'">Vineyard</option>
+						         				<option value="other" t-att-selected="(est and est.type_s=='other') and 'selected'">Other</option>
 						         			</select>
 						         		</div>
 									 	<div class="form-group">

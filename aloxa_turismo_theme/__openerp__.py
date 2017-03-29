@@ -77,11 +77,11 @@
         'views/website/panel/panel_client_invoices.xml',
         'views/website/panel/panel_client_products.xml',
         'views/website/panel/panel_client_modals.xml',
-        'views/website/panel/solicitar_link_template.xml',
-        'views/website/panel/editar_usuario.xml',
-        'views/website/panel/crear_editar_establishment.xml',
-        'views/website/panel/crear_editar_product.xml',
-        'views/website/panel/crear_evento.xml',
+        'views/website/panel/edit_user.xml',
+        'views/website/panel/create_link.xml',
+        'views/website/panel/create_edit_establishment.xml',
+        'views/website/panel/create_edit_product.xml',
+        'views/website/panel/create_event.xml',
         
         'views/website/inherit_website_sale_products.xml',
         

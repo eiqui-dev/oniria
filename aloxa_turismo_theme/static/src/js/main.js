@@ -12,7 +12,7 @@ openerp.website.if_dom_contains('.menu-orderby', function(){
 			if (!data['error'])
 			{
 				var url = window.location.href.split('?');
-				window.location.href = '/directorio/'+link_target+'s?'+(url[1] || '');
+				window.location.href = '/directory/'+link_target+'s?'+(url[1] || '');
 			}
 		});
 	});
@@ -23,7 +23,7 @@ openerp.website.if_dom_contains('.menu-orderby', function(){
 			if (!data['error'])
 			{		
 				var url = window.location.href.split('?');
-				window.location.href = '/directorio/'+link_target+'s?'+(url[1] || '');
+				window.location.href = '/directory/'+link_target+'s?'+(url[1] || '');
 			}
 		});
 	});
@@ -33,7 +33,7 @@ openerp.website.if_dom_contains('.menu-orderby', function(){
 			if (!data['error'])
 			{		
 				var url = window.location.href.split('?');
-				window.location.href = '/directorio/'+link_target+'s?'+(url[1] || '');
+				window.location.href = '/directory/'+link_target+'s?'+(url[1] || '');
 			}
 		});
 	});
@@ -43,7 +43,7 @@ openerp.website.if_dom_contains('.menu-orderby', function(){
 			if (!data['error'])
 			{		
 				var url = window.location.href.split('?');
-				window.location.href = '/directorio/'+link_target+'s?'+(url[1] || '');
+				window.location.href = '/directory/'+link_target+'s?'+(url[1] || '');
 			}
 		});
 	});
@@ -239,7 +239,7 @@ function refresh_create_link_page()
 	{
 		var selIndex = $('#linkaction')[0].selectedIndex+1;
 		var html = "<option value='product'>Product</option>"+
-						"<option value='establishment'>establishment</option>";
+						"<option value='establishment'>Establishment</option>";
 		$('#linkaction').html(html);
 		$('#linkaction').show();
 		$('#linkaction').prop('disabled', false);
@@ -369,7 +369,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, orig, de
 		if (status == 'OK')
 			directionsDisplay.setDirections(response);
 		else
-			window.alert('La petición al service \'Directions\' ha fallado por '+status);
+			window.alert('Request to Google \'Directions\' Service failed. Message: '+status);
 	});
 }
 
@@ -564,13 +564,33 @@ openerp.website.if_dom_contains('.btn-form-nav', function(){
 	});
 });
 
-/** FILTROS */
-openerp.website.if_dom_contains('.accordion-body', function(){
-	$('.accordion-body').on('show.bs.collapse', function () {
-		$(this).parent().find('.fa-caret-right').removeClass('fa-caret-right').addClass('fa-caret-down');
+/** INDICADORES DESPLEGABLE */
+openerp.website.if_dom_contains('.accordion-body,.collapse', function(){
+	$('.accordion-body,.collapse').on('show.bs.collapse', function () {
+		var $this = $(this);
+		var $caret = $this.parent().find('.indicator.fa-caret-down');
+		if (typeof $caret[0] === 'undefined') { return; }
+		$caret.animate({deg: -180}, {
+			duration: 200,
+	        step: function(now) {
+	        	$caret.css({
+	                transform: 'rotate(' + now + 'deg)'
+	            });
+	        }
+		});
 	});
-	$('.accordion-body').on('hide.bs.collapse', function () {
-		$(this).parent().find('.fa-caret-down').removeClass('fa-caret-down').addClass('fa-caret-right');
+	$('.accordion-body,.collapse').on('hide.bs.collapse', function () {
+		var $this = $(this);
+		var $caret = $this.parent().find('.indicator.fa-caret-down');
+		if (typeof $caret[0] === 'undefined') { return; }
+		$caret.animate({deg: 0}, {
+			duration: 200,
+	        step: function(now) {
+	        	$caret.css({
+	                transform: 'rotate(' + now + 'deg)'
+	            });
+	        }
+		});
 	});
 });
 

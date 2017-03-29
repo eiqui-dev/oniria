@@ -12,7 +12,7 @@
 					<t t-foreach="tr_product" t-as="td_product">
 						<t t-if="td_product">
 							<t t-set="establishment" t-value="td_product['establishment']"/>
-							<t t-set="event" t-value="td_product['events'] if 'events' in td_product and td_product['events'] and len(td_product['events'])==1 else False"/>
+							<t t-set="event" t-value="td_product['events'] if not establishment and 'events' in td_product and td_product['events'] and len(td_product['events'])==1 else False"/>
 
 							<t t-if="establishment and establishment.partner_id.partner_latitude and establishment.partner_id.partner_longitude">
 								[<t t-field="establishment.partner_id.partner_latitude"/>, <t t-field="establishment.partner_id.partner_longitude)" />],

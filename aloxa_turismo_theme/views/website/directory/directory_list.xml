@@ -25,7 +25,7 @@
 					<t t-if="td_product">
 						<t t-set="establishment" t-value="td_product['establishment']"/>
                       	<t t-set="contract_product" t-value="td_product['contract_product']"/>
-						<t t-set="evento" t-value="td_product['events'] if 'events' in td_product and td_product['events'] and len(td_product['events'])==1 else False"/>
+						<t t-set="evento" t-value="td_product['events'] if not establishment and 'events' in td_product and td_product['events'] and len(td_product['events'])==1 else False"/>
 
 						<!-- LISTA -->
 						<t t-if="request.session['directory_view'] == 'list'">													
@@ -53,7 +53,7 @@
 										</t>
 									</t>
 									<t t-if="evento">
-										<a class="product-image" title="" t-attf-href="/evento/#{ slug(evento) }">
+										<a class="product-image" title="" t-attf-href="/event/#{ slug(evento) }">
 											<span t-field="evento.organizer_id.image" t-field-options='{"widget": "image", "class": "directory-img"}' />
 										</a>
 									</t>          
@@ -76,7 +76,7 @@
 											</t>
 										</t>
 										<t t-if="evento">
-											<a class="product-list-item-name" itemprop="name" t-att-href="keep('/evento/%s' % slug(evento), category=0)" t-esc="evento.name.upper()"/>
+											<a class="product-list-item-name" itemprop="name" t-att-href="keep('/event/%s' % slug(evento), category=0)" t-esc="evento.name.upper()"/>
 										</t>
 									</h3>
 									<t t-if="establishment">

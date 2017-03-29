@@ -73,7 +73,7 @@
         				<div class="accordion-group">
 	                        <div class="accordion-heading">
 	                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" t-att-href="'#collapse-%s' % attr.name">
-	                            	<span t-att-class="'fa fa-caret-%s' % (attr.open and 'down' or 'right')"></span> <t t-esc="attr.label" />
+	                            	<span class="indicator fa fa-caret-down" t-att-style="'transform:rotate(%s)' % (attr.open and '180deg' or '0deg')"></span> <t t-esc="attr.label" />
 	                            </a>
 	                        </div>
 	                        <div t-att-id="'collapse-%s' % attr.name" t-att-class="'accordion-body collapse %s' % ('in' if attr.open else '')" t-att-style="'%s' % ('height: 0px;' if not attr.open else '')">

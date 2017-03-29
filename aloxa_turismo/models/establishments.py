@@ -147,7 +147,7 @@ class establishment(models.Model):
     tripadvisor_url = fields.Char(string="TripAdvisor Url", size=255)
     languages = fields.Many2many('turismo.language.tag', string='Languages')
     region = fields.Many2many('turismo.region.tag', string='Region')
-    type = fields.Selection([('winecellar','Winecellar'), ('restaurant','Restaurant'),('lodging','Lodging'),('cultural','Art and Culture'),('winebar','Winebar'), ('vineyard','Vineyard'),('other','Other')],'Establishment Type', translate=True, required=True)    
+    type_s = fields.Selection([('winecellar','Winecellar'), ('restaurant','Restaurant'),('lodging','Lodging'),('cultural','Art and Culture'),('winebar','Winebar'), ('vineyard','Vineyard'),('other','Other')],'Establishment Type', translate=True, required=True)    
     web = fields.Char(string="Web", size=255, default=default_web)
     website_published = fields.Boolean('WebSite Published', copy=False)
     images = fields.One2many('establishment.images', 'establishment_tmpl_id',string='Images')

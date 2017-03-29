@@ -2,7 +2,7 @@
 <openerp>
     <data>    
     
-		<template id="crear_evento" name="Crear Evento" page="True">
+		<template id="create_event" name="Create Event" page="True">
 			<t t-call="website.layout">
 				<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale">
 					<div class="page-title">
@@ -14,7 +14,7 @@
 				
 					<section t-attf-class="container mt8" id="crear_evento_container">
 				         <div class="row" style="margin-bottom:2em;">
-							<form action="/_crear_evento" method="post" id='create_link'>
+							<form action="/_create_event" method="post" id='create_link'>
 								<t t-if="est_partner">
 									<input type="hidden" name="organizer" t-attf-value="#{est_partner.id}" />
 								</t>

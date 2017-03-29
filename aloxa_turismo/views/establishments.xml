@@ -28,7 +28,7 @@
 					                    	</a>
 					                    	<div class="oe_kanban_details">
 					                    		<h4><a type="open"> <field name="name"/></a></h4>
-					                    		<h4><field name="type"/></h4>
+					                    		<h4><field name="type_s"/></h4>
 					                    		<ul>
 													<li t-if="record.city.raw_value">
 														<field name="city"/>
@@ -84,7 +84,7 @@
            			<group string="Stablishment Dates" colspan="4">
            				<field name="website_published" class="pull-right" widget="website_button"/>
 	            		<field name="name"/>
-	            		<field name="type"/>
+	            		<field name="type_s"/>
 	            		<field name="res_partner_id" attrs="{'required':1}"/>
 	            		<field name="parent_id" attrs="{'invisible':1}"/>
 	            		<field name="description"/>            		
@@ -159,13 +159,13 @@
         <field name="model">turismo.establishment</field> 
         <field name="arch" type="xml">
         <search string="Establishments">
-        	<filter name= "winecellar" string="Winecellars" domain="[['type', '=', 'winecellar']]" />				
-			<filter name= "restaurant" string="Restaurants" domain="[['type', '=', 'restaurant']]" />
-			<filter name= "vineyard" string="Vineyards" domain="[['type', '=', 'vineyard']]" />
-			<filter name= "lodging" string="Lodgings" domain="[['type', '=', 'lodging']]" />
-			<filter name= "cultural" string="Art and Culture" domain="[['type', '=', 'cultural']]" />
-			<filter name= "winebar" string="winebars" domain="[['type', '=', 'winebar']]" />
-			<filter name= "other" string="Others" domain="[['type', '=', 'other']]" />
+        	<filter name= "winecellar" string="Winecellars" domain="[['type_s', '=', 'winecellar']]" />				
+			<filter name= "restaurant" string="Restaurants" domain="[['type_s', '=', 'restaurant']]" />
+			<filter name= "vineyard" string="Vineyards" domain="[['type_s', '=', 'vineyard']]" />
+			<filter name= "lodging" string="Lodgings" domain="[['type_s', '=', 'lodging']]" />
+			<filter name= "cultural" string="Art and Culture" domain="[['type_s', '=', 'cultural']]" />
+			<filter name= "winebar" string="winebars" domain="[['type_s', '=', 'winebar']]" />
+			<filter name= "other" string="Others" domain="[['type_s', '=', 'other']]" />
 		</search>
 		</field>
 	</record>
@@ -197,7 +197,7 @@
 		<tree string="Establishment">
 			<field name="name"/>
 			<field name="website_published"/>
-	        <field name="type"/>
+	        <field name="type_s"/>
 	        <field name="res_partner_id"/>   	
 		</tree>
 		</field>

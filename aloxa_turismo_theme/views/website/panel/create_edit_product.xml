@@ -2,7 +2,7 @@
 <openerp>
     <data>    
     
-		<template id="crear_product" name="Crear Product" page="True">
+		<template id="create_product" name="Create Product" page="True">
 			<t t-call="website.layout">
 				<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale">
 					<div class="page-title">
@@ -15,7 +15,7 @@
 				
 					<section t-attf-class="container mt8" id="crear_product_container">
 				         <div class="row" style="margin-bottom:2em;">
-								<form method="POST" action="/_crear_editar_product" enctype="multipart/form-data">
+								<form method="POST" action="/_create_edit_product" enctype="multipart/form-data">
 									<input type="hidden" t-att-value="((prod) and prod.id) or ''" name="prod_id" />
 									<div class="col-xs-12 col-md-4">
 									 	<div class="form-group">

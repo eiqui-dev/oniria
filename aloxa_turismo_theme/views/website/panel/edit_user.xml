@@ -2,19 +2,19 @@
 <openerp>
     <data>    
     
-		<template id="editar_usuario" name="Edit Usuario" page="True">
+		<template id="edit_user" name="Edit User" page="True">
 			<t t-call="website.layout">
 				<div itemscope="itemscope" itemtype="http://schema.org/Product" id="wrap" class="js_sale">
 					<div class="page-title">
 			      		<div class="container">
 							<div class="oe_structure"/>
-						    <h1  t-esc="'Edit Data %s' % ((partner.is_company) and 'Empresa' or 'Usuario')" />
+						    <h1  t-esc="'Edit %s Details' % ((partner.is_company) and 'Company' or 'User')" />
 						</div>
 				    </div>
 				
 					<section t-attf-class="container mt8" id="editar_usuario_container">
 				         <div class="row" style="margin-bottom:2em;">
-							<form method="POST" action="/_editar_usuario" enctype="multipart/form-data">
+							<form method="POST" action="/_edit_user" enctype="multipart/form-data">
 								<div class="col-xs-12 col-md-4">
 								  <div class="form-group">
 								    <label for="name">Name</label>

@@ -152,7 +152,7 @@ class product_public_category(models.Model):
     _inherit='product.public.category'
     
     #Fields
-    link = fields.Boolean('Es link')
+    link = fields.Boolean('Is link')
     
 product_public_category()
 

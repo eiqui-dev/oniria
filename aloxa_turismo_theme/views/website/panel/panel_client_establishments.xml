@@ -5,7 +5,7 @@
 		<template id="panel_client_establishments" name="Panel Customer" page="True">
 			<h3 t-if="not establishments" class="text-muted text-center">No Establishments Found!</h3>
 			<div t-if="establishments" class="text-right" style="margin-bottom:20px;">
-				<a class="btn btn-primary" href="/crear_establishment">Create Establishment</a>
+				<a class="btn btn-primary" href="/create_establishment">Create Establishment</a>
 			</div>		
 			<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 				<t t-foreach="establishments or []" t-as="est">
@@ -13,11 +13,11 @@
 					<div t-att-class="'panel panel-list panel-%s' % ('primary' if est.website_published else 'default')">
 						<div class="panel-heading" role="tab" t-att-id="'heading%d' % est.id">
 							<a role="button" data-toggle="collapse" data-parent="#accordion" t-att-href="'#collapse%d' % est.id" aria-expanded="true" t-att-aria-controls="'collapse%d' % est.id">
-								<strong t-esc="est.name.upper()" />
+								<span class="indicator fa fa-caret-down"></span> <strong t-esc="est.name.upper()" />
 							</a>
 							<span class="pull-right">
 								<span t-if="not est.website_published" class="label label-default" title="This establishment isn't show in the directory">Not Published</span>
-								<a t-att-href="'/editar_establishment/%s' % slug(est)" class="btn btn-default btn-xs" style="margin-left:0.5em;"><i class="fa fa-pencil"></i> Edit</a>
+								<a t-att-href="'/edit_establishment/%s' % slug(est)" class="btn btn-default btn-xs" style="margin-left:0.5em;"><i class="fa fa-pencil"></i> Edit</a>
 								<a t-if="not est.website_published" t-att-href="'/preview/establishment/%s' % slug(est)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> Preview</a>
 								<a t-if="est.website_published" t-att-href="'/establishment/%s' % slug(est)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> View</a>
 							</span>
@@ -83,7 +83,7 @@
 											<tr t-att-class="(event.date_end >= str(datetime.datetime.now())) and 'success' or 'danger'">
 												<td style="vertical-align:middle;" role="tab" t-att-id="'headingTickets%d_%d' % (est.id, event.id)">
 													<a role="button" data-toggle="collapse" data-parent="#events" t-att-href="'#collapseTickets%d_%d' % (est.id, event.id)" aria-expanded="true" t-att-aria-controls="'collapseTickets%d_%d' % (est.id, event.id)">
-														<strong t-esc="event.name" />
+														<span class="indicator fa fa-caret-down"></span> <strong t-esc="event.name" />
 													</a>
 												</td>
 												<td style="vertical-align:middle;" t-esc="event.address_id.get_composed_address(', ')" />
@@ -124,7 +124,7 @@
 									</tbody>
 								</table>
 								<div class="text-right">
-									<a t-attf-href="/crear_evento/#{slug(est)}" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Create Event</a>
+									<a t-attf-href="/create_event/#{slug(est)}" class="btn btn-default btn-xs"><i class="fa fa-plus"></i> Create Event</a>
 								</div>
 								<h4>Products</h4>
 								<t t-set="products" t-value="website.get_stablisment_products(est.partner_id.id)" />
@@ -165,7 +165,7 @@
 				</t>
 			</div>
 			<div class="text-right">
-				<a class="btn btn-primary" href="/crear_establishment">Create Establishment</a>
+				<a class="btn btn-primary" href="/create_establishment">Create Establishment</a>
 			</div>
 		</template>
 		

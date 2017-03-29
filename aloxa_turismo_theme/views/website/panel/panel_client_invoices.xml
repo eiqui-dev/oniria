@@ -25,7 +25,7 @@
 								<td><span t-field="invoice.amount_untaxed" /></td>
 								<td><span t-field="invoice.amount_total" /></td>
 								<td class="text-center">
-									<a class="remove-contact btn btn-xs bg-primary" t-attf-href="/factura/descargar?id=#{invoice.id}"><i class="fa fa-file-pdf-o"></i> Download PDF</a>
+									<a class="remove-contact btn btn-xs bg-primary" t-attf-href="/invoice/download?id=#{invoice.id}"><i class="fa fa-file-pdf-o"></i> Download PDF</a>
 								</td>
 							</tr>
 						</t>

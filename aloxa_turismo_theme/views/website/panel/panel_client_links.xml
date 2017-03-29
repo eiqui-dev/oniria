@@ -5,7 +5,7 @@
     	<template id="panel_client_links">
 			<h3 t-if="not links" class="text-muted text-center">Doesn't have contracted links</h3>
 			<div t-if="links" class="text-right" style="margin-bottom:20px;">
-				<a href="/contratar_link" class="btn btn-primary"><i class="fa fa-plus"></i> Create Link</a>
+				<a href="/create_link" class="btn btn-primary"><i class="fa fa-plus"></i> Create Link</a>
 			</div>
 			<table t-if="links" class="table table-condensed table-stripped">
 				<thead>
@@ -29,7 +29,7 @@
 				</tbody>
 			</table>
 			<div class="text-right">
-				<a href="/contratar_link" class="btn btn-primary"><i class="fa fa-plus"></i> Create Link</a>
+				<a href="/create_link" class="btn btn-primary"><i class="fa fa-plus"></i> Create Link</a>
 			</div>
 		</template>
 		

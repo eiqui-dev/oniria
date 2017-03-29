@@ -5,14 +5,14 @@
 		<template id="panel_client_products">
 			<h3 t-if="not products" class="text-muted text-center">No products found</h3>
 			<t t-if="partner.is_company">
-        		<a t-if="products" style="margin-bottom:20px;" class="btn btn-primary" href="/crear_product">Create Product</a>
+        		<a t-if="products" style="margin-bottom:20px;" class="btn btn-primary" href="/create_product">Create Product</a>
 				<t t-foreach="products or []" t-as="prod">
 					<a t-attf-name="#{slug(prod)}"></a>
 					<div t-att-class="'panel panel-list panel-%s' % ('primary' if prod.website_published else 'default')">
 						<div class="panel-heading">
 							<strong t-esc="prod.name.upper()" />
 							<span class="pull-right">
-								<a t-att-href="'/editar_product/%s' % slug(prod)" class="btn btn-default btn-xs" style="margin-left:0.5em;"><i class="fa fa-pencil"></i> Edit</a>
+								<a t-att-href="'/edit_product/%s' % slug(prod)" class="btn btn-default btn-xs" style="margin-left:0.5em;"><i class="fa fa-pencil"></i> Edit</a>
 								<a t-if="not prod.website_published" t-att-href="'/preview/product/%s' % slug(prod)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> Preview</a>
 								<a t-if="prod.website_published" t-att-href="'/product/%s' % slug(prod)" style="margin-left:0.5em;" class="btn btn-default btn-xs"><i class="fa fa-eye"></i> View</a>
 							</span>
@@ -70,7 +70,7 @@
 						</div>
 					</div>
 				</t>
-				<a class="btn btn-primary" href="/crear_product">Create Product</a>
+				<a class="btn btn-primary" href="/create_product">Create Product</a>
 			</t>
 			<t t-if=" not partner.is_company">
 				PRODUCTOS COMPRADOS CLIENTE NORMAL
