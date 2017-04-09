@@ -98,7 +98,7 @@ class website_aloxa_turismo(Website):
                 param_type_est = [werkzeug.url_unquote_plus(params[s])
                                   for s in param_type_est_k]
                 if len(param_type_est) > 0:
-                    searchDomain.append(('type', 'in', param_type_est))
+                    searchDomain.append(('type_s', 'in', param_type_est))
 
             # OrderBy
             if orderby == 'direccion':
