@@ -497,3 +497,17 @@ a.list-group-item {
 .directory-img {
 	width: 100%;
 }
+
+/** ELEVATE ZOOM **/
+.elevateZoomMain {
+	position: initial !important;
+	width: 100% !important;	
+}
+#gallery_est img {
+ 	border: 2px solid white;
+ 	width: 65px;
+}
+
+.active img {
+	border:2px solid #333 !important;
+}

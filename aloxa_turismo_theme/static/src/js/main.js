@@ -346,6 +346,7 @@ function initializeGMaps(querySelector, lat, long, address) {
 		    		map: map,
 		        	position: results[0].geometry.location,
 					animation: google.maps.Animation.DROP,
+					icon: '/aloxa_turismo_theme/static/src/img/marker-establishment.png',
 		      	});
 		    	var resizeEvent = new Event('resize');
 		    	window.dispatchEvent(resizeEvent);
@@ -355,6 +356,25 @@ function initializeGMaps(querySelector, lat, long, address) {
 		});
 	}
 }
+
+openerp.website.if_dom_contains('#gallery_est', function(){
+	$("#img_thumb").elevateZoom({
+		gallery:'gallery_est',
+		cursor: 'pointer',
+		galleryActiveClass: 'active',
+		imageCrossfade: true,
+		scrollZoom : true,
+		responsive: true,
+		loadingIcon: 'http://www.elevateweb.co.uk/spinner.gif'
+	}); 
+
+	//pass the images to Fancybox
+	$("#img_thumb").bind("click", function(e) {  
+		var ez = $('#img_thumb').data('elevateZoom');	
+		$.fancybox(ez.getGalleryList());
+		return false;
+	});
+});
 /** FIN: DETALLE establishment **/
 
 /** RUTAS **/
@@ -527,7 +547,7 @@ function add_address_to_directory_map(address, url, title) {
 		map: $DIRECTORY_MAP,
     	position: new google.maps.LatLng(address[0], address[1]),
 		animation: google.maps.Animation.DROP,
-		icon: '/aloxa_turismo_theme/static/src/img/marker-establecimiento.png',
+		icon: '/aloxa_turismo_theme/static/src/img/marker-establishment.png',
   	});
 	marker['url'] = url;
 	marker['title'] = title;

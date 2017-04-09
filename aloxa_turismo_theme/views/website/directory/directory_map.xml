@@ -15,15 +15,15 @@
 							<t t-set="event" t-value="td_product['events'] if not establishment and 'events' in td_product and td_product['events'] and len(td_product['events'])==1 else False"/>
 
 							<t t-if="establishment and establishment.partner_id.partner_latitude and establishment.partner_id.partner_longitude">
-								[<t t-field="establishment.partner_id.partner_latitude"/>, <t t-field="establishment.partner_id.partner_longitude)" />],
-								'/establecimiento/<t t-esc="slug(establishment)"/>',
-								'<t t-field="establishment.name"/>',
+								[<t t-esc="establishment.partner_id.partner_latitude"/>, <t t-esc="establishment.partner_id.partner_longitude" />],
+								'/establishment/<t t-esc="slug(establishment)"/>',
+								'<t t-esc="establishment.name"/>',
 							</t>
 							<t t-if="event and event.address_id.partner_latitude and event.address_id.partner_longitude">
 								<t t-set="is_events" t-value="True" />
-								[<t t-field="event.address_id.partner_latitude"/>, <t t-field="event.address_id.partner_longitude)" />],
-								'/evento/<t t-esc="slug(event)"/>',
-								'<t t-field="event.name"/>',
+								[<t t-esc="event.address_id.partner_latitude"/>, <t t-esc="event.address_id.partner_longitude" />],
+								'/event/<t t-esc="slug(event)"/>',
+								'<t t-esc="event.name"/>',
 							</t>
 	                	</t>
 	                </t>

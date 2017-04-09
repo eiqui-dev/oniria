@@ -8,6 +8,7 @@
 				<!-- <script type='text/javascript' src="/aloxa_turismo_theme/static/src/libs/jQuery-File-Upload-9.11.2/js/vendor/jquery.ui.widget.js"></script>
 				<script type='text/javascript' src="/aloxa_turismo_theme/static/src/libs/jQuery-File-Upload-9.11.2/js/jquery.iframe-transport.js"></script>
 				<script type='text/javascript' src="/aloxa_turismo_theme/static/src/libs/jQuery-File-Upload-9.11.2/js/jquery.fileupload.js"></script> -->
+				<script type='text/javascript' src='/aloxa_turismo_theme/static/src/libs/elevateZoom-3.0.8/jquery.elevatezoom.js' />
 				<script type='text/javascript' src='/aloxa_turismo_theme/static/src/libs/form-validator/jquery.validate.min.js' />
 				<script type='text/javascript' src='/aloxa_turismo_theme/static/src/libs/form-validator/additional-methods.min.js' />
 				<script type='text/javascript' src='/aloxa_turismo_theme/static/src/libs/form-validator/localization/messages_es.js' />

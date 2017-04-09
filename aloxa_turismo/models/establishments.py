@@ -121,6 +121,11 @@ class establishment(models.Model):
                                                  self.tripadvisor_url, re.IGNORECASE):
             raise exceptions.ValidationError("Url de TripAdvisor Incorrecta")
         
+    @api.multi
+    def geo_localize(self):
+        self.ensure_one()
+        self.partner_id.geo_localize()
+        
     # Computed Fields
     @api.one
     @api.depends('image')
@@ -133,10 +138,8 @@ class establishment(models.Model):
                 record.image_thumb = False
     
     #fields
-    partner_id = fields.Many2one('res.partner')
+    partner_id = fields.Many2one('res.partner', required=True)
     res_partner_id = fields.Many2one('res.partner', 'Customer', required=True ,default=default_res_partner_id)   
-    latitude = fields.Float('Latitude', digits=(6,3))
-    longitude = fields.Float('Longitude', digits=(6,3))
     image = fields.Binary('Image', default=default_image)
     image_thumb = fields.Binary('Thumbnail', compute="_get_image_thumb", store=True)
     description = fields.Text(string='Description', translate=True)   

@@ -43,7 +43,7 @@
 												</t>
 											</t>
 											<t t-if="event">
-												<a itemprop="name" t-att-href="keep('/event/%s' % slug(event), category=0)" t-field="evento.name"/>
+												<a itemprop="name" t-att-href="keep('/event/%s' % slug(event), category=0)" t-field="event.name"/>
 											</t>
 										</div>
 									</div>
@@ -70,9 +70,9 @@
 												</a>
 											</t>
 										</t>
-										<t t-if="evento">
-											<a class="product-image" title="" t-attf-href="/evento/#{ slug(evento) }">
-												<span t-field="evento.organizer_id.image" t-field-options='{"widget": "image", "class": "directory-img"}' />
+										<t t-if="event">
+											<a class="product-image" title="" t-attf-href="/event/#{ slug(event) }">
+												<span t-field="event.organizer_id.image" t-field-options='{"widget": "image", "class": "directory-img"}' />
 											</a>
 										</t>        
 									</div>

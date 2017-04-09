@@ -23,7 +23,19 @@
 			         <div class="row">
 						<!-- IMAGEN -->
 						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 product-detail">
-	                		<span itemprop="image" t-field="establishment.image" t-field-options='{"widget": "image", "class": "product_detail_img product-image"}'/>
+	                		<img id="img_thumb" class="elevateZoomMain"
+	                			t-attf-src="/web/binary/image?model=turismo.establishment&amp;id=#{establishment.id}&amp;field=image" 
+	                			t-attf-data-zoom-image="/web/binary/image?model=turismo.establishment&amp;id=#{establishment.id}&amp;field=image"/>
+							<div id="gallery_est">
+								<a href="#" t-attf-data-image="/web/binary/image?model=turismo.establishment&amp;id=#{establishment.id}&amp;field=image" t-attf-data-zoom-image="/web/binary/image?model=turismo.establishment&amp;id=#{establishment.id}&amp;field=image">
+									<img id="img_thumb" t-attf-src="/web/binary/image?model=turismo.establishment&amp;id=#{establishment.id}&amp;field=image" />
+							  	</a>
+								<t t-foreach="establishment.images" t-as="image">
+									<a href="#" t-attf-data-image="/web/binary/image?model=establishment.images&amp;id=#{image.id}&amp;field=image" t-attf-data-zoom-image="/web/binary/image?model=establishment.images&amp;id=#{image.id}&amp;field=image">
+										<img id="img_thumb" t-attf-src="/web/binary/image?model=establishment.images&amp;id=#{image.id}&amp;field=image" />
+								  	</a>
+						  		</t>
+							</div>
 	                	</div>
 	                	<!-- INFO -->
 						<div class="product-info"> 
@@ -97,21 +109,6 @@
 						<div id="location" class="col-md-12 col-lg-12" style="min-height:350px; clear:both;">
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="map_est" style="height:350px"></div>
 						</div>
-						<!-- GALERIA -->
-					  	<div id="images" t-if="len(establishment.images) > 0" class="col-md-12 col-lg-12" style="min-height:150px">
-				  			<div class="row">
-				  				<h4 class="detail-section-title"><strong>GALERY</strong></h4>
-				  			</div>
-					  		<div style="clear:both;">
-						  		<t t-foreach="establishment.images" t-as="image">
-						  			<div class="col-sm-6 col-md-4">
-							  			<div class="image-grid">
-							  				<img t-att-title="image.name" t-attf-src="/web/binary/image?model=establishment.images&amp;id=#{image.id}&amp;field=image"/>
-									    </div>
-								    </div>
-						  		</t>
-						  	</div>
-						</div>
 						<!-- PRODUCTOS RELACIONADOS -->
 						<!--div id="products" class="col-md-12 col-lg-12" style="min-height:150px">
 							<div class="row">
@@ -148,10 +145,12 @@
 				  				<h4 class="detail-section-title"><strong>RELATED ESTABLISHMENTS</strong></h4>
 				  			</div>
 					  		<div style="clear:both;">
-						  		<t t-foreach="related" t-as="est">
+						  		<t t-foreach="related" t-as="item">
+						  			<t t-set="est" t-value="item[0]"/>
+						  			<t t-set="distance" t-value="item[1]"/>
 						  			<div class="col-sm-4 col-md-2">
 							  			<div class="image-grid">
-							  				<a t-att-href="'/establishment/%s' % slug(est)"><img t-att-title="est.name" t-attf-src="/web/binary/image?model=turismo.establishment&amp;id=#{est.id}&amp;field=image"/></a>
+							  				<a t-att-href="'/establishment/%s' % slug(est)"><img t-att-title="'%s (Distance: %d meters)' % (est.name, distance)" t-attf-src="/web/binary/image?model=turismo.establishment&amp;id=#{est.id}&amp;field=image"/></a>
 									    </div>
 								    </div>
 						  		</t>

@@ -48,6 +48,24 @@
 			                    </div>
 			                </li>
 			            </ul>
+			            
+			            <!-- events RELACIONADOS -->
+					  	<div id="related_ev" t-if="len(related) > 0" class="col-md-12 col-lg-12" style="min-height:150px">
+				  			<div class="row">
+				  				<h4 class="detail-section-title"><strong>RELATED EVENTS</strong></h4>
+				  			</div>
+					  		<div style="clear:both;">
+						  		<t t-foreach="related" t-as="item">
+						  			<t t-set="ev" t-value="item[0]"/>
+						  			<t t-set="distance" t-value="item[1]"/>
+						  			<div class="col-sm-4 col-md-2">
+							  			<div class="image-grid">
+							  				<a t-att-href="'/event/%s' % slug(ev)"><img t-att-title="'%s (Distance: %d meters)' % (ev.name, distance)" t-attf-src="/web/binary/image?model=turismo.establishment&amp;id=#{ev.id}&amp;field=image"/></a>
+									    </div>
+								    </div>
+						  		</t>
+						  	</div>
+						</div>
 			        </div>
 			        <div class="col-md-4 css_noprint">
 			            <div class="clearfix"/>

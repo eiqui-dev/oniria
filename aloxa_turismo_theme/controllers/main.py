@@ -11,11 +11,12 @@ from openerp.addons.auth_signup.res_users import SignupError
 from openerp.addons.web.controllers.main import login_redirect, content_disposition
 from openerp.addons.website.models.website import slug
 # from openerp.addons.auth_signup.controllers.main import AuthSignupHome
+import googlemaps
 import requests
 import re
-import logging
 import base64
 import werkzeug.utils
+import logging
 _logger = logging.getLogger(__name__)
 # import pydevd
 
@@ -118,7 +119,7 @@ class website_aloxa_turismo(Website):
                                 ], limit=4)
                 tmp_banner.events = events
                 banners_directorio.append(tmp_banner)
-        elif product_type == "evento":
+        elif product_type == "event":
             searchDomain.append(('website_published','=',True))
             searchDomain.append(('date_end','>=',datetime.now().strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT)))
             if params and 'search' in params.keys():
@@ -1189,10 +1190,11 @@ class website_aloxa_turismo(Website):
                     sri = len(request.session['search_records'])-1
 
             if category_type == 'establishment':
+                est_model = request.env['turismo.establishment']
                 if not establishment and request.session['search_records']:
                     if not sri:
                         sri = 0
-                    establishment = request.env['turismo.establishment'].browse([request.session['search_records'][sri]])
+                    establishment = est_model.browse([request.session['search_records'][sri]])
 
                 if establishment:
                     # Buscar SRI del establishment
@@ -1208,9 +1210,9 @@ class website_aloxa_turismo(Website):
                     next_est = False
                     if request.session['search_records']:
                         if sri > 0:
-                            prev_est = request.env['turismo.establishment'].browse([request.session['search_records'][sri-1]])
+                            prev_est = est_model.browse([request.session['search_records'][sri-1]])
                         if sri < len(request.session['search_records'])-1:
-                            next_est = request.env['turismo.establishment'].browse([request.session['search_records'][sri+1]])
+                            next_est = est_model.browse([request.session['search_records'][sri+1]])
 
                     events = request.env['event.event'].search([
                                         ('website_published', '=', True),
@@ -1219,17 +1221,47 @@ class website_aloxa_turismo(Website):
                                     ])
                     products = request.env['product.template'].search([('website_published','=',True),
                                                                        ('establishment_id','=',establishment.id)])
-                    related_est = request.env['turismo.establishment'].search([
-                                            ('id', '!=', establishment.id),
-                                            ('res_partner_id', '=', establishment.res_partner_id.id)
-                                        ])
+                    # RELATED ESTABLISHMENTS
+                    gKey = request.website.google_maps_key
+                    client = googlemaps.Client(gKey)
+
+                    city_ests = est_model.search([
+                        ('city', '=ilike', establishment.city),
+                        ('id', '!=', establishment.id),
+                    ])
+
+                    related_est = []
+                    origins = [{'lat': establishment.partner_latitude, 'lng': establishment.partner_longitude}]
+                    destinations = []
+                    for est in city_ests:
+                        related_est.append([est, 0])
+                        destinations.append(
+                            (est.partner_latitude, est.partner_longitude)
+                        )
+
+                    if any(destinations):
+                        matrix = client.distance_matrix(origins, destinations)
+                        if any(matrix['rows'][0]['elements']):
+                            for index in range(len(matrix['rows'][0]['elements'])):
+                                elm = matrix['rows'][0]['elements'][index]
+                                if elm['status'] == 'OK':
+                                    related_est[index][1] = elm['distance']['value']
+
+                    # Search lower distance (Bubble Sort... slow life :B)
+                    for passnum in range(len(related_est)-1, 0, -1):
+                        for i in range(passnum):
+                            if related_est[i][1] > related_est[i+1][1]:
+                                temp = related_est[i][1]
+                                related_est[i] = related_est[i+1]
+                                related_est[i+1] = temp
+
                     values.update({
                         'sri': sri+1,
                         'prev_est': prev_est,
                         'next_est': next_est,
                         'establishment': establishment,
                         'events': events,
-                        'related': related_est,
+                        'related': related_est[:6],
                         'products_table': table_compute().process_products_establishment(products),
                     })
                 else:
@@ -1267,12 +1299,13 @@ class website_aloxa_turismo(Website):
                 else:
                     request.session['directory_view'] = 'grid'
             elif category_type == 'event':
+                ev_model = request.env['event.event']
                 if not event and request.session['search_records']:
                     if not sri:
                         sri = 0
-                    event = request.env['event.event'].browse([request.session['search_records'][sri]])
+                    event = ev_model.browse([request.session['search_records'][sri]])
                 if event:
-                    # Buscar SRI del establishment
+                    # Buscar SRI del event
                     if not sri:
                         count = 0
                         for rec_id in request.session['search_records']:
@@ -1281,20 +1314,54 @@ class website_aloxa_turismo(Website):
                                 break
                             count = count+1
 
-                    prev_event = False  
+                    prev_event = False
                     next_event = False
                     if request.session['search_records']:
                         if sri > 0:
-                            prev_event = request.env['event.event'].browse([request.session['search_records'][sri-1]])
+                            prev_event = ev_model.browse([request.session['search_records'][sri-1]])
                         if sri < len(request.session['search_records'])-1:
-                            next_event = request.env['event.event'].browse([request.session['search_records'][sri+1]])
-                    related_events = request.env['event.event'].search([('id', '!=', event.id),('organizer_id', '=', event.organizer_id.id)])
+                            next_event = ev_model.browse([request.session['search_records'][sri+1]])
+                    
+                    # RELATED EVENTS
+                    gKey = request.website.google_maps_key
+                    client = googlemaps.Client(gKey)
+
+                    city_events = ev_model.search([
+                        ('address_id.city', '=ilike', event.address_id.city),
+                        ('id', '!=', event.id),
+                    ])
+
+                    related_events = []
+                    origins = [{'lat': event.address_id.partner_latitude, 'lng': event.address_id.partner_longitude}]
+                    destinations = []
+                    for ev in city_events:
+                        related_events.append([ev, 0])
+                        destinations.append(
+                            (ev.address_id.partner_latitude, ev.address_id.partner_longitude)
+                        )
+
+                    if any(destinations):
+                        matrix = client.distance_matrix(origins, destinations)
+                        if any(matrix['rows'][0]['elements']):
+                            for index in range(len(matrix['rows'][0]['elements'])):
+                                elm = matrix['rows'][0]['elements'][index]
+                                if elm['status'] == 'OK':
+                                    related_events[index][1] = elm['distance']['value']
+
+                    # Search lower distance (Bubble Sort... slow life :B)
+                    for passnum in range(len(related_events)-1, 0, -1):
+                        for i in range(passnum):
+                            if related_events[i][1] > related_events[i+1][1]:
+                                temp = related_events[i][1]
+                                related_events[i] = related_events[i+1]
+                                related_events[i+1] = temp
+
                     values.update({
                         'sri': sri+1,
                         'prev_event': prev_event,
                         'next_event': next_event,
                         'event': event,
-                        'related': related_events,
+                        'related': related_events[:6],
                     })
                 else:
                     request.session['directory_view'] = 'grid'
