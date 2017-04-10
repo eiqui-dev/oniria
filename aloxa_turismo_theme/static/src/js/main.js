@@ -354,6 +354,13 @@ function initializeGMaps(querySelector, lat, long, address) {
 		    	console.log('Geocode was not successful for the following reason: ' + status);
 		    }
 		});
+	} else {
+		var marker = new google.maps.Marker({
+    		map: map,
+        	position: sitePos,
+			animation: google.maps.Animation.DROP,
+			icon: '/aloxa_turismo_theme/static/src/img/marker-establishment.png',
+      	});
 	}
 }
 
@@ -365,7 +372,7 @@ openerp.website.if_dom_contains('#gallery_est', function(){
 		imageCrossfade: true,
 		scrollZoom : true,
 		responsive: true,
-		loadingIcon: 'http://www.elevateweb.co.uk/spinner.gif'
+		loadingIcon: '/aloxa_turismo_theme/static/src/img/loading-gear.gif'
 	}); 
 
 	//pass the images to Fancybox
