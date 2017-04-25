@@ -3,7 +3,7 @@
 <data>
 	
 	<template id="main_menu" inherit_id="website.layout">
-		<xpath expr="//div[@class='navbar navbar-default navbar-static-top']" position="before">
+		<xpath expr="//div[@class='navbar navbar-default navbar-static-top']" position="inside">
 			<t t-set="langs" t-value="website.language_ids"/>
 			<div t-if="request.website_multilang and len(languages) &gt; 1" class="langbar text-right">
 				<div class="dropdown">

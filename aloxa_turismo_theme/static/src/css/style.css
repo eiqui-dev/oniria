@@ -99,12 +99,16 @@ header {
 
 
 /* MODIFY BOOTSTRAP */
+.navbar.navbar-static-top{
+  background-color: #ffffff;	
+  border-color: #ffffff;
+}
 .navbar-brand {
   padding: 0px; /* firefox bug fix */
 }
 .navbar-brand>img {
   height: 100%;
-  padding: 15px; /* firefox bug fix */
+  padding: 3px; /* firefox bug fix */
   width: auto;
 }
 

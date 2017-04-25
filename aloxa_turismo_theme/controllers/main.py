@@ -1248,12 +1248,13 @@ class website_aloxa_turismo(Website):
                                     related_est[index][1] = elm['distance']['value']
 
                     # Search lower distance (Bubble Sort... slow life :B)
-                    for passnum in range(len(related_est)-1, 0, -1):
-                        for i in range(passnum):
-                            if related_est[i][1] > related_est[i+1][1]:
-                                temp = related_est[i][1]
-                                related_est[i] = related_est[i+1]
-                                related_est[i+1] = temp
+		    if any(related_est):
+                   	 for passnum in range(len(related_est)-1, 0, -1):
+                        	for i in range(passnum):
+                       		     	if related_est[i][1] > related_est[i+1][1]:
+                                		temp = related_est[i][1]
+                                		related_est[i] = related_est[i+1]
+                                		related_est[i+1] = temp
 
                     values.update({
                         'sri': sri+1,
