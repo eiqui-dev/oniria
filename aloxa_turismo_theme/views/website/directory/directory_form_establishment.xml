@@ -146,13 +146,15 @@
 				  			</div>
 					  		<div style="clear:both;">
 						  		<t t-foreach="related" t-as="item">
-						  			<t t-set="est" t-value="item[0]"/>
-						  			<t t-set="distance" t-value="item[1]"/>
-						  			<div class="col-sm-4 col-md-2">
-							  			<div class="image-grid">
-							  				<a t-att-href="'/establishment/%s' % slug(est)"><img t-att-title="'%s (Distance: %d meters)' % (est.name, distance)" t-attf-src="/web/binary/image?model=turismo.establishment&amp;id=#{est.id}&amp;field=image"/></a>
+						  			<t t-if="item">
+							  			<t t-set="est" t-value="item[0]"/>
+							  			<t t-set="distance" t-value="item[1]"/>
+							  			<div class="col-sm-4 col-md-2">
+								  			<div class="image-grid">
+								  				<a t-att-href="'/establishment/%s' % slug(est)"><img t-att-title="'%s (Distance: %d meters)' % (est.name, distance)" t-attf-src="/web/binary/image?model=turismo.establishment&amp;id=#{est.id}&amp;field=image"/></a>
+										    </div>
 									    </div>
-								    </div>
+								    </t>
 						  		</t>
 						  	</div>
 						</div>
