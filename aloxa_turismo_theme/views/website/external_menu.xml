@@ -3,32 +3,6 @@
 <data>
 	
 	<template id="main_menu" inherit_id="website.layout">
-		<xpath expr="//div[@class='navbar navbar-default navbar-static-top']" position="before">
-			<t t-set="langs" t-value="website.language_ids"/>
-			<div t-if="request.website_multilang and len(languages) &gt; 1" class="langbar text-right">
-				<div class="dropdown">
-					<button class="btn btn-default dropdown-toggle" type="button" id="langsel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				    <t t-foreach="langs" t-as="lg" href="#" class="dropdown-toggle" data-toggle="dropdown">
-					    <t t-if="lang == lg.code">
-							<img t-att-src="website.image_url(lg, 'icon')" t-att-title="lg.name" />
-		                </t>
-		            </t>
-				    <span class="caret"></span>
-				  	</button>
-				  	<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="langsel">
-					    <li t-foreach="langs" t-as="lg">
-							<t t-if="lang!=lg.code">
-								<a t-att-href="url_for(request.httprequest.path + '?' + keep_query(), lang=lg.code)">
-									<img t-att-src="website.image_url(lg, 'icon')" t-att-title="lg.name" />
-									<span t-esc="lg.name" />
-								</a>
-							</t>
-						</li>
-				  	</ul>
-				</div>
-			</div>
-		</xpath>
-	
 		<xpath expr="//a[@t-field='res_company.name']" position='replace'>
  			<a href="/" class="navbar-brand">
            		<img src="/logo.png" alt="inforwine" t-att-title="res_company.name"/>
@@ -49,7 +23,7 @@
 		</xpath>
 		
 		<xpath expr="//ul[@id='top_menu']" position='replace'>
-	        <ul class="nav navbar-nav navbar-right" id="top_menu">
+	        <ul class="nav navbar-nav navbar-right" id="top_menu_user">
 	            <li class="dropdown" t-ignore="true" t-if="website.user_id != user_id">
 	                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 	                    <b>
@@ -129,6 +103,36 @@
 	                </ul>
 	            </li>
 	        </ul>
+		</xpath>
+	</template>
+	
+	<template id="main_menu_user" inherit_id="aloxa_turismo_theme.main_menu">
+		<xpath expr="//ul[@id='top_menu_user']" position="inside">
+			<li>
+				<t t-set="langs" t-value="website.language_ids"/>
+				<div t-if="request.website_multilang and len(languages) &gt; 1" class="langbar text-right">
+					<div class="dropdown">
+						<button class="btn btn-default dropdown-toggle" type="button" id="langsel" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					    <t t-foreach="langs" t-as="lg" href="#" class="dropdown-toggle" data-toggle="dropdown">
+						    <t t-if="lang == lg.code">
+								<img t-att-src="website.image_url(lg, 'icon')" t-att-title="lg.name" />
+			                </t>
+			            </t>
+					    <span class="caret"></span>
+					  	</button>
+					  	<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="langsel">
+						    <li t-foreach="langs" t-as="lg">
+								<t t-if="lang!=lg.code">
+									<a t-att-href="url_for(request.httprequest.path + '?' + keep_query(), lang=lg.code)">
+										<img t-att-src="website.image_url(lg, 'icon')" t-att-title="lg.name" />
+										<span t-esc="lg.name" />
+									</a>
+								</t>
+							</li>
+					  	</ul>
+					</div>
+				</div>
+			</li>
 		</xpath>
 	</template>
 		
