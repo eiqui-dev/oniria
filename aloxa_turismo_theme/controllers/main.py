@@ -1245,7 +1245,7 @@ class website_aloxa_turismo(Website):
                             for index in range(len(matrix['rows'][0]['elements'])):
                                 elm = matrix['rows'][0]['elements'][index]
                                 if elm['status'] == 'OK':
-                                    related_est[index][1] = elm['distance']['value']
+                                    related_est[index-1][1] = elm['distance']['value']
 
                     # Search lower distance (Bubble Sort... slow life :B)
                     for passnum in range(len(related_est)-1, 0, -1):
