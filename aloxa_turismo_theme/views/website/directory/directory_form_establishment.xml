@@ -40,9 +40,9 @@
 	                	<!-- INFO -->
 						<div class="product-info"> 
 							<!-- NOMBRE Y DESCRIPCION -->
-							<div class="col-xs-12 col-md-5 col-lg-5 col-sm-6 product-detail">
+							<div class="col-xs-12 col-md-5 col-lg-8 col-sm-6 product-detail">
 								<div id="head-name">
-									<div class="pull-right">
+									<div class="pull-right" style="font-size:8px;">
 										<t t-foreach="establishment.services" t-as="service">
 											<i t-attf-class="fa fa-2x fa-{{service.icon}} est-icon" t-att-title='service.name'></i>
 										</t>
@@ -54,30 +54,7 @@
 					            </div>
 								<p t-field="establishment.description" class="text-muted text-justify"
 									style="margin-top:1.5em;"/>   
-							</div> 
-							
-							<!-- HORARIO -->
-							<div class="col-xs-12 col-md-3 col-lg-3 col-sm-12 product-detail"> 
-								<div class="block-hours" t-if="establishment.schedule and len(establishment.schedule)>0">
-									<h4>Schedule</h4>
-									<table>
-										<tr t-foreach="establishment.schedule" t-as="hln">
-											<td><t t-esc="website.get_day_of_week(hln.dayofweek)" /></td><td style="text-align:right"><t t-esc="'%s – %s' % (website.get_float_hours(hln.hour_from), website.get_float_hours(hln.hour_to))" /></td>
-										</tr>
-									</table>
-								</div>
-								
-								<!--t t-if="establishment.tripadvisor_url">
-						        	<div id="TA_selfserveprop321" class="TA_selfserveprop">
-										<ul id="YdAbOSysc8" class="TA_links Ed0roAdwga8x">
-											<li id="bdLvBcTo04K" class="lqkgPPEUk">
-												<a target="_blank" t-attf-href="#{ establishment.tripadvisor_url }"><img src="http://www.tripadvisor.es/img/cdsi/img2/branding/150_logo-11900-2.png" alt="TripAdvisor"/></a>
-											</li>
-										</ul>
-									</div>
-									<script t-attf-src="http://www.jscache.com/wejs?wtype=selfserveprop&amp;uniq=321&amp;locationId=#{ establishment.get_tripadvisor_id() }&amp;lang=es&amp;rating=true&amp;nreviews=5&amp;writereviewlink=true&amp;popIdx=true&amp;iswide=false&amp;border=true&amp;display_version=2"></script>
-								</t-->
-							</div> 
+							</div>
 						</div>
 					</div>
 					

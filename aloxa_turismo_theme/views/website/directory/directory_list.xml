@@ -62,7 +62,7 @@
 									<h3 style="margin:0;font-weight: 700; color:#666;">
 										<t t-if="establishment">
 											<a class="product-list-item-name" itemprop="name" t-att-href="keep('/establishment/%s' % slug(establishment), category=0)" t-esc="establishment.name.upper()"/>
-											<div style="float:right;">
+											<div style="float:right;font-size:small">
 												&amp;nbsp;
 												<t t-foreach="establishment.services" t-as="service">
 													<i t-attf-class="fa fa-{{service.icon}} est-icon" t-att-title='service.name'></i>

@@ -1,10 +1,13 @@
 /* BASE */
+a{
+	color:#d40c53;
+}
 body {
 	font-family: 'Poppins', Verdana, sans-serif;
 }
 footer {
 	display: table-cell !important;
-	border: solid #b72613;
+	border: solid #d40c53;
 	border-width: 6px 0 0 0;
 	margin-top: 1.5em;
 }
@@ -62,6 +65,7 @@ header {
 }
 
 /* MAIN MENU */
+
 .top-subtotal {
 	margin-top: 1.5em;
 }
@@ -85,8 +89,18 @@ header {
 #menu_payment_details {
 	background-color: #f0f0f0;
 }
-
-
+.navbar-default .navbar-nav > li > a{
+        color: #d40c53;
+	font-size: larger;
+}
+b, strong{
+       color: #504e4a;
+}
+.navbar-default .navbar-nav > .active > a{
+       background-color: #ffffff;
+       color: #000;
+       
+}
 /* GENERAL */
 #wrapwrap>main {
 	min-height: 100%;
@@ -112,7 +126,6 @@ header {
   width: auto;
 }
 
-
 /* Odoo */
 .oe_product_borderless {
   border: 0 !important;
@@ -122,6 +135,9 @@ header {
 #directory-map {
   height:500px;
   margin-top: 0.5em;
+}
+a.open-map-image{
+  color:#428bca;
 }
 
 /* TOOLBAR DIRECTORIO */
@@ -254,8 +270,14 @@ header {
 
 
 /* DIRECTORIO */
+.list-group-item.active .list-group-item-text, .list-group-item.active:hover .list-group-item-text, .list-group-item.active:focus .list-group-item-text{
+  color: #000;
+}
+.list-group-item.active:hover{
+  background-color: #6d6969;
+}
 .product-list-item {
-  margin-bottom: 1.5em;
+  margin-bottom: 3.5em;
 }
 .product-list-item-name a {
   color: #000;
@@ -264,10 +286,11 @@ header {
   text-decoration: none;
 }
 .product-list-item-name {
-  color: #000;
+  color: #d40c53;
+  font-size: large;
 }
 #advs {
-  background-color: #efefef;
+  background-image: url(https://test.oniria.eiqui.com/aloxa_turismo_theme/static/src/img/banner.jpg);
   height: 600px;
   min-height: 100%;
 }
@@ -403,11 +426,16 @@ header {
 	padding: 0 !important;
 	margin: 0 !important;
 	font-weight: bold !important;
+	font-size: 22px;
 }
 
 /* PANEL establishment */
 a.list-group-item {
 	min-height: 100px;
+}
+.list-group-item.active{
+	border-color: #d40c53;
+	background-color: #d40c53;
 }
 .event-tickets-panel {
 	box-shadow: 0 1px 5px #BBB inset;
