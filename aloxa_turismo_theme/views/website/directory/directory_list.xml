@@ -93,7 +93,7 @@
 										<div style="margin-top:0.3em;">
 											<span t-if="establishment.description and len(establishment.description) &gt; 200"> 
 				 								<t t-set="description" t-value="establishment.description[:200] and establishment.description[:200].replace('+', '\n')+'...'"/>
-												<p><t t-esc="description"/></p>
+												<p><t t-raw="description"/></p>
 											</span>				
 											<span t-if="establishment.description and len(establishment.description) &lt; 200">
 												<p t-if="establishment.description and len(establishment.description)&gt; 0" t-field="establishment.description"/>
@@ -118,7 +118,7 @@
 										<div style="margin-top:0.3em;">
 											<span t-if="contract_product.product_tur_id.description and len(contract_product.product_tur_id.description) &gt; 200"> 
 				 								<t t-set="description" t-value="contract_product.product_tur_id.description[:200] and contract_product.product_tur_id.description[:200].replace('+', '\n')+'...'"/>
-												<p><t t-esc="description"/></p>
+												<p><t t-raw="description"/></p>
 											</span>				
 											<span t-if="contract_product.product_tur_id.description and len(contract_product.product_tur_id.description) &lt; 200">
 												<p t-if="contract_product.product_tur_id.description and len(contract_product.product_tur_id.description)&gt; 0" t-field="contract_product.product_tur_id.description" />
@@ -146,7 +146,7 @@
 										<div style="margin-top:0.3em;">
 											<span t-if="evento.description and len(evento.description) &gt; 200"> 
 				 								<t t-set="description" t-value="evento.description[:200] and evento.description[:200].replace('+', '\n')+'...'"/>
-												<p><t t-esc="description"/></p>
+												<p><t t-raw="description"/></p>
 											</span>				
 											<span t-if="evento.description and len(evento.description) &lt; 200">
 												<p t-if="evento.description and len(evento.description)&gt; 0" t-field="evento.description" />

@@ -1244,8 +1244,8 @@ class website_aloxa_turismo(Website):
                         if any(matrix['rows'][0]['elements']):
                             for index in range(len(matrix['rows'][0]['elements'])):
                                 elm = matrix['rows'][0]['elements'][index]
-                                if elm['status'] == 'OK':
-                                    related_est[index-1][1] = elm['distance']['value']
+                                if elm['status'] == 'OK' and index < len(related_est):
+                                    related_est[index][1] = elm['distance']['value']
 
                     # Search lower distance (Bubble Sort... slow life :B)
                     for passnum in range(len(related_est)-1, 0, -1):
@@ -1254,9 +1254,6 @@ class website_aloxa_turismo(Website):
                                     temp = related_est[i][1]
                                     related_est[i] = related_est[i+1]
                                     related_est[i+1] = temp
-                                    
-                    _logger.info("OARA POR AKI ESTAAAAAAAA --------")
-                    _logger.info(related_est[:6])
 
                     values.update({
                         'sri': sri+1,
