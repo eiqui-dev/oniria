@@ -1241,7 +1241,6 @@ class website_aloxa_turismo(Website):
 
                     if any(destinations):
                         matrix = client.distance_matrix(origins, destinations)
-                        _logger.info(matrix)
                         if any(matrix['rows'][0]['elements']):
                             for index in range(len(matrix['rows'][0]['elements'])):
                                 elm = matrix['rows'][0]['elements'][index]
@@ -1255,9 +1254,6 @@ class website_aloxa_turismo(Website):
                                     temp = related_est[i][1]
                                     related_est[i] = related_est[i+1]
                                     related_est[i+1] = temp
-                                    
-                    _logger.info("OARA POR AKI ESTAAAAAAAA --------")
-                    _logger.info(related_est[:6])
 
                     values.update({
                         'sri': sri+1,
