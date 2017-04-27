@@ -1241,11 +1241,12 @@ class website_aloxa_turismo(Website):
 
                     if any(destinations):
                         matrix = client.distance_matrix(origins, destinations)
+                        _logger.info(matrix)
                         if any(matrix['rows'][0]['elements']):
                             for index in range(len(matrix['rows'][0]['elements'])):
                                 elm = matrix['rows'][0]['elements'][index]
-                                if elm['status'] == 'OK':
-                                    related_est[index-1][1] = elm['distance']['value']
+                                if elm['status'] == 'OK' and index < len(related_est):
+                                    related_est[index][1] = elm['distance']['value']
 
                     # Search lower distance (Bubble Sort... slow life :B)
                     for passnum in range(len(related_est)-1, 0, -1):
