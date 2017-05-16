@@ -140,9 +140,8 @@ class establishment(models.Model):
     #fields
     partner_id = fields.Many2one('res.partner', required=True)
     res_partner_id = fields.Many2one('res.partner', 'Customer', required=True ,default=default_res_partner_id)   
-    image = fields.Binary('Image', default=default_image)
     image_thumb = fields.Binary('Thumbnail', compute="_get_image_thumb", store=True)
-    description = fields.Text(string='Description', translate=True)   
+    description = fields.Html(string='Description', translate=True)   
     #direccion = fields.Char(string='Dirección', size=120, default=default_direccion, translate=True)
     #locality = fields.Char(string='locality', size=120, default=default_locality, translate=True)
     schedule = fields.Char(string='Schedule', size=120)
@@ -157,6 +156,12 @@ class establishment(models.Model):
     services = fields.Many2many('establishment.services',string='Services')
     email = fields.Char(string="Email", default=default_email)
     phone = fields.Char(string="Phone", default=default_phone)
+    related_establishments = fields.Many2many(
+        'turismo.establishment', 
+        string='Related Establishments',
+        relation='related_establishments_ids',
+        column1='establishment1',
+        column2='establishment2')
     
 establishment()
     

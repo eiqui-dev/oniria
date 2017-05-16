@@ -22,14 +22,14 @@ class website(models.Model):
                 url = "http://" + url # TODO: Por defecto http, quizas mejor https ?
         return url
 
-    def get_banners_portada(self):
+    def get_banners_portada(self,tam):
         #pydevd.settrace("10.0.3.1")
         #('product_id.link_position', '=', 'Portada')
         banners = self.env['turismo.contract_product_customer'].search(['|','&',('fecha_fin', '>=', datetime.now()),('fecha_fin', '=', False),('publicado', '=', True),('product_id.link_position', '=', 'Portada')])
         num_banners = len(banners)
         random_indices = random.sample(range(num_banners), num_banners)
         banners = [ banners[i] for i in random_indices ]
-        return table_compute().process_home(banners)
+        return table_compute().process_home(banners,tam)
     
     def get_composed_address(self, partner, sep):
         return sep.join([x for x in [partner.street,

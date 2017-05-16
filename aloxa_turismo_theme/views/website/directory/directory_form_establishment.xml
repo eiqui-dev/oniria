@@ -123,7 +123,7 @@
 				  			</div>
 					  		<div style="clear:both;">
 						  		<t t-foreach="related" t-as="item">
-						  			<t t-if="item != null">
+						  			<t t-if="item != null and item[1] != 0" >
 							  			<t t-set="est" t-value="item[0]"/>
 							  			<t t-set="distance" t-value="item[1]"/>
 							  			<div class="col-sm-4 col-md-2">

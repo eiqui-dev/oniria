@@ -5,44 +5,148 @@
 		<template id="home_page" inherit_id="website.homepage" name="Oniria Turismo">
 			<xpath expr="//t[@t-call='website.layout']" position="replace">
 				<t t-call="website.layout">
-					<t t-set="title" t-value="'Inforwine - La winebar virtual'" />
-					
-					<t t-set="bins" t-value="website.get_banners_portada()"/>
-					<t t-set="rows" t-value="4"/>
+					<t t-set="title" t-value="'Inforwine - The virtual winebar'" />										
 					<div id="banners_grid">
 			            <div id="banners_grid" class="col-md-12">
-			              <table width="100%" class="hidden-xs">
-			                <tbody>
-			                  <tr t-ignore="true">
-			                    <td t-foreach="range(0,rows)" t-as="row" t-attf-width="#{100/rows}%"></td>
-			                  </tr>
-			                  <tr t-foreach="bins" t-as="tr_banner">
-			                    <t t-foreach="tr_banner" t-as="td_banner">
-			                      <t t-if="td_banner">
-			                      	  <t t-set="banner" t-value="td_banner['banner']" />
-				                      <td t-att-colspan="td_banner['x'] != 1 and td_banner['x']"
-				                          t-att-rowspan="td_banner['y'] != 1 and td_banner['y']"
-				                          t-attf-class="oe_product oe_grid oe_product_borderless oe-height-#{td_banner['y']*2} #{ td_banner['class'] }"
-				                          style="overflow:hidden">
-				                          	<t t-set="banner_url" t-value="False"/>
-				                          	<t t-set="banner_target" t-value="_self"/>
-				                          	<t t-if="banner.product_tur_id"><t t-set="banner_url" t-value="'/shop/product/%s' % slug(banner.product_tur_id)"/></t>
-				                          	<t t-if="not banner_url and banner.establishment_id"><t t-set="banner_url" t-value="'/establishment/%s' % slug(banner.establishment_id)"/></t>
-				                          	<t t-if="not banner_url and banner.url"><t t-set="banner_url" t-value="website.sanitize_url(banner_url)"/><t t-set="banner_target" t-value="_blank"/></t>
-											<a itemprop="url" t-att-href="banner_url or '#'" t-att-target="banner_target">
-												<div class="oe_product_image" style="height:100%;">
-													<span t-field="banner.image" t-field-options='{"widget": "image", "class": "img-crop"}' />
-												</div>
-											</a>
-				                      </td>
-			                      </t>
-			                      <td t-if="not td_banner" class="oe-height-2"/>
-			                    </t>
-			                  </tr>
-			                </tbody>
-						</table>
-			           	<div class="visible-xs">
-							<t t-foreach="bins" t-as="tr_banner">
+					<div class="visible-xl"> 
+					<t t-set="bins" t-value="website.get_banners_portada('xl')"/>
+					<t t-set="rows" t-value="5"/>
+					 <table width="1400px" align="center">
+					        <tbody>
+					         <tr t-ignore="true">
+					            <td t-foreach="range(0,rows)" t-as="row" t-attf-width="#{100/rows}%"></td>
+					          </tr>
+					          <tr t-foreach="bins" t-as="tr_banner">
+					            <t t-foreach="tr_banner" t-as="td_banner">
+					              <t t-if="td_banner">
+					              	  <t t-set="banner" t-value="td_banner['banner']" />
+						              <td t-att-colspan="td_banner['x'] != 1 and td_banner['x']"
+						                  t-att-rowspan="td_banner['y'] != 1 and td_banner['y']"
+						                  t-attf-class="oe_product oe_grid oe_product_borderless oe-height-#{td_banner['y']*2} #{ td_banner['class'] }"
+						                  style="overflow:hidden">
+						                  	<t t-set="banner_url" t-value="False"/>
+						                  	<t t-set="banner_target" t-value="_self"/>
+						                  	<t t-if="banner.product_tur_id"><t t-set="banner_url" t-value="'/shop/product/%s' % slug(banner.product_tur_id)"/></t>
+						                  	<t t-if="not banner_url and banner.establishment_id"><t t-set="banner_url" t-value="'/establishment/%s' % slug(banner.establishment_id)"/></t>
+						                  	<t t-if="not banner_url and banner.url"><t t-set="banner_url" t-value="website.sanitize_url(banner_url)"/><t t-set="banner_target" t-value="_blank"/></t>
+												<a itemprop="url" t-att-href="banner_url or '#'" t-att-target="banner_target">
+													<div class="oe_product_image" style="height:100%;">
+														<span t-field="banner.image" t-field-options='{"widget": "image", "class": "img-crop"}' />
+													</div>
+												</a>
+						              </td>
+					             	</t>
+					             <td t-if="not td_banner" class="oe-height-2"/>
+					            </t>
+					          </tr>
+					        </tbody>
+					</table>
+					</div>
+					<div class="hidden-xl"> 
+					<div class="visible-lg">
+					<t t-set="bins" t-value="website.get_banners_portada('lg')"/>
+					<t t-set="rows" t-value="4"/> 
+					 <table width="1100px" align="center">
+					        <tbody>
+					         <tr t-ignore="true">
+					            <td t-foreach="range(0,rows)" t-as="row" t-attf-width="#{100/rows}%"></td>
+					          </tr>
+					          <tr t-foreach="bins" t-as="tr_banner">
+					            <t t-foreach="tr_banner" t-as="td_banner">
+					              <t t-if="td_banner">
+					              	  <t t-set="banner" t-value="td_banner['banner']" />
+						              <td t-att-colspan="td_banner['x'] != 1 and td_banner['x']"
+						                  t-att-rowspan="td_banner['y'] != 1 and td_banner['y']"
+						                  t-attf-class="oe_product oe_grid oe_product_borderless oe-height-#{td_banner['y']*2} #{ td_banner['class'] }"
+						                  style="overflow:hidden">
+						                  	<t t-set="banner_url" t-value="False"/>
+						                  	<t t-set="banner_target" t-value="_self"/>
+						                  	<t t-if="banner.product_tur_id"><t t-set="banner_url" t-value="'/shop/product/%s' % slug(banner.product_tur_id)"/></t>
+						                  	<t t-if="not banner_url and banner.establishment_id"><t t-set="banner_url" t-value="'/establishment/%s' % slug(banner.establishment_id)"/></t>
+						                  	<t t-if="not banner_url and banner.url"><t t-set="banner_url" t-value="website.sanitize_url(banner_url)"/><t t-set="banner_target" t-value="_blank"/></t>
+												<a itemprop="url" t-att-href="banner_url or '#'" t-att-target="banner_target">
+													<div class="oe_product_image" style="height:100%;">
+														<span t-field="banner.image" t-field-options='{"widget": "image", "class": "img-crop"}' />
+													</div>
+												</a>
+						              </td>
+					             	</t>
+					             <td t-if="not td_banner" class="oe-height-2"/>
+					            </t>
+					          </tr>
+					        </tbody>
+					</table>
+					</div>
+					</div>
+					<div class="visible-md">
+					<t t-set="bins" t-value="website.get_banners_portada('md')"/>
+					<t t-set="rows" t-value="3"/>
+					<table width="1100px" align="center">
+					        <tbody>
+					         <tr t-ignore="true">
+					            <td t-foreach="range(0,rows)" t-as="row" t-attf-width="#{100/rows}%"></td>
+					          </tr>
+					          <tr t-foreach="bins" t-as="tr_banner">
+					            <t t-foreach="tr_banner" t-as="td_banner">
+					              <t t-if="td_banner">
+					              	  <t t-set="banner" t-value="td_banner['banner']" />
+						              <td t-att-colspan="td_banner['x'] != 1 and td_banner['x']"
+						                  t-att-rowspan="td_banner['y'] != 1 and td_banner['y']"
+						                  t-attf-class="oe_product oe_grid oe_product_borderless oe-height-#{td_banner['y']*2} #{ td_banner['class'] }"
+						                  style="overflow:hidden">
+						                  	<t t-set="banner_url" t-value="False"/>
+						                  	<t t-set="banner_target" t-value="_self"/>
+						                  	<t t-if="banner.product_tur_id"><t t-set="banner_url" t-value="'/shop/product/%s' % slug(banner.product_tur_id)"/></t>
+						                  	<t t-if="not banner_url and banner.establishment_id"><t t-set="banner_url" t-value="'/establishment/%s' % slug(banner.establishment_id)"/></t>
+						                  	<t t-if="not banner_url and banner.url"><t t-set="banner_url" t-value="website.sanitize_url(banner_url)"/><t t-set="banner_target" t-value="_blank"/></t>
+												<a itemprop="url" t-att-href="banner_url or '#'" t-att-target="banner_target">
+													<div class="oe_product_image" style="height:100%;">
+														<span t-field="banner.image" t-field-options='{"widget": "image", "class": "img-crop"}' />
+													</div>
+												</a>
+						              </td>
+					             	</t>
+					             <td t-if="not td_banner" class="oe-height-2"/>
+					            </t>
+					          </tr>
+					        </tbody>
+					</table>
+					</div>
+					<div class="visible-sm">
+					<t t-set="rows" t-value="2"/>
+					<t t-set="bins" t-value="website.get_banners_portada('sm')"/>
+					<table width="650px" align="center">
+					        <tbody>
+					          <tr t-ignore="true">
+					            <td t-foreach="range(0,rows)" t-as="row" t-attf-width="#{100/rows}%"></td>
+					          </tr>
+					          <tr t-foreach="bins" t-as="tr_banner">
+					            <t t-foreach="tr_banner" t-as="td_banner">
+					              <t t-if="td_banner">
+					              	  <t t-set="banner" t-value="td_banner['banner']" />
+						              <td t-att-colspan="td_banner['x'] != 1 and td_banner['x']"
+						                  t-att-rowspan="td_banner['y'] != 1 and td_banner['y']"
+						                  t-attf-class="oe_product oe_grid oe_product_borderless oe-height-#{td_banner['y']*2} #{ td_banner['class'] }"
+						                  style="overflow:hidden">
+						                  	<t t-set="banner_url" t-value="False"/>
+						                  	<t t-set="banner_target" t-value="_self"/>
+						                  	<t t-if="banner.product_tur_id"><t t-set="banner_url" t-value="'/shop/product/%s' % slug(banner.product_tur_id)"/></t>
+						                  	<t t-if="not banner_url and banner.establishment_id"><t t-set="banner_url" t-value="'/establishment/%s' % slug(banner.establishment_id)"/></t>
+						                  	<t t-if="not banner_url and banner.url"><t t-set="banner_url" t-value="website.sanitize_url(banner_url)"/><t t-set="banner_target" t-value="_blank"/></t>
+												<a itemprop="url" t-att-href="banner_url or '#'" t-att-target="banner_target">
+													<div class="oe_product_image" style="height:100%;">
+														<span t-field="banner.image" t-field-options='{"widget": "image", "class": "img-crop"}' />
+													</div>
+												</a>
+						              </td>
+					             	</t>
+					             <td t-if="not td_banner" class="oe-height-2"/>
+					            </t>
+					          </tr>
+					        </tbody>
+					</table>
+					</div>
+			           	<div class="visible-xs"><t t-foreach="bins" t-as="tr_banner">
 			                	<t t-foreach="tr_banner" t-as="td_banner">
 			                    	<t t-if="td_banner">
 			                      		<t t-set="banner" t-value="td_banner['banner']" />

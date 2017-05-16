@@ -17,7 +17,7 @@
 				            	<!-- OPCION ORDENAR POR CAMPO Y BOTONES DE VISTAS -->
 				            	<t t-if="not is_direct_form">
 									<t t-call="aloxa_turismo_theme.toolbar" />
-									<t t-set="title" t-value="'Directory %ss' % category_type.title()"/>
+									<!--<t t-set="title" t-value="'Directory %ss' % category_type.title()"/>-->
 								</t>
 
 								<!-- VISTA MAPA -->
@@ -69,29 +69,43 @@
 				</t>			    
 		        <!-- <h3>FILTROS</h3> -->
         		<div class="accordion" id="leftMenu">
+				<t t-set="title" t-value="'Directorio %ss' % category_type.title()"/>				
+				
+					<input type="hidden" name="date_event" id="date_event" t-att-value="date_event"/>
+					<div style="overflow:hidden;">
+					    <div class="form-group">
+						<div class="row">
+						    <div class="col-md-8">
+							<div id="datetimepicker12"></div>
+						    </div>
+						</div>
+					    </div>				    
+					</div>
+				
         			<t t-foreach="attributes" t-as="attr">
         				<div class="accordion-group">
-	                        <div class="accordion-heading">
-	                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" t-att-href="'#collapse-%s' % attr.name">
-	                            	<span class="indicator fa fa-caret-down" t-att-style="'transform:rotate(%s)' % (attr.open and '180deg' or '0deg')"></span> <t t-esc="attr.label" />
-	                            </a>
-	                        </div>
-	                        <div t-att-id="'collapse-%s' % attr.name" t-att-class="'accordion-body collapse %s' % ('in' if attr.open else '')" t-att-style="'%s' % ('height: 0px;' if not attr.open else '')">
-	                            <div class="accordion-inner">
-        							<ul>
-        								<t t-set="cont" t-value="0" />
-        								<li t-foreach="attr.values" t-as="value">
-        									<t t-set="cont" t-value="cont+1" />
-        									<input onchange="submit()" type="checkbox" t-att-value="value.name" t-att-name="'%s-%s' % (attr.name,cont)" t-att-checked="'checked' if value.sel else ''" /> <t t-esc="value.label" />
-        									<span class="pull-right">(<t t-esc="value.num" />)</span>
-        								</li>
-	                                </ul>
-	                            </div>
-	                        </div>
-	                    </div>
-	            	</t>
-                </div>
-				<span t-if="not attributes" class="text-muted" style="margin-left:1.5em;">Sin Filtros</span>
+	                        		<div class="accordion-heading">
+	                           			 <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" t-att-href="'#collapse-%s' % attr.name">
+	                            				<span class="indicator fa fa-caret-down" t-att-style="'transform:rotate(%s)' % (attr.open and '180deg' or '0deg')"></span> <t t-esc="attr.label" />
+	                           			 </a>
+	                        		</div>
+			               		 <div t-att-id="'collapse-%s' % attr.name" t-att-class="'accordion-body collapse %s' % ('in' if attr.open else '')" t-att-style="'%s' % ('height: 0px;' if not attr.open else '')">
+			                    		<div class="accordion-inner">
+								<ul>
+									<t t-set="cont" t-value="0" />
+									<li t-foreach="attr.values" t-as="value">
+										<t t-set="cont" t-value="cont+1" />
+										<input onchange="submit()" type="checkbox" t-att-value="value.name" t-att-name="'%s-%s' % (attr.name,cont)" t-att-checked="'checked' if value.sel else ''" /> <t t-esc="value.label" />
+										<span class="pull-right">(<t t-esc="value.num" />)</span>
+									</li>
+			                		        </ul>
+					               	</div>
+				                </div>				
+	         	                </div>
+	            		</t>				
+				
+                	</div>
+			<span t-if="not attributes" class="text-muted" style="margin-left:1.5em;">Sin Filtros</span>
 			</form>
 		</template>
 		<!-- FIN PAFINA DIRECTORIO: FILTROS -->

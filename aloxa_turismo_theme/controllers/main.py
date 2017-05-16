@@ -132,7 +132,7 @@ class website_aloxa_turismo(Website):
                 t_localities_k = [s for s in params if s.startswith("locality-")]
                 t_localities = [werkzeug.url_unquote_plus(params[s]) for s in t_localities_k]
                 if len(t_localities) > 0:
-                    searchDomain.append(('organizer_id.city', 'in', [False if q=='none' else q for q in t_localities]))
+                    searchDomain.append(('address_id.city', 'in', [False if q=='none' else q for q in t_localities]))
             
             # OrderBy
             if orderby == 'direccion':
@@ -435,9 +435,12 @@ class website_aloxa_turismo(Website):
                 attribute.values.append(value)
             attributes.append(attribute)
             
-        elif product_type == 'evento':
-            searchDomain = [('website_published','=',True)]
-            param_t_localities = []
+        elif product_type == 'event':
+            searchDomain = [('website_published','=',True),('date_end','>=',datetime.now().strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT))]
+ 	     # Type establishment
+           
+            param_services = []
+	    param_t_localities = []
             if params and 'search' in params.keys():
                 # Busqueda por cajetin
                 if any(params['search']):
@@ -448,6 +451,10 @@ class website_aloxa_turismo(Website):
                 # t_localities
                 param_t_localities_k = [s for s in params if s.startswith("locality-")]
                 param_t_localities = [werkzeug.url_unquote_plus(params[s]) for s in param_t_localities_k]
+
+		# t_services
+		param_services_k = [s for s in params if s.startswith("service-")]
+            	param_services = [int(werkzeug.url_unquote_plus(params[s])) for s in param_services_k]
                 
             #searchDomaint_localities = []
             #if len(param_t_localities) > 0:
@@ -468,10 +475,28 @@ class website_aloxa_turismo(Website):
             t_localities = OrderedDict.fromkeys(t_localities).keys()
             for locality in t_localities:
                 value = attrValueDirectorio()
-                value.num = eventos.search_count([('address_id.city','=',locality)])
+                value.num = eventos.search_count([('address_id.city','=',locality),('date_end','>=',datetime.now().strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT))])
                 value.name = locality or 'none'
                 value.label = locality or "Sin Definir"
                 value.sel = True if locality in param_t_localities or (not locality and value.name in param_t_localities) else False
+                attribute.values.append(value)
+            attributes.append(attribute)
+
+	    attribute = attrDirectorio()
+            attribute.open = True
+            attribute.icon = 'fa-map-marker'
+            attribute.label = "Services"
+            attribute.name = "services"
+
+	    attribute.values = []
+            services = request.env['establishment.services'].search([])
+            establishments = request.env['turismo.establishment']
+            for service in services:
+                value = attrValueDirectorio()
+                value.num = establishments.search_count([('services','in',[service.id])])
+                value.name = service.id
+                value.label = service.name
+                value.sel = True if service.id in param_services else False
                 attribute.values.append(value)
             attributes.append(attribute)
 
@@ -1171,13 +1196,15 @@ class website_aloxa_turismo(Website):
             'categories': categories,
             'category_type': category_type,
             'attributes': self._create_directory_attributes(product_type=category_type, params=params),
-            'keep': keep,
+	    'keep': keep,
             'bins': bins,
             'numresults': numres,
             'rows': 4,
             'search': params['search'] if params and 'search' in params.keys() else '',
             'is_direct_form': is_direct_form,
         }
+	if "date_event" in params:
+		values.update({'date_event':params['date_event']})
 
         if request.session['directory_view'] == 'form' or is_direct_form:
             # Validar SRI

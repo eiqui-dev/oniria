@@ -1,4 +1,15 @@
 /* BASE */
+@media (min-width: 768px) {
+  .navbar-nav.navbar-right:last-child {
+    margin-right: 0;
+  }
+}
+.main {
+  margin: 0 auto -60px;
+}
+.main .img-responsive {
+  margin-bottom: 30px;
+}
 a{
 	color:#bc204b;
 }
@@ -330,7 +341,7 @@ a.open-map-image{
 
 .image-grid {
 	object-fit: cover;
-	max-height: 150px;
+	max-height: 250px;
 	overflow: hidden;
 	border-radius: 3px;
 	margin: 0.4em;
@@ -514,7 +525,7 @@ a.list-group-item {
 }
 
 .img-crop {
-	height: 100% !important;
+	height: auto !important;
 	width: 100% !important;
 	object-fit: cover !important;
 }

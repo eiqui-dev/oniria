@@ -27,7 +27,7 @@
 				<link rel="stylesheet" type='text/css' href="/aloxa_turismo_theme/static/src/libs/select2-4.0.3/select2.css" />
 				<!--link rel="stylesheet" type='text/css' href="/aloxa_turismo_theme/static/src/lib/font-awesome-4.7.0/font-awesome.css" /-->
 				<link rel="stylesheet" type='text/css' href="/aloxa_turismo_theme/static/src/css/style.css" />
-		    </xpath>
+				<link rel="stylesheet" type='text/css' href="/aloxa_turismo_theme/static/src/css/bootstrapxl.css" />		    </xpath>
 		</template>
 		
 		<template id="editor_head" inherit_id="website.layout" name="Editor" groups="base.group_website_publisher,base.group_website_designer">
