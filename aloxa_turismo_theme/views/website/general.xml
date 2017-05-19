@@ -71,6 +71,9 @@
 		          		<button title="Vista Lista" id="view-list" type="button" t-att-data-link-target="category_type" t-att-class="'btn btn-sm btn-default' + ('active' if view_mode=='list' else '')"><i class="fa fa-list"></i></button>
 		          		<button title="Vista Mapa" t-if="not category_type == 'wine'" id="view-map" type="button" t-att-data-link-target="category_type" t-att-class="'btn btn-sm btn-default' + ('active' if view_mode=='map' else '')"><i class="fa fa-globe"></i></button>
 		          	</span>
+				<div t-if="keep and slug" class="text-right searchbar">
+	        			<t t-call="website_sale.search"><t t-set="search_class">navbar-form</t></t>
+				</div>
 		    	</span>
 			</div>
 		</template>

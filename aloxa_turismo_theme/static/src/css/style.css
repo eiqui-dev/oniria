@@ -3,7 +3,17 @@
   .navbar-nav.navbar-right:last-child {
     margin-right: 0;
   }
-}
+  .navbar.navbar-static-top{
+    max-width: 1500px !important;
+    margin: auto !important; 
+    padding-bottom: 30px;
+    padding-top: 30px;
+  }
+  #banners_grid, #wrap{
+    max-width: 1500px !important;
+    margin: auto !important; 
+  }
+  	
 .main {
   margin: 0 auto -60px;
 }

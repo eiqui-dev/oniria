@@ -75,12 +75,13 @@ class table_compute(object):
         minpos = 0
         index = 0
         maxy = 0
+        
         for banner in banners_directorio:
             #csize = self._get_banner_size(banner.contract_product) if banner.contract_product else [1 , 1]
             csize = self.cCRPB['s']
             x = min(max(csize[0], 1), self.IPR)
             y = min(max(csize[1], 1), self.IPR)
-
+	    self.IPR = self.IPRs.get('lg')
             pos = minpos
             while not self._check_place(pos%self.IPR, pos/self.IPR, x, y):
                 pos += 1

@@ -17,6 +17,7 @@ import re
 import base64
 import werkzeug.utils
 import logging
+
 _logger = logging.getLogger(__name__)
 # import pydevd
 
@@ -80,7 +81,7 @@ class website_aloxa_turismo(Website):
                 if any(params['search']):
                     searchDomain.append('|')
                     searchDomain.append(('name', 'ilike', params['search']))
-                    searchDomain.append(('description', 'ilike', params['search']))
+                    searchDomain.append(('description', 'ilike', params['search']))		    
                 # t_localities
                 t_localities_k = [s for s in params if s.startswith("locality-")]
                 t_localities = [werkzeug.url_unquote_plus(params[s]) for s in t_localities_k]
@@ -127,13 +128,23 @@ class website_aloxa_turismo(Website):
                 if len(params['search']) > 0:
                     searchDomain.append('|')
                     searchDomain.append(('name', 'ilike', params['search']))
-                    searchDomain.append(('description', 'ilike', params['search']))
+                    searchDomain.append(('description', 'ilike', params['search']))		    
+		if 'date_event' in params.keys() and len(params['date_event']) > 0:
+		    date_event = datetime.strptime(werkzeug.url_unquote_plus(params['date_event']), tools.DEFAULT_SERVER_DATETIME_FORMAT)
+		    date_str = date_event.strftime(tools.DEFAULT_SERVER_DATE_FORMAT)
+                    searchDomain.append(('date_begin', '>=', date_str))
+		    searchDomain.append(('date_end', '<=', date_str))
                 # t_localities
                 t_localities_k = [s for s in params if s.startswith("locality-")]
                 t_localities = [werkzeug.url_unquote_plus(params[s]) for s in t_localities_k]
                 if len(t_localities) > 0:
                     searchDomain.append(('address_id.city', 'in', [False if q=='none' else q for q in t_localities]))
-            
+            	# Services
+                services_k = [s for s in params if s.startswith("service-")]
+                services = [int(werkzeug.url_unquote_plus(params[s])) for s in services_k]
+                if any(services):
+                    searchDomain.append(('address_id.services', 'in', services))
+		            
             # OrderBy
             if orderby == 'direccion':
                 orderby_key = 'street'
@@ -455,7 +466,12 @@ class website_aloxa_turismo(Website):
 		# t_services
 		param_services_k = [s for s in params if s.startswith("service-")]
             	param_services = [int(werkzeug.url_unquote_plus(params[s])) for s in param_services_k]
-                
+            
+	    searchDomainevents = list(searchDomain)
+            if any(param_t_localities):
+                searchDomainevents.append(('address_id.city', 'in', [False if q=='none' else q for q in param_t_localities]))
+            if any(param_services):
+                searchDomainevents.append(('address_id.services', 'in', [False if q=='none' else q for q in param_services]))   
             #searchDomaint_localities = []
             #if len(param_t_localities) > 0:
             #    searchDomaint_localities.append(('address_id.city', 'in', param_t_localities))
@@ -475,7 +491,7 @@ class website_aloxa_turismo(Website):
             t_localities = OrderedDict.fromkeys(t_localities).keys()
             for locality in t_localities:
                 value = attrValueDirectorio()
-                value.num = eventos.search_count([('address_id.city','=',locality),('date_end','>=',datetime.now().strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT))])
+                value.num = eventos.search_count(searchDomainevents+[('address_id.city','=',locality)])
                 value.name = locality or 'none'
                 value.label = locality or "Sin Definir"
                 value.sel = True if locality in param_t_localities or (not locality and value.name in param_t_localities) else False
@@ -486,14 +502,15 @@ class website_aloxa_turismo(Website):
             attribute.open = True
             attribute.icon = 'fa-map-marker'
             attribute.label = "Services"
-            attribute.name = "services"
+            attribute.name = "service"
 
 	    attribute.values = []
-            services = request.env['establishment.services'].search([])
+            t_services = eventos.mapped('address_id.services')
+	    t_services = OrderedDict.fromkeys(t_services).keys()
             establishments = request.env['turismo.establishment']
-            for service in services:
+            for service in t_services:
                 value = attrValueDirectorio()
-                value.num = establishments.search_count([('services','in',[service.id])])
+                value.num = eventos.search_count(searchDomainevents+[('address_id.services','in',service.id)])
                 value.name = service.id
                 value.label = service.name
                 value.sel = True if service.id in param_services else False
@@ -1205,6 +1222,8 @@ class website_aloxa_turismo(Website):
         }
 	if "date_event" in params:
 		values.update({'date_event':params['date_event']})
+	else:
+		values.update({'date_event':datetime.now().strftime(tools.DEFAULT_SERVER_DATETIME_FORMAT)})		
 
         if request.session['directory_view'] == 'form' or is_direct_form:
             # Validar SRI

@@ -1,18 +1,21 @@
 
 
 "use strict;"
-openerp.website.if_dom_contains('#datetimepicker12', function(){	
 
+var Users = new openerp.Model('res.users');
+
+openerp.website.if_dom_contains('#datetimepicker12', function(){
+   
    var dt = $('#datetimepicker12').datetimepicker({
 	inline: true,
 	sideBySide: false,
-	defaultDate: moment($('#date_event').val(),"YY-MM-DD HH:mm:ss")
+	defaultDate: moment($('#date_event').val(),"YYYY-MM-DD HH:mm:ss"),
+	enabledDates: ['2017/05/20'],
     });
-	
+
 	dt.on('dp.change',function(ev){
-		$("#date_event").val(ev.date.format("YY-MM-DD HH:mm:ss"));
+		$("#date_event").val(ev.date.format("YYYY-MM-DD HH:mm:ss"));
 		$("#form-filters").submit();
-console.log(ev);
 	})
 });
 openerp.website.if_dom_contains('.menu-orderby', function(){

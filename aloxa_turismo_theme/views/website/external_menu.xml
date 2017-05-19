@@ -14,12 +14,8 @@
 				<t t-foreach="website.menu_id.child_id" t-as="submenu">
 				    <t t-call="website.submenu"/>
 				</t>
-			</ul>
-
-			
-			<div t-if="keep and slug" class="col-sm-3 col-md-3 pull-right text-right searchbar">
-	        	<t t-call="website_sale.search"><t t-set="search_class">navbar-form</t></t>
-	        </div>
+			</ul>			
+	        
 		</xpath>
 		
 		<xpath expr="//ul[@id='top_menu']" position='replace'>
