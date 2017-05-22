@@ -149,7 +149,6 @@ class establishment(models.Model):
     #direccion = fields.Char(string='Dirección', size=120, default=default_direccion, translate=True)
     #locality = fields.Char(string='locality', size=120, default=default_locality, translate=True)
     schedule = fields.Char(string='Schedule', size=120)
-    res_partner_id = fields.Many2one('res.partner', 'Customer', default=default_res_partner_id)   
     tripadvisor_url = fields.Char(string="TripAdvisor Url", size=255)
     languages = fields.Many2many('turismo.language.tag', string='Languages')
     region = fields.Many2many('turismo.region.tag', string='Region')

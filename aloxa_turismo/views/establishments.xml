@@ -101,7 +101,7 @@
                     		<field name="email" widget="email" attrs="{'required': [('user_ids','!=', [])]}"/>                     
 		            	</group>
 		            	<group>		            	
-		            		<field name="website_published" class="pull-right" widget="website_button"/>
+		            		<field name="website_published" class="pull-right" widget="website_button" nolabel="1"/>
 		            		<field name="res_partner_id" attrs="{'required':1}"/>
 		            		<field name="parent_id" attrs="{'invisible':1}"/>
 		            		<field name="related_establishments" widget="many2many_tags"/>		            				            		           		
@@ -175,15 +175,24 @@
         <field name="model">turismo.establishment</field> 
         <field name="arch" type="xml">
         <search string="Establishments">
+		<field name="name" filter_domain="['|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self)]"/>
+		   <filter help="My Partners" icon="terp-personal+" domain="[('user_id','=',uid)]"/>
+		   <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]"/>
+		   <field name="user_id"/>
+		   <group expand="0" string="Group By">
+		       <filter string="Salesperson" icon="terp-personal" domain="[]" context="{'group_by' : 'user_id'}"/>
+		       <filter string="Company" context="{'group_by': 'parent_id'}"/>
+		       <filter string="Country" context="{'group_by': 'country_id'}"/>
+		   </group>
         	<filter name= "winecellar" string="Winecellars" domain="[['type_s', '=', 'winecellar']]" />				
-			<filter name= "restaurant" string="Restaurants" domain="[['type_s', '=', 'restaurant']]" />
-			<filter name= "vineyard" string="Vineyards" domain="[['type_s', '=', 'vineyard']]" />
-			<filter name= "lodging" string="Lodgings" domain="[['type_s', '=', 'lodging']]" />
-			<filter name= "cultural" string="Art and Culture" domain="[['type_s', '=', 'cultural']]" />
-			<filter name= "winebar" string="winebars" domain="[['type_s', '=', 'winebar']]" />
-			<filter name= "other" string="Others" domain="[['type_s', '=', 'other']]" />
-		</search>
-		</field>
+		<filter name= "restaurant" string="Restaurants" domain="[['type_s', '=', 'restaurant']]" />
+		<filter name= "vineyard" string="Vineyards" domain="[['type_s', '=', 'vineyard']]" />
+		<filter name= "lodging" string="Lodgings" domain="[['type_s', '=', 'lodging']]" />
+		<filter name= "cultural" string="Art and Culture" domain="[['type_s', '=', 'cultural']]" />
+		<filter name= "winebar" string="winebars" domain="[['type_s', '=', 'winebar']]" />
+		<filter name= "other" string="Others" domain="[['type_s', '=', 'other']]" />
+	</search>
+	</field>
 	</record>
 	
     <record id="customers_view_tree" model="ir.ui.view">
