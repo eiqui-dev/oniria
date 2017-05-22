@@ -76,7 +76,7 @@
 			                </div>
 			                <div class="panel-body">
 			                    <a t-att-href="event.google_map_link()" target="_BLANK">
-			                        <img t-att-src="event.google_map_img()" width="100%%"/>
+			                        <img t-att-src="event.google_map_img()" width="100%"/>
 			                    </a>
 			                    <div itemprop="location" class="mt16 mb8" t-field="event.address_id" t-field-options='{
 			                        "widget": "contact",

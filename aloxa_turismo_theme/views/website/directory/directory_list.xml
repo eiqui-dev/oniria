@@ -30,7 +30,7 @@
 						<!-- LISTA -->
 						<t t-if="request.session['directory_view'] == 'list'">													
 							<div class="col-md-12 product-list-item">
-								<div class="col-md-4 product-img">
+								<div class="col-md-4">
 									<t t-if="establishment">
 										<a class="product-image" title="" t-attf-href="/establishment/#{ slug(establishment) }">
 											<span t-field="establishment.image_thumb" t-field-options='{"widget": "image", "class": "directory-img"}' />

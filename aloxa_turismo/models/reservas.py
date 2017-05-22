@@ -16,7 +16,7 @@ class event_event(models.Model):
     _inherit = "event.event"	
 
     address_id = fields.Many2one('turismo.establishment', string='Location',
-        default=lambda self: self.env.user.company_id.partner_id,
+        default='',
         readonly=False, states={'done': [('readonly', True)]})
 
 

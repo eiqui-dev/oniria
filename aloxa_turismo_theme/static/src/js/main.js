@@ -2,15 +2,23 @@
 
 "use strict;"
 
-var Users = new openerp.Model('res.users');
-
-openerp.website.if_dom_contains('#datetimepicker12', function(){
-   
-   var dt = $('#datetimepicker12').datetimepicker({
+openerp.website.if_dom_contains('#datetimepicker12', function(){ 
+   var session = new openerp.Session();
+   var Events = session.model('event.event');
+   var currentTime = new Date();
+   //var records = new instance.web.Model('res.partner').query(['name']).filter([['active', '=', true]]).context('').all()
+   //Events.query(['date_begin', 'date_end'])
+   //  .filter([['active', '=', true], ['website_published', '=', true]])
+   //  .all().then(function (users) {   
+//}); 
+  Events.call('search_read', [[['website_published','=',true],['date_end', '>', moment(currentTime,"YYYY-MM-DD HH:mm:ss") ]]]).then(function(results){ 
+	var dates = _.pluck(results, "date_begin");;	
+	var dt = $('#datetimepicker12').datetimepicker({
+	format: 'DD/MM/YYYY',
 	inline: true,
 	sideBySide: false,
 	defaultDate: moment($('#date_event').val(),"YYYY-MM-DD HH:mm:ss"),
-	enabledDates: ['2017/05/20'],
+	enabledDates: dates,
     });
 
 	dt.on('dp.change',function(ev){
@@ -18,6 +26,10 @@ openerp.website.if_dom_contains('#datetimepicker12', function(){
 		$("#form-filters").submit();
 	})
 });
+  
+  })
+
+  
 openerp.website.if_dom_contains('.menu-orderby', function(){
 	
 	$(document).on('click','.menu-orderby', function(e){
