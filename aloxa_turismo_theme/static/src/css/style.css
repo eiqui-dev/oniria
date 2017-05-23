@@ -3,6 +3,13 @@
   .navbar-nav.navbar-right:last-child {
     margin-right: 0;
   }
+
+@media (min-width: 768px)
+@media (min-width: 992px)
+.col-md-12 .oe-height-2 {
+    height: 250px !important;
+}
+
   .navbar.navbar-static-top{
     max-width: 1500px !important;
     margin: auto !important; 

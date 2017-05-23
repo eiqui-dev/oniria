@@ -8,6 +8,7 @@
 					<t t-set="title" t-value="'Inforwine - The virtual winebar'" />										
 					<div id="banners_grid">
 			            <div id="banners_grid" class="col-md-12">
+					<div class="hidden-xs">
 					<div class="visible-xl"> 
 					<t t-set="bins" t-value="website.get_banners_portada('xl')"/>
 					<t t-set="rows" t-value="5"/>
@@ -41,6 +42,7 @@
 					          </tr>
 					        </tbody>
 					</table>
+					</div>
 					</div>
 					<div class="hidden-xl"> 
 					<div class="visible-lg">
@@ -93,7 +95,7 @@
 						              <td t-att-colspan="td_banner['x'] != 1 and td_banner['x']"
 						                  t-att-rowspan="td_banner['y'] != 1 and td_banner['y']"
 						                  t-attf-class="oe_product oe_grid oe_product_borderless oe-height-#{td_banner['y']*2} #{ td_banner['class'] }"
-						                  style="overflow:hidden">
+						                  style="overflow:hidden; height:250px !important;">
 						                  	<t t-set="banner_url" t-value="False"/>
 						                  	<t t-set="banner_target" t-value="_self"/>
 						                  	<t t-if="banner.product_tur_id"><t t-set="banner_url" t-value="'/shop/product/%s' % slug(banner.product_tur_id)"/></t>
@@ -127,7 +129,7 @@
 						              <td t-att-colspan="td_banner['x'] != 1 and td_banner['x']"
 						                  t-att-rowspan="td_banner['y'] != 1 and td_banner['y']"
 						                  t-attf-class="oe_product oe_grid oe_product_borderless oe-height-#{td_banner['y']*2} #{ td_banner['class'] }"
-						                  style="overflow:hidden">
+						                  style="overflow:hidden; height:250px !important;">
 						                  	<t t-set="banner_url" t-value="False"/>
 						                  	<t t-set="banner_target" t-value="_self"/>
 						                  	<t t-if="banner.product_tur_id"><t t-set="banner_url" t-value="'/shop/product/%s' % slug(banner.product_tur_id)"/></t>
@@ -146,7 +148,7 @@
 					        </tbody>
 					</table>
 					</div>
-					<div class="visible-sm">
+					<div class="visible-xs">
 					<t t-set="rows" t-value="2"/>
 					<t t-set="bins" t-value="website.get_banners_portada('sm')"/>
 					<table width="320px" align="center">
