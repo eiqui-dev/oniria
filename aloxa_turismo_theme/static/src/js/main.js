@@ -544,7 +544,7 @@ openerp.website.if_dom_contains('#directory-map', function(){
     // Define Marker Clusterer
     $MARKER_CLUSTER = new MarkerClusterer($DIRECTORY_MAP, [],
             {
-    			imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
+    			imagePath:'/aloxa_turismo_theme/static/src/img/m',
     			zoomOnClick: false,
             });
     
