@@ -84,10 +84,10 @@
 						</div>
 						<!-- establishment RELACIONADOS -->
 						<!--Vinhedos-->
-						<t t-set="vineyards" t-value=" [est for est in establishment.related_establishments if est.type_s == 'vineyard'] " />
+						<t t-set="vineyards" t-value=" [est for est in establishment.res_partner_id.establishment_ids if est.type_s == 'vineyard' and est.id != establishment.id] " />
 					  	<div id="related_est" t-if="vineyards" class="col-md-12 col-lg-12" style="min-height:150px">
 				  			<div class="row">
-				  				<h4 class="detail-section-title"><strong>VINEYARDS</strong></h4>
+				  				<h4 class="detail-section-title"><strong> <span t-esc="establishment.name.upper()"/>'S VINEYARDS</strong></h4>
 				  			</div>
 					  		<div style="clear:both;">
 						  		<t t-foreach="vineyards" t-as="est">											  			
@@ -100,14 +100,14 @@
 						  		</t>
 						  	</div>
 						</div>
-						<!--Otros-->
-						<t t-set="others" t-value=" [est for est in establishment.related_establishments if est.type_s != 'vineyard'] " />
-					  	<div id="related_est" t-if="others" class="col-md-12 col-lg-12" style="min-height:150px">
+						<!--Otros del propio establecimiento-->
+						<t t-set="others_own" t-value=" [est for est in establishment.res_partner_id.establishment_ids if est.type_s != 'vineyard' and est.id != establishment.id] " />
+					  	<div id="related_est" t-if="others_own" class="col-md-12 col-lg-12" style="min-height:150px"> 
 				  			<div class="row">
-				  				<h4 class="detail-section-title"><strong>REALTED ESTABLISHMENTS</strong></h4>
+				  				<h4 class="detail-section-title"><strong>OTHER ESTABLISHMENTS OF <span t-esc="establishment.name.upper()"/></strong></h4>
 				  			</div>
 					  		<div style="clear:both;">
-						  		<t t-foreach="others" t-as="est">											  			
+						  		<t t-foreach="others_own" t-as="est">											  			
 						  			<div class="col-sm-4 col-md-2">										
 							  			<a class="product-image" title="" t-attf-href="/establishment/#{ slug(est) }">
 											<span t-field="est.image_thumb" t-field-options='{"widget": "image", "class": "directory-img"}' />
@@ -120,6 +120,23 @@
 						<!-- MAPA -->
 						<div id="location" class="col-md-12 col-lg-12" style="min-height:350px; clear:both;">
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="map_est" style="height:350px"></div>
+						</div>
+						<!--Otros-->
+						<t t-set="others" t-value=" [est for est in establishment.related_establishments if est.type_s != 'vineyard'] " />
+					  	<div id="related_est" t-if="others" class="col-md-12 col-lg-12" style="min-height:150px">
+				  			<div class="row">
+				  				<h4 class="detail-section-title"><strong>RELATED ESTABLISHMENTS</strong></h4>
+				  			</div>
+					  		<div style="clear:both;">
+						  		<t t-foreach="others" t-as="est">											  			
+						  			<div class="col-sm-4 col-md-2">										
+							  			<a class="product-image" title="" t-attf-href="/establishment/#{ slug(est) }">
+											<span t-field="est.image_thumb" t-field-options='{"widget": "image", "class": "directory-img"}' />
+											<a itemprop="name" t-att-href="keep('/establishment/%s' % slug(est), category=0)" t-esc="est.name"/>
+										</a>										
+									</div>							    	
+						  		</t>
+						  	</div>
 						</div>
 						<!-- PRODUCTOS RELACIONADOS -->
 						<!--div id="products" class="col-md-12 col-lg-12" style="min-height:150px">
@@ -152,13 +169,14 @@
 							</t>
 						</div-->
 						<!-- establishment CERCANOS -->
+						<t t-set="est_printed" t-value="vineyards + others_own + others"/> 
 					  	<div id="related_est" t-if="len(related) > 0" class="col-md-12 col-lg-12" style="min-height:150px">
 				  			<div class="row">
 				  				<h4 class="detail-section-title"><strong>NEARBY ESTABLISHMENTS</strong></h4>
 				  			</div>
 					  		<div style="clear:both;">
 						  		<t t-foreach="related" t-as="item">
-						  			<t t-if="item != null and item[1] != 0" >
+						  			<t t-if="item != null and item[1] != 0 and item[0].id not in est_printed" >
 							  			<t t-set="est" t-value="item[0]"/>
 							  			<t t-set="distance" t-value="item[1]"/>
 							  			<div class="col-sm-4 col-md-2">											

@@ -143,7 +143,7 @@ class establishment(models.Model):
     
     #fields
     partner_id = fields.Many2one('res.partner', required=True)
-    res_partner_id = fields.Many2one('res.partner', 'Customer', required=True ,default=default_res_partner_id)   
+    res_partner_id = fields.Many2one('res.partner', 'Customer', default=default_res_partner_id)   
     image_thumb = fields.Binary('Thumbnail', compute="_get_image_thumb", store=True)
     description = fields.Html(string='Description', translate=True)   
     #direccion = fields.Char(string='Dirección', size=120, default=default_direccion, translate=True)

@@ -139,6 +139,12 @@ class website_aloxa_turismo(Website):
                 t_localities = [werkzeug.url_unquote_plus(params[s]) for s in t_localities_k]
                 if len(t_localities) > 0:
                     searchDomain.append(('address_id.city', 'in', [False if q=='none' else q for q in t_localities]))
+		# Types
+		t_types_k = [s for s in params if s.startswith("type-")]
+                t_types = [werkzeug.url_unquote_plus(params[s]) for s in t_types_k]
+                if len(t_types) > 0:
+                    searchDomain.append(('type', 'in', [False if q=='none' else q for q in t_types]))
+
             	# Services
                 services_k = [s for s in params if s.startswith("service-")]
                 services = [int(werkzeug.url_unquote_plus(params[s])) for s in services_k]
@@ -451,6 +457,7 @@ class website_aloxa_turismo(Website):
  	     # Type establishment
            
             param_services = []
+	    param_t_types = []
 	    param_t_localities = []
             if params and 'search' in params.keys():
                 # Busqueda por cajetin
@@ -463,6 +470,10 @@ class website_aloxa_turismo(Website):
                 param_t_localities_k = [s for s in params if s.startswith("locality-")]
                 param_t_localities = [werkzeug.url_unquote_plus(params[s]) for s in param_t_localities_k]
 
+		# t_types
+                param_t_types_k = [s for s in params if s.startswith("type-")]
+                param_t_types = [werkzeug.url_unquote_plus(params[s]) for s in param_t_types_k]
+
 		# t_services
 		param_services_k = [s for s in params if s.startswith("service-")]
             	param_services = [int(werkzeug.url_unquote_plus(params[s])) for s in param_services_k]
@@ -470,6 +481,8 @@ class website_aloxa_turismo(Website):
 	    searchDomainevents = list(searchDomain)
             if any(param_t_localities):
                 searchDomainevents.append(('address_id.city', 'in', [False if q=='none' else q for q in param_t_localities]))
+	    if any(param_t_types):
+                searchDomainevents.append(('type', 'in', [False if q=='none' else q for q in param_t_types]))
             if any(param_services):
                 searchDomainevents.append(('address_id.services', 'in', [False if q=='none' else q for q in param_services]))   
             #searchDomaint_localities = []
@@ -481,6 +494,7 @@ class website_aloxa_turismo(Website):
             attribute.icon = 'fa-map-marker'
             attribute.label = "locality"
             attribute.name = "locality"
+
             
             #searchDomaint_localities = list(searchDomain)
             
@@ -497,12 +511,34 @@ class website_aloxa_turismo(Website):
                 value.sel = True if locality in param_t_localities or (not locality and value.name in param_t_localities) else False
                 attribute.values.append(value)
             attributes.append(attribute)
+		
+            attribute = attrDirectorio()
+            attribute.open = True
+            attribute.icon = 'fa-map-marker'
+            attribute.label = "Types"
+            attribute.name = "type"
+
+	    
+
+	    attribute.values = []
+            t_types = eventos.mapped('type.name')
+	    t_types = OrderedDict.fromkeys(t_types).keys()            
+            for t_type in t_types:
+                value = attrValueDirectorio()
+                value.num = eventos.search_count(searchDomainevents+[('type.name','=',t_type)])
+                value.name = t_type
+                value.label = t_type
+                value.sel = True if t_type in param_t_types else False
+                attribute.values.append(value)
+            attributes.append(attribute)
 
 	    attribute = attrDirectorio()
             attribute.open = True
             attribute.icon = 'fa-map-marker'
             attribute.label = "Services"
             attribute.name = "service"
+
+	    
 
 	    attribute.values = []
             t_services = eventos.mapped('address_id.services')
