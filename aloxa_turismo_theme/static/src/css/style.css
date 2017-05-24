@@ -30,6 +30,13 @@
 a{
 	color:#bc204b;
 }
+.bootstrap-datetimepicker-widget table td.day{
+	color:#bc204b;
+}
+.bootstrap-datetimepicker-widget table td.day.disabled{
+        color:#BBBBBB !important;
+}
+
 body {
 	font-family: 'Poppins', Verdana, sans-serif;
 }

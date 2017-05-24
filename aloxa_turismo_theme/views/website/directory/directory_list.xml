@@ -54,7 +54,7 @@
 									</t>
 									<t t-if="evento">
 										<a class="product-image" title="" t-attf-href="/event/#{ slug(evento) }">
-											<span t-field="evento.organizer_id.image" t-field-options='{"widget": "image", "class": "directory-img"}' />
+											<span t-field="evento.address_id.image" t-field-options='{"widget": "image", "class": "directory-img"}' />
 										</a>
 									</t>          
 								</div>
@@ -126,7 +126,7 @@
 										</div>
 									</t>
 									<t t-if="evento">
-										<t t-set="address" t-value="evento.organizer_id.get_composed_address(',')"/>
+										<t t-set="address" t-value="evento.address_id.partner_id.get_composed_address(',')"/>
 										<div class="product-list-item-address">
 											<i class="fa fa-map-marker"></i>
 											<t t-if="not address == ''">
@@ -135,7 +135,7 @@
 											<t t-if="address == ''">
 												<span>Address not defined.</span>
 											</t>
-											<span t-esc="' (%s)' %evento.organizer_id.name"/>
+											<span t-esc="' (%s)' %evento.address_id.name"/>
 										</div>
 										<div>
 											<i class="fa fa-clock-o"></i>
