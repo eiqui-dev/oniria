@@ -2,7 +2,7 @@ class table_compute(object):
     def __init__(self):
         self.table = {}
         self.IPRs = {'xl':5,'lg':4,'md':4,'sm':3, 'xs':2}  # Items Por Fila (xs no usa tablas)
-        self.cCRPB = { 's':[1,1], 'm':[2,2], 'v':[1,2], 'h':[2,1] } # Columnas y Filas Por Banner
+        self.cCRPB = { 's':[1,1], 'm':[2,2], 'v':[1,2], 'h':[2,1], 'xv':[2,3] } # Columnas y Filas Por Banner
 	self.IPR = 'lg'
             
     def _get_banner_size(self, banner):

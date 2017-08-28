@@ -227,7 +227,7 @@ class product_turismo(models.Model):
     #fields
 
     service = fields.Boolean('Link')
-    link_size = fields.Selection([('S','S'),('M','M'),('H','H'),('V','V')], 'Link Size')
+    link_size = fields.Selection([('S','S'),('M','M'),('H','H'),('V','V'),('XV','XV')], 'Link Size')
     link_position = fields.Selection([('Portada','Home'),('Directorio','Wines')],
                                      'Ubicación del Link')    
     
