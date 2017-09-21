@@ -20,7 +20,7 @@
 						<tr t-att-class="(event.date_end >= str(datetime.datetime.now())) and 'success' or 'danger'">
 							<td style="vertical-align:middle;"><span t-field="event.organizer_id.name" /></td>
 							<td style="vertical-align:middle;"><span t-field="event.name" /></td>
-							<td style="vertical-align:middle;" t-esc="event.address_id.get_composed_address(', ')" />
+							<td style="vertical-align:middle;" t-esc="event.address_id.partner_id.get_composed_address(', ')" />
 							<td style="vertical-align:middle;"><span t-field="event.date_begin" /></td>
 							<td style="vertical-align:middle;"><span t-field="event.date_end" /></td>
 						</tr>
